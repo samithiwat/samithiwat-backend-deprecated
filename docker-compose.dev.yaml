@@ -1,0 +1,23 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:14.1
+    container_name: samithiwat-db
+    restart: unless-stopped
+
+    env_file:
+      - dev.env
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust
+    volumes:
+      - ./volumes/postgres:/volumes/postgresql/data
+    networks:
+      - samithiwat
+    ports:
+      - ${DATABASE_PORT}:${DATABASE_PORT}
+    command: -p ${DATABASE_PORT}
+
+networks:
+  samithiwat:
+    name: samithiwat
