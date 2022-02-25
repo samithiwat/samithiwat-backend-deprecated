@@ -5,6 +5,7 @@ import (
 	"log"
 
 	"github.com/samithiwat/samithiwat-backend/src/config"
+	"github.com/samithiwat/samithiwat-backend/src/model"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -40,5 +41,5 @@ func (d *database) GetConnection() *gorm.DB {
 }
 
 func (d *database) AutoMigrate() error {
-	return d.connection.AutoMigrate()
+	return d.connection.AutoMigrate(&model.Image{}, &model.Icon{}, &model.Setting{}, &model.AboutMe{}, &model.Timeline{})
 }
