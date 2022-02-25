@@ -41,5 +41,5 @@ func (d *database) GetConnection() *gorm.DB {
 }
 
 func (d *database) AutoMigrate() error {
-	return d.connection.AutoMigrate(&model.Image{}, &model.Icon{}, &model.Setting{}, &model.AboutMe{}, &model.Timeline{})
+	return d.connection.AutoMigrate(&model.Image{}, &model.Badge{}, &model.Icon{}, &model.Setting{}, &model.AboutMe{}, &model.Timeline{}, &model.GithubRepo{})
 }
