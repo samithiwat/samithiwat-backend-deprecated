@@ -16,6 +16,10 @@ COPY . .
 # Build the application
 RUN go build ./src/server.go
 
+# Set ENV to production
+
+ENV GO_ENV production
+
 # Expose port 8080
 EXPOSE 8080
 
