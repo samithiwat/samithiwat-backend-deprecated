@@ -42,13 +42,3 @@ type Timeline struct {
 	DeletedAt 	gorm.DeletedAt  `json:"deleted_at"`
 }
 
-type Tabler interface {
-	TableName() string
-}
-
-func (AboutMe) TableName() string {
-	return "settings_about_me"
-}
-func (Timeline) TableName() string {
-	return "settings_timeline"
-}
