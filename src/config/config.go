@@ -1,6 +1,7 @@
 package config
 
 import (
+	constant "github.com/samithiwat/samithiwat-backend/src/common/constants"
 	"github.com/spf13/viper"
 )
 
@@ -16,6 +17,8 @@ type Config struct {
 	Database Database `mapstructure:",squash"`
 	Port string
 }
+
+const defaultPort = "8080"
 
 func LoadConfig(path string) (config Config, err error) {
 	viper.AddConfigPath(path)
@@ -37,6 +40,10 @@ func LoadConfig(path string) (config Config, err error) {
 	err = viper.Unmarshal(&config)
 	if err != nil {
 		return
+	}
+
+	if config.Port == "" {
+		config.Port = constant.DefaultPort
 	}
 	
 	return
