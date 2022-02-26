@@ -1,0 +1,70 @@
+scalar Time
+
+type Setting {
+  ID: ID!
+  AboutMe: AboutMe!
+  Timeline: Timeline!
+  CreatedAt: Time!
+  UpdatedAt: Time!
+  DeletedAt: Time!
+}
+
+extend type Query {
+  Settings: [Setting]!
+  Setting(ID: ID!): Setting
+}
+
+extend type Mutation {
+  CreateSetting(newSetting: NewSetting!): Setting!
+  UpdateSetting(ID: ID!, newSetting: NewSetting!): Setting!
+  DeleteSetting(ID: ID!): Setting!
+}
+
+type AboutMe {
+  ID: ID!
+  Name: String!
+  Description: String!
+  Content: String!
+  ImgUrl: String!
+  SettingID: ID!
+  CreatedAt: Time!
+  UpdatedAt: Time!
+  DeletedAt: Time!
+}
+
+extend type Query {
+  AboutMes: [AboutMe]!
+  AboutMe(ID: ID!): AboutMe
+}
+
+extend type Mutation {
+  CreateAboutMe(newAboutMe: NewAboutMe): AboutMe!
+  UpdateAboutMe(ID: ID!, newAboutMe: NewAboutMe): AboutMe!
+  DeleteAboutMe(ID: ID!): AboutMe!
+}
+
+type Timeline {
+  ID: ID!
+  Slug: String!
+  Name: String!
+  Description: String!
+  Thumbnail: String!
+  Images: [Image]!
+  EventDate: Time!
+  Icon: Icon!
+  SettingID: ID!
+  CreatedAt: Time!
+  UpdatedAt: Time!
+  DeletedAt: Time!
+}
+
+extend type Query {
+  Timelines: [Timeline]!
+  Timeline(ID: ID!): Timeline
+}
+
+extend type Mutation {
+  CreateTimeline(newTimeline: NewTimeline!): Timeline!
+  UpdateTimeline(ID: ID!, newTimeline: NewTimeline): Timeline!
+  DeleteTimeline(ID: ID!): Timeline!
+}
