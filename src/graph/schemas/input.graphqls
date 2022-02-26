@@ -1,0 +1,46 @@
+input NewImage {
+  name: String!
+  description: String!
+  imgUrl: String!
+  ownerId: ID
+  ownerType: String
+}
+
+input NewSetting {
+  AboutMeID: ID!
+  TimelineID: ID!
+}
+
+input NewAboutMe {
+  Name: String!
+  Description: String!
+  Content: String!
+  ImgUrl: String!
+  SettingID: ID
+}
+
+input NewTimeline {
+  Slug: String!
+  Name: String!
+  Description: String!
+  Thumbnail: String!
+  EventDate: Time!
+  Icon: NewIcon!
+  SettingID: ID
+}
+
+input NewIcon {
+  Name: String!
+  BgColor: String!
+  IconType: String!
+  OwnerID: Int
+  OwnerType: String
+}
+
+input NewBadge {
+  Name: String!
+  Color: String!
+  IconID: ID!
+  OwnerID: Int!
+  OwnerType: String!
+}

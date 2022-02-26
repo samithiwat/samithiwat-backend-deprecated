@@ -23,21 +23,8 @@ extend type Query {
 }
 
 extend type Mutation {
-  CreateIcon(
-    Name: String!
-    BgColor: String!
-    IconType: String!
-    OwnerID: Int!
-    OwnerType: String!
-  ): Icon
-  UpdateIcon(
-    ID: ID!
-    Name: String!
-    BgColor: String!
-    IconType: String!
-    OwnerID: Int!
-    OwnerType: String!
-  ): Icon
+  CreateIcon(newIcon: NewIcon!): Icon
+  UpdateIcon(ID: ID!, newIcon: NewIcon!): Icon
   DeleteIcon(ID: ID!): Icon
 }
 
@@ -46,8 +33,8 @@ type Badge {
   Name: String!
   Color: String!
   Icon: Icon!
-  OwnerID: Int!
-  OwnerType: String!
+  OwnerID: Int
+  OwnerType: String
   CreatedAt: Time!
   UpdatedAt: Time!
   DeletedAt: Time!
@@ -66,20 +53,7 @@ extend type Query {
 }
 
 extend type Mutation {
-  CreateBadge(
-    Name: String!
-    Color: String!
-    IconID: ID!
-    OwnerID: Int!
-    OwnerType: String!
-  ): Badge
-  UpdateBadge(
-    ID: ID!
-    Name: String!
-    Color: String!
-    IconID: ID!
-    OwnerID: Int!
-    OwnerType: String!
-  ): Badge
+  CreateBadge(newBadge: NewBadge): Badge
+  UpdateBadge(ID: ID!, newBadge: NewBadge): Badge
   DeleteBadge(ID: ID!): Badge
 }

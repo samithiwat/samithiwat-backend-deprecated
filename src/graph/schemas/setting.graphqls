@@ -9,11 +9,6 @@ type Setting {
   DeletedAt: Time!
 }
 
-input NewSetting {
-  AboutMeID: ID!
-  TimelineID: ID!
-}
-
 extend type Query {
   Settings: [Setting]!
   Setting(ID: ID!): Setting
@@ -43,21 +38,8 @@ extend type Query {
 }
 
 extend type Mutation {
-  CreateAboutMe(
-    Name: String!
-    Description: String!
-    Content: String!
-    ImgUrl: String!
-    SettingID: ID!
-  ): AboutMe!
-  UpdateAboutMe(
-    ID: ID!
-    Name: String!
-    Description: String!
-    Content: String!
-    ImgUrl: String!
-    SettingID: ID!
-  ): AboutMe!
+  CreateAboutMe(newAboutMe: NewAboutMe): AboutMe!
+  UpdateAboutMe(ID: ID!, newAboutMe: NewAboutMe): AboutMe!
   DeleteAboutMe(ID: ID!): AboutMe!
 }
 
@@ -82,24 +64,7 @@ extend type Query {
 }
 
 extend type Mutation {
-  CreateTimeline(
-    Slug: String!
-    Name: String!
-    Description: String!
-    Thumbnail: String!
-    EventDate: Time!
-    IconID: ID!
-    SettingID: ID!
-  ): Timeline!
-  UpdateTimeline(
-    ID: ID!
-    Slug: String!
-    Name: String!
-    Description: String!
-    Thumbnail: String!
-    EventDate: Time!
-    IconID: ID!
-    SettingID: ID!
-  ): Timeline!
+  CreateTimeline(newTimeline: NewTimeline!): Timeline!
+  UpdateTimeline(ID: ID!, newTimeline: NewTimeline): Timeline!
   DeleteTimeline(ID: ID!): Timeline!
 }
