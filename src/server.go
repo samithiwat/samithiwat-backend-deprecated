@@ -2,11 +2,28 @@ package main
 
 import (
 	"log"
+	"net/http"
 
+	"github.com/99designs/gqlgen/graphql/handler"
+	"github.com/99designs/gqlgen/graphql/playground"
 	"github.com/gofiber/fiber/v2"
 	"github.com/samithiwat/samithiwat-backend/src/config"
 	"github.com/samithiwat/samithiwat-backend/src/database"
+	"github.com/samithiwat/samithiwat-backend/src/graph/generated"
+	graph "github.com/samithiwat/samithiwat-backend/src/graph/resolver"
+	"github.com/valyala/fasthttp/fasthttpadaptor"
 )
+
+func gqlHandler(resolver *graph.Resolver) http.HandlerFunc{
+    srv := handler.NewDefaultServer(generated.NewExecutableSchema(generated.Config{Resolvers: &graph.Resolver{}}))
+    return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request){
+        srv.ServeHTTP(w, r)
+    })
+}
+
+func playgroundHandler() http.HandlerFunc{
+    return playground.Handler("GraphQL playground", "/query")
+}
 
 func main() {
     config, err := config.LoadConfig(".")
@@ -29,8 +46,13 @@ func main() {
 
     app := fiber.New()
 
-    app.Get("/", func(c *fiber.Ctx) error {
-        return c.SendString("Hello, World 👋!")
+// app.All("query", func(c *fiber.Ctx) error {
+//     fasthttpadaptor.NewFastHTTPHandler(gqlHandler())(c.Context())
+// })
+
+    app.All("/", func(c *fiber.Ctx) error {
+        fasthttpadaptor.NewFastHTTPHandler(playgroundHandler())(c.Context())
+        return nil
     })
 
     app.Listen(":" + config.Port)
