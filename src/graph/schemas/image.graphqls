@@ -1,0 +1,37 @@
+
+
+type Image {
+  id: ID!
+  name: String!
+  description: String!
+  imgUrl: String!
+  ownerId: ID!
+  ownerType: String!
+  createdDate: Time!
+  updatedDate: Time!
+  deletedDate: Time!
+}
+
+extend type Query {
+  images: [Image!]!
+  image(id: ID!): Image
+}
+
+extend type Mutation {
+  createImage(
+    name: String!
+    description: String
+    imgUrl: String!
+    ownerId: ID
+    ownerType: String
+  ): Image
+  updateImage(
+    id: ID!
+    name: String
+    description: String
+    imgUrl: String
+    ownerId: ID
+    ownerType: String
+  ): Image
+  deleteImage(id: ID!): Image
+}

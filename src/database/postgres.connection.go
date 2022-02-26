@@ -5,7 +5,7 @@ import (
 	"log"
 
 	"github.com/samithiwat/samithiwat-backend/src/config"
-	"github.com/samithiwat/samithiwat-backend/src/model"
+	"github.com/samithiwat/samithiwat-backend/src/graph/model"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
