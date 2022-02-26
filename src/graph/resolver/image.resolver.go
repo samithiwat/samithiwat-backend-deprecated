@@ -6,6 +6,7 @@ package graph
 import (
 	"context"
 	"fmt"
+	"strconv"
 	"time"
 
 	"github.com/samithiwat/samithiwat-backend/src/graph/generated"
@@ -24,24 +25,65 @@ func (r *imageResolver) DeletedDate(ctx context.Context, obj *model.Image) (*tim
 	panic(fmt.Errorf("not implemented"))
 }
 
-func (r *mutationResolver) CreateImage(ctx context.Context, name string, description *string, imgURL string, ownerID *string, ownerType *string) (*model.Image, error) {
-	panic(fmt.Errorf("not implemented"))
+func (r *mutationResolver) CreateImage(ctx context.Context, newImage model.NewImage) (*model.Image, error) {
+	image, err := r.imageService.CreateImage(&newImage)	
+	if err != nil{
+		return nil, err
+	}
+
+	return image, nil
 }
 
-func (r *mutationResolver) UpdateImage(ctx context.Context, id string, name *string, description *string, imgURL *string, ownerID *string, ownerType *string) (*model.Image, error) {
-	panic(fmt.Errorf("not implemented"))
+func (r *mutationResolver) UpdateImage(ctx context.Context, id string, newImage model.NewImage) (*model.Image, error) {
+	parsedID, err := strconv.Atoi(id)
+	
+	if err != nil {
+		return nil, err
+	}
+
+	image, err := r.imageService.UpdateImage(int64(parsedID), &newImage)	
+	if err != nil{
+		return nil, err
+	}
+	
+	return image, nil
 }
 
 func (r *mutationResolver) DeleteImage(ctx context.Context, id string) (*model.Image, error) {
-	panic(fmt.Errorf("not implemented"))
+	parsedID, err := strconv.Atoi(id)
+	if err != nil {
+		return nil, err
+	}
+	
+	image, err := r.imageService.DeleteImage(int64(parsedID))	
+	if err != nil{
+		return nil, err
+	}
+
+	return image, nil
 }
 
 func (r *queryResolver) Images(ctx context.Context) ([]*model.Image, error) {
-	panic(fmt.Errorf("not implemented"))
+	images, err := r.imageService.GetAllImages()
+	if err != nil {
+		return nil, err
+	}
+
+	return images, nil
 }
 
 func (r *queryResolver) Image(ctx context.Context, id string) (*model.Image, error) {
-	panic(fmt.Errorf("not implemented"))
+	parsedID, err := strconv.Atoi(id)
+	if err != nil {
+		return nil, err
+	}
+	
+	image, err := r.imageService.GetImage(int64(parsedID))
+	if err != nil {
+		return nil, err
+	}
+
+	return image, nil
 }
 
 // Image returns generated.ImageResolver implementation.
