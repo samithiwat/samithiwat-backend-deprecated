@@ -28,11 +28,11 @@ func (r *mutationResolver) DeleteSetting(ctx context.Context, id string) (*model
 	panic(fmt.Errorf("not implemented"))
 }
 
-func (r *mutationResolver) CreateAboutMe(ctx context.Context, name string, description string, content string, imgURL string, settingID string) (*model.AboutMe, error) {
+func (r *mutationResolver) CreateAboutMe(ctx context.Context, newAboutMe *model.NewAboutMe) (*model.AboutMe, error) {
 	panic(fmt.Errorf("not implemented"))
 }
 
-func (r *mutationResolver) UpdateAboutMe(ctx context.Context, id string, name string, description string, content string, imgURL string, settingID string) (*model.AboutMe, error) {
+func (r *mutationResolver) UpdateAboutMe(ctx context.Context, id string, newAboutMe *model.NewAboutMe) (*model.AboutMe, error) {
 	panic(fmt.Errorf("not implemented"))
 }
 
@@ -40,11 +40,11 @@ func (r *mutationResolver) DeleteAboutMe(ctx context.Context, id string) (*model
 	panic(fmt.Errorf("not implemented"))
 }
 
-func (r *mutationResolver) CreateTimeline(ctx context.Context, slug string, name string, description string, thumbnail string, eventDate time.Time, iconID string, settingID string) (*model.Timeline, error) {
+func (r *mutationResolver) CreateTimeline(ctx context.Context, newTimeline model.NewTimeline) (*model.Timeline, error) {
 	panic(fmt.Errorf("not implemented"))
 }
 
-func (r *mutationResolver) UpdateTimeline(ctx context.Context, id string, slug string, name string, description string, thumbnail string, eventDate time.Time, iconID string, settingID string) (*model.Timeline, error) {
+func (r *mutationResolver) UpdateTimeline(ctx context.Context, id string, newTimeline *model.NewTimeline) (*model.Timeline, error) {
 	panic(fmt.Errorf("not implemented"))
 }
 

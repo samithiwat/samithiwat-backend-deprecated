@@ -28,11 +28,11 @@ func (r *iconResolver) DeletedAt(ctx context.Context, obj *model.Icon) (*time.Ti
 	panic(fmt.Errorf("not implemented"))
 }
 
-func (r *mutationResolver) CreateIcon(ctx context.Context, name string, bgColor string, iconType string, ownerID int, ownerType string) (*model.Icon, error) {
+func (r *mutationResolver) CreateIcon(ctx context.Context, newIcon model.NewIcon) (*model.Icon, error) {
 	panic(fmt.Errorf("not implemented"))
 }
 
-func (r *mutationResolver) UpdateIcon(ctx context.Context, id string, name string, bgColor string, iconType string, ownerID int, ownerType string) (*model.Icon, error) {
+func (r *mutationResolver) UpdateIcon(ctx context.Context, id string, newIcon model.NewIcon) (*model.Icon, error) {
 	panic(fmt.Errorf("not implemented"))
 }
 
@@ -40,11 +40,11 @@ func (r *mutationResolver) DeleteIcon(ctx context.Context, id string) (*model.Ic
 	panic(fmt.Errorf("not implemented"))
 }
 
-func (r *mutationResolver) CreateBadge(ctx context.Context, name string, color string, iconID string, ownerID int, ownerType string) (*model.Badge, error) {
+func (r *mutationResolver) CreateBadge(ctx context.Context, newBadge *model.NewBadge) (*model.Badge, error) {
 	panic(fmt.Errorf("not implemented"))
 }
 
-func (r *mutationResolver) UpdateBadge(ctx context.Context, id string, name string, color string, iconID string, ownerID int, ownerType string) (*model.Badge, error) {
+func (r *mutationResolver) UpdateBadge(ctx context.Context, id string, newBadge *model.NewBadge) (*model.Badge, error) {
 	panic(fmt.Errorf("not implemented"))
 }
 
