@@ -2,8 +2,6 @@ package database
 
 import (
 	"fmt"
-	"log"
-
 	"github.com/samithiwat/samithiwat-backend/src/config"
 	"github.com/samithiwat/samithiwat-backend/src/graph/model"
 	"gorm.io/driver/postgres"
@@ -23,7 +21,7 @@ func InitDatabase() (Database, error) {
 	config, err := config.LoadConfig(".")
     
     if err != nil {
-        log.Fatal("cannot load config", err)
+        return nil, err
     }
 
 	dsn := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable", config.Database.Host, config.Database.Port, config.Database.User, config.Database.Password, config.Database.Name)
