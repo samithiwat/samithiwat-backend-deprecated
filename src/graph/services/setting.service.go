@@ -4,6 +4,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/samithiwat/samithiwat-backend/src/database"
 	"github.com/samithiwat/samithiwat-backend/src/graph/model"
+	"gorm.io/gorm"
 )
 
 type SettingService interface {
@@ -13,6 +14,7 @@ type SettingService interface {
 	Create(settingDto *model.NewSetting) (*model.Setting, error)
 	Update(id int64, imageDto *model.NewSetting) (*model.Setting, error)
 	Delete(id int64) (*model.Setting, error)
+	DtoToRaw(settingDto *model.NewSetting) *model.Setting
 }
 
 func NewSettingService(db database.Database, aboutMeSettingService AboutMeSettingService, timelineSettingService TimelineSettingService) SettingService {
@@ -69,11 +71,8 @@ func (s *settingService) GetActivatedSetting() (*model.Setting, error) {
 }
 
 func (s *settingService) Create(settingDto *model.NewSetting) (*model.Setting, error) {
-	//TODO: Complete this
-
 	db := s.database.GetConnection()
-
-	setting := model.Setting{AboutMe: settingDto.AboutMe, Timeline: settingDto.Timeline}
+	setting := s.DtoToRaw(settingDto)
 
 	result := db.Create(&setting)
 
@@ -81,39 +80,53 @@ func (s *settingService) Create(settingDto *model.NewSetting) (*model.Setting, e
 		return nil, fiber.ErrUnprocessableEntity
 	}
 
-	return &setting, nil
+	return setting, nil
 }
 
 func (s *settingService) Update(id int64, settingDto *model.NewSetting) (*model.Setting, error) {
 	//TODO: Complete this
 
-	//db := s.database.GetConnection()
+	db := s.database.GetConnection()
 
-	//setting := model.Setting{AboutMe: model.AboutMe{}}
+	var setting *model.Setting
+	rawSetting := s.DtoToRaw(settingDto)
 
-	//result := db.Create(&setting)
-	//
-	//if result.Error != nil {
-	//	return nil, fiber.ErrUnprocessableEntity
-	//}
-	//
-	//return &setting, nil
-	return nil, nil
+	result := db.Omit("SettingID").First(&setting, "id = ?", id).Updates(rawSetting)
+
+	if result.Error != nil {
+		return nil, fiber.ErrUnprocessableEntity
+	}
+
+	if result.RowsAffected == 0 {
+		return nil, fiber.ErrNotFound
+	}
+
+	db.Session(&gorm.Session{FullSaveAssociations: true}).Save(&setting)
+	return setting, nil
 }
 
 func (s *settingService) Delete(id int64) (*model.Setting, error) {
-	//TODO: Complete this
+	db := s.database.GetConnection()
 
-	//db := s.database.GetConnection()
+	var setting *model.Setting
 
-	//setting := model.Setting{AboutMe: model.AboutMe{}}
+	result := db.First(&setting, id).Delete(&model.Setting{}, id)
 
-	//result := db.Create(&setting)
-	//
-	//if result.Error != nil {
-	//	return nil, fiber.ErrUnprocessableEntity
-	//}
-	//
-	//return &setting, nil
-	return nil, nil
+	if result.Error != nil {
+		return nil, fiber.ErrUnprocessableEntity
+	}
+
+	if result.RowsAffected == 0 {
+		return nil, fiber.ErrNotFound
+	}
+
+	return setting, nil
+}
+
+func (s *settingService) DtoToRaw(settingDto *model.NewSetting) *model.Setting {
+	rawTimeline := s.timelineSettingService.DtoToRaw(&settingDto.Timeline)
+	rawAboutMe := s.aboutMeSettingService.DtoToRaw(&settingDto.AboutMe)
+	setting := model.Setting{AboutMe: *rawAboutMe, Timeline: *rawTimeline}
+
+	return &setting
 }

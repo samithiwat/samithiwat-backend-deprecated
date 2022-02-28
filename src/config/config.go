@@ -18,8 +18,6 @@ type Config struct {
 	Port string
 }
 
-const defaultPort = "8080"
-
 func LoadConfig(path string) (config Config, err error) {
 	viper.AddConfigPath(path)
 	viper.SetConfigType("env")

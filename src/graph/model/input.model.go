@@ -6,8 +6,8 @@ import "time"
 
 type NewSetting struct {
 	ID		 int64    `json:"id"`
-	AboutMe  AboutMe  `json:"AboutMeID"`
-	Timeline Timeline `json:"TimelineID"`
+	AboutMe  NewAboutMe  `json:"AboutMeID"`
+	Timeline NewTimeline `json:"TimelineID"`
 }
 
 type NewAboutMe struct {

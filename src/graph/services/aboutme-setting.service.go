@@ -12,6 +12,7 @@ type AboutMeSettingService interface {
 	Create(settingDto *model.NewAboutMe) (*model.AboutMe, error)
 	Update(id int64, imageDto *model.NewAboutMe) (*model.AboutMe, error)
 	Delete(id int64) (*model.AboutMe, error)
+	DtoToRaw(settingDto *model.NewAboutMe) *model.AboutMe
 }
 
 func NewAboutMeSettingService(db database.Database) AboutMeSettingService {
@@ -98,4 +99,9 @@ func (s *aboutMeSettingService) Delete(id int64) (*model.AboutMe, error) {
 	}
 
 	return aboutMe, nil
+}
+
+func (s *aboutMeSettingService) DtoToRaw(settingDto *model.NewAboutMe) *model.AboutMe {
+	aboutMe := model.AboutMe{ID: settingDto.ID, Name: settingDto.Name, Description: settingDto.Description, Content: settingDto.Content, ImgUrl: settingDto.ImgURL}
+	return &aboutMe
 }
