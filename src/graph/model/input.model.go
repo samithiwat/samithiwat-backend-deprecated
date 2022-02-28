@@ -16,14 +16,16 @@ type NewAboutMe struct {
 }
 
 type NewBadge struct {
+	ID		  int64  `json:"ID"`
 	Name      string `json:"Name"`
 	Color     string `json:"Color"`
-	IconID    string `json:"IconID"`
+	Icon      NewIcon `json:"IconID"`
 	OwnerID   int    `json:"OwnerID"`
 	OwnerType string `json:"OwnerType"`
 }
 
 type NewIcon struct {
+	ID		  int64  `json:"ID"`
 	Name      string `json:"Name"`
 	BgColor   string `json:"BgColor"`
 	IconType  string `json:"IconType"`

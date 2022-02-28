@@ -170,8 +170,6 @@ type AboutMeResolver interface {
 	DeletedAt(ctx context.Context, obj *model.AboutMe) (*time.Time, error)
 }
 type BadgeResolver interface {
-	Icon(ctx context.Context, obj *model.Badge) (*model.Icon, error)
-
 	DeletedAt(ctx context.Context, obj *model.Badge) (*time.Time, error)
 }
 type IconResolver interface {
@@ -225,9 +223,6 @@ type QueryResolver interface {
 	Timeline(ctx context.Context, id string) (*model.Timeline, error)
 }
 type SettingResolver interface {
-	AboutMe(ctx context.Context, obj *model.Setting) (*model.AboutMe, error)
-	Timeline(ctx context.Context, obj *model.Setting) (*model.Timeline, error)
-
 	DeletedAt(ctx context.Context, obj *model.Setting) (*time.Time, error)
 }
 type TimelineResolver interface {
@@ -249,189 +244,189 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 	_ = ec
 	switch typeName + "." + field {
 
-	case "AboutMe.Content":
+	case "AboutMe.content":
 		if e.complexity.AboutMe.Content == nil {
 			break
 		}
 
 		return e.complexity.AboutMe.Content(childComplexity), true
 
-	case "AboutMe.CreatedAt":
+	case "AboutMe.createdAt":
 		if e.complexity.AboutMe.CreatedAt == nil {
 			break
 		}
 
 		return e.complexity.AboutMe.CreatedAt(childComplexity), true
 
-	case "AboutMe.DeletedAt":
+	case "AboutMe.deletedAt":
 		if e.complexity.AboutMe.DeletedAt == nil {
 			break
 		}
 
 		return e.complexity.AboutMe.DeletedAt(childComplexity), true
 
-	case "AboutMe.Description":
+	case "AboutMe.description":
 		if e.complexity.AboutMe.Description == nil {
 			break
 		}
 
 		return e.complexity.AboutMe.Description(childComplexity), true
 
-	case "AboutMe.ID":
+	case "AboutMe.id":
 		if e.complexity.AboutMe.ID == nil {
 			break
 		}
 
 		return e.complexity.AboutMe.ID(childComplexity), true
 
-	case "AboutMe.ImgUrl":
+	case "AboutMe.imgUrl":
 		if e.complexity.AboutMe.ImgUrl == nil {
 			break
 		}
 
 		return e.complexity.AboutMe.ImgUrl(childComplexity), true
 
-	case "AboutMe.Name":
+	case "AboutMe.name":
 		if e.complexity.AboutMe.Name == nil {
 			break
 		}
 
 		return e.complexity.AboutMe.Name(childComplexity), true
 
-	case "AboutMe.SettingID":
+	case "AboutMe.settingID":
 		if e.complexity.AboutMe.SettingID == nil {
 			break
 		}
 
 		return e.complexity.AboutMe.SettingID(childComplexity), true
 
-	case "AboutMe.UpdatedAt":
+	case "AboutMe.updatedAt":
 		if e.complexity.AboutMe.UpdatedAt == nil {
 			break
 		}
 
 		return e.complexity.AboutMe.UpdatedAt(childComplexity), true
 
-	case "Badge.Color":
+	case "Badge.color":
 		if e.complexity.Badge.Color == nil {
 			break
 		}
 
 		return e.complexity.Badge.Color(childComplexity), true
 
-	case "Badge.CreatedAt":
+	case "Badge.createdAt":
 		if e.complexity.Badge.CreatedAt == nil {
 			break
 		}
 
 		return e.complexity.Badge.CreatedAt(childComplexity), true
 
-	case "Badge.DeletedAt":
+	case "Badge.deletedAt":
 		if e.complexity.Badge.DeletedAt == nil {
 			break
 		}
 
 		return e.complexity.Badge.DeletedAt(childComplexity), true
 
-	case "Badge.ID":
+	case "Badge.id":
 		if e.complexity.Badge.ID == nil {
 			break
 		}
 
 		return e.complexity.Badge.ID(childComplexity), true
 
-	case "Badge.Icon":
+	case "Badge.icon":
 		if e.complexity.Badge.Icon == nil {
 			break
 		}
 
 		return e.complexity.Badge.Icon(childComplexity), true
 
-	case "Badge.Name":
+	case "Badge.name":
 		if e.complexity.Badge.Name == nil {
 			break
 		}
 
 		return e.complexity.Badge.Name(childComplexity), true
 
-	case "Badge.OwnerID":
+	case "Badge.ownerID":
 		if e.complexity.Badge.OwnerID == nil {
 			break
 		}
 
 		return e.complexity.Badge.OwnerID(childComplexity), true
 
-	case "Badge.OwnerType":
+	case "Badge.ownerType":
 		if e.complexity.Badge.OwnerType == nil {
 			break
 		}
 
 		return e.complexity.Badge.OwnerType(childComplexity), true
 
-	case "Badge.UpdatedAt":
+	case "Badge.updatedAt":
 		if e.complexity.Badge.UpdatedAt == nil {
 			break
 		}
 
 		return e.complexity.Badge.UpdatedAt(childComplexity), true
 
-	case "Icon.BgColor":
+	case "Icon.bgColor":
 		if e.complexity.Icon.BgColor == nil {
 			break
 		}
 
 		return e.complexity.Icon.BgColor(childComplexity), true
 
-	case "Icon.CreatedAt":
+	case "Icon.createdAt":
 		if e.complexity.Icon.CreatedAt == nil {
 			break
 		}
 
 		return e.complexity.Icon.CreatedAt(childComplexity), true
 
-	case "Icon.DeletedAt":
+	case "Icon.deletedAt":
 		if e.complexity.Icon.DeletedAt == nil {
 			break
 		}
 
 		return e.complexity.Icon.DeletedAt(childComplexity), true
 
-	case "Icon.ID":
+	case "Icon.id":
 		if e.complexity.Icon.ID == nil {
 			break
 		}
 
 		return e.complexity.Icon.ID(childComplexity), true
 
-	case "Icon.IconType":
+	case "Icon.iconType":
 		if e.complexity.Icon.IconType == nil {
 			break
 		}
 
 		return e.complexity.Icon.IconType(childComplexity), true
 
-	case "Icon.Name":
+	case "Icon.name":
 		if e.complexity.Icon.Name == nil {
 			break
 		}
 
 		return e.complexity.Icon.Name(childComplexity), true
 
-	case "Icon.OwnerID":
+	case "Icon.ownerID":
 		if e.complexity.Icon.OwnerID == nil {
 			break
 		}
 
 		return e.complexity.Icon.OwnerID(childComplexity), true
 
-	case "Icon.OwnerType":
+	case "Icon.ownerType":
 		if e.complexity.Icon.OwnerType == nil {
 			break
 		}
 
 		return e.complexity.Icon.OwnerType(childComplexity), true
 
-	case "Icon.UpdatedAt":
+	case "Icon.updatedAt":
 		if e.complexity.Icon.UpdatedAt == nil {
 			break
 		}
@@ -501,36 +496,36 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.Image.UpdatedDate(childComplexity), true
 
-	case "Mutation.CreateAboutMe":
+	case "Mutation.createAboutMe":
 		if e.complexity.Mutation.CreateAboutMe == nil {
 			break
 		}
 
-		args, err := ec.field_Mutation_CreateAboutMe_args(context.TODO(), rawArgs)
+		args, err := ec.field_Mutation_createAboutMe_args(context.TODO(), rawArgs)
 		if err != nil {
 			return 0, false
 		}
 
 		return e.complexity.Mutation.CreateAboutMe(childComplexity, args["newAboutMe"].(*model.NewAboutMe)), true
 
-	case "Mutation.CreateBadge":
+	case "Mutation.createBadge":
 		if e.complexity.Mutation.CreateBadge == nil {
 			break
 		}
 
-		args, err := ec.field_Mutation_CreateBadge_args(context.TODO(), rawArgs)
+		args, err := ec.field_Mutation_createBadge_args(context.TODO(), rawArgs)
 		if err != nil {
 			return 0, false
 		}
 
 		return e.complexity.Mutation.CreateBadge(childComplexity, args["newBadge"].(*model.NewBadge)), true
 
-	case "Mutation.CreateIcon":
+	case "Mutation.createIcon":
 		if e.complexity.Mutation.CreateIcon == nil {
 			break
 		}
 
-		args, err := ec.field_Mutation_CreateIcon_args(context.TODO(), rawArgs)
+		args, err := ec.field_Mutation_createIcon_args(context.TODO(), rawArgs)
 		if err != nil {
 			return 0, false
 		}
@@ -549,65 +544,65 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.Mutation.CreateImage(childComplexity, args["newImage"].(model.NewImage)), true
 
-	case "Mutation.CreateSetting":
+	case "Mutation.createSetting":
 		if e.complexity.Mutation.CreateSetting == nil {
 			break
 		}
 
-		args, err := ec.field_Mutation_CreateSetting_args(context.TODO(), rawArgs)
+		args, err := ec.field_Mutation_createSetting_args(context.TODO(), rawArgs)
 		if err != nil {
 			return 0, false
 		}
 
 		return e.complexity.Mutation.CreateSetting(childComplexity, args["newSetting"].(model.NewSetting)), true
 
-	case "Mutation.CreateTimeline":
+	case "Mutation.createTimeline":
 		if e.complexity.Mutation.CreateTimeline == nil {
 			break
 		}
 
-		args, err := ec.field_Mutation_CreateTimeline_args(context.TODO(), rawArgs)
+		args, err := ec.field_Mutation_createTimeline_args(context.TODO(), rawArgs)
 		if err != nil {
 			return 0, false
 		}
 
 		return e.complexity.Mutation.CreateTimeline(childComplexity, args["newTimeline"].(model.NewTimeline)), true
 
-	case "Mutation.DeleteAboutMe":
+	case "Mutation.deleteAboutMe":
 		if e.complexity.Mutation.DeleteAboutMe == nil {
 			break
 		}
 
-		args, err := ec.field_Mutation_DeleteAboutMe_args(context.TODO(), rawArgs)
+		args, err := ec.field_Mutation_deleteAboutMe_args(context.TODO(), rawArgs)
 		if err != nil {
 			return 0, false
 		}
 
-		return e.complexity.Mutation.DeleteAboutMe(childComplexity, args["ID"].(string)), true
+		return e.complexity.Mutation.DeleteAboutMe(childComplexity, args["id"].(string)), true
 
-	case "Mutation.DeleteBadge":
+	case "Mutation.deleteBadge":
 		if e.complexity.Mutation.DeleteBadge == nil {
 			break
 		}
 
-		args, err := ec.field_Mutation_DeleteBadge_args(context.TODO(), rawArgs)
+		args, err := ec.field_Mutation_deleteBadge_args(context.TODO(), rawArgs)
 		if err != nil {
 			return 0, false
 		}
 
-		return e.complexity.Mutation.DeleteBadge(childComplexity, args["ID"].(string)), true
+		return e.complexity.Mutation.DeleteBadge(childComplexity, args["id"].(string)), true
 
-	case "Mutation.DeleteIcon":
+	case "Mutation.deleteIcon":
 		if e.complexity.Mutation.DeleteIcon == nil {
 			break
 		}
 
-		args, err := ec.field_Mutation_DeleteIcon_args(context.TODO(), rawArgs)
+		args, err := ec.field_Mutation_deleteIcon_args(context.TODO(), rawArgs)
 		if err != nil {
 			return 0, false
 		}
 
-		return e.complexity.Mutation.DeleteIcon(childComplexity, args["ID"].(string)), true
+		return e.complexity.Mutation.DeleteIcon(childComplexity, args["id"].(string)), true
 
 	case "Mutation.deleteImage":
 		if e.complexity.Mutation.DeleteImage == nil {
@@ -621,65 +616,65 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.Mutation.DeleteImage(childComplexity, args["id"].(string)), true
 
-	case "Mutation.DeleteSetting":
+	case "Mutation.deleteSetting":
 		if e.complexity.Mutation.DeleteSetting == nil {
 			break
 		}
 
-		args, err := ec.field_Mutation_DeleteSetting_args(context.TODO(), rawArgs)
+		args, err := ec.field_Mutation_deleteSetting_args(context.TODO(), rawArgs)
 		if err != nil {
 			return 0, false
 		}
 
-		return e.complexity.Mutation.DeleteSetting(childComplexity, args["ID"].(string)), true
+		return e.complexity.Mutation.DeleteSetting(childComplexity, args["id"].(string)), true
 
-	case "Mutation.DeleteTimeline":
+	case "Mutation.deleteTimeline":
 		if e.complexity.Mutation.DeleteTimeline == nil {
 			break
 		}
 
-		args, err := ec.field_Mutation_DeleteTimeline_args(context.TODO(), rawArgs)
+		args, err := ec.field_Mutation_deleteTimeline_args(context.TODO(), rawArgs)
 		if err != nil {
 			return 0, false
 		}
 
-		return e.complexity.Mutation.DeleteTimeline(childComplexity, args["ID"].(string)), true
+		return e.complexity.Mutation.DeleteTimeline(childComplexity, args["id"].(string)), true
 
-	case "Mutation.UpdateAboutMe":
+	case "Mutation.updateAboutMe":
 		if e.complexity.Mutation.UpdateAboutMe == nil {
 			break
 		}
 
-		args, err := ec.field_Mutation_UpdateAboutMe_args(context.TODO(), rawArgs)
+		args, err := ec.field_Mutation_updateAboutMe_args(context.TODO(), rawArgs)
 		if err != nil {
 			return 0, false
 		}
 
-		return e.complexity.Mutation.UpdateAboutMe(childComplexity, args["ID"].(string), args["newAboutMe"].(*model.NewAboutMe)), true
+		return e.complexity.Mutation.UpdateAboutMe(childComplexity, args["id"].(string), args["newAboutMe"].(*model.NewAboutMe)), true
 
-	case "Mutation.UpdateBadge":
+	case "Mutation.updateBadge":
 		if e.complexity.Mutation.UpdateBadge == nil {
 			break
 		}
 
-		args, err := ec.field_Mutation_UpdateBadge_args(context.TODO(), rawArgs)
+		args, err := ec.field_Mutation_updateBadge_args(context.TODO(), rawArgs)
 		if err != nil {
 			return 0, false
 		}
 
-		return e.complexity.Mutation.UpdateBadge(childComplexity, args["ID"].(string), args["newBadge"].(*model.NewBadge)), true
+		return e.complexity.Mutation.UpdateBadge(childComplexity, args["id"].(string), args["newBadge"].(*model.NewBadge)), true
 
-	case "Mutation.UpdateIcon":
+	case "Mutation.updateIcon":
 		if e.complexity.Mutation.UpdateIcon == nil {
 			break
 		}
 
-		args, err := ec.field_Mutation_UpdateIcon_args(context.TODO(), rawArgs)
+		args, err := ec.field_Mutation_updateIcon_args(context.TODO(), rawArgs)
 		if err != nil {
 			return 0, false
 		}
 
-		return e.complexity.Mutation.UpdateIcon(childComplexity, args["ID"].(string), args["newIcon"].(model.NewIcon)), true
+		return e.complexity.Mutation.UpdateIcon(childComplexity, args["id"].(string), args["newIcon"].(model.NewIcon)), true
 
 	case "Mutation.updateImage":
 		if e.complexity.Mutation.UpdateImage == nil {
@@ -693,158 +688,158 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.Mutation.UpdateImage(childComplexity, args["id"].(string), args["newImage"].(model.NewImage)), true
 
-	case "Mutation.UpdateSetting":
+	case "Mutation.updateSetting":
 		if e.complexity.Mutation.UpdateSetting == nil {
 			break
 		}
 
-		args, err := ec.field_Mutation_UpdateSetting_args(context.TODO(), rawArgs)
+		args, err := ec.field_Mutation_updateSetting_args(context.TODO(), rawArgs)
 		if err != nil {
 			return 0, false
 		}
 
-		return e.complexity.Mutation.UpdateSetting(childComplexity, args["ID"].(string), args["newSetting"].(model.NewSetting)), true
+		return e.complexity.Mutation.UpdateSetting(childComplexity, args["id"].(string), args["newSetting"].(model.NewSetting)), true
 
-	case "Mutation.UpdateTimeline":
+	case "Mutation.updateTimeline":
 		if e.complexity.Mutation.UpdateTimeline == nil {
 			break
 		}
 
-		args, err := ec.field_Mutation_UpdateTimeline_args(context.TODO(), rawArgs)
+		args, err := ec.field_Mutation_updateTimeline_args(context.TODO(), rawArgs)
 		if err != nil {
 			return 0, false
 		}
 
-		return e.complexity.Mutation.UpdateTimeline(childComplexity, args["ID"].(string), args["newTimeline"].(*model.NewTimeline)), true
+		return e.complexity.Mutation.UpdateTimeline(childComplexity, args["id"].(string), args["newTimeline"].(*model.NewTimeline)), true
 
-	case "Query.AboutMe":
+	case "Query.aboutMe":
 		if e.complexity.Query.AboutMe == nil {
 			break
 		}
 
-		args, err := ec.field_Query_AboutMe_args(context.TODO(), rawArgs)
+		args, err := ec.field_Query_aboutMe_args(context.TODO(), rawArgs)
 		if err != nil {
 			return 0, false
 		}
 
-		return e.complexity.Query.AboutMe(childComplexity, args["ID"].(string)), true
+		return e.complexity.Query.AboutMe(childComplexity, args["id"].(string)), true
 
-	case "Query.AboutMes":
+	case "Query.aboutMes":
 		if e.complexity.Query.AboutMes == nil {
 			break
 		}
 
 		return e.complexity.Query.AboutMes(childComplexity), true
 
-	case "Query.Badge":
+	case "Query.badge":
 		if e.complexity.Query.Badge == nil {
 			break
 		}
 
-		args, err := ec.field_Query_Badge_args(context.TODO(), rawArgs)
+		args, err := ec.field_Query_badge_args(context.TODO(), rawArgs)
 		if err != nil {
 			return 0, false
 		}
 
-		return e.complexity.Query.Badge(childComplexity, args["ID"].(string)), true
+		return e.complexity.Query.Badge(childComplexity, args["id"].(string)), true
 
-	case "Query.Badges":
+	case "Query.badges":
 		if e.complexity.Query.Badges == nil {
 			break
 		}
 
 		return e.complexity.Query.Badges(childComplexity), true
 
-	case "Query.BadgesByOwner":
+	case "Query.badgesByOwner":
 		if e.complexity.Query.BadgesByOwner == nil {
 			break
 		}
 
-		args, err := ec.field_Query_BadgesByOwner_args(context.TODO(), rawArgs)
+		args, err := ec.field_Query_badgesByOwner_args(context.TODO(), rawArgs)
 		if err != nil {
 			return 0, false
 		}
 
-		return e.complexity.Query.BadgesByOwner(childComplexity, args["OwnerID"].(int), args["OwnerType"].(string)), true
+		return e.complexity.Query.BadgesByOwner(childComplexity, args["ownerID"].(int), args["ownerType"].(string)), true
 
-	case "Query.BadgesByOwnerAndType":
+	case "Query.badgesByOwnerAndType":
 		if e.complexity.Query.BadgesByOwnerAndType == nil {
 			break
 		}
 
-		args, err := ec.field_Query_BadgesByOwnerAndType_args(context.TODO(), rawArgs)
+		args, err := ec.field_Query_badgesByOwnerAndType_args(context.TODO(), rawArgs)
 		if err != nil {
 			return 0, false
 		}
 
-		return e.complexity.Query.BadgesByOwnerAndType(childComplexity, args["OwnerID"].(int), args["OwnerType"].(string), args["IconType"].(string)), true
+		return e.complexity.Query.BadgesByOwnerAndType(childComplexity, args["ownerID"].(int), args["ownerType"].(string), args["iconType"].(string)), true
 
-	case "Query.BadgesByType":
+	case "Query.badgesByType":
 		if e.complexity.Query.BadgesByType == nil {
 			break
 		}
 
-		args, err := ec.field_Query_BadgesByType_args(context.TODO(), rawArgs)
+		args, err := ec.field_Query_badgesByType_args(context.TODO(), rawArgs)
 		if err != nil {
 			return 0, false
 		}
 
-		return e.complexity.Query.BadgesByType(childComplexity, args["IconType"].(string)), true
+		return e.complexity.Query.BadgesByType(childComplexity, args["iconType"].(string)), true
 
-	case "Query.Icon":
+	case "Query.icon":
 		if e.complexity.Query.Icon == nil {
 			break
 		}
 
-		args, err := ec.field_Query_Icon_args(context.TODO(), rawArgs)
+		args, err := ec.field_Query_icon_args(context.TODO(), rawArgs)
 		if err != nil {
 			return 0, false
 		}
 
-		return e.complexity.Query.Icon(childComplexity, args["ID"].(string)), true
+		return e.complexity.Query.Icon(childComplexity, args["id"].(string)), true
 
-	case "Query.Icons":
+	case "Query.icons":
 		if e.complexity.Query.Icons == nil {
 			break
 		}
 
 		return e.complexity.Query.Icons(childComplexity), true
 
-	case "Query.IconsByOwner":
+	case "Query.iconsByOwner":
 		if e.complexity.Query.IconsByOwner == nil {
 			break
 		}
 
-		args, err := ec.field_Query_IconsByOwner_args(context.TODO(), rawArgs)
+		args, err := ec.field_Query_iconsByOwner_args(context.TODO(), rawArgs)
 		if err != nil {
 			return 0, false
 		}
 
-		return e.complexity.Query.IconsByOwner(childComplexity, args["OwnerID"].(int), args["OwnerType"].(string)), true
+		return e.complexity.Query.IconsByOwner(childComplexity, args["ownerID"].(int), args["ownerType"].(string)), true
 
-	case "Query.IconsByOwnerAndType":
+	case "Query.iconsByOwnerAndType":
 		if e.complexity.Query.IconsByOwnerAndType == nil {
 			break
 		}
 
-		args, err := ec.field_Query_IconsByOwnerAndType_args(context.TODO(), rawArgs)
+		args, err := ec.field_Query_iconsByOwnerAndType_args(context.TODO(), rawArgs)
 		if err != nil {
 			return 0, false
 		}
 
-		return e.complexity.Query.IconsByOwnerAndType(childComplexity, args["OwnerID"].(int), args["OwnerType"].(string), args["IconType"].(string)), true
+		return e.complexity.Query.IconsByOwnerAndType(childComplexity, args["ownerID"].(int), args["ownerType"].(string), args["iconType"].(string)), true
 
-	case "Query.IconsByType":
+	case "Query.iconsByType":
 		if e.complexity.Query.IconsByType == nil {
 			break
 		}
 
-		args, err := ec.field_Query_IconsByType_args(context.TODO(), rawArgs)
+		args, err := ec.field_Query_iconsByType_args(context.TODO(), rawArgs)
 		if err != nil {
 			return 0, false
 		}
 
-		return e.complexity.Query.IconsByType(childComplexity, args["IconType"].(string)), true
+		return e.complexity.Query.IconsByType(childComplexity, args["iconType"].(string)), true
 
 	case "Query.image":
 		if e.complexity.Query.Image == nil {
@@ -865,164 +860,164 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.Query.Images(childComplexity), true
 
-	case "Query.Setting":
+	case "Query.setting":
 		if e.complexity.Query.Setting == nil {
 			break
 		}
 
-		args, err := ec.field_Query_Setting_args(context.TODO(), rawArgs)
+		args, err := ec.field_Query_setting_args(context.TODO(), rawArgs)
 		if err != nil {
 			return 0, false
 		}
 
-		return e.complexity.Query.Setting(childComplexity, args["ID"].(string)), true
+		return e.complexity.Query.Setting(childComplexity, args["id"].(string)), true
 
-	case "Query.Settings":
+	case "Query.settings":
 		if e.complexity.Query.Settings == nil {
 			break
 		}
 
 		return e.complexity.Query.Settings(childComplexity), true
 
-	case "Query.Timeline":
+	case "Query.timeline":
 		if e.complexity.Query.Timeline == nil {
 			break
 		}
 
-		args, err := ec.field_Query_Timeline_args(context.TODO(), rawArgs)
+		args, err := ec.field_Query_timeline_args(context.TODO(), rawArgs)
 		if err != nil {
 			return 0, false
 		}
 
-		return e.complexity.Query.Timeline(childComplexity, args["ID"].(string)), true
+		return e.complexity.Query.Timeline(childComplexity, args["id"].(string)), true
 
-	case "Query.Timelines":
+	case "Query.timelines":
 		if e.complexity.Query.Timelines == nil {
 			break
 		}
 
 		return e.complexity.Query.Timelines(childComplexity), true
 
-	case "Setting.AboutMe":
+	case "Setting.aboutMe":
 		if e.complexity.Setting.AboutMe == nil {
 			break
 		}
 
 		return e.complexity.Setting.AboutMe(childComplexity), true
 
-	case "Setting.CreatedAt":
+	case "Setting.createdAt":
 		if e.complexity.Setting.CreatedAt == nil {
 			break
 		}
 
 		return e.complexity.Setting.CreatedAt(childComplexity), true
 
-	case "Setting.DeletedAt":
+	case "Setting.deletedAt":
 		if e.complexity.Setting.DeletedAt == nil {
 			break
 		}
 
 		return e.complexity.Setting.DeletedAt(childComplexity), true
 
-	case "Setting.ID":
+	case "Setting.id":
 		if e.complexity.Setting.ID == nil {
 			break
 		}
 
 		return e.complexity.Setting.ID(childComplexity), true
 
-	case "Setting.Timeline":
+	case "Setting.timeline":
 		if e.complexity.Setting.Timeline == nil {
 			break
 		}
 
 		return e.complexity.Setting.Timeline(childComplexity), true
 
-	case "Setting.UpdatedAt":
+	case "Setting.updatedAt":
 		if e.complexity.Setting.UpdatedAt == nil {
 			break
 		}
 
 		return e.complexity.Setting.UpdatedAt(childComplexity), true
 
-	case "Timeline.CreatedAt":
+	case "Timeline.createdAt":
 		if e.complexity.Timeline.CreatedAt == nil {
 			break
 		}
 
 		return e.complexity.Timeline.CreatedAt(childComplexity), true
 
-	case "Timeline.DeletedAt":
+	case "Timeline.deletedAt":
 		if e.complexity.Timeline.DeletedAt == nil {
 			break
 		}
 
 		return e.complexity.Timeline.DeletedAt(childComplexity), true
 
-	case "Timeline.Description":
+	case "Timeline.description":
 		if e.complexity.Timeline.Description == nil {
 			break
 		}
 
 		return e.complexity.Timeline.Description(childComplexity), true
 
-	case "Timeline.EventDate":
+	case "Timeline.eventDate":
 		if e.complexity.Timeline.EventDate == nil {
 			break
 		}
 
 		return e.complexity.Timeline.EventDate(childComplexity), true
 
-	case "Timeline.ID":
+	case "Timeline.iD":
 		if e.complexity.Timeline.ID == nil {
 			break
 		}
 
 		return e.complexity.Timeline.ID(childComplexity), true
 
-	case "Timeline.Icon":
+	case "Timeline.icon":
 		if e.complexity.Timeline.Icon == nil {
 			break
 		}
 
 		return e.complexity.Timeline.Icon(childComplexity), true
 
-	case "Timeline.Images":
+	case "Timeline.images":
 		if e.complexity.Timeline.Images == nil {
 			break
 		}
 
 		return e.complexity.Timeline.Images(childComplexity), true
 
-	case "Timeline.Name":
+	case "Timeline.name":
 		if e.complexity.Timeline.Name == nil {
 			break
 		}
 
 		return e.complexity.Timeline.Name(childComplexity), true
 
-	case "Timeline.SettingID":
+	case "Timeline.settingID":
 		if e.complexity.Timeline.SettingID == nil {
 			break
 		}
 
 		return e.complexity.Timeline.SettingID(childComplexity), true
 
-	case "Timeline.Slug":
+	case "Timeline.slug":
 		if e.complexity.Timeline.Slug == nil {
 			break
 		}
 
 		return e.complexity.Timeline.Slug(childComplexity), true
 
-	case "Timeline.Thumbnail":
+	case "Timeline.thumbnail":
 		if e.complexity.Timeline.Thumbnail == nil {
 			break
 		}
 
 		return e.complexity.Timeline.Thumbnail(childComplexity), true
 
-	case "Timeline.UpdatedAt":
+	case "Timeline.updatedAt":
 		if e.complexity.Timeline.UpdatedAt == nil {
 			break
 		}
@@ -1094,63 +1089,63 @@ func (ec *executionContext) introspectType(name string) (*introspection.Type, er
 
 var sources = []*ast.Source{
 	{Name: "src/graph/schemas/decoration.graphqls", Input: `type Icon {
-  ID: ID!
-  Name: String!
-  BgColor: String!
-  IconType: String!
-  OwnerID: Int!
-  OwnerType: String!
-  CreatedAt: Time!
-  UpdatedAt: Time!
-  DeletedAt: Time!
+  id: ID!
+  name: String!
+  bgColor: String!
+  iconType: String!
+  ownerID: Int!
+  ownerType: String!
+  createdAt: Time!
+  updatedAt: Time!
+  deletedAt: Time!
 }
 
 extend type Query {
-  Icons: [Icon]!
-  Icon(ID: ID!): Icon
-  IconsByOwner(OwnerID: Int!, OwnerType: String!): [Icon]
-  IconsByOwnerAndType(
-    OwnerID: Int!
-    OwnerType: String!
-    IconType: String!
+  icons: [Icon]!
+  icon(id: ID!): Icon
+  iconsByOwner(ownerID: Int!, ownerType: String!): [Icon]
+  iconsByOwnerAndType(
+    ownerID: Int!
+    ownerType: String!
+    iconType: String!
   ): [Icon]
-  IconsByType(IconType: String!): [Icon]
+  iconsByType(iconType: String!): [Icon]
 }
 
 extend type Mutation {
-  CreateIcon(newIcon: NewIcon!): Icon
-  UpdateIcon(ID: ID!, newIcon: NewIcon!): Icon
-  DeleteIcon(ID: ID!): Icon
+  createIcon(newIcon: NewIcon!): Icon
+  updateIcon(id: ID!, newIcon: NewIcon!): Icon
+  deleteIcon(id: ID!): Icon
 }
 
 type Badge {
-  ID: ID!
-  Name: String!
-  Color: String!
-  Icon: Icon!
-  OwnerID: Int
-  OwnerType: String
-  CreatedAt: Time!
-  UpdatedAt: Time!
-  DeletedAt: Time!
+  id: ID!
+  name: String!
+  color: String!
+  icon: Icon!
+  ownerID: Int
+  ownerType: String
+  createdAt: Time!
+  updatedAt: Time!
+  deletedAt: Time!
 }
 
 extend type Query {
-  Badges: [Badge]!
-  Badge(ID: ID!): Badge
-  BadgesByOwner(OwnerID: Int!, OwnerType: String!): [Badge]
-  BadgesByOwnerAndType(
-    OwnerID: Int!
-    OwnerType: String!
-    IconType: String!
+  badges: [Badge]!
+  badge(id: ID!): Badge
+  badgesByOwner(ownerID: Int!, ownerType: String!): [Badge]
+  badgesByOwnerAndType(
+    ownerID: Int!
+    ownerType: String!
+    iconType: String!
   ): [Badge]
-  BadgesByType(IconType: String!): [Badge]
+  badgesByType(iconType: String!): [Badge]
 }
 
 extend type Mutation {
-  CreateBadge(newBadge: NewBadge): Badge
-  UpdateBadge(ID: ID!, newBadge: NewBadge): Badge
-  DeleteBadge(ID: ID!): Badge
+  createBadge(newBadge: NewBadge): Badge
+  updateBadge(id: ID!, newBadge: NewBadge): Badge
+  deleteBadge(id: ID!): Badge
 }
 `, BuiltIn: false},
 	{Name: "src/graph/schemas/image.graphqls", Input: `type Image {
@@ -1185,113 +1180,115 @@ extend type Mutation {
 }
 
 input NewSetting {
-  AboutMeID: ID!
-  TimelineID: ID!
+  aboutMeID: ID!
+  timelineID: ID!
 }
 
 input NewAboutMe {
-  Name: String!
-  Description: String!
-  Content: String!
-  ImgUrl: String!
-  SettingID: ID
+  name: String!
+  description: String!
+  content: String!
+  imgUrl: String!
+  settingID: ID
 }
 
 input NewTimeline {
-  Slug: String!
-  Name: String!
-  Description: String!
-  Thumbnail: String!
-  EventDate: Time!
-  Icon: NewIcon!
-  SettingID: ID
+  slug: String!
+  name: String!
+  description: String!
+  thumbnail: String!
+  eventDate: Time!
+  icon: NewIcon!
+  settingID: ID
 }
 
 input NewIcon {
-  Name: String!
-  BgColor: String!
-  IconType: String!
-  OwnerID: Int
-  OwnerType: String
+  id: ID
+  name: String
+  bgColor: String
+  iconType: String
+  ownerID: Int
+  ownerType: String
 }
 
 input NewBadge {
-  Name: String!
-  Color: String!
-  IconID: ID!
-  OwnerID: Int!
-  OwnerType: String!
+  id: ID
+  name: String
+  color: String
+  icon: NewIcon
+  ownerID: Int
+  ownerType: String
 }
 `, BuiltIn: false},
 	{Name: "src/graph/schemas/setting.graphqls", Input: `scalar Time
 
 type Setting {
-  ID: ID!
-  AboutMe: AboutMe!
-  Timeline: Timeline!
-  CreatedAt: Time!
-  UpdatedAt: Time!
-  DeletedAt: Time!
+  id: ID!
+  aboutMe: AboutMe!
+  timeline: Timeline!
+  createdAt: Time!
+  updatedAt: Time!
+  deletedAt: Time!
 }
 
 extend type Query {
-  Settings: [Setting]!
-  Setting(ID: ID!): Setting
+  settings: [Setting]!
+  setting(id: ID!): Setting
 }
 
 extend type Mutation {
-  CreateSetting(newSetting: NewSetting!): Setting!
-  UpdateSetting(ID: ID!, newSetting: NewSetting!): Setting!
-  DeleteSetting(ID: ID!): Setting!
+  createSetting(newSetting: NewSetting!): Setting!
+  updateSetting(id: ID!, newSetting: NewSetting!): Setting!
+  deleteSetting(id: ID!): Setting!
 }
 
 type AboutMe {
-  ID: ID!
-  Name: String!
-  Description: String!
-  Content: String!
-  ImgUrl: String!
-  SettingID: ID!
-  CreatedAt: Time!
-  UpdatedAt: Time!
-  DeletedAt: Time!
+  id: ID!
+  name: String!
+  description: String!
+  content: String!
+  imgUrl: String!
+  settingID: ID!
+  createdAt: Time!
+  updatedAt: Time!
+  deletedAt: Time!
 }
 
 extend type Query {
-  AboutMes: [AboutMe]!
-  AboutMe(ID: ID!): AboutMe
+  aboutMes: [AboutMe]!
+  aboutMe(id: ID!): AboutMe
 }
 
 extend type Mutation {
-  CreateAboutMe(newAboutMe: NewAboutMe): AboutMe!
-  UpdateAboutMe(ID: ID!, newAboutMe: NewAboutMe): AboutMe!
-  DeleteAboutMe(ID: ID!): AboutMe!
+  createAboutMe(newAboutMe: NewAboutMe): AboutMe!
+  updateAboutMe(id: ID!, newAboutMe: NewAboutMe): AboutMe!
+  deleteAboutMe(id: ID!): AboutMe!
 }
 
 type Timeline {
-  ID: ID!
-  Slug: String!
-  Name: String!
-  Description: String!
-  Thumbnail: String!
-  Images: [Image]!
-  EventDate: Time!
-  Icon: Icon!
-  SettingID: ID!
-  CreatedAt: Time!
-  UpdatedAt: Time!
-  DeletedAt: Time!
+  iD: ID!
+  slug: String!
+  name: String!
+  description: String!
+  thumbnail: String!
+  images: [Image]!
+  eventDate: Time!
+  icon: Icon!
+  settingID: ID!
+  createdAt: Time!
+  updatedAt: Time!
+  deletedAt: Time!
 }
 
 extend type Query {
-  Timelines: [Timeline]!
-  Timeline(ID: ID!): Timeline
+  timelines: [Timeline]!
+  timeline(id: ID!): Timeline
 }
 
 extend type Mutation {
-  CreateTimeline(newTimeline: NewTimeline!): Timeline!
-  UpdateTimeline(ID: ID!, newTimeline: NewTimeline): Timeline!
-  DeleteTimeline(ID: ID!): Timeline!
+  createTimeline(newTimeline: NewTimeline!): Timeline!
+  updateTimeline(id: ID!, newTimeline: NewTimeline): Timeline!
+  deleteTimeline(id: ID!): Timeline!
 }
 `, BuiltIn: false},
 }
@@ -1301,7 +1298,7 @@ var parsedSchema = gqlparser.MustLoadSchema(sources...)
 
 // region    ***************************** args.gotpl *****************************
 
-func (ec *executionContext) field_Mutation_CreateAboutMe_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+func (ec *executionContext) field_Mutation_createAboutMe_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
 	var arg0 *model.NewAboutMe
@@ -1316,7 +1313,7 @@ func (ec *executionContext) field_Mutation_CreateAboutMe_args(ctx context.Contex
 	return args, nil
 }
 
-func (ec *executionContext) field_Mutation_CreateBadge_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+func (ec *executionContext) field_Mutation_createBadge_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
 	var arg0 *model.NewBadge
@@ -1331,7 +1328,7 @@ func (ec *executionContext) field_Mutation_CreateBadge_args(ctx context.Context,
 	return args, nil
 }
 
-func (ec *executionContext) field_Mutation_CreateIcon_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+func (ec *executionContext) field_Mutation_createIcon_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
 	var arg0 model.NewIcon
@@ -1343,231 +1340,6 @@ func (ec *executionContext) field_Mutation_CreateIcon_args(ctx context.Context, 
 		}
 	}
 	args["newIcon"] = arg0
-	return args, nil
-}
-
-func (ec *executionContext) field_Mutation_CreateSetting_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
-	var err error
-	args := map[string]interface{}{}
-	var arg0 model.NewSetting
-	if tmp, ok := rawArgs["newSetting"]; ok {
-		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("newSetting"))
-		arg0, err = ec.unmarshalNNewSetting2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewSetting(ctx, tmp)
-		if err != nil {
-			return nil, err
-		}
-	}
-	args["newSetting"] = arg0
-	return args, nil
-}
-
-func (ec *executionContext) field_Mutation_CreateTimeline_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
-	var err error
-	args := map[string]interface{}{}
-	var arg0 model.NewTimeline
-	if tmp, ok := rawArgs["newTimeline"]; ok {
-		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("newTimeline"))
-		arg0, err = ec.unmarshalNNewTimeline2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewTimeline(ctx, tmp)
-		if err != nil {
-			return nil, err
-		}
-	}
-	args["newTimeline"] = arg0
-	return args, nil
-}
-
-func (ec *executionContext) field_Mutation_DeleteAboutMe_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
-	var err error
-	args := map[string]interface{}{}
-	var arg0 string
-	if tmp, ok := rawArgs["ID"]; ok {
-		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("ID"))
-		arg0, err = ec.unmarshalNID2string(ctx, tmp)
-		if err != nil {
-			return nil, err
-		}
-	}
-	args["ID"] = arg0
-	return args, nil
-}
-
-func (ec *executionContext) field_Mutation_DeleteBadge_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
-	var err error
-	args := map[string]interface{}{}
-	var arg0 string
-	if tmp, ok := rawArgs["ID"]; ok {
-		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("ID"))
-		arg0, err = ec.unmarshalNID2string(ctx, tmp)
-		if err != nil {
-			return nil, err
-		}
-	}
-	args["ID"] = arg0
-	return args, nil
-}
-
-func (ec *executionContext) field_Mutation_DeleteIcon_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
-	var err error
-	args := map[string]interface{}{}
-	var arg0 string
-	if tmp, ok := rawArgs["ID"]; ok {
-		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("ID"))
-		arg0, err = ec.unmarshalNID2string(ctx, tmp)
-		if err != nil {
-			return nil, err
-		}
-	}
-	args["ID"] = arg0
-	return args, nil
-}
-
-func (ec *executionContext) field_Mutation_DeleteSetting_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
-	var err error
-	args := map[string]interface{}{}
-	var arg0 string
-	if tmp, ok := rawArgs["ID"]; ok {
-		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("ID"))
-		arg0, err = ec.unmarshalNID2string(ctx, tmp)
-		if err != nil {
-			return nil, err
-		}
-	}
-	args["ID"] = arg0
-	return args, nil
-}
-
-func (ec *executionContext) field_Mutation_DeleteTimeline_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
-	var err error
-	args := map[string]interface{}{}
-	var arg0 string
-	if tmp, ok := rawArgs["ID"]; ok {
-		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("ID"))
-		arg0, err = ec.unmarshalNID2string(ctx, tmp)
-		if err != nil {
-			return nil, err
-		}
-	}
-	args["ID"] = arg0
-	return args, nil
-}
-
-func (ec *executionContext) field_Mutation_UpdateAboutMe_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
-	var err error
-	args := map[string]interface{}{}
-	var arg0 string
-	if tmp, ok := rawArgs["ID"]; ok {
-		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("ID"))
-		arg0, err = ec.unmarshalNID2string(ctx, tmp)
-		if err != nil {
-			return nil, err
-		}
-	}
-	args["ID"] = arg0
-	var arg1 *model.NewAboutMe
-	if tmp, ok := rawArgs["newAboutMe"]; ok {
-		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("newAboutMe"))
-		arg1, err = ec.unmarshalONewAboutMe2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewAboutMe(ctx, tmp)
-		if err != nil {
-			return nil, err
-		}
-	}
-	args["newAboutMe"] = arg1
-	return args, nil
-}
-
-func (ec *executionContext) field_Mutation_UpdateBadge_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
-	var err error
-	args := map[string]interface{}{}
-	var arg0 string
-	if tmp, ok := rawArgs["ID"]; ok {
-		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("ID"))
-		arg0, err = ec.unmarshalNID2string(ctx, tmp)
-		if err != nil {
-			return nil, err
-		}
-	}
-	args["ID"] = arg0
-	var arg1 *model.NewBadge
-	if tmp, ok := rawArgs["newBadge"]; ok {
-		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("newBadge"))
-		arg1, err = ec.unmarshalONewBadge2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewBadge(ctx, tmp)
-		if err != nil {
-			return nil, err
-		}
-	}
-	args["newBadge"] = arg1
-	return args, nil
-}
-
-func (ec *executionContext) field_Mutation_UpdateIcon_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
-	var err error
-	args := map[string]interface{}{}
-	var arg0 string
-	if tmp, ok := rawArgs["ID"]; ok {
-		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("ID"))
-		arg0, err = ec.unmarshalNID2string(ctx, tmp)
-		if err != nil {
-			return nil, err
-		}
-	}
-	args["ID"] = arg0
-	var arg1 model.NewIcon
-	if tmp, ok := rawArgs["newIcon"]; ok {
-		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("newIcon"))
-		arg1, err = ec.unmarshalNNewIcon2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewIcon(ctx, tmp)
-		if err != nil {
-			return nil, err
-		}
-	}
-	args["newIcon"] = arg1
-	return args, nil
-}
-
-func (ec *executionContext) field_Mutation_UpdateSetting_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
-	var err error
-	args := map[string]interface{}{}
-	var arg0 string
-	if tmp, ok := rawArgs["ID"]; ok {
-		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("ID"))
-		arg0, err = ec.unmarshalNID2string(ctx, tmp)
-		if err != nil {
-			return nil, err
-		}
-	}
-	args["ID"] = arg0
-	var arg1 model.NewSetting
-	if tmp, ok := rawArgs["newSetting"]; ok {
-		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("newSetting"))
-		arg1, err = ec.unmarshalNNewSetting2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewSetting(ctx, tmp)
-		if err != nil {
-			return nil, err
-		}
-	}
-	args["newSetting"] = arg1
-	return args, nil
-}
-
-func (ec *executionContext) field_Mutation_UpdateTimeline_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
-	var err error
-	args := map[string]interface{}{}
-	var arg0 string
-	if tmp, ok := rawArgs["ID"]; ok {
-		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("ID"))
-		arg0, err = ec.unmarshalNID2string(ctx, tmp)
-		if err != nil {
-			return nil, err
-		}
-	}
-	args["ID"] = arg0
-	var arg1 *model.NewTimeline
-	if tmp, ok := rawArgs["newTimeline"]; ok {
-		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("newTimeline"))
-		arg1, err = ec.unmarshalONewTimeline2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewTimeline(ctx, tmp)
-		if err != nil {
-			return nil, err
-		}
-	}
-	args["newTimeline"] = arg1
 	return args, nil
 }
 
@@ -1586,6 +1358,81 @@ func (ec *executionContext) field_Mutation_createImage_args(ctx context.Context,
 	return args, nil
 }
 
+func (ec *executionContext) field_Mutation_createSetting_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+	var err error
+	args := map[string]interface{}{}
+	var arg0 model.NewSetting
+	if tmp, ok := rawArgs["newSetting"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("newSetting"))
+		arg0, err = ec.unmarshalNNewSetting2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewSetting(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["newSetting"] = arg0
+	return args, nil
+}
+
+func (ec *executionContext) field_Mutation_createTimeline_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+	var err error
+	args := map[string]interface{}{}
+	var arg0 model.NewTimeline
+	if tmp, ok := rawArgs["newTimeline"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("newTimeline"))
+		arg0, err = ec.unmarshalNNewTimeline2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewTimeline(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["newTimeline"] = arg0
+	return args, nil
+}
+
+func (ec *executionContext) field_Mutation_deleteAboutMe_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+	var err error
+	args := map[string]interface{}{}
+	var arg0 string
+	if tmp, ok := rawArgs["id"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("id"))
+		arg0, err = ec.unmarshalNID2string(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["id"] = arg0
+	return args, nil
+}
+
+func (ec *executionContext) field_Mutation_deleteBadge_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+	var err error
+	args := map[string]interface{}{}
+	var arg0 string
+	if tmp, ok := rawArgs["id"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("id"))
+		arg0, err = ec.unmarshalNID2string(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["id"] = arg0
+	return args, nil
+}
+
+func (ec *executionContext) field_Mutation_deleteIcon_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+	var err error
+	args := map[string]interface{}{}
+	var arg0 string
+	if tmp, ok := rawArgs["id"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("id"))
+		arg0, err = ec.unmarshalNID2string(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["id"] = arg0
+	return args, nil
+}
+
 func (ec *executionContext) field_Mutation_deleteImage_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
@@ -1598,6 +1445,108 @@ func (ec *executionContext) field_Mutation_deleteImage_args(ctx context.Context,
 		}
 	}
 	args["id"] = arg0
+	return args, nil
+}
+
+func (ec *executionContext) field_Mutation_deleteSetting_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+	var err error
+	args := map[string]interface{}{}
+	var arg0 string
+	if tmp, ok := rawArgs["id"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("id"))
+		arg0, err = ec.unmarshalNID2string(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["id"] = arg0
+	return args, nil
+}
+
+func (ec *executionContext) field_Mutation_deleteTimeline_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+	var err error
+	args := map[string]interface{}{}
+	var arg0 string
+	if tmp, ok := rawArgs["id"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("id"))
+		arg0, err = ec.unmarshalNID2string(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["id"] = arg0
+	return args, nil
+}
+
+func (ec *executionContext) field_Mutation_updateAboutMe_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+	var err error
+	args := map[string]interface{}{}
+	var arg0 string
+	if tmp, ok := rawArgs["id"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("id"))
+		arg0, err = ec.unmarshalNID2string(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["id"] = arg0
+	var arg1 *model.NewAboutMe
+	if tmp, ok := rawArgs["newAboutMe"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("newAboutMe"))
+		arg1, err = ec.unmarshalONewAboutMe2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewAboutMe(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["newAboutMe"] = arg1
+	return args, nil
+}
+
+func (ec *executionContext) field_Mutation_updateBadge_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+	var err error
+	args := map[string]interface{}{}
+	var arg0 string
+	if tmp, ok := rawArgs["id"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("id"))
+		arg0, err = ec.unmarshalNID2string(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["id"] = arg0
+	var arg1 *model.NewBadge
+	if tmp, ok := rawArgs["newBadge"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("newBadge"))
+		arg1, err = ec.unmarshalONewBadge2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewBadge(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["newBadge"] = arg1
+	return args, nil
+}
+
+func (ec *executionContext) field_Mutation_updateIcon_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+	var err error
+	args := map[string]interface{}{}
+	var arg0 string
+	if tmp, ok := rawArgs["id"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("id"))
+		arg0, err = ec.unmarshalNID2string(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["id"] = arg0
+	var arg1 model.NewIcon
+	if tmp, ok := rawArgs["newIcon"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("newIcon"))
+		arg1, err = ec.unmarshalNNewIcon2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewIcon(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["newIcon"] = arg1
 	return args, nil
 }
 
@@ -1625,222 +1574,51 @@ func (ec *executionContext) field_Mutation_updateImage_args(ctx context.Context,
 	return args, nil
 }
 
-func (ec *executionContext) field_Query_AboutMe_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+func (ec *executionContext) field_Mutation_updateSetting_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
 	var arg0 string
-	if tmp, ok := rawArgs["ID"]; ok {
-		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("ID"))
+	if tmp, ok := rawArgs["id"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("id"))
 		arg0, err = ec.unmarshalNID2string(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
 	}
-	args["ID"] = arg0
+	args["id"] = arg0
+	var arg1 model.NewSetting
+	if tmp, ok := rawArgs["newSetting"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("newSetting"))
+		arg1, err = ec.unmarshalNNewSetting2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewSetting(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["newSetting"] = arg1
 	return args, nil
 }
 
-func (ec *executionContext) field_Query_Badge_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+func (ec *executionContext) field_Mutation_updateTimeline_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
 	var arg0 string
-	if tmp, ok := rawArgs["ID"]; ok {
-		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("ID"))
+	if tmp, ok := rawArgs["id"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("id"))
 		arg0, err = ec.unmarshalNID2string(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
 	}
-	args["ID"] = arg0
-	return args, nil
-}
-
-func (ec *executionContext) field_Query_BadgesByOwnerAndType_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
-	var err error
-	args := map[string]interface{}{}
-	var arg0 int
-	if tmp, ok := rawArgs["OwnerID"]; ok {
-		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("OwnerID"))
-		arg0, err = ec.unmarshalNInt2int(ctx, tmp)
+	args["id"] = arg0
+	var arg1 *model.NewTimeline
+	if tmp, ok := rawArgs["newTimeline"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("newTimeline"))
+		arg1, err = ec.unmarshalONewTimeline2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewTimeline(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
 	}
-	args["OwnerID"] = arg0
-	var arg1 string
-	if tmp, ok := rawArgs["OwnerType"]; ok {
-		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("OwnerType"))
-		arg1, err = ec.unmarshalNString2string(ctx, tmp)
-		if err != nil {
-			return nil, err
-		}
-	}
-	args["OwnerType"] = arg1
-	var arg2 string
-	if tmp, ok := rawArgs["IconType"]; ok {
-		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("IconType"))
-		arg2, err = ec.unmarshalNString2string(ctx, tmp)
-		if err != nil {
-			return nil, err
-		}
-	}
-	args["IconType"] = arg2
-	return args, nil
-}
-
-func (ec *executionContext) field_Query_BadgesByOwner_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
-	var err error
-	args := map[string]interface{}{}
-	var arg0 int
-	if tmp, ok := rawArgs["OwnerID"]; ok {
-		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("OwnerID"))
-		arg0, err = ec.unmarshalNInt2int(ctx, tmp)
-		if err != nil {
-			return nil, err
-		}
-	}
-	args["OwnerID"] = arg0
-	var arg1 string
-	if tmp, ok := rawArgs["OwnerType"]; ok {
-		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("OwnerType"))
-		arg1, err = ec.unmarshalNString2string(ctx, tmp)
-		if err != nil {
-			return nil, err
-		}
-	}
-	args["OwnerType"] = arg1
-	return args, nil
-}
-
-func (ec *executionContext) field_Query_BadgesByType_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
-	var err error
-	args := map[string]interface{}{}
-	var arg0 string
-	if tmp, ok := rawArgs["IconType"]; ok {
-		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("IconType"))
-		arg0, err = ec.unmarshalNString2string(ctx, tmp)
-		if err != nil {
-			return nil, err
-		}
-	}
-	args["IconType"] = arg0
-	return args, nil
-}
-
-func (ec *executionContext) field_Query_Icon_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
-	var err error
-	args := map[string]interface{}{}
-	var arg0 string
-	if tmp, ok := rawArgs["ID"]; ok {
-		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("ID"))
-		arg0, err = ec.unmarshalNID2string(ctx, tmp)
-		if err != nil {
-			return nil, err
-		}
-	}
-	args["ID"] = arg0
-	return args, nil
-}
-
-func (ec *executionContext) field_Query_IconsByOwnerAndType_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
-	var err error
-	args := map[string]interface{}{}
-	var arg0 int
-	if tmp, ok := rawArgs["OwnerID"]; ok {
-		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("OwnerID"))
-		arg0, err = ec.unmarshalNInt2int(ctx, tmp)
-		if err != nil {
-			return nil, err
-		}
-	}
-	args["OwnerID"] = arg0
-	var arg1 string
-	if tmp, ok := rawArgs["OwnerType"]; ok {
-		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("OwnerType"))
-		arg1, err = ec.unmarshalNString2string(ctx, tmp)
-		if err != nil {
-			return nil, err
-		}
-	}
-	args["OwnerType"] = arg1
-	var arg2 string
-	if tmp, ok := rawArgs["IconType"]; ok {
-		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("IconType"))
-		arg2, err = ec.unmarshalNString2string(ctx, tmp)
-		if err != nil {
-			return nil, err
-		}
-	}
-	args["IconType"] = arg2
-	return args, nil
-}
-
-func (ec *executionContext) field_Query_IconsByOwner_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
-	var err error
-	args := map[string]interface{}{}
-	var arg0 int
-	if tmp, ok := rawArgs["OwnerID"]; ok {
-		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("OwnerID"))
-		arg0, err = ec.unmarshalNInt2int(ctx, tmp)
-		if err != nil {
-			return nil, err
-		}
-	}
-	args["OwnerID"] = arg0
-	var arg1 string
-	if tmp, ok := rawArgs["OwnerType"]; ok {
-		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("OwnerType"))
-		arg1, err = ec.unmarshalNString2string(ctx, tmp)
-		if err != nil {
-			return nil, err
-		}
-	}
-	args["OwnerType"] = arg1
-	return args, nil
-}
-
-func (ec *executionContext) field_Query_IconsByType_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
-	var err error
-	args := map[string]interface{}{}
-	var arg0 string
-	if tmp, ok := rawArgs["IconType"]; ok {
-		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("IconType"))
-		arg0, err = ec.unmarshalNString2string(ctx, tmp)
-		if err != nil {
-			return nil, err
-		}
-	}
-	args["IconType"] = arg0
-	return args, nil
-}
-
-func (ec *executionContext) field_Query_Setting_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
-	var err error
-	args := map[string]interface{}{}
-	var arg0 string
-	if tmp, ok := rawArgs["ID"]; ok {
-		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("ID"))
-		arg0, err = ec.unmarshalNID2string(ctx, tmp)
-		if err != nil {
-			return nil, err
-		}
-	}
-	args["ID"] = arg0
-	return args, nil
-}
-
-func (ec *executionContext) field_Query_Timeline_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
-	var err error
-	args := map[string]interface{}{}
-	var arg0 string
-	if tmp, ok := rawArgs["ID"]; ok {
-		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("ID"))
-		arg0, err = ec.unmarshalNID2string(ctx, tmp)
-		if err != nil {
-			return nil, err
-		}
-	}
-	args["ID"] = arg0
+	args["newTimeline"] = arg1
 	return args, nil
 }
 
@@ -1859,7 +1637,226 @@ func (ec *executionContext) field_Query___type_args(ctx context.Context, rawArgs
 	return args, nil
 }
 
+func (ec *executionContext) field_Query_aboutMe_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+	var err error
+	args := map[string]interface{}{}
+	var arg0 string
+	if tmp, ok := rawArgs["id"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("id"))
+		arg0, err = ec.unmarshalNID2string(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["id"] = arg0
+	return args, nil
+}
+
+func (ec *executionContext) field_Query_badge_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+	var err error
+	args := map[string]interface{}{}
+	var arg0 string
+	if tmp, ok := rawArgs["id"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("id"))
+		arg0, err = ec.unmarshalNID2string(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["id"] = arg0
+	return args, nil
+}
+
+func (ec *executionContext) field_Query_badgesByOwnerAndType_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+	var err error
+	args := map[string]interface{}{}
+	var arg0 int
+	if tmp, ok := rawArgs["ownerID"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("ownerID"))
+		arg0, err = ec.unmarshalNInt2int(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["ownerID"] = arg0
+	var arg1 string
+	if tmp, ok := rawArgs["ownerType"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("ownerType"))
+		arg1, err = ec.unmarshalNString2string(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["ownerType"] = arg1
+	var arg2 string
+	if tmp, ok := rawArgs["iconType"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("iconType"))
+		arg2, err = ec.unmarshalNString2string(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["iconType"] = arg2
+	return args, nil
+}
+
+func (ec *executionContext) field_Query_badgesByOwner_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+	var err error
+	args := map[string]interface{}{}
+	var arg0 int
+	if tmp, ok := rawArgs["ownerID"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("ownerID"))
+		arg0, err = ec.unmarshalNInt2int(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["ownerID"] = arg0
+	var arg1 string
+	if tmp, ok := rawArgs["ownerType"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("ownerType"))
+		arg1, err = ec.unmarshalNString2string(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["ownerType"] = arg1
+	return args, nil
+}
+
+func (ec *executionContext) field_Query_badgesByType_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+	var err error
+	args := map[string]interface{}{}
+	var arg0 string
+	if tmp, ok := rawArgs["iconType"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("iconType"))
+		arg0, err = ec.unmarshalNString2string(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["iconType"] = arg0
+	return args, nil
+}
+
+func (ec *executionContext) field_Query_icon_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+	var err error
+	args := map[string]interface{}{}
+	var arg0 string
+	if tmp, ok := rawArgs["id"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("id"))
+		arg0, err = ec.unmarshalNID2string(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["id"] = arg0
+	return args, nil
+}
+
+func (ec *executionContext) field_Query_iconsByOwnerAndType_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+	var err error
+	args := map[string]interface{}{}
+	var arg0 int
+	if tmp, ok := rawArgs["ownerID"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("ownerID"))
+		arg0, err = ec.unmarshalNInt2int(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["ownerID"] = arg0
+	var arg1 string
+	if tmp, ok := rawArgs["ownerType"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("ownerType"))
+		arg1, err = ec.unmarshalNString2string(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["ownerType"] = arg1
+	var arg2 string
+	if tmp, ok := rawArgs["iconType"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("iconType"))
+		arg2, err = ec.unmarshalNString2string(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["iconType"] = arg2
+	return args, nil
+}
+
+func (ec *executionContext) field_Query_iconsByOwner_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+	var err error
+	args := map[string]interface{}{}
+	var arg0 int
+	if tmp, ok := rawArgs["ownerID"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("ownerID"))
+		arg0, err = ec.unmarshalNInt2int(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["ownerID"] = arg0
+	var arg1 string
+	if tmp, ok := rawArgs["ownerType"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("ownerType"))
+		arg1, err = ec.unmarshalNString2string(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["ownerType"] = arg1
+	return args, nil
+}
+
+func (ec *executionContext) field_Query_iconsByType_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+	var err error
+	args := map[string]interface{}{}
+	var arg0 string
+	if tmp, ok := rawArgs["iconType"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("iconType"))
+		arg0, err = ec.unmarshalNString2string(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["iconType"] = arg0
+	return args, nil
+}
+
 func (ec *executionContext) field_Query_image_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+	var err error
+	args := map[string]interface{}{}
+	var arg0 string
+	if tmp, ok := rawArgs["id"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("id"))
+		arg0, err = ec.unmarshalNID2string(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["id"] = arg0
+	return args, nil
+}
+
+func (ec *executionContext) field_Query_setting_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+	var err error
+	args := map[string]interface{}{}
+	var arg0 string
+	if tmp, ok := rawArgs["id"]; ok {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("id"))
+		arg0, err = ec.unmarshalNID2string(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["id"] = arg0
+	return args, nil
+}
+
+func (ec *executionContext) field_Query_timeline_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
 	var arg0 string
@@ -1912,7 +1909,7 @@ func (ec *executionContext) field___Type_fields_args(ctx context.Context, rawArg
 
 // region    **************************** field.gotpl *****************************
 
-func (ec *executionContext) _AboutMe_ID(ctx context.Context, field graphql.CollectedField, obj *model.AboutMe) (ret graphql.Marshaler) {
+func (ec *executionContext) _AboutMe_id(ctx context.Context, field graphql.CollectedField, obj *model.AboutMe) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -1947,7 +1944,7 @@ func (ec *executionContext) _AboutMe_ID(ctx context.Context, field graphql.Colle
 	return ec.marshalNID2int64(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _AboutMe_Name(ctx context.Context, field graphql.CollectedField, obj *model.AboutMe) (ret graphql.Marshaler) {
+func (ec *executionContext) _AboutMe_name(ctx context.Context, field graphql.CollectedField, obj *model.AboutMe) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -1982,7 +1979,7 @@ func (ec *executionContext) _AboutMe_Name(ctx context.Context, field graphql.Col
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _AboutMe_Description(ctx context.Context, field graphql.CollectedField, obj *model.AboutMe) (ret graphql.Marshaler) {
+func (ec *executionContext) _AboutMe_description(ctx context.Context, field graphql.CollectedField, obj *model.AboutMe) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -2017,7 +2014,7 @@ func (ec *executionContext) _AboutMe_Description(ctx context.Context, field grap
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _AboutMe_Content(ctx context.Context, field graphql.CollectedField, obj *model.AboutMe) (ret graphql.Marshaler) {
+func (ec *executionContext) _AboutMe_content(ctx context.Context, field graphql.CollectedField, obj *model.AboutMe) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -2052,7 +2049,7 @@ func (ec *executionContext) _AboutMe_Content(ctx context.Context, field graphql.
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _AboutMe_ImgUrl(ctx context.Context, field graphql.CollectedField, obj *model.AboutMe) (ret graphql.Marshaler) {
+func (ec *executionContext) _AboutMe_imgUrl(ctx context.Context, field graphql.CollectedField, obj *model.AboutMe) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -2087,7 +2084,7 @@ func (ec *executionContext) _AboutMe_ImgUrl(ctx context.Context, field graphql.C
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _AboutMe_SettingID(ctx context.Context, field graphql.CollectedField, obj *model.AboutMe) (ret graphql.Marshaler) {
+func (ec *executionContext) _AboutMe_settingID(ctx context.Context, field graphql.CollectedField, obj *model.AboutMe) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -2122,7 +2119,7 @@ func (ec *executionContext) _AboutMe_SettingID(ctx context.Context, field graphq
 	return ec.marshalNID2int64(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _AboutMe_CreatedAt(ctx context.Context, field graphql.CollectedField, obj *model.AboutMe) (ret graphql.Marshaler) {
+func (ec *executionContext) _AboutMe_createdAt(ctx context.Context, field graphql.CollectedField, obj *model.AboutMe) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -2157,7 +2154,7 @@ func (ec *executionContext) _AboutMe_CreatedAt(ctx context.Context, field graphq
 	return ec.marshalNTime2timeᚐTime(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _AboutMe_UpdatedAt(ctx context.Context, field graphql.CollectedField, obj *model.AboutMe) (ret graphql.Marshaler) {
+func (ec *executionContext) _AboutMe_updatedAt(ctx context.Context, field graphql.CollectedField, obj *model.AboutMe) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -2192,7 +2189,7 @@ func (ec *executionContext) _AboutMe_UpdatedAt(ctx context.Context, field graphq
 	return ec.marshalNTime2timeᚐTime(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _AboutMe_DeletedAt(ctx context.Context, field graphql.CollectedField, obj *model.AboutMe) (ret graphql.Marshaler) {
+func (ec *executionContext) _AboutMe_deletedAt(ctx context.Context, field graphql.CollectedField, obj *model.AboutMe) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -2227,7 +2224,7 @@ func (ec *executionContext) _AboutMe_DeletedAt(ctx context.Context, field graphq
 	return ec.marshalNTime2ᚖtimeᚐTime(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Badge_ID(ctx context.Context, field graphql.CollectedField, obj *model.Badge) (ret graphql.Marshaler) {
+func (ec *executionContext) _Badge_id(ctx context.Context, field graphql.CollectedField, obj *model.Badge) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -2262,7 +2259,7 @@ func (ec *executionContext) _Badge_ID(ctx context.Context, field graphql.Collect
 	return ec.marshalNID2int64(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Badge_Name(ctx context.Context, field graphql.CollectedField, obj *model.Badge) (ret graphql.Marshaler) {
+func (ec *executionContext) _Badge_name(ctx context.Context, field graphql.CollectedField, obj *model.Badge) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -2297,7 +2294,7 @@ func (ec *executionContext) _Badge_Name(ctx context.Context, field graphql.Colle
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Badge_Color(ctx context.Context, field graphql.CollectedField, obj *model.Badge) (ret graphql.Marshaler) {
+func (ec *executionContext) _Badge_color(ctx context.Context, field graphql.CollectedField, obj *model.Badge) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -2332,7 +2329,7 @@ func (ec *executionContext) _Badge_Color(ctx context.Context, field graphql.Coll
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Badge_Icon(ctx context.Context, field graphql.CollectedField, obj *model.Badge) (ret graphql.Marshaler) {
+func (ec *executionContext) _Badge_icon(ctx context.Context, field graphql.CollectedField, obj *model.Badge) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -2343,14 +2340,14 @@ func (ec *executionContext) _Badge_Icon(ctx context.Context, field graphql.Colle
 		Object:     "Badge",
 		Field:      field,
 		Args:       nil,
-		IsMethod:   true,
-		IsResolver: true,
+		IsMethod:   false,
+		IsResolver: false,
 	}
 
 	ctx = graphql.WithFieldContext(ctx, fc)
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Badge().Icon(rctx, obj)
+		return obj.Icon, nil
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -2362,12 +2359,12 @@ func (ec *executionContext) _Badge_Icon(ctx context.Context, field graphql.Colle
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*model.Icon)
+	res := resTmp.(model.Icon)
 	fc.Result = res
-	return ec.marshalNIcon2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐIcon(ctx, field.Selections, res)
+	return ec.marshalNIcon2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐIcon(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Badge_OwnerID(ctx context.Context, field graphql.CollectedField, obj *model.Badge) (ret graphql.Marshaler) {
+func (ec *executionContext) _Badge_ownerID(ctx context.Context, field graphql.CollectedField, obj *model.Badge) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -2399,7 +2396,7 @@ func (ec *executionContext) _Badge_OwnerID(ctx context.Context, field graphql.Co
 	return ec.marshalOInt2int(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Badge_OwnerType(ctx context.Context, field graphql.CollectedField, obj *model.Badge) (ret graphql.Marshaler) {
+func (ec *executionContext) _Badge_ownerType(ctx context.Context, field graphql.CollectedField, obj *model.Badge) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -2431,7 +2428,7 @@ func (ec *executionContext) _Badge_OwnerType(ctx context.Context, field graphql.
 	return ec.marshalOString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Badge_CreatedAt(ctx context.Context, field graphql.CollectedField, obj *model.Badge) (ret graphql.Marshaler) {
+func (ec *executionContext) _Badge_createdAt(ctx context.Context, field graphql.CollectedField, obj *model.Badge) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -2466,7 +2463,7 @@ func (ec *executionContext) _Badge_CreatedAt(ctx context.Context, field graphql.
 	return ec.marshalNTime2timeᚐTime(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Badge_UpdatedAt(ctx context.Context, field graphql.CollectedField, obj *model.Badge) (ret graphql.Marshaler) {
+func (ec *executionContext) _Badge_updatedAt(ctx context.Context, field graphql.CollectedField, obj *model.Badge) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -2501,7 +2498,7 @@ func (ec *executionContext) _Badge_UpdatedAt(ctx context.Context, field graphql.
 	return ec.marshalNTime2timeᚐTime(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Badge_DeletedAt(ctx context.Context, field graphql.CollectedField, obj *model.Badge) (ret graphql.Marshaler) {
+func (ec *executionContext) _Badge_deletedAt(ctx context.Context, field graphql.CollectedField, obj *model.Badge) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -2536,7 +2533,7 @@ func (ec *executionContext) _Badge_DeletedAt(ctx context.Context, field graphql.
 	return ec.marshalNTime2ᚖtimeᚐTime(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Icon_ID(ctx context.Context, field graphql.CollectedField, obj *model.Icon) (ret graphql.Marshaler) {
+func (ec *executionContext) _Icon_id(ctx context.Context, field graphql.CollectedField, obj *model.Icon) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -2571,7 +2568,7 @@ func (ec *executionContext) _Icon_ID(ctx context.Context, field graphql.Collecte
 	return ec.marshalNID2int64(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Icon_Name(ctx context.Context, field graphql.CollectedField, obj *model.Icon) (ret graphql.Marshaler) {
+func (ec *executionContext) _Icon_name(ctx context.Context, field graphql.CollectedField, obj *model.Icon) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -2606,7 +2603,7 @@ func (ec *executionContext) _Icon_Name(ctx context.Context, field graphql.Collec
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Icon_BgColor(ctx context.Context, field graphql.CollectedField, obj *model.Icon) (ret graphql.Marshaler) {
+func (ec *executionContext) _Icon_bgColor(ctx context.Context, field graphql.CollectedField, obj *model.Icon) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -2641,7 +2638,7 @@ func (ec *executionContext) _Icon_BgColor(ctx context.Context, field graphql.Col
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Icon_IconType(ctx context.Context, field graphql.CollectedField, obj *model.Icon) (ret graphql.Marshaler) {
+func (ec *executionContext) _Icon_iconType(ctx context.Context, field graphql.CollectedField, obj *model.Icon) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -2676,7 +2673,7 @@ func (ec *executionContext) _Icon_IconType(ctx context.Context, field graphql.Co
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Icon_OwnerID(ctx context.Context, field graphql.CollectedField, obj *model.Icon) (ret graphql.Marshaler) {
+func (ec *executionContext) _Icon_ownerID(ctx context.Context, field graphql.CollectedField, obj *model.Icon) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -2711,7 +2708,7 @@ func (ec *executionContext) _Icon_OwnerID(ctx context.Context, field graphql.Col
 	return ec.marshalNInt2int(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Icon_OwnerType(ctx context.Context, field graphql.CollectedField, obj *model.Icon) (ret graphql.Marshaler) {
+func (ec *executionContext) _Icon_ownerType(ctx context.Context, field graphql.CollectedField, obj *model.Icon) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -2746,7 +2743,7 @@ func (ec *executionContext) _Icon_OwnerType(ctx context.Context, field graphql.C
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Icon_CreatedAt(ctx context.Context, field graphql.CollectedField, obj *model.Icon) (ret graphql.Marshaler) {
+func (ec *executionContext) _Icon_createdAt(ctx context.Context, field graphql.CollectedField, obj *model.Icon) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -2781,7 +2778,7 @@ func (ec *executionContext) _Icon_CreatedAt(ctx context.Context, field graphql.C
 	return ec.marshalNTime2timeᚐTime(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Icon_UpdatedAt(ctx context.Context, field graphql.CollectedField, obj *model.Icon) (ret graphql.Marshaler) {
+func (ec *executionContext) _Icon_updatedAt(ctx context.Context, field graphql.CollectedField, obj *model.Icon) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -2816,7 +2813,7 @@ func (ec *executionContext) _Icon_UpdatedAt(ctx context.Context, field graphql.C
 	return ec.marshalNTime2timeᚐTime(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Icon_DeletedAt(ctx context.Context, field graphql.CollectedField, obj *model.Icon) (ret graphql.Marshaler) {
+func (ec *executionContext) _Icon_deletedAt(ctx context.Context, field graphql.CollectedField, obj *model.Icon) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -3166,7 +3163,7 @@ func (ec *executionContext) _Image_deletedDate(ctx context.Context, field graphq
 	return ec.marshalNTime2ᚖtimeᚐTime(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Mutation_CreateIcon(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+func (ec *executionContext) _Mutation_createIcon(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -3183,7 +3180,7 @@ func (ec *executionContext) _Mutation_CreateIcon(ctx context.Context, field grap
 
 	ctx = graphql.WithFieldContext(ctx, fc)
 	rawArgs := field.ArgumentMap(ec.Variables)
-	args, err := ec.field_Mutation_CreateIcon_args(ctx, rawArgs)
+	args, err := ec.field_Mutation_createIcon_args(ctx, rawArgs)
 	if err != nil {
 		ec.Error(ctx, err)
 		return graphql.Null
@@ -3205,7 +3202,7 @@ func (ec *executionContext) _Mutation_CreateIcon(ctx context.Context, field grap
 	return ec.marshalOIcon2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐIcon(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Mutation_UpdateIcon(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+func (ec *executionContext) _Mutation_updateIcon(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -3222,7 +3219,7 @@ func (ec *executionContext) _Mutation_UpdateIcon(ctx context.Context, field grap
 
 	ctx = graphql.WithFieldContext(ctx, fc)
 	rawArgs := field.ArgumentMap(ec.Variables)
-	args, err := ec.field_Mutation_UpdateIcon_args(ctx, rawArgs)
+	args, err := ec.field_Mutation_updateIcon_args(ctx, rawArgs)
 	if err != nil {
 		ec.Error(ctx, err)
 		return graphql.Null
@@ -3230,7 +3227,7 @@ func (ec *executionContext) _Mutation_UpdateIcon(ctx context.Context, field grap
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().UpdateIcon(rctx, args["ID"].(string), args["newIcon"].(model.NewIcon))
+		return ec.resolvers.Mutation().UpdateIcon(rctx, args["id"].(string), args["newIcon"].(model.NewIcon))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -3244,7 +3241,7 @@ func (ec *executionContext) _Mutation_UpdateIcon(ctx context.Context, field grap
 	return ec.marshalOIcon2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐIcon(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Mutation_DeleteIcon(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+func (ec *executionContext) _Mutation_deleteIcon(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -3261,7 +3258,7 @@ func (ec *executionContext) _Mutation_DeleteIcon(ctx context.Context, field grap
 
 	ctx = graphql.WithFieldContext(ctx, fc)
 	rawArgs := field.ArgumentMap(ec.Variables)
-	args, err := ec.field_Mutation_DeleteIcon_args(ctx, rawArgs)
+	args, err := ec.field_Mutation_deleteIcon_args(ctx, rawArgs)
 	if err != nil {
 		ec.Error(ctx, err)
 		return graphql.Null
@@ -3269,7 +3266,7 @@ func (ec *executionContext) _Mutation_DeleteIcon(ctx context.Context, field grap
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().DeleteIcon(rctx, args["ID"].(string))
+		return ec.resolvers.Mutation().DeleteIcon(rctx, args["id"].(string))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -3283,7 +3280,7 @@ func (ec *executionContext) _Mutation_DeleteIcon(ctx context.Context, field grap
 	return ec.marshalOIcon2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐIcon(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Mutation_CreateBadge(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+func (ec *executionContext) _Mutation_createBadge(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -3300,7 +3297,7 @@ func (ec *executionContext) _Mutation_CreateBadge(ctx context.Context, field gra
 
 	ctx = graphql.WithFieldContext(ctx, fc)
 	rawArgs := field.ArgumentMap(ec.Variables)
-	args, err := ec.field_Mutation_CreateBadge_args(ctx, rawArgs)
+	args, err := ec.field_Mutation_createBadge_args(ctx, rawArgs)
 	if err != nil {
 		ec.Error(ctx, err)
 		return graphql.Null
@@ -3322,7 +3319,7 @@ func (ec *executionContext) _Mutation_CreateBadge(ctx context.Context, field gra
 	return ec.marshalOBadge2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐBadge(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Mutation_UpdateBadge(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+func (ec *executionContext) _Mutation_updateBadge(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -3339,7 +3336,7 @@ func (ec *executionContext) _Mutation_UpdateBadge(ctx context.Context, field gra
 
 	ctx = graphql.WithFieldContext(ctx, fc)
 	rawArgs := field.ArgumentMap(ec.Variables)
-	args, err := ec.field_Mutation_UpdateBadge_args(ctx, rawArgs)
+	args, err := ec.field_Mutation_updateBadge_args(ctx, rawArgs)
 	if err != nil {
 		ec.Error(ctx, err)
 		return graphql.Null
@@ -3347,7 +3344,7 @@ func (ec *executionContext) _Mutation_UpdateBadge(ctx context.Context, field gra
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().UpdateBadge(rctx, args["ID"].(string), args["newBadge"].(*model.NewBadge))
+		return ec.resolvers.Mutation().UpdateBadge(rctx, args["id"].(string), args["newBadge"].(*model.NewBadge))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -3361,7 +3358,7 @@ func (ec *executionContext) _Mutation_UpdateBadge(ctx context.Context, field gra
 	return ec.marshalOBadge2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐBadge(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Mutation_DeleteBadge(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+func (ec *executionContext) _Mutation_deleteBadge(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -3378,7 +3375,7 @@ func (ec *executionContext) _Mutation_DeleteBadge(ctx context.Context, field gra
 
 	ctx = graphql.WithFieldContext(ctx, fc)
 	rawArgs := field.ArgumentMap(ec.Variables)
-	args, err := ec.field_Mutation_DeleteBadge_args(ctx, rawArgs)
+	args, err := ec.field_Mutation_deleteBadge_args(ctx, rawArgs)
 	if err != nil {
 		ec.Error(ctx, err)
 		return graphql.Null
@@ -3386,7 +3383,7 @@ func (ec *executionContext) _Mutation_DeleteBadge(ctx context.Context, field gra
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().DeleteBadge(rctx, args["ID"].(string))
+		return ec.resolvers.Mutation().DeleteBadge(rctx, args["id"].(string))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -3517,7 +3514,7 @@ func (ec *executionContext) _Mutation_deleteImage(ctx context.Context, field gra
 	return ec.marshalOImage2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐImage(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Mutation_CreateSetting(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+func (ec *executionContext) _Mutation_createSetting(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -3534,7 +3531,7 @@ func (ec *executionContext) _Mutation_CreateSetting(ctx context.Context, field g
 
 	ctx = graphql.WithFieldContext(ctx, fc)
 	rawArgs := field.ArgumentMap(ec.Variables)
-	args, err := ec.field_Mutation_CreateSetting_args(ctx, rawArgs)
+	args, err := ec.field_Mutation_createSetting_args(ctx, rawArgs)
 	if err != nil {
 		ec.Error(ctx, err)
 		return graphql.Null
@@ -3559,7 +3556,7 @@ func (ec *executionContext) _Mutation_CreateSetting(ctx context.Context, field g
 	return ec.marshalNSetting2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐSetting(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Mutation_UpdateSetting(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+func (ec *executionContext) _Mutation_updateSetting(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -3576,7 +3573,7 @@ func (ec *executionContext) _Mutation_UpdateSetting(ctx context.Context, field g
 
 	ctx = graphql.WithFieldContext(ctx, fc)
 	rawArgs := field.ArgumentMap(ec.Variables)
-	args, err := ec.field_Mutation_UpdateSetting_args(ctx, rawArgs)
+	args, err := ec.field_Mutation_updateSetting_args(ctx, rawArgs)
 	if err != nil {
 		ec.Error(ctx, err)
 		return graphql.Null
@@ -3584,7 +3581,7 @@ func (ec *executionContext) _Mutation_UpdateSetting(ctx context.Context, field g
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().UpdateSetting(rctx, args["ID"].(string), args["newSetting"].(model.NewSetting))
+		return ec.resolvers.Mutation().UpdateSetting(rctx, args["id"].(string), args["newSetting"].(model.NewSetting))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -3601,7 +3598,7 @@ func (ec *executionContext) _Mutation_UpdateSetting(ctx context.Context, field g
 	return ec.marshalNSetting2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐSetting(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Mutation_DeleteSetting(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+func (ec *executionContext) _Mutation_deleteSetting(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -3618,7 +3615,7 @@ func (ec *executionContext) _Mutation_DeleteSetting(ctx context.Context, field g
 
 	ctx = graphql.WithFieldContext(ctx, fc)
 	rawArgs := field.ArgumentMap(ec.Variables)
-	args, err := ec.field_Mutation_DeleteSetting_args(ctx, rawArgs)
+	args, err := ec.field_Mutation_deleteSetting_args(ctx, rawArgs)
 	if err != nil {
 		ec.Error(ctx, err)
 		return graphql.Null
@@ -3626,7 +3623,7 @@ func (ec *executionContext) _Mutation_DeleteSetting(ctx context.Context, field g
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().DeleteSetting(rctx, args["ID"].(string))
+		return ec.resolvers.Mutation().DeleteSetting(rctx, args["id"].(string))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -3643,7 +3640,7 @@ func (ec *executionContext) _Mutation_DeleteSetting(ctx context.Context, field g
 	return ec.marshalNSetting2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐSetting(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Mutation_CreateAboutMe(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+func (ec *executionContext) _Mutation_createAboutMe(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -3660,7 +3657,7 @@ func (ec *executionContext) _Mutation_CreateAboutMe(ctx context.Context, field g
 
 	ctx = graphql.WithFieldContext(ctx, fc)
 	rawArgs := field.ArgumentMap(ec.Variables)
-	args, err := ec.field_Mutation_CreateAboutMe_args(ctx, rawArgs)
+	args, err := ec.field_Mutation_createAboutMe_args(ctx, rawArgs)
 	if err != nil {
 		ec.Error(ctx, err)
 		return graphql.Null
@@ -3685,7 +3682,7 @@ func (ec *executionContext) _Mutation_CreateAboutMe(ctx context.Context, field g
 	return ec.marshalNAboutMe2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐAboutMe(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Mutation_UpdateAboutMe(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+func (ec *executionContext) _Mutation_updateAboutMe(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -3702,7 +3699,7 @@ func (ec *executionContext) _Mutation_UpdateAboutMe(ctx context.Context, field g
 
 	ctx = graphql.WithFieldContext(ctx, fc)
 	rawArgs := field.ArgumentMap(ec.Variables)
-	args, err := ec.field_Mutation_UpdateAboutMe_args(ctx, rawArgs)
+	args, err := ec.field_Mutation_updateAboutMe_args(ctx, rawArgs)
 	if err != nil {
 		ec.Error(ctx, err)
 		return graphql.Null
@@ -3710,7 +3707,7 @@ func (ec *executionContext) _Mutation_UpdateAboutMe(ctx context.Context, field g
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().UpdateAboutMe(rctx, args["ID"].(string), args["newAboutMe"].(*model.NewAboutMe))
+		return ec.resolvers.Mutation().UpdateAboutMe(rctx, args["id"].(string), args["newAboutMe"].(*model.NewAboutMe))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -3727,7 +3724,7 @@ func (ec *executionContext) _Mutation_UpdateAboutMe(ctx context.Context, field g
 	return ec.marshalNAboutMe2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐAboutMe(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Mutation_DeleteAboutMe(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+func (ec *executionContext) _Mutation_deleteAboutMe(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -3744,7 +3741,7 @@ func (ec *executionContext) _Mutation_DeleteAboutMe(ctx context.Context, field g
 
 	ctx = graphql.WithFieldContext(ctx, fc)
 	rawArgs := field.ArgumentMap(ec.Variables)
-	args, err := ec.field_Mutation_DeleteAboutMe_args(ctx, rawArgs)
+	args, err := ec.field_Mutation_deleteAboutMe_args(ctx, rawArgs)
 	if err != nil {
 		ec.Error(ctx, err)
 		return graphql.Null
@@ -3752,7 +3749,7 @@ func (ec *executionContext) _Mutation_DeleteAboutMe(ctx context.Context, field g
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().DeleteAboutMe(rctx, args["ID"].(string))
+		return ec.resolvers.Mutation().DeleteAboutMe(rctx, args["id"].(string))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -3769,7 +3766,7 @@ func (ec *executionContext) _Mutation_DeleteAboutMe(ctx context.Context, field g
 	return ec.marshalNAboutMe2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐAboutMe(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Mutation_CreateTimeline(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+func (ec *executionContext) _Mutation_createTimeline(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -3786,7 +3783,7 @@ func (ec *executionContext) _Mutation_CreateTimeline(ctx context.Context, field 
 
 	ctx = graphql.WithFieldContext(ctx, fc)
 	rawArgs := field.ArgumentMap(ec.Variables)
-	args, err := ec.field_Mutation_CreateTimeline_args(ctx, rawArgs)
+	args, err := ec.field_Mutation_createTimeline_args(ctx, rawArgs)
 	if err != nil {
 		ec.Error(ctx, err)
 		return graphql.Null
@@ -3811,7 +3808,7 @@ func (ec *executionContext) _Mutation_CreateTimeline(ctx context.Context, field 
 	return ec.marshalNTimeline2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐTimeline(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Mutation_UpdateTimeline(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+func (ec *executionContext) _Mutation_updateTimeline(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -3828,7 +3825,7 @@ func (ec *executionContext) _Mutation_UpdateTimeline(ctx context.Context, field 
 
 	ctx = graphql.WithFieldContext(ctx, fc)
 	rawArgs := field.ArgumentMap(ec.Variables)
-	args, err := ec.field_Mutation_UpdateTimeline_args(ctx, rawArgs)
+	args, err := ec.field_Mutation_updateTimeline_args(ctx, rawArgs)
 	if err != nil {
 		ec.Error(ctx, err)
 		return graphql.Null
@@ -3836,7 +3833,7 @@ func (ec *executionContext) _Mutation_UpdateTimeline(ctx context.Context, field 
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().UpdateTimeline(rctx, args["ID"].(string), args["newTimeline"].(*model.NewTimeline))
+		return ec.resolvers.Mutation().UpdateTimeline(rctx, args["id"].(string), args["newTimeline"].(*model.NewTimeline))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -3853,7 +3850,7 @@ func (ec *executionContext) _Mutation_UpdateTimeline(ctx context.Context, field 
 	return ec.marshalNTimeline2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐTimeline(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Mutation_DeleteTimeline(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+func (ec *executionContext) _Mutation_deleteTimeline(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -3870,7 +3867,7 @@ func (ec *executionContext) _Mutation_DeleteTimeline(ctx context.Context, field 
 
 	ctx = graphql.WithFieldContext(ctx, fc)
 	rawArgs := field.ArgumentMap(ec.Variables)
-	args, err := ec.field_Mutation_DeleteTimeline_args(ctx, rawArgs)
+	args, err := ec.field_Mutation_deleteTimeline_args(ctx, rawArgs)
 	if err != nil {
 		ec.Error(ctx, err)
 		return graphql.Null
@@ -3878,7 +3875,7 @@ func (ec *executionContext) _Mutation_DeleteTimeline(ctx context.Context, field 
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().DeleteTimeline(rctx, args["ID"].(string))
+		return ec.resolvers.Mutation().DeleteTimeline(rctx, args["id"].(string))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -3895,7 +3892,7 @@ func (ec *executionContext) _Mutation_DeleteTimeline(ctx context.Context, field 
 	return ec.marshalNTimeline2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐTimeline(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Query_Icons(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+func (ec *executionContext) _Query_icons(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -3930,7 +3927,7 @@ func (ec *executionContext) _Query_Icons(ctx context.Context, field graphql.Coll
 	return ec.marshalNIcon2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐIcon(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Query_Icon(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+func (ec *executionContext) _Query_icon(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -3947,7 +3944,7 @@ func (ec *executionContext) _Query_Icon(ctx context.Context, field graphql.Colle
 
 	ctx = graphql.WithFieldContext(ctx, fc)
 	rawArgs := field.ArgumentMap(ec.Variables)
-	args, err := ec.field_Query_Icon_args(ctx, rawArgs)
+	args, err := ec.field_Query_icon_args(ctx, rawArgs)
 	if err != nil {
 		ec.Error(ctx, err)
 		return graphql.Null
@@ -3955,7 +3952,7 @@ func (ec *executionContext) _Query_Icon(ctx context.Context, field graphql.Colle
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Query().Icon(rctx, args["ID"].(string))
+		return ec.resolvers.Query().Icon(rctx, args["id"].(string))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -3969,7 +3966,7 @@ func (ec *executionContext) _Query_Icon(ctx context.Context, field graphql.Colle
 	return ec.marshalOIcon2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐIcon(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Query_IconsByOwner(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+func (ec *executionContext) _Query_iconsByOwner(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -3986,7 +3983,7 @@ func (ec *executionContext) _Query_IconsByOwner(ctx context.Context, field graph
 
 	ctx = graphql.WithFieldContext(ctx, fc)
 	rawArgs := field.ArgumentMap(ec.Variables)
-	args, err := ec.field_Query_IconsByOwner_args(ctx, rawArgs)
+	args, err := ec.field_Query_iconsByOwner_args(ctx, rawArgs)
 	if err != nil {
 		ec.Error(ctx, err)
 		return graphql.Null
@@ -3994,7 +3991,7 @@ func (ec *executionContext) _Query_IconsByOwner(ctx context.Context, field graph
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Query().IconsByOwner(rctx, args["OwnerID"].(int), args["OwnerType"].(string))
+		return ec.resolvers.Query().IconsByOwner(rctx, args["ownerID"].(int), args["ownerType"].(string))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -4008,7 +4005,7 @@ func (ec *executionContext) _Query_IconsByOwner(ctx context.Context, field graph
 	return ec.marshalOIcon2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐIcon(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Query_IconsByOwnerAndType(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+func (ec *executionContext) _Query_iconsByOwnerAndType(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -4025,7 +4022,7 @@ func (ec *executionContext) _Query_IconsByOwnerAndType(ctx context.Context, fiel
 
 	ctx = graphql.WithFieldContext(ctx, fc)
 	rawArgs := field.ArgumentMap(ec.Variables)
-	args, err := ec.field_Query_IconsByOwnerAndType_args(ctx, rawArgs)
+	args, err := ec.field_Query_iconsByOwnerAndType_args(ctx, rawArgs)
 	if err != nil {
 		ec.Error(ctx, err)
 		return graphql.Null
@@ -4033,7 +4030,7 @@ func (ec *executionContext) _Query_IconsByOwnerAndType(ctx context.Context, fiel
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Query().IconsByOwnerAndType(rctx, args["OwnerID"].(int), args["OwnerType"].(string), args["IconType"].(string))
+		return ec.resolvers.Query().IconsByOwnerAndType(rctx, args["ownerID"].(int), args["ownerType"].(string), args["iconType"].(string))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -4047,7 +4044,7 @@ func (ec *executionContext) _Query_IconsByOwnerAndType(ctx context.Context, fiel
 	return ec.marshalOIcon2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐIcon(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Query_IconsByType(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+func (ec *executionContext) _Query_iconsByType(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -4064,7 +4061,7 @@ func (ec *executionContext) _Query_IconsByType(ctx context.Context, field graphq
 
 	ctx = graphql.WithFieldContext(ctx, fc)
 	rawArgs := field.ArgumentMap(ec.Variables)
-	args, err := ec.field_Query_IconsByType_args(ctx, rawArgs)
+	args, err := ec.field_Query_iconsByType_args(ctx, rawArgs)
 	if err != nil {
 		ec.Error(ctx, err)
 		return graphql.Null
@@ -4072,7 +4069,7 @@ func (ec *executionContext) _Query_IconsByType(ctx context.Context, field graphq
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Query().IconsByType(rctx, args["IconType"].(string))
+		return ec.resolvers.Query().IconsByType(rctx, args["iconType"].(string))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -4086,7 +4083,7 @@ func (ec *executionContext) _Query_IconsByType(ctx context.Context, field graphq
 	return ec.marshalOIcon2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐIcon(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Query_Badges(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+func (ec *executionContext) _Query_badges(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -4121,7 +4118,7 @@ func (ec *executionContext) _Query_Badges(ctx context.Context, field graphql.Col
 	return ec.marshalNBadge2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐBadge(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Query_Badge(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+func (ec *executionContext) _Query_badge(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -4138,7 +4135,7 @@ func (ec *executionContext) _Query_Badge(ctx context.Context, field graphql.Coll
 
 	ctx = graphql.WithFieldContext(ctx, fc)
 	rawArgs := field.ArgumentMap(ec.Variables)
-	args, err := ec.field_Query_Badge_args(ctx, rawArgs)
+	args, err := ec.field_Query_badge_args(ctx, rawArgs)
 	if err != nil {
 		ec.Error(ctx, err)
 		return graphql.Null
@@ -4146,7 +4143,7 @@ func (ec *executionContext) _Query_Badge(ctx context.Context, field graphql.Coll
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Query().Badge(rctx, args["ID"].(string))
+		return ec.resolvers.Query().Badge(rctx, args["id"].(string))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -4160,7 +4157,7 @@ func (ec *executionContext) _Query_Badge(ctx context.Context, field graphql.Coll
 	return ec.marshalOBadge2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐBadge(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Query_BadgesByOwner(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+func (ec *executionContext) _Query_badgesByOwner(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -4177,7 +4174,7 @@ func (ec *executionContext) _Query_BadgesByOwner(ctx context.Context, field grap
 
 	ctx = graphql.WithFieldContext(ctx, fc)
 	rawArgs := field.ArgumentMap(ec.Variables)
-	args, err := ec.field_Query_BadgesByOwner_args(ctx, rawArgs)
+	args, err := ec.field_Query_badgesByOwner_args(ctx, rawArgs)
 	if err != nil {
 		ec.Error(ctx, err)
 		return graphql.Null
@@ -4185,7 +4182,7 @@ func (ec *executionContext) _Query_BadgesByOwner(ctx context.Context, field grap
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Query().BadgesByOwner(rctx, args["OwnerID"].(int), args["OwnerType"].(string))
+		return ec.resolvers.Query().BadgesByOwner(rctx, args["ownerID"].(int), args["ownerType"].(string))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -4199,7 +4196,7 @@ func (ec *executionContext) _Query_BadgesByOwner(ctx context.Context, field grap
 	return ec.marshalOBadge2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐBadge(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Query_BadgesByOwnerAndType(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+func (ec *executionContext) _Query_badgesByOwnerAndType(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -4216,7 +4213,7 @@ func (ec *executionContext) _Query_BadgesByOwnerAndType(ctx context.Context, fie
 
 	ctx = graphql.WithFieldContext(ctx, fc)
 	rawArgs := field.ArgumentMap(ec.Variables)
-	args, err := ec.field_Query_BadgesByOwnerAndType_args(ctx, rawArgs)
+	args, err := ec.field_Query_badgesByOwnerAndType_args(ctx, rawArgs)
 	if err != nil {
 		ec.Error(ctx, err)
 		return graphql.Null
@@ -4224,7 +4221,7 @@ func (ec *executionContext) _Query_BadgesByOwnerAndType(ctx context.Context, fie
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Query().BadgesByOwnerAndType(rctx, args["OwnerID"].(int), args["OwnerType"].(string), args["IconType"].(string))
+		return ec.resolvers.Query().BadgesByOwnerAndType(rctx, args["ownerID"].(int), args["ownerType"].(string), args["iconType"].(string))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -4238,7 +4235,7 @@ func (ec *executionContext) _Query_BadgesByOwnerAndType(ctx context.Context, fie
 	return ec.marshalOBadge2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐBadge(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Query_BadgesByType(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+func (ec *executionContext) _Query_badgesByType(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -4255,7 +4252,7 @@ func (ec *executionContext) _Query_BadgesByType(ctx context.Context, field graph
 
 	ctx = graphql.WithFieldContext(ctx, fc)
 	rawArgs := field.ArgumentMap(ec.Variables)
-	args, err := ec.field_Query_BadgesByType_args(ctx, rawArgs)
+	args, err := ec.field_Query_badgesByType_args(ctx, rawArgs)
 	if err != nil {
 		ec.Error(ctx, err)
 		return graphql.Null
@@ -4263,7 +4260,7 @@ func (ec *executionContext) _Query_BadgesByType(ctx context.Context, field graph
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Query().BadgesByType(rctx, args["IconType"].(string))
+		return ec.resolvers.Query().BadgesByType(rctx, args["iconType"].(string))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -4351,7 +4348,7 @@ func (ec *executionContext) _Query_image(ctx context.Context, field graphql.Coll
 	return ec.marshalOImage2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐImage(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Query_Settings(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+func (ec *executionContext) _Query_settings(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -4386,7 +4383,7 @@ func (ec *executionContext) _Query_Settings(ctx context.Context, field graphql.C
 	return ec.marshalNSetting2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐSetting(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Query_Setting(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+func (ec *executionContext) _Query_setting(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -4403,7 +4400,7 @@ func (ec *executionContext) _Query_Setting(ctx context.Context, field graphql.Co
 
 	ctx = graphql.WithFieldContext(ctx, fc)
 	rawArgs := field.ArgumentMap(ec.Variables)
-	args, err := ec.field_Query_Setting_args(ctx, rawArgs)
+	args, err := ec.field_Query_setting_args(ctx, rawArgs)
 	if err != nil {
 		ec.Error(ctx, err)
 		return graphql.Null
@@ -4411,7 +4408,7 @@ func (ec *executionContext) _Query_Setting(ctx context.Context, field graphql.Co
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Query().Setting(rctx, args["ID"].(string))
+		return ec.resolvers.Query().Setting(rctx, args["id"].(string))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -4425,7 +4422,7 @@ func (ec *executionContext) _Query_Setting(ctx context.Context, field graphql.Co
 	return ec.marshalOSetting2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐSetting(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Query_AboutMes(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+func (ec *executionContext) _Query_aboutMes(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -4460,7 +4457,7 @@ func (ec *executionContext) _Query_AboutMes(ctx context.Context, field graphql.C
 	return ec.marshalNAboutMe2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐAboutMe(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Query_AboutMe(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+func (ec *executionContext) _Query_aboutMe(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -4477,7 +4474,7 @@ func (ec *executionContext) _Query_AboutMe(ctx context.Context, field graphql.Co
 
 	ctx = graphql.WithFieldContext(ctx, fc)
 	rawArgs := field.ArgumentMap(ec.Variables)
-	args, err := ec.field_Query_AboutMe_args(ctx, rawArgs)
+	args, err := ec.field_Query_aboutMe_args(ctx, rawArgs)
 	if err != nil {
 		ec.Error(ctx, err)
 		return graphql.Null
@@ -4485,7 +4482,7 @@ func (ec *executionContext) _Query_AboutMe(ctx context.Context, field graphql.Co
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Query().AboutMe(rctx, args["ID"].(string))
+		return ec.resolvers.Query().AboutMe(rctx, args["id"].(string))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -4499,7 +4496,7 @@ func (ec *executionContext) _Query_AboutMe(ctx context.Context, field graphql.Co
 	return ec.marshalOAboutMe2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐAboutMe(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Query_Timelines(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+func (ec *executionContext) _Query_timelines(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -4534,7 +4531,7 @@ func (ec *executionContext) _Query_Timelines(ctx context.Context, field graphql.
 	return ec.marshalNTimeline2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐTimeline(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Query_Timeline(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+func (ec *executionContext) _Query_timeline(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -4551,7 +4548,7 @@ func (ec *executionContext) _Query_Timeline(ctx context.Context, field graphql.C
 
 	ctx = graphql.WithFieldContext(ctx, fc)
 	rawArgs := field.ArgumentMap(ec.Variables)
-	args, err := ec.field_Query_Timeline_args(ctx, rawArgs)
+	args, err := ec.field_Query_timeline_args(ctx, rawArgs)
 	if err != nil {
 		ec.Error(ctx, err)
 		return graphql.Null
@@ -4559,7 +4556,7 @@ func (ec *executionContext) _Query_Timeline(ctx context.Context, field graphql.C
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Query().Timeline(rctx, args["ID"].(string))
+		return ec.resolvers.Query().Timeline(rctx, args["id"].(string))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -4644,7 +4641,7 @@ func (ec *executionContext) _Query___schema(ctx context.Context, field graphql.C
 	return ec.marshalO__Schema2ᚖgithubᚗcomᚋ99designsᚋgqlgenᚋgraphqlᚋintrospectionᚐSchema(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Setting_ID(ctx context.Context, field graphql.CollectedField, obj *model.Setting) (ret graphql.Marshaler) {
+func (ec *executionContext) _Setting_id(ctx context.Context, field graphql.CollectedField, obj *model.Setting) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -4679,7 +4676,7 @@ func (ec *executionContext) _Setting_ID(ctx context.Context, field graphql.Colle
 	return ec.marshalNID2int64(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Setting_AboutMe(ctx context.Context, field graphql.CollectedField, obj *model.Setting) (ret graphql.Marshaler) {
+func (ec *executionContext) _Setting_aboutMe(ctx context.Context, field graphql.CollectedField, obj *model.Setting) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -4690,14 +4687,14 @@ func (ec *executionContext) _Setting_AboutMe(ctx context.Context, field graphql.
 		Object:     "Setting",
 		Field:      field,
 		Args:       nil,
-		IsMethod:   true,
-		IsResolver: true,
+		IsMethod:   false,
+		IsResolver: false,
 	}
 
 	ctx = graphql.WithFieldContext(ctx, fc)
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Setting().AboutMe(rctx, obj)
+		return obj.AboutMe, nil
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -4709,12 +4706,12 @@ func (ec *executionContext) _Setting_AboutMe(ctx context.Context, field graphql.
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*model.AboutMe)
+	res := resTmp.(model.AboutMe)
 	fc.Result = res
-	return ec.marshalNAboutMe2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐAboutMe(ctx, field.Selections, res)
+	return ec.marshalNAboutMe2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐAboutMe(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Setting_Timeline(ctx context.Context, field graphql.CollectedField, obj *model.Setting) (ret graphql.Marshaler) {
+func (ec *executionContext) _Setting_timeline(ctx context.Context, field graphql.CollectedField, obj *model.Setting) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -4725,14 +4722,14 @@ func (ec *executionContext) _Setting_Timeline(ctx context.Context, field graphql
 		Object:     "Setting",
 		Field:      field,
 		Args:       nil,
-		IsMethod:   true,
-		IsResolver: true,
+		IsMethod:   false,
+		IsResolver: false,
 	}
 
 	ctx = graphql.WithFieldContext(ctx, fc)
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Setting().Timeline(rctx, obj)
+		return obj.Timeline, nil
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -4744,12 +4741,12 @@ func (ec *executionContext) _Setting_Timeline(ctx context.Context, field graphql
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*model.Timeline)
+	res := resTmp.(model.Timeline)
 	fc.Result = res
-	return ec.marshalNTimeline2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐTimeline(ctx, field.Selections, res)
+	return ec.marshalNTimeline2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐTimeline(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Setting_CreatedAt(ctx context.Context, field graphql.CollectedField, obj *model.Setting) (ret graphql.Marshaler) {
+func (ec *executionContext) _Setting_createdAt(ctx context.Context, field graphql.CollectedField, obj *model.Setting) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -4784,7 +4781,7 @@ func (ec *executionContext) _Setting_CreatedAt(ctx context.Context, field graphq
 	return ec.marshalNTime2timeᚐTime(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Setting_UpdatedAt(ctx context.Context, field graphql.CollectedField, obj *model.Setting) (ret graphql.Marshaler) {
+func (ec *executionContext) _Setting_updatedAt(ctx context.Context, field graphql.CollectedField, obj *model.Setting) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -4819,7 +4816,7 @@ func (ec *executionContext) _Setting_UpdatedAt(ctx context.Context, field graphq
 	return ec.marshalNTime2timeᚐTime(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Setting_DeletedAt(ctx context.Context, field graphql.CollectedField, obj *model.Setting) (ret graphql.Marshaler) {
+func (ec *executionContext) _Setting_deletedAt(ctx context.Context, field graphql.CollectedField, obj *model.Setting) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -4854,7 +4851,7 @@ func (ec *executionContext) _Setting_DeletedAt(ctx context.Context, field graphq
 	return ec.marshalNTime2ᚖtimeᚐTime(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Timeline_ID(ctx context.Context, field graphql.CollectedField, obj *model.Timeline) (ret graphql.Marshaler) {
+func (ec *executionContext) _Timeline_iD(ctx context.Context, field graphql.CollectedField, obj *model.Timeline) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -4889,7 +4886,7 @@ func (ec *executionContext) _Timeline_ID(ctx context.Context, field graphql.Coll
 	return ec.marshalNID2int64(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Timeline_Slug(ctx context.Context, field graphql.CollectedField, obj *model.Timeline) (ret graphql.Marshaler) {
+func (ec *executionContext) _Timeline_slug(ctx context.Context, field graphql.CollectedField, obj *model.Timeline) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -4924,7 +4921,7 @@ func (ec *executionContext) _Timeline_Slug(ctx context.Context, field graphql.Co
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Timeline_Name(ctx context.Context, field graphql.CollectedField, obj *model.Timeline) (ret graphql.Marshaler) {
+func (ec *executionContext) _Timeline_name(ctx context.Context, field graphql.CollectedField, obj *model.Timeline) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -4959,7 +4956,7 @@ func (ec *executionContext) _Timeline_Name(ctx context.Context, field graphql.Co
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Timeline_Description(ctx context.Context, field graphql.CollectedField, obj *model.Timeline) (ret graphql.Marshaler) {
+func (ec *executionContext) _Timeline_description(ctx context.Context, field graphql.CollectedField, obj *model.Timeline) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -4994,7 +4991,7 @@ func (ec *executionContext) _Timeline_Description(ctx context.Context, field gra
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Timeline_Thumbnail(ctx context.Context, field graphql.CollectedField, obj *model.Timeline) (ret graphql.Marshaler) {
+func (ec *executionContext) _Timeline_thumbnail(ctx context.Context, field graphql.CollectedField, obj *model.Timeline) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -5029,7 +5026,7 @@ func (ec *executionContext) _Timeline_Thumbnail(ctx context.Context, field graph
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Timeline_Images(ctx context.Context, field graphql.CollectedField, obj *model.Timeline) (ret graphql.Marshaler) {
+func (ec *executionContext) _Timeline_images(ctx context.Context, field graphql.CollectedField, obj *model.Timeline) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -5064,7 +5061,7 @@ func (ec *executionContext) _Timeline_Images(ctx context.Context, field graphql.
 	return ec.marshalNImage2ᚕgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐImage(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Timeline_EventDate(ctx context.Context, field graphql.CollectedField, obj *model.Timeline) (ret graphql.Marshaler) {
+func (ec *executionContext) _Timeline_eventDate(ctx context.Context, field graphql.CollectedField, obj *model.Timeline) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -5099,7 +5096,7 @@ func (ec *executionContext) _Timeline_EventDate(ctx context.Context, field graph
 	return ec.marshalNTime2timeᚐTime(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Timeline_Icon(ctx context.Context, field graphql.CollectedField, obj *model.Timeline) (ret graphql.Marshaler) {
+func (ec *executionContext) _Timeline_icon(ctx context.Context, field graphql.CollectedField, obj *model.Timeline) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -5134,7 +5131,7 @@ func (ec *executionContext) _Timeline_Icon(ctx context.Context, field graphql.Co
 	return ec.marshalNIcon2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐIcon(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Timeline_SettingID(ctx context.Context, field graphql.CollectedField, obj *model.Timeline) (ret graphql.Marshaler) {
+func (ec *executionContext) _Timeline_settingID(ctx context.Context, field graphql.CollectedField, obj *model.Timeline) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -5169,7 +5166,7 @@ func (ec *executionContext) _Timeline_SettingID(ctx context.Context, field graph
 	return ec.marshalNID2int64(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Timeline_CreatedAt(ctx context.Context, field graphql.CollectedField, obj *model.Timeline) (ret graphql.Marshaler) {
+func (ec *executionContext) _Timeline_createdAt(ctx context.Context, field graphql.CollectedField, obj *model.Timeline) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -5204,7 +5201,7 @@ func (ec *executionContext) _Timeline_CreatedAt(ctx context.Context, field graph
 	return ec.marshalNTime2timeᚐTime(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Timeline_UpdatedAt(ctx context.Context, field graphql.CollectedField, obj *model.Timeline) (ret graphql.Marshaler) {
+func (ec *executionContext) _Timeline_updatedAt(ctx context.Context, field graphql.CollectedField, obj *model.Timeline) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -5239,7 +5236,7 @@ func (ec *executionContext) _Timeline_UpdatedAt(ctx context.Context, field graph
 	return ec.marshalNTime2timeᚐTime(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Timeline_DeletedAt(ctx context.Context, field graphql.CollectedField, obj *model.Timeline) (ret graphql.Marshaler) {
+func (ec *executionContext) _Timeline_deletedAt(ctx context.Context, field graphql.CollectedField, obj *model.Timeline) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -6405,42 +6402,42 @@ func (ec *executionContext) unmarshalInputNewAboutMe(ctx context.Context, obj in
 
 	for k, v := range asMap {
 		switch k {
-		case "Name":
+		case "name":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("Name"))
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("name"))
 			it.Name, err = ec.unmarshalNString2string(ctx, v)
 			if err != nil {
 				return it, err
 			}
-		case "Description":
+		case "description":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("Description"))
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("description"))
 			it.Description, err = ec.unmarshalNString2string(ctx, v)
 			if err != nil {
 				return it, err
 			}
-		case "Content":
+		case "content":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("Content"))
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("content"))
 			it.Content, err = ec.unmarshalNString2string(ctx, v)
 			if err != nil {
 				return it, err
 			}
-		case "ImgUrl":
+		case "imgUrl":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("ImgUrl"))
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("imgUrl"))
 			it.ImgURL, err = ec.unmarshalNString2string(ctx, v)
 			if err != nil {
 				return it, err
 			}
-		case "SettingID":
+		case "settingID":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("SettingID"))
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("settingID"))
 			it.SettingID, err = ec.unmarshalOID2string(ctx, v)
 			if err != nil {
 				return it, err
@@ -6460,43 +6457,51 @@ func (ec *executionContext) unmarshalInputNewBadge(ctx context.Context, obj inte
 
 	for k, v := range asMap {
 		switch k {
-		case "Name":
+		case "id":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("Name"))
-			it.Name, err = ec.unmarshalNString2string(ctx, v)
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("id"))
+			it.ID, err = ec.unmarshalOID2int64(ctx, v)
 			if err != nil {
 				return it, err
 			}
-		case "Color":
+		case "name":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("Color"))
-			it.Color, err = ec.unmarshalNString2string(ctx, v)
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("name"))
+			it.Name, err = ec.unmarshalOString2string(ctx, v)
 			if err != nil {
 				return it, err
 			}
-		case "IconID":
+		case "color":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("IconID"))
-			it.IconID, err = ec.unmarshalNID2string(ctx, v)
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("color"))
+			it.Color, err = ec.unmarshalOString2string(ctx, v)
 			if err != nil {
 				return it, err
 			}
-		case "OwnerID":
+		case "icon":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("OwnerID"))
-			it.OwnerID, err = ec.unmarshalNInt2int(ctx, v)
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("icon"))
+			it.Icon, err = ec.unmarshalONewIcon2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewIcon(ctx, v)
 			if err != nil {
 				return it, err
 			}
-		case "OwnerType":
+		case "ownerID":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("OwnerType"))
-			it.OwnerType, err = ec.unmarshalNString2string(ctx, v)
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("ownerID"))
+			it.OwnerID, err = ec.unmarshalOInt2int(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "ownerType":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("ownerType"))
+			it.OwnerType, err = ec.unmarshalOString2string(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -6515,42 +6520,50 @@ func (ec *executionContext) unmarshalInputNewIcon(ctx context.Context, obj inter
 
 	for k, v := range asMap {
 		switch k {
-		case "Name":
+		case "id":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("Name"))
-			it.Name, err = ec.unmarshalNString2string(ctx, v)
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("id"))
+			it.ID, err = ec.unmarshalOID2int64(ctx, v)
 			if err != nil {
 				return it, err
 			}
-		case "BgColor":
+		case "name":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("BgColor"))
-			it.BgColor, err = ec.unmarshalNString2string(ctx, v)
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("name"))
+			it.Name, err = ec.unmarshalOString2string(ctx, v)
 			if err != nil {
 				return it, err
 			}
-		case "IconType":
+		case "bgColor":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("IconType"))
-			it.IconType, err = ec.unmarshalNString2string(ctx, v)
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("bgColor"))
+			it.BgColor, err = ec.unmarshalOString2string(ctx, v)
 			if err != nil {
 				return it, err
 			}
-		case "OwnerID":
+		case "iconType":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("OwnerID"))
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("iconType"))
+			it.IconType, err = ec.unmarshalOString2string(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "ownerID":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("ownerID"))
 			it.OwnerID, err = ec.unmarshalOInt2int(ctx, v)
 			if err != nil {
 				return it, err
 			}
-		case "OwnerType":
+		case "ownerType":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("OwnerType"))
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("ownerType"))
 			it.OwnerType, err = ec.unmarshalOString2string(ctx, v)
 			if err != nil {
 				return it, err
@@ -6625,18 +6638,18 @@ func (ec *executionContext) unmarshalInputNewSetting(ctx context.Context, obj in
 
 	for k, v := range asMap {
 		switch k {
-		case "AboutMeID":
+		case "aboutMeID":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("AboutMeID"))
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("aboutMeID"))
 			it.AboutMeID, err = ec.unmarshalNID2string(ctx, v)
 			if err != nil {
 				return it, err
 			}
-		case "TimelineID":
+		case "timelineID":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("TimelineID"))
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("timelineID"))
 			it.TimelineID, err = ec.unmarshalNID2string(ctx, v)
 			if err != nil {
 				return it, err
@@ -6656,58 +6669,58 @@ func (ec *executionContext) unmarshalInputNewTimeline(ctx context.Context, obj i
 
 	for k, v := range asMap {
 		switch k {
-		case "Slug":
+		case "slug":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("Slug"))
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("slug"))
 			it.Slug, err = ec.unmarshalNString2string(ctx, v)
 			if err != nil {
 				return it, err
 			}
-		case "Name":
+		case "name":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("Name"))
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("name"))
 			it.Name, err = ec.unmarshalNString2string(ctx, v)
 			if err != nil {
 				return it, err
 			}
-		case "Description":
+		case "description":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("Description"))
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("description"))
 			it.Description, err = ec.unmarshalNString2string(ctx, v)
 			if err != nil {
 				return it, err
 			}
-		case "Thumbnail":
+		case "thumbnail":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("Thumbnail"))
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("thumbnail"))
 			it.Thumbnail, err = ec.unmarshalNString2string(ctx, v)
 			if err != nil {
 				return it, err
 			}
-		case "EventDate":
+		case "eventDate":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("EventDate"))
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("eventDate"))
 			it.EventDate, err = ec.unmarshalNTime2timeᚐTime(ctx, v)
 			if err != nil {
 				return it, err
 			}
-		case "Icon":
+		case "icon":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("Icon"))
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("icon"))
 			it.Icon, err = ec.unmarshalNNewIcon2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewIcon(ctx, v)
 			if err != nil {
 				return it, err
 			}
-		case "SettingID":
+		case "settingID":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("SettingID"))
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("settingID"))
 			it.SettingID, err = ec.unmarshalOID2string(ctx, v)
 			if err != nil {
 				return it, err
@@ -6736,9 +6749,9 @@ func (ec *executionContext) _AboutMe(ctx context.Context, sel ast.SelectionSet, 
 		switch field.Name {
 		case "__typename":
 			out.Values[i] = graphql.MarshalString("AboutMe")
-		case "ID":
+		case "id":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._AboutMe_ID(ctx, field, obj)
+				return ec._AboutMe_id(ctx, field, obj)
 			}
 
 			out.Values[i] = innerFunc(ctx)
@@ -6746,9 +6759,9 @@ func (ec *executionContext) _AboutMe(ctx context.Context, sel ast.SelectionSet, 
 			if out.Values[i] == graphql.Null {
 				atomic.AddUint32(&invalids, 1)
 			}
-		case "Name":
+		case "name":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._AboutMe_Name(ctx, field, obj)
+				return ec._AboutMe_name(ctx, field, obj)
 			}
 
 			out.Values[i] = innerFunc(ctx)
@@ -6756,9 +6769,9 @@ func (ec *executionContext) _AboutMe(ctx context.Context, sel ast.SelectionSet, 
 			if out.Values[i] == graphql.Null {
 				atomic.AddUint32(&invalids, 1)
 			}
-		case "Description":
+		case "description":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._AboutMe_Description(ctx, field, obj)
+				return ec._AboutMe_description(ctx, field, obj)
 			}
 
 			out.Values[i] = innerFunc(ctx)
@@ -6766,9 +6779,9 @@ func (ec *executionContext) _AboutMe(ctx context.Context, sel ast.SelectionSet, 
 			if out.Values[i] == graphql.Null {
 				atomic.AddUint32(&invalids, 1)
 			}
-		case "Content":
+		case "content":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._AboutMe_Content(ctx, field, obj)
+				return ec._AboutMe_content(ctx, field, obj)
 			}
 
 			out.Values[i] = innerFunc(ctx)
@@ -6776,9 +6789,9 @@ func (ec *executionContext) _AboutMe(ctx context.Context, sel ast.SelectionSet, 
 			if out.Values[i] == graphql.Null {
 				atomic.AddUint32(&invalids, 1)
 			}
-		case "ImgUrl":
+		case "imgUrl":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._AboutMe_ImgUrl(ctx, field, obj)
+				return ec._AboutMe_imgUrl(ctx, field, obj)
 			}
 
 			out.Values[i] = innerFunc(ctx)
@@ -6786,9 +6799,9 @@ func (ec *executionContext) _AboutMe(ctx context.Context, sel ast.SelectionSet, 
 			if out.Values[i] == graphql.Null {
 				atomic.AddUint32(&invalids, 1)
 			}
-		case "SettingID":
+		case "settingID":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._AboutMe_SettingID(ctx, field, obj)
+				return ec._AboutMe_settingID(ctx, field, obj)
 			}
 
 			out.Values[i] = innerFunc(ctx)
@@ -6796,9 +6809,9 @@ func (ec *executionContext) _AboutMe(ctx context.Context, sel ast.SelectionSet, 
 			if out.Values[i] == graphql.Null {
 				atomic.AddUint32(&invalids, 1)
 			}
-		case "CreatedAt":
+		case "createdAt":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._AboutMe_CreatedAt(ctx, field, obj)
+				return ec._AboutMe_createdAt(ctx, field, obj)
 			}
 
 			out.Values[i] = innerFunc(ctx)
@@ -6806,9 +6819,9 @@ func (ec *executionContext) _AboutMe(ctx context.Context, sel ast.SelectionSet, 
 			if out.Values[i] == graphql.Null {
 				atomic.AddUint32(&invalids, 1)
 			}
-		case "UpdatedAt":
+		case "updatedAt":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._AboutMe_UpdatedAt(ctx, field, obj)
+				return ec._AboutMe_updatedAt(ctx, field, obj)
 			}
 
 			out.Values[i] = innerFunc(ctx)
@@ -6816,7 +6829,7 @@ func (ec *executionContext) _AboutMe(ctx context.Context, sel ast.SelectionSet, 
 			if out.Values[i] == graphql.Null {
 				atomic.AddUint32(&invalids, 1)
 			}
-		case "DeletedAt":
+		case "deletedAt":
 			field := field
 
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
@@ -6825,7 +6838,7 @@ func (ec *executionContext) _AboutMe(ctx context.Context, sel ast.SelectionSet, 
 						ec.Error(ctx, ec.Recover(ctx, r))
 					}
 				}()
-				res = ec._AboutMe_DeletedAt(ctx, field, obj)
+				res = ec._AboutMe_deletedAt(ctx, field, obj)
 				if res == graphql.Null {
 					atomic.AddUint32(&invalids, 1)
 				}
@@ -6857,9 +6870,9 @@ func (ec *executionContext) _Badge(ctx context.Context, sel ast.SelectionSet, ob
 		switch field.Name {
 		case "__typename":
 			out.Values[i] = graphql.MarshalString("Badge")
-		case "ID":
+		case "id":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._Badge_ID(ctx, field, obj)
+				return ec._Badge_id(ctx, field, obj)
 			}
 
 			out.Values[i] = innerFunc(ctx)
@@ -6867,9 +6880,9 @@ func (ec *executionContext) _Badge(ctx context.Context, sel ast.SelectionSet, ob
 			if out.Values[i] == graphql.Null {
 				atomic.AddUint32(&invalids, 1)
 			}
-		case "Name":
+		case "name":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._Badge_Name(ctx, field, obj)
+				return ec._Badge_name(ctx, field, obj)
 			}
 
 			out.Values[i] = innerFunc(ctx)
@@ -6877,9 +6890,9 @@ func (ec *executionContext) _Badge(ctx context.Context, sel ast.SelectionSet, ob
 			if out.Values[i] == graphql.Null {
 				atomic.AddUint32(&invalids, 1)
 			}
-		case "Color":
+		case "color":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._Badge_Color(ctx, field, obj)
+				return ec._Badge_color(ctx, field, obj)
 			}
 
 			out.Values[i] = innerFunc(ctx)
@@ -6887,7 +6900,51 @@ func (ec *executionContext) _Badge(ctx context.Context, sel ast.SelectionSet, ob
 			if out.Values[i] == graphql.Null {
 				atomic.AddUint32(&invalids, 1)
 			}
-		case "Icon":
+		case "icon":
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Badge_icon(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
+			if out.Values[i] == graphql.Null {
+				atomic.AddUint32(&invalids, 1)
+			}
+		case "ownerID":
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Badge_ownerID(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
+		case "ownerType":
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Badge_ownerType(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
+		case "createdAt":
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Badge_createdAt(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
+			if out.Values[i] == graphql.Null {
+				atomic.AddUint32(&invalids, 1)
+			}
+		case "updatedAt":
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Badge_updatedAt(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
+			if out.Values[i] == graphql.Null {
+				atomic.AddUint32(&invalids, 1)
+			}
+		case "deletedAt":
 			field := field
 
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
@@ -6896,61 +6953,7 @@ func (ec *executionContext) _Badge(ctx context.Context, sel ast.SelectionSet, ob
 						ec.Error(ctx, ec.Recover(ctx, r))
 					}
 				}()
-				res = ec._Badge_Icon(ctx, field, obj)
-				if res == graphql.Null {
-					atomic.AddUint32(&invalids, 1)
-				}
-				return res
-			}
-
-			out.Concurrently(i, func() graphql.Marshaler {
-				return innerFunc(ctx)
-
-			})
-		case "OwnerID":
-			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._Badge_OwnerID(ctx, field, obj)
-			}
-
-			out.Values[i] = innerFunc(ctx)
-
-		case "OwnerType":
-			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._Badge_OwnerType(ctx, field, obj)
-			}
-
-			out.Values[i] = innerFunc(ctx)
-
-		case "CreatedAt":
-			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._Badge_CreatedAt(ctx, field, obj)
-			}
-
-			out.Values[i] = innerFunc(ctx)
-
-			if out.Values[i] == graphql.Null {
-				atomic.AddUint32(&invalids, 1)
-			}
-		case "UpdatedAt":
-			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._Badge_UpdatedAt(ctx, field, obj)
-			}
-
-			out.Values[i] = innerFunc(ctx)
-
-			if out.Values[i] == graphql.Null {
-				atomic.AddUint32(&invalids, 1)
-			}
-		case "DeletedAt":
-			field := field
-
-			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				defer func() {
-					if r := recover(); r != nil {
-						ec.Error(ctx, ec.Recover(ctx, r))
-					}
-				}()
-				res = ec._Badge_DeletedAt(ctx, field, obj)
+				res = ec._Badge_deletedAt(ctx, field, obj)
 				if res == graphql.Null {
 					atomic.AddUint32(&invalids, 1)
 				}
@@ -6982,9 +6985,9 @@ func (ec *executionContext) _Icon(ctx context.Context, sel ast.SelectionSet, obj
 		switch field.Name {
 		case "__typename":
 			out.Values[i] = graphql.MarshalString("Icon")
-		case "ID":
+		case "id":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._Icon_ID(ctx, field, obj)
+				return ec._Icon_id(ctx, field, obj)
 			}
 
 			out.Values[i] = innerFunc(ctx)
@@ -6992,9 +6995,9 @@ func (ec *executionContext) _Icon(ctx context.Context, sel ast.SelectionSet, obj
 			if out.Values[i] == graphql.Null {
 				atomic.AddUint32(&invalids, 1)
 			}
-		case "Name":
+		case "name":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._Icon_Name(ctx, field, obj)
+				return ec._Icon_name(ctx, field, obj)
 			}
 
 			out.Values[i] = innerFunc(ctx)
@@ -7002,9 +7005,9 @@ func (ec *executionContext) _Icon(ctx context.Context, sel ast.SelectionSet, obj
 			if out.Values[i] == graphql.Null {
 				atomic.AddUint32(&invalids, 1)
 			}
-		case "BgColor":
+		case "bgColor":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._Icon_BgColor(ctx, field, obj)
+				return ec._Icon_bgColor(ctx, field, obj)
 			}
 
 			out.Values[i] = innerFunc(ctx)
@@ -7012,7 +7015,7 @@ func (ec *executionContext) _Icon(ctx context.Context, sel ast.SelectionSet, obj
 			if out.Values[i] == graphql.Null {
 				atomic.AddUint32(&invalids, 1)
 			}
-		case "IconType":
+		case "iconType":
 			field := field
 
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
@@ -7021,7 +7024,7 @@ func (ec *executionContext) _Icon(ctx context.Context, sel ast.SelectionSet, obj
 						ec.Error(ctx, ec.Recover(ctx, r))
 					}
 				}()
-				res = ec._Icon_IconType(ctx, field, obj)
+				res = ec._Icon_iconType(ctx, field, obj)
 				if res == graphql.Null {
 					atomic.AddUint32(&invalids, 1)
 				}
@@ -7032,9 +7035,9 @@ func (ec *executionContext) _Icon(ctx context.Context, sel ast.SelectionSet, obj
 				return innerFunc(ctx)
 
 			})
-		case "OwnerID":
+		case "ownerID":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._Icon_OwnerID(ctx, field, obj)
+				return ec._Icon_ownerID(ctx, field, obj)
 			}
 
 			out.Values[i] = innerFunc(ctx)
@@ -7042,9 +7045,9 @@ func (ec *executionContext) _Icon(ctx context.Context, sel ast.SelectionSet, obj
 			if out.Values[i] == graphql.Null {
 				atomic.AddUint32(&invalids, 1)
 			}
-		case "OwnerType":
+		case "ownerType":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._Icon_OwnerType(ctx, field, obj)
+				return ec._Icon_ownerType(ctx, field, obj)
 			}
 
 			out.Values[i] = innerFunc(ctx)
@@ -7052,9 +7055,9 @@ func (ec *executionContext) _Icon(ctx context.Context, sel ast.SelectionSet, obj
 			if out.Values[i] == graphql.Null {
 				atomic.AddUint32(&invalids, 1)
 			}
-		case "CreatedAt":
+		case "createdAt":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._Icon_CreatedAt(ctx, field, obj)
+				return ec._Icon_createdAt(ctx, field, obj)
 			}
 
 			out.Values[i] = innerFunc(ctx)
@@ -7062,9 +7065,9 @@ func (ec *executionContext) _Icon(ctx context.Context, sel ast.SelectionSet, obj
 			if out.Values[i] == graphql.Null {
 				atomic.AddUint32(&invalids, 1)
 			}
-		case "UpdatedAt":
+		case "updatedAt":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._Icon_UpdatedAt(ctx, field, obj)
+				return ec._Icon_updatedAt(ctx, field, obj)
 			}
 
 			out.Values[i] = innerFunc(ctx)
@@ -7072,7 +7075,7 @@ func (ec *executionContext) _Icon(ctx context.Context, sel ast.SelectionSet, obj
 			if out.Values[i] == graphql.Null {
 				atomic.AddUint32(&invalids, 1)
 			}
-		case "DeletedAt":
+		case "deletedAt":
 			field := field
 
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
@@ -7081,7 +7084,7 @@ func (ec *executionContext) _Icon(ctx context.Context, sel ast.SelectionSet, obj
 						ec.Error(ctx, ec.Recover(ctx, r))
 					}
 				}()
-				res = ec._Icon_DeletedAt(ctx, field, obj)
+				res = ec._Icon_deletedAt(ctx, field, obj)
 				if res == graphql.Null {
 					atomic.AddUint32(&invalids, 1)
 				}
@@ -7263,44 +7266,44 @@ func (ec *executionContext) _Mutation(ctx context.Context, sel ast.SelectionSet)
 		switch field.Name {
 		case "__typename":
 			out.Values[i] = graphql.MarshalString("Mutation")
-		case "CreateIcon":
+		case "createIcon":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._Mutation_CreateIcon(ctx, field)
+				return ec._Mutation_createIcon(ctx, field)
 			}
 
 			out.Values[i] = ec.OperationContext.RootResolverMiddleware(innerCtx, innerFunc)
 
-		case "UpdateIcon":
+		case "updateIcon":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._Mutation_UpdateIcon(ctx, field)
+				return ec._Mutation_updateIcon(ctx, field)
 			}
 
 			out.Values[i] = ec.OperationContext.RootResolverMiddleware(innerCtx, innerFunc)
 
-		case "DeleteIcon":
+		case "deleteIcon":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._Mutation_DeleteIcon(ctx, field)
+				return ec._Mutation_deleteIcon(ctx, field)
 			}
 
 			out.Values[i] = ec.OperationContext.RootResolverMiddleware(innerCtx, innerFunc)
 
-		case "CreateBadge":
+		case "createBadge":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._Mutation_CreateBadge(ctx, field)
+				return ec._Mutation_createBadge(ctx, field)
 			}
 
 			out.Values[i] = ec.OperationContext.RootResolverMiddleware(innerCtx, innerFunc)
 
-		case "UpdateBadge":
+		case "updateBadge":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._Mutation_UpdateBadge(ctx, field)
+				return ec._Mutation_updateBadge(ctx, field)
 			}
 
 			out.Values[i] = ec.OperationContext.RootResolverMiddleware(innerCtx, innerFunc)
 
-		case "DeleteBadge":
+		case "deleteBadge":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._Mutation_DeleteBadge(ctx, field)
+				return ec._Mutation_deleteBadge(ctx, field)
 			}
 
 			out.Values[i] = ec.OperationContext.RootResolverMiddleware(innerCtx, innerFunc)
@@ -7326,9 +7329,9 @@ func (ec *executionContext) _Mutation(ctx context.Context, sel ast.SelectionSet)
 
 			out.Values[i] = ec.OperationContext.RootResolverMiddleware(innerCtx, innerFunc)
 
-		case "CreateSetting":
+		case "createSetting":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._Mutation_CreateSetting(ctx, field)
+				return ec._Mutation_createSetting(ctx, field)
 			}
 
 			out.Values[i] = ec.OperationContext.RootResolverMiddleware(innerCtx, innerFunc)
@@ -7336,9 +7339,9 @@ func (ec *executionContext) _Mutation(ctx context.Context, sel ast.SelectionSet)
 			if out.Values[i] == graphql.Null {
 				invalids++
 			}
-		case "UpdateSetting":
+		case "updateSetting":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._Mutation_UpdateSetting(ctx, field)
+				return ec._Mutation_updateSetting(ctx, field)
 			}
 
 			out.Values[i] = ec.OperationContext.RootResolverMiddleware(innerCtx, innerFunc)
@@ -7346,9 +7349,9 @@ func (ec *executionContext) _Mutation(ctx context.Context, sel ast.SelectionSet)
 			if out.Values[i] == graphql.Null {
 				invalids++
 			}
-		case "DeleteSetting":
+		case "deleteSetting":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._Mutation_DeleteSetting(ctx, field)
+				return ec._Mutation_deleteSetting(ctx, field)
 			}
 
 			out.Values[i] = ec.OperationContext.RootResolverMiddleware(innerCtx, innerFunc)
@@ -7356,9 +7359,9 @@ func (ec *executionContext) _Mutation(ctx context.Context, sel ast.SelectionSet)
 			if out.Values[i] == graphql.Null {
 				invalids++
 			}
-		case "CreateAboutMe":
+		case "createAboutMe":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._Mutation_CreateAboutMe(ctx, field)
+				return ec._Mutation_createAboutMe(ctx, field)
 			}
 
 			out.Values[i] = ec.OperationContext.RootResolverMiddleware(innerCtx, innerFunc)
@@ -7366,9 +7369,9 @@ func (ec *executionContext) _Mutation(ctx context.Context, sel ast.SelectionSet)
 			if out.Values[i] == graphql.Null {
 				invalids++
 			}
-		case "UpdateAboutMe":
+		case "updateAboutMe":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._Mutation_UpdateAboutMe(ctx, field)
+				return ec._Mutation_updateAboutMe(ctx, field)
 			}
 
 			out.Values[i] = ec.OperationContext.RootResolverMiddleware(innerCtx, innerFunc)
@@ -7376,9 +7379,9 @@ func (ec *executionContext) _Mutation(ctx context.Context, sel ast.SelectionSet)
 			if out.Values[i] == graphql.Null {
 				invalids++
 			}
-		case "DeleteAboutMe":
+		case "deleteAboutMe":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._Mutation_DeleteAboutMe(ctx, field)
+				return ec._Mutation_deleteAboutMe(ctx, field)
 			}
 
 			out.Values[i] = ec.OperationContext.RootResolverMiddleware(innerCtx, innerFunc)
@@ -7386,9 +7389,9 @@ func (ec *executionContext) _Mutation(ctx context.Context, sel ast.SelectionSet)
 			if out.Values[i] == graphql.Null {
 				invalids++
 			}
-		case "CreateTimeline":
+		case "createTimeline":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._Mutation_CreateTimeline(ctx, field)
+				return ec._Mutation_createTimeline(ctx, field)
 			}
 
 			out.Values[i] = ec.OperationContext.RootResolverMiddleware(innerCtx, innerFunc)
@@ -7396,9 +7399,9 @@ func (ec *executionContext) _Mutation(ctx context.Context, sel ast.SelectionSet)
 			if out.Values[i] == graphql.Null {
 				invalids++
 			}
-		case "UpdateTimeline":
+		case "updateTimeline":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._Mutation_UpdateTimeline(ctx, field)
+				return ec._Mutation_updateTimeline(ctx, field)
 			}
 
 			out.Values[i] = ec.OperationContext.RootResolverMiddleware(innerCtx, innerFunc)
@@ -7406,9 +7409,9 @@ func (ec *executionContext) _Mutation(ctx context.Context, sel ast.SelectionSet)
 			if out.Values[i] == graphql.Null {
 				invalids++
 			}
-		case "DeleteTimeline":
+		case "deleteTimeline":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._Mutation_DeleteTimeline(ctx, field)
+				return ec._Mutation_deleteTimeline(ctx, field)
 			}
 
 			out.Values[i] = ec.OperationContext.RootResolverMiddleware(innerCtx, innerFunc)
@@ -7446,7 +7449,7 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 		switch field.Name {
 		case "__typename":
 			out.Values[i] = graphql.MarshalString("Query")
-		case "Icons":
+		case "icons":
 			field := field
 
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
@@ -7455,7 +7458,7 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 						ec.Error(ctx, ec.Recover(ctx, r))
 					}
 				}()
-				res = ec._Query_Icons(ctx, field)
+				res = ec._Query_icons(ctx, field)
 				if res == graphql.Null {
 					atomic.AddUint32(&invalids, 1)
 				}
@@ -7469,7 +7472,7 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 			out.Concurrently(i, func() graphql.Marshaler {
 				return rrm(innerCtx)
 			})
-		case "Icon":
+		case "icon":
 			field := field
 
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
@@ -7478,7 +7481,7 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 						ec.Error(ctx, ec.Recover(ctx, r))
 					}
 				}()
-				res = ec._Query_Icon(ctx, field)
+				res = ec._Query_icon(ctx, field)
 				return res
 			}
 
@@ -7489,7 +7492,7 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 			out.Concurrently(i, func() graphql.Marshaler {
 				return rrm(innerCtx)
 			})
-		case "IconsByOwner":
+		case "iconsByOwner":
 			field := field
 
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
@@ -7498,7 +7501,7 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 						ec.Error(ctx, ec.Recover(ctx, r))
 					}
 				}()
-				res = ec._Query_IconsByOwner(ctx, field)
+				res = ec._Query_iconsByOwner(ctx, field)
 				return res
 			}
 
@@ -7509,7 +7512,7 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 			out.Concurrently(i, func() graphql.Marshaler {
 				return rrm(innerCtx)
 			})
-		case "IconsByOwnerAndType":
+		case "iconsByOwnerAndType":
 			field := field
 
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
@@ -7518,7 +7521,7 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 						ec.Error(ctx, ec.Recover(ctx, r))
 					}
 				}()
-				res = ec._Query_IconsByOwnerAndType(ctx, field)
+				res = ec._Query_iconsByOwnerAndType(ctx, field)
 				return res
 			}
 
@@ -7529,7 +7532,7 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 			out.Concurrently(i, func() graphql.Marshaler {
 				return rrm(innerCtx)
 			})
-		case "IconsByType":
+		case "iconsByType":
 			field := field
 
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
@@ -7538,7 +7541,7 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 						ec.Error(ctx, ec.Recover(ctx, r))
 					}
 				}()
-				res = ec._Query_IconsByType(ctx, field)
+				res = ec._Query_iconsByType(ctx, field)
 				return res
 			}
 
@@ -7549,7 +7552,7 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 			out.Concurrently(i, func() graphql.Marshaler {
 				return rrm(innerCtx)
 			})
-		case "Badges":
+		case "badges":
 			field := field
 
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
@@ -7558,7 +7561,7 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 						ec.Error(ctx, ec.Recover(ctx, r))
 					}
 				}()
-				res = ec._Query_Badges(ctx, field)
+				res = ec._Query_badges(ctx, field)
 				if res == graphql.Null {
 					atomic.AddUint32(&invalids, 1)
 				}
@@ -7572,7 +7575,7 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 			out.Concurrently(i, func() graphql.Marshaler {
 				return rrm(innerCtx)
 			})
-		case "Badge":
+		case "badge":
 			field := field
 
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
@@ -7581,7 +7584,7 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 						ec.Error(ctx, ec.Recover(ctx, r))
 					}
 				}()
-				res = ec._Query_Badge(ctx, field)
+				res = ec._Query_badge(ctx, field)
 				return res
 			}
 
@@ -7592,7 +7595,7 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 			out.Concurrently(i, func() graphql.Marshaler {
 				return rrm(innerCtx)
 			})
-		case "BadgesByOwner":
+		case "badgesByOwner":
 			field := field
 
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
@@ -7601,7 +7604,7 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 						ec.Error(ctx, ec.Recover(ctx, r))
 					}
 				}()
-				res = ec._Query_BadgesByOwner(ctx, field)
+				res = ec._Query_badgesByOwner(ctx, field)
 				return res
 			}
 
@@ -7612,7 +7615,7 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 			out.Concurrently(i, func() graphql.Marshaler {
 				return rrm(innerCtx)
 			})
-		case "BadgesByOwnerAndType":
+		case "badgesByOwnerAndType":
 			field := field
 
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
@@ -7621,7 +7624,7 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 						ec.Error(ctx, ec.Recover(ctx, r))
 					}
 				}()
-				res = ec._Query_BadgesByOwnerAndType(ctx, field)
+				res = ec._Query_badgesByOwnerAndType(ctx, field)
 				return res
 			}
 
@@ -7632,7 +7635,7 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 			out.Concurrently(i, func() graphql.Marshaler {
 				return rrm(innerCtx)
 			})
-		case "BadgesByType":
+		case "badgesByType":
 			field := field
 
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
@@ -7641,7 +7644,7 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 						ec.Error(ctx, ec.Recover(ctx, r))
 					}
 				}()
-				res = ec._Query_BadgesByType(ctx, field)
+				res = ec._Query_badgesByType(ctx, field)
 				return res
 			}
 
@@ -7695,7 +7698,7 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 			out.Concurrently(i, func() graphql.Marshaler {
 				return rrm(innerCtx)
 			})
-		case "Settings":
+		case "settings":
 			field := field
 
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
@@ -7704,7 +7707,7 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 						ec.Error(ctx, ec.Recover(ctx, r))
 					}
 				}()
-				res = ec._Query_Settings(ctx, field)
+				res = ec._Query_settings(ctx, field)
 				if res == graphql.Null {
 					atomic.AddUint32(&invalids, 1)
 				}
@@ -7718,7 +7721,7 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 			out.Concurrently(i, func() graphql.Marshaler {
 				return rrm(innerCtx)
 			})
-		case "Setting":
+		case "setting":
 			field := field
 
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
@@ -7727,7 +7730,7 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 						ec.Error(ctx, ec.Recover(ctx, r))
 					}
 				}()
-				res = ec._Query_Setting(ctx, field)
+				res = ec._Query_setting(ctx, field)
 				return res
 			}
 
@@ -7738,7 +7741,7 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 			out.Concurrently(i, func() graphql.Marshaler {
 				return rrm(innerCtx)
 			})
-		case "AboutMes":
+		case "aboutMes":
 			field := field
 
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
@@ -7747,7 +7750,7 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 						ec.Error(ctx, ec.Recover(ctx, r))
 					}
 				}()
-				res = ec._Query_AboutMes(ctx, field)
+				res = ec._Query_aboutMes(ctx, field)
 				if res == graphql.Null {
 					atomic.AddUint32(&invalids, 1)
 				}
@@ -7761,7 +7764,7 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 			out.Concurrently(i, func() graphql.Marshaler {
 				return rrm(innerCtx)
 			})
-		case "AboutMe":
+		case "aboutMe":
 			field := field
 
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
@@ -7770,7 +7773,7 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 						ec.Error(ctx, ec.Recover(ctx, r))
 					}
 				}()
-				res = ec._Query_AboutMe(ctx, field)
+				res = ec._Query_aboutMe(ctx, field)
 				return res
 			}
 
@@ -7781,7 +7784,7 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 			out.Concurrently(i, func() graphql.Marshaler {
 				return rrm(innerCtx)
 			})
-		case "Timelines":
+		case "timelines":
 			field := field
 
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
@@ -7790,7 +7793,7 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 						ec.Error(ctx, ec.Recover(ctx, r))
 					}
 				}()
-				res = ec._Query_Timelines(ctx, field)
+				res = ec._Query_timelines(ctx, field)
 				if res == graphql.Null {
 					atomic.AddUint32(&invalids, 1)
 				}
@@ -7804,7 +7807,7 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 			out.Concurrently(i, func() graphql.Marshaler {
 				return rrm(innerCtx)
 			})
-		case "Timeline":
+		case "timeline":
 			field := field
 
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
@@ -7813,7 +7816,7 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 						ec.Error(ctx, ec.Recover(ctx, r))
 					}
 				}()
-				res = ec._Query_Timeline(ctx, field)
+				res = ec._Query_timeline(ctx, field)
 				return res
 			}
 
@@ -7859,9 +7862,9 @@ func (ec *executionContext) _Setting(ctx context.Context, sel ast.SelectionSet, 
 		switch field.Name {
 		case "__typename":
 			out.Values[i] = graphql.MarshalString("Setting")
-		case "ID":
+		case "id":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._Setting_ID(ctx, field, obj)
+				return ec._Setting_id(ctx, field, obj)
 			}
 
 			out.Values[i] = innerFunc(ctx)
@@ -7869,7 +7872,47 @@ func (ec *executionContext) _Setting(ctx context.Context, sel ast.SelectionSet, 
 			if out.Values[i] == graphql.Null {
 				atomic.AddUint32(&invalids, 1)
 			}
-		case "AboutMe":
+		case "aboutMe":
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Setting_aboutMe(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
+			if out.Values[i] == graphql.Null {
+				atomic.AddUint32(&invalids, 1)
+			}
+		case "timeline":
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Setting_timeline(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
+			if out.Values[i] == graphql.Null {
+				atomic.AddUint32(&invalids, 1)
+			}
+		case "createdAt":
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Setting_createdAt(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
+			if out.Values[i] == graphql.Null {
+				atomic.AddUint32(&invalids, 1)
+			}
+		case "updatedAt":
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Setting_updatedAt(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
+			if out.Values[i] == graphql.Null {
+				atomic.AddUint32(&invalids, 1)
+			}
+		case "deletedAt":
 			field := field
 
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
@@ -7878,67 +7921,7 @@ func (ec *executionContext) _Setting(ctx context.Context, sel ast.SelectionSet, 
 						ec.Error(ctx, ec.Recover(ctx, r))
 					}
 				}()
-				res = ec._Setting_AboutMe(ctx, field, obj)
-				if res == graphql.Null {
-					atomic.AddUint32(&invalids, 1)
-				}
-				return res
-			}
-
-			out.Concurrently(i, func() graphql.Marshaler {
-				return innerFunc(ctx)
-
-			})
-		case "Timeline":
-			field := field
-
-			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				defer func() {
-					if r := recover(); r != nil {
-						ec.Error(ctx, ec.Recover(ctx, r))
-					}
-				}()
-				res = ec._Setting_Timeline(ctx, field, obj)
-				if res == graphql.Null {
-					atomic.AddUint32(&invalids, 1)
-				}
-				return res
-			}
-
-			out.Concurrently(i, func() graphql.Marshaler {
-				return innerFunc(ctx)
-
-			})
-		case "CreatedAt":
-			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._Setting_CreatedAt(ctx, field, obj)
-			}
-
-			out.Values[i] = innerFunc(ctx)
-
-			if out.Values[i] == graphql.Null {
-				atomic.AddUint32(&invalids, 1)
-			}
-		case "UpdatedAt":
-			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._Setting_UpdatedAt(ctx, field, obj)
-			}
-
-			out.Values[i] = innerFunc(ctx)
-
-			if out.Values[i] == graphql.Null {
-				atomic.AddUint32(&invalids, 1)
-			}
-		case "DeletedAt":
-			field := field
-
-			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				defer func() {
-					if r := recover(); r != nil {
-						ec.Error(ctx, ec.Recover(ctx, r))
-					}
-				}()
-				res = ec._Setting_DeletedAt(ctx, field, obj)
+				res = ec._Setting_deletedAt(ctx, field, obj)
 				if res == graphql.Null {
 					atomic.AddUint32(&invalids, 1)
 				}
@@ -7970,9 +7953,9 @@ func (ec *executionContext) _Timeline(ctx context.Context, sel ast.SelectionSet,
 		switch field.Name {
 		case "__typename":
 			out.Values[i] = graphql.MarshalString("Timeline")
-		case "ID":
+		case "iD":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._Timeline_ID(ctx, field, obj)
+				return ec._Timeline_iD(ctx, field, obj)
 			}
 
 			out.Values[i] = innerFunc(ctx)
@@ -7980,9 +7963,9 @@ func (ec *executionContext) _Timeline(ctx context.Context, sel ast.SelectionSet,
 			if out.Values[i] == graphql.Null {
 				atomic.AddUint32(&invalids, 1)
 			}
-		case "Slug":
+		case "slug":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._Timeline_Slug(ctx, field, obj)
+				return ec._Timeline_slug(ctx, field, obj)
 			}
 
 			out.Values[i] = innerFunc(ctx)
@@ -7990,9 +7973,9 @@ func (ec *executionContext) _Timeline(ctx context.Context, sel ast.SelectionSet,
 			if out.Values[i] == graphql.Null {
 				atomic.AddUint32(&invalids, 1)
 			}
-		case "Name":
+		case "name":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._Timeline_Name(ctx, field, obj)
+				return ec._Timeline_name(ctx, field, obj)
 			}
 
 			out.Values[i] = innerFunc(ctx)
@@ -8000,9 +7983,9 @@ func (ec *executionContext) _Timeline(ctx context.Context, sel ast.SelectionSet,
 			if out.Values[i] == graphql.Null {
 				atomic.AddUint32(&invalids, 1)
 			}
-		case "Description":
+		case "description":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._Timeline_Description(ctx, field, obj)
+				return ec._Timeline_description(ctx, field, obj)
 			}
 
 			out.Values[i] = innerFunc(ctx)
@@ -8010,9 +7993,9 @@ func (ec *executionContext) _Timeline(ctx context.Context, sel ast.SelectionSet,
 			if out.Values[i] == graphql.Null {
 				atomic.AddUint32(&invalids, 1)
 			}
-		case "Thumbnail":
+		case "thumbnail":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._Timeline_Thumbnail(ctx, field, obj)
+				return ec._Timeline_thumbnail(ctx, field, obj)
 			}
 
 			out.Values[i] = innerFunc(ctx)
@@ -8020,9 +8003,9 @@ func (ec *executionContext) _Timeline(ctx context.Context, sel ast.SelectionSet,
 			if out.Values[i] == graphql.Null {
 				atomic.AddUint32(&invalids, 1)
 			}
-		case "Images":
+		case "images":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._Timeline_Images(ctx, field, obj)
+				return ec._Timeline_images(ctx, field, obj)
 			}
 
 			out.Values[i] = innerFunc(ctx)
@@ -8030,9 +8013,9 @@ func (ec *executionContext) _Timeline(ctx context.Context, sel ast.SelectionSet,
 			if out.Values[i] == graphql.Null {
 				atomic.AddUint32(&invalids, 1)
 			}
-		case "EventDate":
+		case "eventDate":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._Timeline_EventDate(ctx, field, obj)
+				return ec._Timeline_eventDate(ctx, field, obj)
 			}
 
 			out.Values[i] = innerFunc(ctx)
@@ -8040,9 +8023,9 @@ func (ec *executionContext) _Timeline(ctx context.Context, sel ast.SelectionSet,
 			if out.Values[i] == graphql.Null {
 				atomic.AddUint32(&invalids, 1)
 			}
-		case "Icon":
+		case "icon":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._Timeline_Icon(ctx, field, obj)
+				return ec._Timeline_icon(ctx, field, obj)
 			}
 
 			out.Values[i] = innerFunc(ctx)
@@ -8050,9 +8033,9 @@ func (ec *executionContext) _Timeline(ctx context.Context, sel ast.SelectionSet,
 			if out.Values[i] == graphql.Null {
 				atomic.AddUint32(&invalids, 1)
 			}
-		case "SettingID":
+		case "settingID":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._Timeline_SettingID(ctx, field, obj)
+				return ec._Timeline_settingID(ctx, field, obj)
 			}
 
 			out.Values[i] = innerFunc(ctx)
@@ -8060,9 +8043,9 @@ func (ec *executionContext) _Timeline(ctx context.Context, sel ast.SelectionSet,
 			if out.Values[i] == graphql.Null {
 				atomic.AddUint32(&invalids, 1)
 			}
-		case "CreatedAt":
+		case "createdAt":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._Timeline_CreatedAt(ctx, field, obj)
+				return ec._Timeline_createdAt(ctx, field, obj)
 			}
 
 			out.Values[i] = innerFunc(ctx)
@@ -8070,9 +8053,9 @@ func (ec *executionContext) _Timeline(ctx context.Context, sel ast.SelectionSet,
 			if out.Values[i] == graphql.Null {
 				atomic.AddUint32(&invalids, 1)
 			}
-		case "UpdatedAt":
+		case "updatedAt":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._Timeline_UpdatedAt(ctx, field, obj)
+				return ec._Timeline_updatedAt(ctx, field, obj)
 			}
 
 			out.Values[i] = innerFunc(ctx)
@@ -8080,7 +8063,7 @@ func (ec *executionContext) _Timeline(ctx context.Context, sel ast.SelectionSet,
 			if out.Values[i] == graphql.Null {
 				atomic.AddUint32(&invalids, 1)
 			}
-		case "DeletedAt":
+		case "deletedAt":
 			field := field
 
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
@@ -8089,7 +8072,7 @@ func (ec *executionContext) _Timeline(ctx context.Context, sel ast.SelectionSet,
 						ec.Error(ctx, ec.Recover(ctx, r))
 					}
 				}()
-				res = ec._Timeline_DeletedAt(ctx, field, obj)
+				res = ec._Timeline_deletedAt(ctx, field, obj)
 				if res == graphql.Null {
 					atomic.AddUint32(&invalids, 1)
 				}
@@ -8710,16 +8693,6 @@ func (ec *executionContext) marshalNIcon2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamit
 	wg.Wait()
 
 	return ret
-}
-
-func (ec *executionContext) marshalNIcon2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐIcon(ctx context.Context, sel ast.SelectionSet, v *model.Icon) graphql.Marshaler {
-	if v == nil {
-		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	return ec._Icon(ctx, sel, v)
 }
 
 func (ec *executionContext) marshalNImage2ᚕgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐImage(ctx context.Context, sel ast.SelectionSet, v []model.Image) graphql.Marshaler {
@@ -9343,6 +9316,16 @@ func (ec *executionContext) marshalOBoolean2ᚖbool(ctx context.Context, sel ast
 	return res
 }
 
+func (ec *executionContext) unmarshalOID2int64(ctx context.Context, v interface{}) (int64, error) {
+	res, err := graphql1.UnmarshalInt64(v)
+	return res, graphql.ErrorOnPath(ctx, err)
+}
+
+func (ec *executionContext) marshalOID2int64(ctx context.Context, sel ast.SelectionSet, v int64) graphql.Marshaler {
+	res := graphql1.MarshalInt64(v)
+	return res
+}
+
 func (ec *executionContext) unmarshalOID2string(ctx context.Context, v interface{}) (string, error) {
 	res, err := graphql1.UnmarshalID(v)
 	return res, graphql.ErrorOnPath(ctx, err)
@@ -9436,6 +9419,11 @@ func (ec *executionContext) unmarshalONewBadge2ᚖgithubᚗcomᚋsamithiwatᚋsa
 	}
 	res, err := ec.unmarshalInputNewBadge(ctx, v)
 	return &res, graphql.ErrorOnPath(ctx, err)
+}
+
+func (ec *executionContext) unmarshalONewIcon2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewIcon(ctx context.Context, v interface{}) (model.NewIcon, error) {
+	res, err := ec.unmarshalInputNewIcon(ctx, v)
+	return res, graphql.ErrorOnPath(ctx, err)
 }
 
 func (ec *executionContext) unmarshalONewTimeline2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewTimeline(ctx context.Context, v interface{}) (*model.NewTimeline, error) {
