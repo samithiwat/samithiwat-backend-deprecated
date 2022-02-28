@@ -17,7 +17,7 @@ extend type Query {
 
 extend type Mutation {
   createSetting(newSetting: NewSetting!): Setting!
-  updateSetting(id: ID!, newSetting: NewSetting!): Setting!
+  updateSetting(id: ID!, newSetting: NewSetting): Setting!
   deleteSetting(id: ID!): Setting!
 }
 
@@ -39,7 +39,7 @@ extend type Query {
 }
 
 extend type Mutation {
-  createAboutMe(newAboutMe: NewAboutMe): AboutMe!
+  createAboutMe(newAboutMe: NewAboutMe!): AboutMe!
   updateAboutMe(id: ID!, newAboutMe: NewAboutMe): AboutMe!
   deleteAboutMe(id: ID!): AboutMe!
 }
