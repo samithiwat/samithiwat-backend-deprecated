@@ -45,6 +45,7 @@ type ResolverRoot interface {
 	Query() QueryResolver
 	Setting() SettingResolver
 	Timeline() TimelineResolver
+	NewSetting() NewSettingResolver
 }
 
 type DirectiveRoot struct {
@@ -100,7 +101,7 @@ type ComplexityRoot struct {
 	}
 
 	Mutation struct {
-		CreateAboutMe  func(childComplexity int, newAboutMe *model.NewAboutMe) int
+		CreateAboutMe  func(childComplexity int, newAboutMe model.NewAboutMe) int
 		CreateBadge    func(childComplexity int, newBadge *model.NewBadge) int
 		CreateIcon     func(childComplexity int, newIcon model.NewIcon) int
 		CreateImage    func(childComplexity int, newImage model.NewImage) int
@@ -116,7 +117,7 @@ type ComplexityRoot struct {
 		UpdateBadge    func(childComplexity int, id string, newBadge *model.NewBadge) int
 		UpdateIcon     func(childComplexity int, id string, newIcon model.NewIcon) int
 		UpdateImage    func(childComplexity int, id string, newImage model.NewImage) int
-		UpdateSetting  func(childComplexity int, id string, newSetting model.NewSetting) int
+		UpdateSetting  func(childComplexity int, id string, newSetting *model.NewSetting) int
 		UpdateTimeline func(childComplexity int, id string, newTimeline *model.NewTimeline) int
 	}
 
@@ -194,9 +195,9 @@ type MutationResolver interface {
 	UpdateImage(ctx context.Context, id string, newImage model.NewImage) (*model.Image, error)
 	DeleteImage(ctx context.Context, id string) (*model.Image, error)
 	CreateSetting(ctx context.Context, newSetting model.NewSetting) (*model.Setting, error)
-	UpdateSetting(ctx context.Context, id string, newSetting model.NewSetting) (*model.Setting, error)
+	UpdateSetting(ctx context.Context, id string, newSetting *model.NewSetting) (*model.Setting, error)
 	DeleteSetting(ctx context.Context, id string) (*model.Setting, error)
-	CreateAboutMe(ctx context.Context, newAboutMe *model.NewAboutMe) (*model.AboutMe, error)
+	CreateAboutMe(ctx context.Context, newAboutMe model.NewAboutMe) (*model.AboutMe, error)
 	UpdateAboutMe(ctx context.Context, id string, newAboutMe *model.NewAboutMe) (*model.AboutMe, error)
 	DeleteAboutMe(ctx context.Context, id string) (*model.AboutMe, error)
 	CreateTimeline(ctx context.Context, newTimeline model.NewTimeline) (*model.Timeline, error)
@@ -228,6 +229,11 @@ type SettingResolver interface {
 }
 type TimelineResolver interface {
 	DeletedAt(ctx context.Context, obj *model.Timeline) (*time.Time, error)
+}
+
+type NewSettingResolver interface {
+	AboutMe(ctx context.Context, obj *model.NewSetting, data *model.NewAboutMe) error
+	Timeline(ctx context.Context, obj *model.NewSetting, data *model.NewTimeline) error
 }
 
 type executableSchema struct {
@@ -507,7 +513,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.CreateAboutMe(childComplexity, args["newAboutMe"].(*model.NewAboutMe)), true
+		return e.complexity.Mutation.CreateAboutMe(childComplexity, args["newAboutMe"].(model.NewAboutMe)), true
 
 	case "Mutation.createBadge":
 		if e.complexity.Mutation.CreateBadge == nil {
@@ -699,7 +705,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.UpdateSetting(childComplexity, args["id"].(string), args["newSetting"].(model.NewSetting)), true
+		return e.complexity.Mutation.UpdateSetting(childComplexity, args["id"].(string), args["newSetting"].(*model.NewSetting)), true
 
 	case "Mutation.updateTimeline":
 		if e.complexity.Mutation.UpdateTimeline == nil {
@@ -1188,8 +1194,8 @@ extend type Mutation {
 }
 
 input NewSetting {
-  aboutMeID: ID!
-  timelineID: ID!
+  aboutMe: NewAboutMe!
+  timeline: NewTimeline!
 }
 
 input NewAboutMe {
@@ -1247,7 +1253,7 @@ extend type Query {
 
 extend type Mutation {
   createSetting(newSetting: NewSetting!): Setting!
-  updateSetting(id: ID!, newSetting: NewSetting!): Setting!
+  updateSetting(id: ID!, newSetting: NewSetting): Setting!
   deleteSetting(id: ID!): Setting!
 }
 
@@ -1269,7 +1275,7 @@ extend type Query {
 }
 
 extend type Mutation {
-  createAboutMe(newAboutMe: NewAboutMe): AboutMe!
+  createAboutMe(newAboutMe: NewAboutMe!): AboutMe!
   updateAboutMe(id: ID!, newAboutMe: NewAboutMe): AboutMe!
   deleteAboutMe(id: ID!): AboutMe!
 }
@@ -1310,10 +1316,10 @@ var parsedSchema = gqlparser.MustLoadSchema(sources...)
 func (ec *executionContext) field_Mutation_createAboutMe_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 *model.NewAboutMe
+	var arg0 model.NewAboutMe
 	if tmp, ok := rawArgs["newAboutMe"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("newAboutMe"))
-		arg0, err = ec.unmarshalONewAboutMe2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewAboutMe(ctx, tmp)
+		arg0, err = ec.unmarshalNNewAboutMe2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewAboutMe(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -1595,10 +1601,10 @@ func (ec *executionContext) field_Mutation_updateSetting_args(ctx context.Contex
 		}
 	}
 	args["id"] = arg0
-	var arg1 model.NewSetting
+	var arg1 *model.NewSetting
 	if tmp, ok := rawArgs["newSetting"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("newSetting"))
-		arg1, err = ec.unmarshalNNewSetting2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewSetting(ctx, tmp)
+		arg1, err = ec.unmarshalONewSetting2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewSetting(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -3590,7 +3596,7 @@ func (ec *executionContext) _Mutation_updateSetting(ctx context.Context, field g
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().UpdateSetting(rctx, args["id"].(string), args["newSetting"].(model.NewSetting))
+		return ec.resolvers.Mutation().UpdateSetting(rctx, args["id"].(string), args["newSetting"].(*model.NewSetting))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -3674,7 +3680,7 @@ func (ec *executionContext) _Mutation_createAboutMe(ctx context.Context, field g
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().CreateAboutMe(rctx, args["newAboutMe"].(*model.NewAboutMe))
+		return ec.resolvers.Mutation().CreateAboutMe(rctx, args["newAboutMe"].(model.NewAboutMe))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -6679,20 +6685,26 @@ func (ec *executionContext) unmarshalInputNewSetting(ctx context.Context, obj in
 
 	for k, v := range asMap {
 		switch k {
-		case "aboutMeID":
+		case "aboutMe":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("aboutMeID"))
-			it.AboutMeID, err = ec.unmarshalNID2string(ctx, v)
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("aboutMe"))
+			data, err := ec.unmarshalNNewAboutMe2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewAboutMe(ctx, v)
 			if err != nil {
 				return it, err
 			}
-		case "timelineID":
+			if err = ec.resolvers.NewSetting().AboutMe(ctx, &it, data); err != nil {
+				return it, err
+			}
+		case "timeline":
 			var err error
 
-			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("timelineID"))
-			it.TimelineID, err = ec.unmarshalNID2string(ctx, v)
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("timeline"))
+			data, err := ec.unmarshalNNewTimeline2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewTimeline(ctx, v)
 			if err != nil {
+				return it, err
+			}
+			if err = ec.resolvers.NewSetting().Timeline(ctx, &it, data); err != nil {
 				return it, err
 			}
 		}
@@ -8850,6 +8862,16 @@ func (ec *executionContext) marshalNInt2int(ctx context.Context, sel ast.Selecti
 	return res
 }
 
+func (ec *executionContext) unmarshalNNewAboutMe2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewAboutMe(ctx context.Context, v interface{}) (model.NewAboutMe, error) {
+	res, err := ec.unmarshalInputNewAboutMe(ctx, v)
+	return res, graphql.ErrorOnPath(ctx, err)
+}
+
+func (ec *executionContext) unmarshalNNewAboutMe2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewAboutMe(ctx context.Context, v interface{}) (*model.NewAboutMe, error) {
+	res, err := ec.unmarshalInputNewAboutMe(ctx, v)
+	return &res, graphql.ErrorOnPath(ctx, err)
+}
+
 func (ec *executionContext) unmarshalNNewIcon2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewIcon(ctx context.Context, v interface{}) (model.NewIcon, error) {
 	res, err := ec.unmarshalInputNewIcon(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
@@ -8873,6 +8895,11 @@ func (ec *executionContext) unmarshalNNewSetting2githubᚗcomᚋsamithiwatᚋsam
 func (ec *executionContext) unmarshalNNewTimeline2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewTimeline(ctx context.Context, v interface{}) (model.NewTimeline, error) {
 	res, err := ec.unmarshalInputNewTimeline(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
+}
+
+func (ec *executionContext) unmarshalNNewTimeline2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewTimeline(ctx context.Context, v interface{}) (*model.NewTimeline, error) {
+	res, err := ec.unmarshalInputNewTimeline(ctx, v)
+	return &res, graphql.ErrorOnPath(ctx, err)
 }
 
 func (ec *executionContext) marshalNSetting2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐSetting(ctx context.Context, sel ast.SelectionSet, v model.Setting) graphql.Marshaler {
@@ -9472,6 +9499,14 @@ func (ec *executionContext) unmarshalONewBadge2ᚖgithubᚗcomᚋsamithiwatᚋsa
 func (ec *executionContext) unmarshalONewIcon2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewIcon(ctx context.Context, v interface{}) (model.NewIcon, error) {
 	res, err := ec.unmarshalInputNewIcon(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
+}
+
+func (ec *executionContext) unmarshalONewSetting2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewSetting(ctx context.Context, v interface{}) (*model.NewSetting, error) {
+	if v == nil {
+		return nil, nil
+	}
+	res, err := ec.unmarshalInputNewSetting(ctx, v)
+	return &res, graphql.ErrorOnPath(ctx, err)
 }
 
 func (ec *executionContext) unmarshalONewTimeline2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewTimeline(ctx context.Context, v interface{}) (*model.NewTimeline, error) {
