@@ -1,6 +1,7 @@
 package model
 
 import (
+	"database/sql"
 	"time"
 
 	"gorm.io/gorm"
@@ -37,7 +38,7 @@ type Timeline struct {
 	Images      []Image   		`json:"images" gorm:"polymorphic:Owner;"`
 	EventDate   time.Time 		`json:"event_date"`
 	Icon        Icon      		`json:"icon" gorm:"polymorphic:Owner;"`
-	SettingID   int64     		`json:"setting_id" gorm:"default:null"`
+	SettingID   sql.NullInt64   `json:"setting_id" gorm:"default:null"`
 	CreatedAt   time.Time 		`json:"created_at"`
 	UpdatedAt   time.Time 		`json:"updated_at"`
 	DeletedAt 	gorm.DeletedAt  `json:"deleted_at"`

@@ -2,12 +2,16 @@ package model
 
 import "time"
 
+// TODO: Add validator
+
 type NewSetting struct {
-	AboutMe  AboutMe `json:"AboutMeID"`
+	ID		 int64    `json:"id"`
+	AboutMe  AboutMe  `json:"AboutMeID"`
 	Timeline Timeline `json:"TimelineID"`
 }
 
 type NewAboutMe struct {
+	ID			int64  `json:"id"`
 	Name        string `json:"Name"`
 	Description string `json:"Description"`
 	Content     string `json:"Content"`
@@ -16,12 +20,12 @@ type NewAboutMe struct {
 }
 
 type NewBadge struct {
-	ID		  int64  `json:"ID"`
-	Name      string `json:"Name"`
-	Color     string `json:"Color"`
+	ID		  int64   `json:"ID"`
+	Name      string  `json:"Name"`
+	Color     string  `json:"Color"`
 	Icon      NewIcon `json:"IconID"`
-	OwnerID   int    `json:"OwnerID"`
-	OwnerType string `json:"OwnerType"`
+	OwnerID   int     `json:"OwnerID"`
+	OwnerType string  `json:"OwnerType"`
 }
 
 type NewIcon struct {
@@ -29,11 +33,12 @@ type NewIcon struct {
 	Name      string `json:"Name"`
 	BgColor   string `json:"BgColor"`
 	IconType  string `json:"IconType"`
-	OwnerID   int    `json:"OwnerID"`
+	OwnerID   int64    `json:"OwnerID"`
 	OwnerType string `json:"OwnerType"`
 }
 
 type NewImage struct {
+	ID			int64  `json:"id"`
 	Name        string `json:"name"`
 	Description string `json:"description"`
 	ImgURL      string `json:"imgUrl"`
@@ -42,11 +47,13 @@ type NewImage struct {
 }
 
 type NewTimeline struct {
-	Slug        string    `json:"Slug"`
-	Name        string    `json:"Name"`
-	Description string    `json:"Description"`
-	Thumbnail   string    `json:"Thumbnail"`
-	EventDate   time.Time `json:"EventDate"`
-	Icon        *NewIcon  `json:"Icon"`
-	SettingID   string    `json:"SettingID"`
+	ID			int64  	   `json:"id"`
+	Slug        string     `json:"Slug"`
+	Name        string     `json:"Name"`
+	Description string     `json:"Description"`
+	Thumbnail   string     `json:"Thumbnail"`
+	EventDate   time.Time  `json:"EventDate"`
+	Images 		[]*NewImage`json:"Images"`
+	Icon        *NewIcon   `json:"Icon"`
+	SettingID   string     `json:"SettingID"`
 }
