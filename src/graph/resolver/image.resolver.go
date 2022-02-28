@@ -26,7 +26,7 @@ func (r *imageResolver) DeletedDate(ctx context.Context, obj *model.Image) (*tim
 }
 
 func (r *mutationResolver) CreateImage(ctx context.Context, newImage model.NewImage) (*model.Image, error) {
-	image, err := r.imageService.CreateImage(&newImage)	
+	image, err := r.imageService.Create(&newImage)
 	if err != nil{
 		return nil, err
 	}
@@ -41,7 +41,7 @@ func (r *mutationResolver) UpdateImage(ctx context.Context, id string, newImage 
 		return nil, err
 	}
 
-	image, err := r.imageService.UpdateImage(int64(parsedID), &newImage)	
+	image, err := r.imageService.Update(int64(parsedID), &newImage)
 	if err != nil{
 		return nil, err
 	}
@@ -55,7 +55,7 @@ func (r *mutationResolver) DeleteImage(ctx context.Context, id string) (*model.I
 		return nil, err
 	}
 	
-	image, err := r.imageService.DeleteImage(int64(parsedID))	
+	image, err := r.imageService.Delete(int64(parsedID))
 	if err != nil{
 		return nil, err
 	}
@@ -64,7 +64,7 @@ func (r *mutationResolver) DeleteImage(ctx context.Context, id string) (*model.I
 }
 
 func (r *queryResolver) Images(ctx context.Context) ([]*model.Image, error) {
-	images, err := r.imageService.GetAllImages()
+	images, err := r.imageService.GetAll()
 	if err != nil {
 		return nil, err
 	}
@@ -78,7 +78,7 @@ func (r *queryResolver) Image(ctx context.Context, id string) (*model.Image, err
 		return nil, err
 	}
 	
-	image, err := r.imageService.GetImage(int64(parsedID))
+	image, err := r.imageService.GetOne(int64(parsedID))
 	if err != nil {
 		return nil, err
 	}

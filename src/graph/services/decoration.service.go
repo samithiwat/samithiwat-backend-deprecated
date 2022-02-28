@@ -82,9 +82,9 @@ func (s *decorationService) CreateIcon(iconDto model.NewIcon) (*model.Icon, erro
 func (s *decorationService) UpdateIcon(id int64, iconDto model.NewIcon) (*model.Icon, error) {
 	db := s.database.GetConnection()
 
-	icon := model.Icon{Name: iconDto.Name, BgColor: iconDto.BgColor, IconType: enum.IconType(iconDto.IconType)}
+	var icon *model.Icon
 
-	result := db.Model(model.Icon{}).Where("id = ?", id).Updates(&icon)
+	result := db.First(&icon, "id = ?", id).Updates(model.Icon{Name: iconDto.Name, BgColor: iconDto.BgColor, IconType: enum.IconType(iconDto.IconType)})
 
 	if result.Error != nil {
 		return nil, fiber.ErrUnprocessableEntity
@@ -94,13 +94,7 @@ func (s *decorationService) UpdateIcon(id int64, iconDto model.NewIcon) (*model.
 		return nil, fiber.ErrNotFound
 	}
 
-	iconResult, err := s.GetIcon(id)
-
-	if err != nil {
-		return nil, err
-	}
-
-	return iconResult, nil
+	return icon, nil
 }
 
 func (s *decorationService) DeleteIcon(id int64) (*model.Icon, error) {
