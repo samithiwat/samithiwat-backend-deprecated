@@ -27,7 +27,7 @@ func (r *imageResolver) DeletedDate(ctx context.Context, obj *model.Image) (*tim
 
 func (r *mutationResolver) CreateImage(ctx context.Context, newImage model.NewImage) (*model.Image, error) {
 	image, err := r.imageService.Create(&newImage)
-	if err != nil{
+	if err != nil {
 		return nil, err
 	}
 
@@ -36,16 +36,16 @@ func (r *mutationResolver) CreateImage(ctx context.Context, newImage model.NewIm
 
 func (r *mutationResolver) UpdateImage(ctx context.Context, id string, newImage model.NewImage) (*model.Image, error) {
 	parsedID, err := strconv.Atoi(id)
-	
+
 	if err != nil {
 		return nil, err
 	}
 
 	image, err := r.imageService.Update(int64(parsedID), &newImage)
-	if err != nil{
+	if err != nil {
 		return nil, err
 	}
-	
+
 	return image, nil
 }
 
@@ -54,9 +54,9 @@ func (r *mutationResolver) DeleteImage(ctx context.Context, id string) (*model.I
 	if err != nil {
 		return nil, err
 	}
-	
+
 	image, err := r.imageService.Delete(int64(parsedID))
-	if err != nil{
+	if err != nil {
 		return nil, err
 	}
 
@@ -77,7 +77,7 @@ func (r *queryResolver) Image(ctx context.Context, id string) (*model.Image, err
 	if err != nil {
 		return nil, err
 	}
-	
+
 	image, err := r.imageService.GetOne(int64(parsedID))
 	if err != nil {
 		return nil, err
