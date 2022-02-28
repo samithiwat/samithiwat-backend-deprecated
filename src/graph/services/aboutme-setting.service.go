@@ -14,7 +14,7 @@ type AboutMeSettingService interface {
 	Delete(id int64) (*model.AboutMe, error)
 }
 
-func NewSettingService(db database.Database) AboutMeSettingService {
+func NewAboutMeSettingService(db database.Database) AboutMeSettingService {
 	return &aboutMeSettingService{
 		database: db,
 	}
@@ -24,7 +24,7 @@ type aboutMeSettingService struct {
 	database database.Database
 }
 
-func (s *aboutMeSettingService) GetAll() ([]*model.AboutMe, error){
+func (s *aboutMeSettingService) GetAll() ([]*model.AboutMe, error) {
 	db := s.database.GetConnection()
 
 	var settings []*model.AboutMe
@@ -37,7 +37,7 @@ func (s *aboutMeSettingService) GetAll() ([]*model.AboutMe, error){
 	return settings, nil
 }
 
-func (s *aboutMeSettingService) GetOne(id int64) (*model.AboutMe, error){
+func (s *aboutMeSettingService) GetOne(id int64) (*model.AboutMe, error) {
 	db := s.database.GetConnection()
 
 	var setting *model.AboutMe
@@ -50,10 +50,10 @@ func (s *aboutMeSettingService) GetOne(id int64) (*model.AboutMe, error){
 	return setting, nil
 }
 
-func (s *aboutMeSettingService) Create(aboutMeDto *model.NewAboutMe) (*model.AboutMe, error){
+func (s *aboutMeSettingService) Create(aboutMeDto *model.NewAboutMe) (*model.AboutMe, error) {
 	db := s.database.GetConnection()
 
-	setting := model.AboutMe{Name: aboutMeDto.Name, Description: aboutMeDto.Description,Content: aboutMeDto.Content, ImgUrl: aboutMeDto.ImgURL}
+	setting := model.AboutMe{Name: aboutMeDto.Name, Description: aboutMeDto.Description, Content: aboutMeDto.Content, ImgUrl: aboutMeDto.ImgURL}
 
 	result := db.Create(&setting)
 
@@ -69,7 +69,7 @@ func (s *aboutMeSettingService) Update(id int64, aboutMeDto *model.NewAboutMe) (
 
 	var aboutMe *model.AboutMe
 
-	result := db.First(&aboutMe, "id = ?", id).Updates(model.AboutMe{Name: aboutMeDto.Name, Description: aboutMeDto.Description,Content: aboutMeDto.Content, ImgUrl: aboutMeDto.ImgURL})
+	result := db.First(&aboutMe, "id = ?", id).Updates(model.AboutMe{Name: aboutMeDto.Name, Description: aboutMeDto.Description, Content: aboutMeDto.Content, ImgUrl: aboutMeDto.ImgURL})
 
 	if result.Error != nil {
 		return nil, fiber.ErrUnprocessableEntity
