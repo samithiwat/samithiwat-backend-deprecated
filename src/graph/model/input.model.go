@@ -3,8 +3,8 @@ package model
 import "time"
 
 type NewSetting struct {
-	AboutMeID  string `json:"AboutMeID"`
-	TimelineID string `json:"TimelineID"`
+	AboutMe  AboutMe `json:"AboutMeID"`
+	Timeline Timeline `json:"TimelineID"`
 }
 
 type NewAboutMe struct {

@@ -11,7 +11,7 @@ type Image struct {
 	Name        string    		`json:"name"`
 	Description string    		`json:"description"`
 	ImgUrl      string    		`json:"img_url"`
-	OwnerID     int       		`json:"owner_id"`
+	OwnerID     int       		`json:"owner_id" gorm:"default:null"`
 	OwnerType   string    		`json:"owner_type"`
 	CreatedAt   time.Time 		`json:"created_at"`
 	UpdatedAt   time.Time 		`json:"updated_at"`
