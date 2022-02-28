@@ -1,17 +1,20 @@
 input NewImage {
-  name: String!
-  description: String!
-  imgUrl: String!
+  id: ID
+  name: String
+  description: String
+  imgUrl: String
   ownerId: ID
   ownerType: String
 }
 
 input NewSetting {
+  id: ID
   aboutMe: NewAboutMe!
   timeline: NewTimeline!
 }
 
 input NewAboutMe {
+  id: ID
   name: String!
   description: String!
   content: String!
@@ -20,12 +23,14 @@ input NewAboutMe {
 }
 
 input NewTimeline {
+  id: ID
   slug: String!
   name: String!
   description: String!
   thumbnail: String!
   eventDate: Time!
   icon: NewIcon!
+  images: [NewImage!]!
   settingID: ID
 }
 

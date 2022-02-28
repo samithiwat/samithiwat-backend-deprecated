@@ -45,7 +45,7 @@ extend type Mutation {
 }
 
 type Timeline {
-  iD: ID!
+  id: ID!
   slug: String!
   name: String!
   description: String!
