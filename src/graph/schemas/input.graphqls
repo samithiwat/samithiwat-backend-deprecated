@@ -7,8 +7,8 @@ input NewImage {
 }
 
 input NewSetting {
-  aboutMeID: ID!
-  timelineID: ID!
+  aboutMe: NewAboutMe!
+  timeline: NewTimeline!
 }
 
 input NewAboutMe {
