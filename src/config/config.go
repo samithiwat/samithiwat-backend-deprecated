@@ -1,6 +1,7 @@
 package config
 
 import (
+	constant "github.com/samithiwat/samithiwat-backend/src/common/constants"
 	"github.com/spf13/viper"
 )
 
@@ -37,6 +38,10 @@ func LoadConfig(path string) (config Config, err error) {
 	err = viper.Unmarshal(&config)
 	if err != nil {
 		return
+	}
+
+	if config.Port == "" {
+		config.Port = constant.DefaultPort
 	}
 	
 	return
