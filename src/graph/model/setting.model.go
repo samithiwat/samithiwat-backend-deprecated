@@ -8,6 +8,7 @@ import (
 
 type Setting struct {
 	ID       	int64    		`json:"id"`
+	IsActivated bool			`json:"is_activated" gorm:"default:false"`
 	AboutMe  	AboutMe  		`json:"about_me" gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE"`
 	Timeline 	Timeline 		`json:"timeline" gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE"`
 	CreatedAt   time.Time 		`json:"created_at"`

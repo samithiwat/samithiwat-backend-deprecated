@@ -4,6 +4,7 @@ type Setting {
   id: ID!
   aboutMe: AboutMe!
   timeline: Timeline!
+  isActivated: Boolean
   createdAt: Time!
   updatedAt: Time!
   deletedAt: Time!

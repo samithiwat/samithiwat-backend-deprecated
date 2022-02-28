@@ -142,12 +142,13 @@ type ComplexityRoot struct {
 	}
 
 	Setting struct {
-		AboutMe   func(childComplexity int) int
-		CreatedAt func(childComplexity int) int
-		DeletedAt func(childComplexity int) int
-		ID        func(childComplexity int) int
-		Timeline  func(childComplexity int) int
-		UpdatedAt func(childComplexity int) int
+		AboutMe     func(childComplexity int) int
+		CreatedAt   func(childComplexity int) int
+		DeletedAt   func(childComplexity int) int
+		ID          func(childComplexity int) int
+		IsActivated func(childComplexity int) int
+		Timeline    func(childComplexity int) int
+		UpdatedAt   func(childComplexity int) int
 	}
 
 	Timeline struct {
@@ -926,6 +927,13 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.Setting.ID(childComplexity), true
 
+	case "Setting.isActivated":
+		if e.complexity.Setting.IsActivated == nil {
+			break
+		}
+
+		return e.complexity.Setting.IsActivated(childComplexity), true
+
 	case "Setting.timeline":
 		if e.complexity.Setting.Timeline == nil {
 			break
@@ -1226,6 +1234,7 @@ type Setting {
   id: ID!
   aboutMe: AboutMe!
   timeline: Timeline!
+  isActivated: Boolean
   createdAt: Time!
   updatedAt: Time!
   deletedAt: Time!
@@ -4746,6 +4755,38 @@ func (ec *executionContext) _Setting_timeline(ctx context.Context, field graphql
 	return ec.marshalNTimeline2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐTimeline(ctx, field.Selections, res)
 }
 
+func (ec *executionContext) _Setting_isActivated(ctx context.Context, field graphql.CollectedField, obj *model.Setting) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "Setting",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.IsActivated, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(bool)
+	fc.Result = res
+	return ec.marshalOBoolean2bool(ctx, field.Selections, res)
+}
+
 func (ec *executionContext) _Setting_createdAt(ctx context.Context, field graphql.CollectedField, obj *model.Setting) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -7892,6 +7933,13 @@ func (ec *executionContext) _Setting(ctx context.Context, sel ast.SelectionSet, 
 			if out.Values[i] == graphql.Null {
 				atomic.AddUint32(&invalids, 1)
 			}
+		case "isActivated":
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec._Setting_isActivated(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		case "createdAt":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
 				return ec._Setting_createdAt(ctx, field, obj)
