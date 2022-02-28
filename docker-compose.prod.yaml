@@ -14,6 +14,10 @@ services:
     networks:
       - samithiwat-app
 
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.main-backend.rule=Host(`api.samithiwat.dev`)"
+      - "traefik.http.routers.main-backend.entrypoints=web"
   db:
     image: postgres:14.1
     container_name: samithiwat-app-db
@@ -30,6 +34,64 @@ services:
     ports:
       - ${DATABASE_PORT}:${DATABASE_PORT}
     command: -p ${DATABASE_PORT}
+
+  directus:
+    image: directus/directus:9.5.2
+    container_name: samithiwat-db-cms
+    restart: unless-stopped
+    ports:
+      - ${DIRECTUS_PORT}:${DIRECTUS_PORT}
+    volumes:
+      - ./volumes/upload:/directus/uploads
+      - ./directus/hooks:/directus/extendsion/hooks
+    environment:
+      KEY: ${DIRECTUS_KEY}
+      SECRET: ${DIRECTUS_SECRET}
+      PORT: ${DIRECTUS_PORT}
+
+      DB_CLIENT: "pg"
+      DB_HOST: "db"
+      DB_PORT: ${DATABASE_PORT}
+      DB_DATABASE: ${POSTGRES_DB}
+      DB_USER: ${POSTGRES_USER}
+      DB_PASSWORD: $POSTGRES_PASSWORD}
+      CACHE_ENABLED: "false"
+
+      ADMIN_EMAIL: ${DIRECTUS_ADMIN_EMAIL}
+      ADMIN_PASSWORD: ${DIRECTUS_ADMIN_PASSWORD}
+
+      PUBLIC_URL: ${DIRECTUS_PUBLIC_URL}
+    networks:
+      - samithiwat-app
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.directus.rule=(Host(`api.samithiwat.dev`) && Path(`/admin`))"
+      - "traefik.http.routers.directus.entrypoints=web"
+
+  reverse-proxy:
+    # The official v2 Traefik docker image
+    image: traefik:2.6.1
+    # Enables the web UI and tells Traefik to listen to docker
+    command:
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+    ports:
+      # The HTTP port
+      - "80:80"
+      # The Web UI (enabled by --api.insecure=true)
+      - "8080:8080"
+    volumes:
+      # So that Traefik can listen to the Docker events
+      - /var/run/docker.sock:/var/run/docker.sock
+  whoami:
+    image: "traefik/whoami"
+    container_name: "simple-service"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.whoami.rule=Host(`whoami.localhost`)"
+      - "traefik.http.routers.whoami.entrypoints=web"
 
 networks:
   samithiwat-app:
