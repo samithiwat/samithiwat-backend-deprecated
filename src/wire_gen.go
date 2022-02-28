@@ -19,7 +19,7 @@ func InitializeResolver(db database.Database) (*graph.Resolver, error) {
 	iconService := service.NewIconService(db)
 	badgeService := service.NewBadgeService(db, iconService)
 	aboutMeSettingService := service.NewAboutMeSettingService(db)
-	timelineSettingService := service.NewTimelineSettingService(db)
+	timelineSettingService := service.NewTimelineSettingService(db, iconService, imageService)
 	settingService := service.NewSettingService(db, aboutMeSettingService, timelineSettingService)
 	resolver := graph.NewResolver(imageService, iconService, badgeService, aboutMeSettingService, timelineSettingService, settingService)
 	return resolver, nil
