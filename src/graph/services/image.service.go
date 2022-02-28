@@ -12,9 +12,10 @@ type ImageService interface {
 	Create(imageDto *model.NewImage) (*model.Image, error)
 	Update(id int64, imageDto *model.NewImage) (*model.Image, error)
 	Delete(id int64) (*model.Image, error)
+	DtoToRaw(imageDto model.NewImage) *model.Image
 }
 
-type imageService struct{
+type imageService struct {
 	database database.Database
 }
 
@@ -26,24 +27,23 @@ func NewImageService(db database.Database) ImageService {
 
 func (s *imageService) GetAll() ([]*model.Image, error) {
 	db := s.database.GetConnection()
-	
+
 	var images []*model.Image
 	result := db.Find(&images)
-	
+
 	if result.Error != nil {
 		return nil, fiber.ErrUnprocessableEntity
 	}
-	
+
 	return images, nil
 }
 
 func (s *imageService) GetOne(id int64) (*model.Image, error) {
 	db := s.database.GetConnection()
 
-	
 	var image *model.Image
 	result := db.First(&image, id)
-	
+
 	if result.Error != nil {
 		return nil, fiber.ErrUnprocessableEntity
 	}
@@ -51,17 +51,17 @@ func (s *imageService) GetOne(id int64) (*model.Image, error) {
 	if result.RowsAffected == 0 {
 		return nil, fiber.ErrNotFound
 	}
-	
+
 	return image, nil
 }
 
 func (s *imageService) Create(imageDto *model.NewImage) (*model.Image, error) {
 	db := s.database.GetConnection()
 
-	image := model.Image{Name:imageDto.Name, Description:imageDto.Description, ImgUrl: imageDto.ImgURL }
-	
+	image := model.Image{Name: imageDto.Name, Description: imageDto.Description, ImgUrl: imageDto.ImgURL}
+
 	result := db.Create(&image)
-	
+
 	if result.Error != nil {
 		return nil, fiber.ErrUnprocessableEntity
 	}
@@ -71,11 +71,11 @@ func (s *imageService) Create(imageDto *model.NewImage) (*model.Image, error) {
 
 func (s *imageService) Update(id int64, imageDto *model.NewImage) (*model.Image, error) {
 	db := s.database.GetConnection()
-	
-	image := model.Image{Name:imageDto.Name, Description:imageDto.Description, ImgUrl: imageDto.ImgURL }
+
+	image := model.Image{Name: imageDto.Name, Description: imageDto.Description, ImgUrl: imageDto.ImgURL}
 
 	result := db.Model(model.Image{}).Where("id = ?", id).Updates(&image)
-	
+
 	if result.Error != nil {
 		return nil, fiber.ErrUnprocessableEntity
 	}
@@ -83,7 +83,7 @@ func (s *imageService) Update(id int64, imageDto *model.NewImage) (*model.Image,
 	if result.RowsAffected == 0 {
 		return nil, fiber.ErrNotFound
 	}
-	
+
 	return &image, nil
 }
 
@@ -103,4 +103,9 @@ func (s *imageService) Delete(id int64) (*model.Image, error) {
 	}
 
 	return image, nil
+}
+
+func (s *imageService) DtoToRaw(imageDto model.NewImage) *model.Image {
+	image := model.Image{ID: imageDto.ID, Name: imageDto.Name, Description: imageDto.Description, ImgUrl: imageDto.ImgURL}
+	return &image
 }

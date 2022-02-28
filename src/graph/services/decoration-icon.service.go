@@ -15,6 +15,7 @@ type IconService interface {
 	Update(id int64, iconDto model.NewIcon) (*model.Icon, error)
 	Delete(id int64) (*model.Icon, error)
 	CheckIconType(iconType enum.IconType) (string, error)
+	DtoToRaw(iconDto model.NewIcon) *model.Icon
 }
 
 type iconService struct {
@@ -119,4 +120,9 @@ func (s *iconService) CheckIconType(iconType enum.IconType) (string, error) {
 		return "", fiber.ErrBadRequest
 	}
 	return result, nil
+}
+
+func (s *iconService) DtoToRaw(iconDto model.NewIcon) *model.Icon {
+	icon := model.Icon{ID: iconDto.ID, Name: iconDto.Name, BgColor: iconDto.BgColor, IconType: enum.IconType(iconDto.IconType)}
+	return &icon
 }
