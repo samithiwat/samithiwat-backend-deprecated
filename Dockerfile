@@ -14,7 +14,7 @@ RUN go mod download
 COPY . .
 
 # Build the application
-RUN go build ./src/server.go
+RUN go build -o server ./src/.
 
 # Set ENV to production
 
