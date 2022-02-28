@@ -138,7 +138,7 @@ func (s *decorationService) GetAllBadges() ([]*model.Badge, error) {
 
 	var badge []*model.Badge
 
-	result := db.Find(&badge)
+	result := db.Preload("Icon").Find(&badge)
 
 	if result.Error != nil {
 		return nil, fiber.ErrUnprocessableEntity
@@ -148,11 +148,13 @@ func (s *decorationService) GetAllBadges() ([]*model.Badge, error) {
 }
 
 func (s *decorationService) GetBadge(id int64) (*model.Badge, error) {
+	//TODO: Optimize code to be more efficiency
+
 	db := s.database.GetConnection()
 
 	var badge *model.Badge
 
-	result := db.First(&badge, id)
+	result := db.Preload("Icon").First(&badge, id)
 
 	if result.Error != nil {
 		return nil, result.Error

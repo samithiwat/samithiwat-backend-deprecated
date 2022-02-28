@@ -139,11 +139,25 @@ func (r *queryResolver) IconsByType(ctx context.Context, iconType string) ([]*mo
 }
 
 func (r *queryResolver) Badges(ctx context.Context) ([]*model.Badge, error) {
-	panic(fmt.Errorf("not implemented"))
+	badges, err := r.decorationService.GetAllBadges()
+
+	if err != nil {
+		return nil, err
+	}
+
+	return badges, nil
 }
 
 func (r *queryResolver) Badge(ctx context.Context, id string) (*model.Badge, error) {
-	panic(fmt.Errorf("not implemented"))
+	convertedID, err := strconv.Atoi(id)
+
+	badge, err := r.decorationService.GetBadge(int64(convertedID))
+
+	if err != nil {
+		return nil, err
+	}
+
+	return badge, nil
 }
 
 func (r *queryResolver) BadgesByOwner(ctx context.Context, ownerID int, ownerType string) ([]*model.Badge, error) {
