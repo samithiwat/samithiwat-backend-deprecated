@@ -16,6 +16,7 @@ import (
 
 func InitializeResolver(db database.Database) (*graph.Resolver, error) {
 	imageService := service.NewImageService(db)
-	resolver := graph.NewResolver(imageService)
+	decorationService := service.NewDecorationService(db)
+	resolver := graph.NewResolver(imageService, decorationService)
 	return resolver, nil
 }

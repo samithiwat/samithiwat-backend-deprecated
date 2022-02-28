@@ -8,10 +8,12 @@ import service "github.com/samithiwat/samithiwat-backend/src/graph/services"
 
 type Resolver struct{
 	imageService service.ImageService
+	decorationService service.DecorationService
 }
 
-func NewResolver(imageService service.ImageService) *Resolver {
+func NewResolver(imageService service.ImageService, decorationService service.DecorationService) *Resolver {
 	return &Resolver{
 		imageService: imageService,
+		decorationService: decorationService,
 	}
 }
