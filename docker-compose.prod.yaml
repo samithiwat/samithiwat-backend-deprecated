@@ -5,19 +5,17 @@ services:
     image: ghcr.io/samithiwat/samithiwat-backend:latest
     container_name: samithiwat-app-backend
     restart: always
-
     env_file:
       - prod.env
     environment:
       DATABASE_HOST: db
-
     networks:
       - samithiwat-app
-
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.main-backend.rule=Host(`api.samithiwat.dev`)"
       - "traefik.http.routers.main-backend.entrypoints=web"
+      - "traefik.docker.network=trafik-net"
   db:
     image: postgres:14.1
     container_name: samithiwat-app-db
@@ -31,12 +29,13 @@ services:
       - ./volumes/postgres:/volumes/postgresql/data
     networks:
       - samithiwat-app
+      - trafik-net
     ports:
       - ${DATABASE_PORT}:${DATABASE_PORT}
     command: -p ${DATABASE_PORT}
 
   directus:
-    image: directus/directus:9.5.2
+    image: directus/directus:9.5
     container_name: samithiwat-db-cms
     restart: unless-stopped
     ports:
@@ -63,10 +62,12 @@ services:
       PUBLIC_URL: ${DIRECTUS_PUBLIC_URL}
     networks:
       - samithiwat-app
+      - trafik-net
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.directus.rule=(Host(`api.samithiwat.dev`) && Path(`/admin`))"
       - "traefik.http.routers.directus.entrypoints=web"
+      - "traefik.docker.network=trafik-net"
 
   reverse-proxy:
     # The official v2 Traefik docker image
@@ -75,6 +76,7 @@ services:
     command:
       - "--api.insecure=true"
       - "--providers.docker=true"
+      - "--providers.docker.network=samithiwat-app"
       - "--providers.docker.exposedbydefault=false"
       - "--entrypoints.web.address=:80"
     ports:
@@ -82,6 +84,8 @@ services:
       - "80:80"
       # The Web UI (enabled by --api.insecure=true)
       - "8080:8080"
+    networks:
+      - trafik-net
     volumes:
       # So that Traefik can listen to the Docker events
       - /var/run/docker.sock:/var/run/docker.sock
@@ -90,9 +94,15 @@ services:
     container_name: "simple-service"
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.whoami.rule=Host(`whoami.localhost`)"
+      - "traefik.http.routers.whoami.rule=Host(`samithiwat.dev`) && Path(`/whoami`)"
       - "traefik.http.routers.whoami.entrypoints=web"
+      - "traefik.docker.network=trafik-net"
+    networks:
+      - samithiwat-app
+      - trafik-net
 
 networks:
   samithiwat-app:
     name: samithiwat-app
+  trafik-net:
+    name: trafik-net
