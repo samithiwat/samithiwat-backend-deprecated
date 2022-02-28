@@ -8,15 +8,17 @@ import service "github.com/samithiwat/samithiwat-backend/src/graph/services"
 
 type Resolver struct{
 	imageService service.ImageService
-	decorationService service.DecorationService
+	iconService service.IconService
+	badgeService service.BadgeService
 	aboutMeSettingService service.AboutMeSettingService
 	timelineSettingService service.TimelineSettingService
 }
 
-func NewResolver(imageService service.ImageService, decorationService service.DecorationService, aboutMeSettingService service.AboutMeSettingService, timelineSettingService service.TimelineSettingService) *Resolver {
+func NewResolver(imageService service.ImageService, iconService service.IconService, badgeService service.BadgeService, aboutMeSettingService service.AboutMeSettingService, timelineSettingService service.TimelineSettingService) *Resolver {
 	return &Resolver{
 		imageService: imageService,
-		decorationService: decorationService,
+		iconService: iconService,
+		badgeService: badgeService,
 		aboutMeSettingService: aboutMeSettingService,
 		timelineSettingService: timelineSettingService,
 	}

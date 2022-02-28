@@ -24,7 +24,7 @@ func (r *badgeResolver) DeletedAt(ctx context.Context, obj *model.Badge) (*time.
 }
 
 func (r *iconResolver) IconType(ctx context.Context, obj *model.Icon) (string, error) {
-	iconType, err := r.decorationService.CheckIconType(obj.IconType)
+	iconType, err := r.iconService.CheckIconType(obj.IconType)
 	if err != nil{
 		return "", err
 	}
@@ -41,7 +41,7 @@ func (r *iconResolver) DeletedAt(ctx context.Context, obj *model.Icon) (*time.Ti
 }
 
 func (r *mutationResolver) CreateIcon(ctx context.Context, newIcon model.NewIcon) (*model.Icon, error) {
-	icon, err := r.decorationService.CreateIcon(newIcon)
+	icon, err := r.iconService.Create(newIcon)
 	if err != nil {
 		return nil, err
 	}
@@ -52,7 +52,7 @@ func (r *mutationResolver) CreateIcon(ctx context.Context, newIcon model.NewIcon
 func (r *mutationResolver) UpdateIcon(ctx context.Context, id string, newIcon model.NewIcon) (*model.Icon, error) {
 	convertedID, err := strconv.Atoi(id)
 
-	icon, err := r.decorationService.UpdateIcon(int64(convertedID), newIcon)
+	icon, err := r.iconService.Update(int64(convertedID), newIcon)
 	if err != nil {
 		return nil, err
 	}
@@ -63,7 +63,7 @@ func (r *mutationResolver) UpdateIcon(ctx context.Context, id string, newIcon mo
 func (r *mutationResolver) DeleteIcon(ctx context.Context, id string) (*model.Icon, error) {
 	convertedID, err := strconv.Atoi(id)
 
-	icon, err := r.decorationService.DeleteIcon(int64(convertedID))
+	icon, err := r.iconService.Delete(int64(convertedID))
 
 	if err != nil {
 		return nil, err
@@ -73,7 +73,7 @@ func (r *mutationResolver) DeleteIcon(ctx context.Context, id string) (*model.Ic
 }
 
 func (r *mutationResolver) CreateBadge(ctx context.Context, newBadge *model.NewBadge) (*model.Badge, error) {
-	badge, err := r.decorationService.CreateBadge(newBadge)
+	badge, err := r.badgeService.Create(newBadge)
 	if err != nil {
 		return nil, err
 	}
@@ -84,7 +84,7 @@ func (r *mutationResolver) CreateBadge(ctx context.Context, newBadge *model.NewB
 func (r *mutationResolver) UpdateBadge(ctx context.Context, id string, newBadge *model.NewBadge) (*model.Badge, error) {
 	convertedID, err := strconv.Atoi(id)
 
-	badge, err := r.decorationService.UpdateBadge(int64(convertedID), newBadge)
+	badge, err := r.badgeService.Update(int64(convertedID), newBadge)
 	if err != nil {
 		return nil, err
 	}
@@ -95,7 +95,7 @@ func (r *mutationResolver) UpdateBadge(ctx context.Context, id string, newBadge 
 func (r *mutationResolver) DeleteBadge(ctx context.Context, id string) (*model.Badge, error) {
 	convertedID, err := strconv.Atoi(id)
 
-	badge, err := r.decorationService.DeleteBadge(int64(convertedID))
+	badge, err := r.badgeService.Delete(int64(convertedID))
 
 	if err != nil {
 		return nil, err
@@ -105,7 +105,7 @@ func (r *mutationResolver) DeleteBadge(ctx context.Context, id string) (*model.B
 }
 
 func (r *queryResolver) Icons(ctx context.Context) ([]*model.Icon, error) {
-	icons, err := r.decorationService.GetAllIcons()
+	icons, err := r.iconService.GetAll()
 
 	if err != nil {
 		return nil, err
@@ -117,7 +117,7 @@ func (r *queryResolver) Icons(ctx context.Context) ([]*model.Icon, error) {
 func (r *queryResolver) Icon(ctx context.Context, id string) (*model.Icon, error) {
 	convertedID, err := strconv.Atoi(id)
 
-	icon, err := r.decorationService.GetIcon(int64(convertedID))
+	icon, err := r.iconService.GetOne(int64(convertedID))
 
 	if err != nil {
 		return nil, err
@@ -139,7 +139,7 @@ func (r *queryResolver) IconsByType(ctx context.Context, iconType string) ([]*mo
 }
 
 func (r *queryResolver) Badges(ctx context.Context) ([]*model.Badge, error) {
-	badges, err := r.decorationService.GetAllBadges()
+	badges, err := r.badgeService.GetAll()
 
 	if err != nil {
 		return nil, err
@@ -151,7 +151,7 @@ func (r *queryResolver) Badges(ctx context.Context) ([]*model.Badge, error) {
 func (r *queryResolver) Badge(ctx context.Context, id string) (*model.Badge, error) {
 	convertedID, err := strconv.Atoi(id)
 
-	badge, err := r.decorationService.GetBadge(int64(convertedID))
+	badge, err := r.badgeService.GetOne(int64(convertedID))
 
 	if err != nil {
 		return nil, err
