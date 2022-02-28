@@ -1,59 +1,59 @@
 type Icon {
-  ID: ID!
-  Name: String!
-  BgColor: String!
-  IconType: String!
-  OwnerID: Int!
-  OwnerType: String!
-  CreatedAt: Time!
-  UpdatedAt: Time!
-  DeletedAt: Time!
+  id: ID!
+  name: String!
+  bgColor: String!
+  iconType: String!
+  ownerID: Int!
+  ownerType: String!
+  createdAt: Time!
+  updatedAt: Time!
+  deletedAt: Time!
 }
 
 extend type Query {
-  Icons: [Icon]!
-  Icon(ID: ID!): Icon
-  IconsByOwner(OwnerID: Int!, OwnerType: String!): [Icon]
-  IconsByOwnerAndType(
-    OwnerID: Int!
-    OwnerType: String!
-    IconType: String!
+  icons: [Icon]!
+  icon(id: ID!): Icon
+  iconsByOwner(ownerID: Int!, ownerType: String!): [Icon]
+  iconsByOwnerAndType(
+    ownerID: Int!
+    ownerType: String!
+    iconType: String!
   ): [Icon]
-  IconsByType(IconType: String!): [Icon]
+  iconsByType(iconType: String!): [Icon]
 }
 
 extend type Mutation {
-  CreateIcon(newIcon: NewIcon!): Icon
-  UpdateIcon(ID: ID!, newIcon: NewIcon!): Icon
-  DeleteIcon(ID: ID!): Icon
+  createIcon(newIcon: NewIcon!): Icon
+  updateIcon(id: ID!, newIcon: NewIcon!): Icon
+  deleteIcon(id: ID!): Icon
 }
 
 type Badge {
-  ID: ID!
-  Name: String!
-  Color: String!
-  Icon: Icon!
-  OwnerID: Int
-  OwnerType: String
-  CreatedAt: Time!
-  UpdatedAt: Time!
-  DeletedAt: Time!
+  id: ID!
+  name: String!
+  color: String!
+  icon: Icon!
+  ownerID: Int
+  ownerType: String
+  createdAt: Time!
+  updatedAt: Time!
+  deletedAt: Time!
 }
 
 extend type Query {
-  Badges: [Badge]!
-  Badge(ID: ID!): Badge
-  BadgesByOwner(OwnerID: Int!, OwnerType: String!): [Badge]
-  BadgesByOwnerAndType(
-    OwnerID: Int!
-    OwnerType: String!
-    IconType: String!
+  badges: [Badge]!
+  badge(id: ID!): Badge
+  badgesByOwner(ownerID: Int!, ownerType: String!): [Badge]
+  badgesByOwnerAndType(
+    ownerID: Int!
+    ownerType: String!
+    iconType: String!
   ): [Badge]
-  BadgesByType(IconType: String!): [Badge]
+  badgesByType(iconType: String!): [Badge]
 }
 
 extend type Mutation {
-  CreateBadge(newBadge: NewBadge): Badge
-  UpdateBadge(ID: ID!, newBadge: NewBadge): Badge
-  DeleteBadge(ID: ID!): Badge
+  createBadge(newBadge: NewBadge): Badge
+  updateBadge(id: ID!, newBadge: NewBadge): Badge
+  deleteBadge(id: ID!): Badge
 }

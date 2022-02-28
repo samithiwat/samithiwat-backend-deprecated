@@ -7,40 +7,42 @@ input NewImage {
 }
 
 input NewSetting {
-  AboutMeID: ID!
-  TimelineID: ID!
+  aboutMeID: ID!
+  timelineID: ID!
 }
 
 input NewAboutMe {
-  Name: String!
-  Description: String!
-  Content: String!
-  ImgUrl: String!
-  SettingID: ID
+  name: String!
+  description: String!
+  content: String!
+  imgUrl: String!
+  settingID: ID
 }
 
 input NewTimeline {
-  Slug: String!
-  Name: String!
-  Description: String!
-  Thumbnail: String!
-  EventDate: Time!
-  Icon: NewIcon!
-  SettingID: ID
+  slug: String!
+  name: String!
+  description: String!
+  thumbnail: String!
+  eventDate: Time!
+  icon: NewIcon!
+  settingID: ID
 }
 
 input NewIcon {
-  Name: String!
-  BgColor: String!
-  IconType: String!
-  OwnerID: Int
-  OwnerType: String
+  id: ID
+  name: String
+  bgColor: String
+  iconType: String
+  ownerID: Int
+  ownerType: String
 }
 
 input NewBadge {
-  Name: String!
-  Color: String!
-  IconID: ID!
-  OwnerID: Int!
-  OwnerType: String!
+  id: ID
+  name: String
+  color: String
+  icon: NewIcon
+  ownerID: Int
+  ownerType: String
 }

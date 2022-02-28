@@ -1,70 +1,70 @@
 scalar Time
 
 type Setting {
-  ID: ID!
-  AboutMe: AboutMe!
-  Timeline: Timeline!
-  CreatedAt: Time!
-  UpdatedAt: Time!
-  DeletedAt: Time!
+  id: ID!
+  aboutMe: AboutMe!
+  timeline: Timeline!
+  createdAt: Time!
+  updatedAt: Time!
+  deletedAt: Time!
 }
 
 extend type Query {
-  Settings: [Setting]!
-  Setting(ID: ID!): Setting
+  settings: [Setting]!
+  setting(id: ID!): Setting
 }
 
 extend type Mutation {
-  CreateSetting(newSetting: NewSetting!): Setting!
-  UpdateSetting(ID: ID!, newSetting: NewSetting!): Setting!
-  DeleteSetting(ID: ID!): Setting!
+  createSetting(newSetting: NewSetting!): Setting!
+  updateSetting(id: ID!, newSetting: NewSetting!): Setting!
+  deleteSetting(id: ID!): Setting!
 }
 
 type AboutMe {
-  ID: ID!
-  Name: String!
-  Description: String!
-  Content: String!
-  ImgUrl: String!
-  SettingID: ID!
-  CreatedAt: Time!
-  UpdatedAt: Time!
-  DeletedAt: Time!
+  id: ID!
+  name: String!
+  description: String!
+  content: String!
+  imgUrl: String!
+  settingID: ID!
+  createdAt: Time!
+  updatedAt: Time!
+  deletedAt: Time!
 }
 
 extend type Query {
-  AboutMes: [AboutMe]!
-  AboutMe(ID: ID!): AboutMe
+  aboutMes: [AboutMe]!
+  aboutMe(id: ID!): AboutMe
 }
 
 extend type Mutation {
-  CreateAboutMe(newAboutMe: NewAboutMe): AboutMe!
-  UpdateAboutMe(ID: ID!, newAboutMe: NewAboutMe): AboutMe!
-  DeleteAboutMe(ID: ID!): AboutMe!
+  createAboutMe(newAboutMe: NewAboutMe): AboutMe!
+  updateAboutMe(id: ID!, newAboutMe: NewAboutMe): AboutMe!
+  deleteAboutMe(id: ID!): AboutMe!
 }
 
 type Timeline {
-  ID: ID!
-  Slug: String!
-  Name: String!
-  Description: String!
-  Thumbnail: String!
-  Images: [Image]!
-  EventDate: Time!
-  Icon: Icon!
-  SettingID: ID!
-  CreatedAt: Time!
-  UpdatedAt: Time!
-  DeletedAt: Time!
+  iD: ID!
+  slug: String!
+  name: String!
+  description: String!
+  thumbnail: String!
+  images: [Image]!
+  eventDate: Time!
+  icon: Icon!
+  settingID: ID!
+  createdAt: Time!
+  updatedAt: Time!
+  deletedAt: Time!
 }
 
 extend type Query {
-  Timelines: [Timeline]!
-  Timeline(ID: ID!): Timeline
+  timelines: [Timeline]!
+  timeline(id: ID!): Timeline
 }
 
 extend type Mutation {
-  CreateTimeline(newTimeline: NewTimeline!): Timeline!
-  UpdateTimeline(ID: ID!, newTimeline: NewTimeline): Timeline!
-  DeleteTimeline(ID: ID!): Timeline!
+  createTimeline(newTimeline: NewTimeline!): Timeline!
+  updateTimeline(id: ID!, newTimeline: NewTimeline): Timeline!
+  deleteTimeline(id: ID!): Timeline!
 }
