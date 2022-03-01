@@ -20,8 +20,8 @@ RUN go build -o server ./src/.
 
 ENV GO_ENV production
 
-# Expose port 8080
-EXPOSE 8080
+# Expose port 8000
+EXPOSE 8000
 
 # Run the application
 CMD ["./server"]
