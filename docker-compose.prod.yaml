@@ -34,40 +34,40 @@ services:
       - ${DATABASE_PORT}:${DATABASE_PORT}
     command: -p ${DATABASE_PORT}
 
-  directus:
-    image: directus/directus:9.5
-    container_name: samithiwat-db-cms
-    restart: unless-stopped
-    ports:
-      - ${DIRECTUS_PORT}:${DIRECTUS_PORT}
-    volumes:
-      - ./volumes/upload:/directus/uploads
-      - ./directus/hooks:/directus/extendsion/hooks
-    environment:
-      KEY: ${DIRECTUS_KEY}
-      SECRET: ${DIRECTUS_SECRET}
-      PORT: ${DIRECTUS_PORT}
-
-      DB_CLIENT: "pg"
-      DB_HOST: "db"
-      DB_PORT: ${DATABASE_PORT}
-      DB_DATABASE: ${POSTGRES_DB}
-      DB_USER: ${POSTGRES_USER}
-      DB_PASSWORD: $POSTGRES_PASSWORD}
-      CACHE_ENABLED: "false"
-
-      ADMIN_EMAIL: ${DIRECTUS_ADMIN_EMAIL}
-      ADMIN_PASSWORD: ${DIRECTUS_ADMIN_PASSWORD}
-
-      PUBLIC_URL: ${DIRECTUS_PUBLIC_URL}
-    networks:
-      - samithiwat-app
-      - trafik-net
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.directus.rule=(Host(`api.samithiwat.dev`) && Path(`/admin`))"
-      - "traefik.http.routers.directus.entrypoints=web"
-      - "traefik.docker.network=trafik-net"
+#  directus:
+#    image: directus/directus:9.5
+#    container_name: samithiwat-db-cms
+#    restart: unless-stopped
+#    ports:
+#      - ${DIRECTUS_PORT}:${DIRECTUS_PORT}
+#    volumes:
+#      - ./volumes/upload:/directus/uploads
+#      - ./directus/hooks:/directus/extendsion/hooks
+#    environment:
+#      KEY: ${DIRECTUS_KEY}
+#      SECRET: ${DIRECTUS_SECRET}
+#      PORT: ${DIRECTUS_PORT}
+#
+#      DB_CLIENT: "pg"
+#      DB_HOST: "db"
+#      DB_PORT: ${DATABASE_PORT}
+#      DB_DATABASE: ${POSTGRES_DB}
+#      DB_USER: ${POSTGRES_USER}
+#      DB_PASSWORD: $POSTGRES_PASSWORD}
+#      CACHE_ENABLED: "false"
+#
+#      ADMIN_EMAIL: ${DIRECTUS_ADMIN_EMAIL}
+#      ADMIN_PASSWORD: ${DIRECTUS_ADMIN_PASSWORD}
+#
+#      PUBLIC_URL: ${DIRECTUS_PUBLIC_URL}
+#    networks:
+#      - samithiwat-app
+#      - trafik-net
+#    labels:
+#      - "traefik.enable=true"
+#      - "traefik.http.routers.directus.rule=(Host(`api.samithiwat.dev`) && Path(`/admin`))"
+#      - "traefik.http.routers.directus.entrypoints=web"
+#      - "traefik.docker.network=trafik-net"
 
   reverse-proxy:
     # The official v2 Traefik docker image
