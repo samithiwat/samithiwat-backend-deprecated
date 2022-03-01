@@ -11,14 +11,14 @@ services:
       DATABASE_HOST: db
     networks:
       - samithiwat-app
-      - trafik-net
+      - traefik-net
     depends_on:
       - "db"
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.main-backend.rule=Host(`api.samithiwat.dev`)"
       - "traefik.http.routers.main-backend.entrypoints=web"
-      - "traefik.docker.network=trafik-net"
+      - "traefik.docker.network=traefik-net"
   db:
     image: postgres:14.1
     container_name: samithiwat-app-db
@@ -36,41 +36,6 @@ services:
       - ${DATABASE_PORT}:${DATABASE_PORT}
     command: -p ${DATABASE_PORT}
 
-#  directus:
-#    image: directus/directus:9.5
-#    container_name: samithiwat-db-cms
-#    restart: unless-stopped
-#    ports:
-#      - ${DIRECTUS_PORT}:${DIRECTUS_PORT}
-#    volumes:
-#      - ./volumes/upload:/directus/uploads
-#      - ./directus/hooks:/directus/extendsion/hooks
-#    environment:
-#      KEY: ${DIRECTUS_KEY}
-#      SECRET: ${DIRECTUS_SECRET}
-#      PORT: ${DIRECTUS_PORT}
-#
-#      DB_CLIENT: "pg"
-#      DB_HOST: "db"
-#      DB_PORT: ${DATABASE_PORT}
-#      DB_DATABASE: ${POSTGRES_DB}
-#      DB_USER: ${POSTGRES_USER}
-#      DB_PASSWORD: $POSTGRES_PASSWORD}
-#      CACHE_ENABLED: "false"
-#
-#      ADMIN_EMAIL: ${DIRECTUS_ADMIN_EMAIL}
-#      ADMIN_PASSWORD: ${DIRECTUS_ADMIN_PASSWORD}
-#
-#      PUBLIC_URL: ${DIRECTUS_PUBLIC_URL}
-#    networks:
-#      - samithiwat-app
-#      - trafik-net
-#    labels:
-#      - "traefik.enable=true"
-#      - "traefik.http.routers.directus.rule=(Host(`api.samithiwat.dev`) && Path(`/admin`))"
-#      - "traefik.http.routers.directus.entrypoints=web"
-#      - "traefik.docker.network=trafik-net"
-
   reverse-proxy:
     # The official v2 Traefik docker image
     image: traefik:2.6.1
@@ -78,7 +43,6 @@ services:
     command:
       - "--api.insecure=true"
       - "--providers.docker=true"
-      - "--providers.docker.network=samithiwat-app"
       - "--providers.docker.exposedbydefault=false"
       - "--entrypoints.web.address=:80"
     ports:
@@ -87,7 +51,7 @@ services:
       # The Web UI (enabled by --api.insecure=true)
       - "8080:8080"
     networks:
-      - trafik-net
+      - traefik-net
     volumes:
       # So that Traefik can listen to the Docker events
       - /var/run/docker.sock:/var/run/docker.sock
@@ -98,13 +62,13 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.whoami.rule=Host(`api.samithiwat.dev`) && Path(`/whoami`)"
       - "traefik.http.routers.whoami.entrypoints=web"
-      - "traefik.docker.network=trafik-net"
+      - "traefik.docker.network=traefik-net"
     networks:
       - samithiwat-app
-      - trafik-net
+      - traefik-net
 
 networks:
   samithiwat-app:
     name: samithiwat-app
-  trafik-net:
-    name: trafik-net
+  traefik-net:
+    name: traefik-net
