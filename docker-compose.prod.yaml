@@ -89,7 +89,7 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.directus.rule=Host(`admin.samithiwat.dev`)"
       - "traefik.http.routers.directus.entrypoints=web"
-      - "traefik.docker.network=trafik-net"
+      - "traefik.docker.network=traefik-net"
 
 networks:
   samithiwat-app:
