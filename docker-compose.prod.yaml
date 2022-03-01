@@ -56,41 +56,27 @@ services:
       # So that Traefik can listen to the Docker events
       - /var/run/docker.sock:/var/run/docker.sock
 
-  directus:
-    image: directus/directus:9.4.1
-    container_name: samithiwat-db-cms
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: samithiwat-cms
     restart: unless-stopped
-    ports:
-      - ${DIRECTUS_PORT}:${DIRECTUS_PORT}
-    volumes:
-      - ./volumes/upload:/directus/uploads
-      - ./directus/hooks:/directus/extendsion/hooks
     environment:
-      KEY: ${DIRECTUS_KEY}
-      SECRET: ${DIRECTUS_SECRET}
-      PORT: ${DIRECTUS_PORT}
-
-      DB_CLIENT: "pg"
-      DB_HOST: "db"
-      DB_PORT: ${DATABASE_PORT}
-      DB_DATABASE: ${POSTGRES_DB}
-      DB_USER: ${POSTGRES_USER}
-      DB_PASSWORD: $POSTGRES_PASSWORD}
-      CACHE_ENABLED: "false"
-
-      ADMIN_EMAIL: ${DIRECTUS_ADMIN_EMAIL}
-      ADMIN_PASSWORD: ${DIRECTUS_ADMIN_PASSWORD}
-      CONTENT_SECURITY_POLICY_DIRECTIVES__UPGRADE_INSECURE_REQUESTS: "null"
-
-      PUBLIC_URL: ${DIRECTUS_PUBLIC_URL}
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
+      PGADMIN_LISTEN_PORT: ${PGADMIN_PORT}
+    ports:
+      - ${PGADMIN_PORT}:${PGADMIN_PORT}
+    volumes:
+      - /pgadmin/servers.json
     networks:
       - samithiwat-app
       - traefik-net
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.directus.rule=Host(`admin.samithiwat.dev`)"
-      - "traefik.http.routers.directus.entrypoints=web"
+      - "traefik.http.routers.pgadmin.rule=Host(`admin.samithiwat.dev`)"
+      - "traefik.http.routers.pgadmin.entrypoints=web"
       - "traefik.docker.network=traefik-net"
+      - "traefik.http.services.pgadmin.loadbalancer.server.port=3001"
 
 networks:
   samithiwat-app:
