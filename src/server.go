@@ -26,7 +26,7 @@ func gqlHandler(resolver *graph.Resolver) http.HandlerFunc{
 }
 
 func playgroundHandler() http.Handler{
-    return playground.Handler("GraphQL playground", "/query")
+    return playground.Handler("GraphQL playground", "/graphql")
 }
 
 func main() {
