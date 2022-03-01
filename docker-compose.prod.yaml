@@ -11,6 +11,8 @@ services:
       DATABASE_HOST: db
     networks:
       - samithiwat-app
+    depends_on:
+      - "db"
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.main-backend.rule=Host(`api.samithiwat.dev`)"
