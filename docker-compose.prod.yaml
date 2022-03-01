@@ -57,7 +57,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
 
   directus:
-    image: directus/directus:9.5
+    image: directus/directus:9.4.1
     container_name: samithiwat-db-cms
     restart: unless-stopped
     ports:
