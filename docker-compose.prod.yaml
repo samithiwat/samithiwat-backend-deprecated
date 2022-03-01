@@ -96,7 +96,7 @@ services:
     container_name: "simple-service"
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.whoami.rule=Host(`samithiwat.dev`) && Path(`/whoami`)"
+      - "traefik.http.routers.whoami.rule=Host(`api.samithiwat.dev`) && Path(`/whoami`)"
       - "traefik.http.routers.whoami.entrypoints=web"
       - "traefik.docker.network=trafik-net"
     networks:
