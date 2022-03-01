@@ -11,6 +11,7 @@ services:
       DATABASE_HOST: db
     networks:
       - samithiwat-app
+      - trafik-net
     depends_on:
       - "db"
     labels:
@@ -31,7 +32,6 @@ services:
       - ./volumes/postgres:/volumes/postgresql/data
     networks:
       - samithiwat-app
-      - trafik-net
     ports:
       - ${DATABASE_PORT}:${DATABASE_PORT}
     command: -p ${DATABASE_PORT}
