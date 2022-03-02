@@ -14,16 +14,17 @@ type BadgeService interface {
 	Create(badgeDto *model.NewBadge) (*model.Badge, error)
 	Update(id int64, badgeDto *model.NewBadge) (*model.Badge, error)
 	Delete(id int64) (*model.Badge, error)
+	DtoToRaw(githubRepoDto model.NewBadge) *model.Badge
 }
 
 type badgeService struct {
-	database database.Database
+	database    database.Database
 	iconService IconService
 }
 
 func NewBadgeService(database database.Database, iconService IconService) BadgeService {
 	return &badgeService{
-		database: database,
+		database:    database,
 		iconService: iconService,
 	}
 }
@@ -128,4 +129,10 @@ func (s *badgeService) Delete(id int64) (*model.Badge, error) {
 	}
 
 	return badge, nil
+}
+
+func (s badgeService) DtoToRaw(githubRepoDto model.NewBadge) *model.Badge {
+	rawIcon := s.iconService.DtoToRaw(githubRepoDto.Icon)
+	badge := model.Badge{ID: githubRepoDto.ID, Name: githubRepoDto.Name, Color: githubRepoDto.Color, Icon: *rawIcon}
+	return &badge
 }

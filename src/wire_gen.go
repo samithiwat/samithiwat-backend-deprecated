@@ -21,6 +21,7 @@ func InitializeResolver(db database.Database) (*graph.Resolver, error) {
 	aboutMeSettingService := service.NewAboutMeSettingService(db)
 	timelineSettingService := service.NewTimelineSettingService(db, iconService, imageService)
 	settingService := service.NewSettingService(db, aboutMeSettingService, timelineSettingService)
-	resolver := graph.NewResolver(imageService, iconService, badgeService, aboutMeSettingService, timelineSettingService, settingService)
+	githubRepoService := service.NewGithubRepoService(db, badgeService)
+	resolver := graph.NewResolver(imageService, iconService, badgeService, aboutMeSettingService, timelineSettingService, settingService, githubRepoService)
 	return resolver, nil
 }

@@ -197,19 +197,7 @@ func (r *queryResolver) Timeline(ctx context.Context, id string) (*model.Timelin
 	return setting, nil
 }
 
-func (r *settingResolver) AboutMe(ctx context.Context, obj *model.Setting) (*model.AboutMe, error) {
-	panic(fmt.Errorf("not implemented"))
-}
-
-func (r *settingResolver) Timeline(ctx context.Context, obj *model.Setting) (*model.Timeline, error) {
-	panic(fmt.Errorf("not implemented"))
-}
-
 func (r *settingResolver) DeletedAt(ctx context.Context, obj *model.Setting) (*time.Time, error) {
-	panic(fmt.Errorf("not implemented"))
-}
-
-func (r *timelineResolver) DeletedAt(ctx context.Context, obj *model.Timeline) (*time.Time, error) {
 	panic(fmt.Errorf("not implemented"))
 }
 
@@ -217,15 +205,7 @@ func (r *timelineResolver) SettingID(ctx context.Context, obj *model.Timeline) (
 	panic(fmt.Errorf("not implemented"))
 }
 
-func (r *newSettingResolver) AboutMe(ctx context.Context, obj *model.NewSetting, data *model.NewAboutMe) error {
-	panic(fmt.Errorf("not implemented"))
-}
-
-func (*newSettingResolver) Timeline(ctx context.Context, obj *model.NewSetting, data *model.NewTimeline) error {
-	panic(fmt.Errorf("not implemented"))
-}
-
-func (*newSettingResolver) ID(ctx context.Context, obj *model.NewSetting, data *string) error {
+func (r *timelineResolver) DeletedAt(ctx context.Context, obj *model.Timeline) (*time.Time, error) {
 	panic(fmt.Errorf("not implemented"))
 }
 
@@ -238,10 +218,6 @@ func (r *Resolver) Setting() generated.SettingResolver { return &settingResolver
 // Timeline returns generated.TimelineResolver implementation.
 func (r *Resolver) Timeline() generated.TimelineResolver { return &timelineResolver{r} }
 
-// NewSetting returns generated.NewSettingResolver implementation
-func (r *Resolver) NewSetting() generated.NewSettingResolver { return &newSettingResolver{r} }
-
 type aboutMeResolver struct{ *Resolver }
 type settingResolver struct{ *Resolver }
 type timelineResolver struct{ *Resolver }
-type newSettingResolver struct{ *Resolver }

@@ -46,7 +46,7 @@ func (r *mutationResolver) CreateIcon(ctx context.Context, newIcon model.NewIcon
 
 func (r *mutationResolver) UpdateIcon(ctx context.Context, id string, newIcon model.NewIcon) (*model.Icon, error) {
 	parsedID, err := strconv.Atoi(id)
-	if err != nil{
+	if err != nil {
 		return nil, fiber.NewError(fiber.StatusBadRequest, err)
 	}
 
@@ -60,7 +60,7 @@ func (r *mutationResolver) UpdateIcon(ctx context.Context, id string, newIcon mo
 
 func (r *mutationResolver) DeleteIcon(ctx context.Context, id string) (*model.Icon, error) {
 	parsedID, err := strconv.Atoi(id)
-	if err != nil{
+	if err != nil {
 		return nil, fiber.NewError(fiber.StatusBadRequest, err)
 	}
 
@@ -84,7 +84,7 @@ func (r *mutationResolver) CreateBadge(ctx context.Context, newBadge *model.NewB
 
 func (r *mutationResolver) UpdateBadge(ctx context.Context, id string, newBadge *model.NewBadge) (*model.Badge, error) {
 	parsedID, err := strconv.Atoi(id)
-	if err != nil{
+	if err != nil {
 		return nil, fiber.NewError(fiber.StatusBadRequest, err)
 	}
 
@@ -98,7 +98,7 @@ func (r *mutationResolver) UpdateBadge(ctx context.Context, id string, newBadge 
 
 func (r *mutationResolver) DeleteBadge(ctx context.Context, id string) (*model.Badge, error) {
 	parsedID, err := strconv.Atoi(id)
-	if err != nil{
+	if err != nil {
 		return nil, fiber.NewError(fiber.StatusBadRequest, err)
 	}
 
@@ -123,7 +123,7 @@ func (r *queryResolver) Icons(ctx context.Context) ([]*model.Icon, error) {
 
 func (r *queryResolver) Icon(ctx context.Context, id string) (*model.Icon, error) {
 	parsedID, err := strconv.Atoi(id)
-	if err != nil{
+	if err != nil {
 		return nil, fiber.NewError(fiber.StatusBadRequest, err)
 	}
 
@@ -160,7 +160,7 @@ func (r *queryResolver) Badges(ctx context.Context) ([]*model.Badge, error) {
 
 func (r *queryResolver) Badge(ctx context.Context, id string) (*model.Badge, error) {
 	parsedID, err := strconv.Atoi(id)
-	if err != nil{
+	if err != nil {
 		return nil, fiber.NewError(fiber.StatusBadRequest, err)
 	}
 

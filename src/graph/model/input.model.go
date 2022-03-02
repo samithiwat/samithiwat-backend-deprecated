@@ -57,3 +57,16 @@ type NewTimeline struct {
 	Icon        *NewIcon   `json:"Icon"`
 	SettingID   string     `json:"SettingID"`
 }
+
+type NewGithubRepo struct {
+	ID			 int64  	`json:"id"`
+	Name	  	 string    	`json:"name"`
+	Author	  	 string    	`json:"author"`
+	Description  string    	`json:"description"`
+	ThumbnailUrl string    	`json:"thumbnail_url"`
+	Url 	 	 string    	`json:"url"`
+	LatestUpdate time.Time 	`json:"latest_update"`
+	Star	 	 int64     	`json:"star"`
+	Framework    NewBadge 	 	`json:"framework"`
+	Language	 NewBadge 	 	`json:"language"`
+}

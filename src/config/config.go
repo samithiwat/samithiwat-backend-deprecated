@@ -11,6 +11,7 @@ type Database struct {
 	User     string `mapstructure:"POSTGRES_USER"`
 	Password string `mapstructure:"POSTGRES_PASSWORD"`
 	Name     string `mapstructure:"POSTGRES_DB"`
+	SSL		 string `mapstructure:"POSTGRES_SSL_MODE"`
 }
 
 type Config struct {

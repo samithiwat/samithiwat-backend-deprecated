@@ -56,16 +56,19 @@ models:
       - github.com/arsmn/fastgql/graphql.Int64
       - github.com/arsmn/fastgql/graphql.Int32
   Setting:
+    model: github.com/samithiwat/samithiwat-backend/src/graph/model.Setting
     fields:
       AboutMe:
         resolver: true
       Timeline:
         resolver: true
   Badge:
+    model: github.com/samithiwat/samithiwat-backend/src/graph/model.Badge
     fields:
       Icon:
         resolver: true
   GithubRepo:
+    model: github.com/samithiwat/samithiwat-backend/src/graph/model.GithubRepo
     fields:
       Framework:
         resolver: true
