@@ -18,13 +18,13 @@ type BadgeService interface {
 }
 
 type badgeService struct {
-	database database.Database
+	database    database.Database
 	iconService IconService
 }
 
 func NewBadgeService(database database.Database, iconService IconService) BadgeService {
 	return &badgeService{
-		database: database,
+		database:    database,
 		iconService: iconService,
 	}
 }
