@@ -1,7 +1,9 @@
 package main
 
 import (
+	"flag"
 	"fmt"
+	"github.com/samithiwat/samithiwat-backend/src/database/seed"
 	"log"
 	"net/http"
 	"os"
@@ -18,53 +20,68 @@ import (
 	"github.com/valyala/fasthttp/fasthttpadaptor"
 )
 
-func gqlHandler(resolver *graph.Resolver) http.HandlerFunc{
-    srv := handler.NewDefaultServer(generated.NewExecutableSchema(generated.Config{Resolvers: resolver}))
-    return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request){
-        srv.ServeHTTP(w, r)
-    })
+func gqlHandler(resolver *graph.Resolver) http.HandlerFunc {
+	srv := handler.NewDefaultServer(generated.NewExecutableSchema(generated.Config{Resolvers: resolver}))
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		srv.ServeHTTP(w, r)
+	})
 }
 
-func playgroundHandler() http.Handler{
-    return playground.Handler("GraphQL playground", "/graphql")
+func playgroundHandler() http.Handler {
+	return playground.Handler("GraphQL playground", "/graphql")
 }
 
 func main() {
-    config, err := config.LoadConfig(".")
-    
-    if err != nil {
-        log.Fatal("cannot to load config", err)
-    }
+	config, err := config.LoadConfig(".")
 
-    client, err := database.InitDatabase()
-    
-    if err != nil {
-        log.Fatal("cannot to init database", err)
-    }
+	if err != nil {
+		log.Fatal("cannot to load config", err)
+	}
 
-    err = client.AutoMigrate()
-    
-    if err != nil {
-        log.Fatal("cannot migrate database", err)
-    }
+	client, err := database.InitDatabase()
 
-    app := fiber.New()
+	if err != nil {
+		log.Fatal("cannot to init database", err)
+	}
 
-    resolver, err := InitializeResolver(client)
-    if err != nil {
-        fmt.Printf("failed to inject resolver: %s\n", err)
-		os.Exit(2) 
-    }
+	err = client.AutoMigrate()
 
-    app.All("graphql", func(c *fiber.Ctx) error {
-        fasthttpadaptor.NewFastHTTPHandler(gqlHandler(resolver))(c.Context())
-        return nil
-    })
+	if err != nil {
+		log.Fatal("cannot migrate database", err)
+	}
 
-    app.All("/", func(c *fiber.Ctx) error {
-        fasthttpadaptor.NewFastHTTPHandler(playgroundHandler())(c.Context())
-        return nil
-    })
+	handleArgs(client)
 
-    app.Listen(":" + config.Port)
+	app := fiber.New()
+
+	resolver, err := InitializeResolver(client)
+	if err != nil {
+		fmt.Printf("failed to inject resolver: %s\n", err)
+		os.Exit(2)
+	}
+
+	app.All("graphql", func(c *fiber.Ctx) error {
+		fasthttpadaptor.NewFastHTTPHandler(gqlHandler(resolver))(c.Context())
+		return nil
+	})
+
+	app.All("/", func(c *fiber.Ctx) error {
+		fasthttpadaptor.NewFastHTTPHandler(playgroundHandler())(c.Context())
+		return nil
+	})
+
+	app.Listen(":" + config.Port)
+}
+
+func handleArgs(db database.Database) {
+	flag.Parse()
+	args := flag.Args()
+
+	if len(args) >= 1 {
+		switch args[0] {
+		case "seed":
+			seed.Execute(db, args[1:]...)
+			os.Exit(0)
+		}
+	}
 }

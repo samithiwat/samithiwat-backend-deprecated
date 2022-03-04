@@ -7,8 +7,6 @@ services:
     restart: always
     env_file:
       - prod.env
-    environment:
-      DATABASE_HOST: db
     networks:
       - samithiwat-app
       - traefik-net

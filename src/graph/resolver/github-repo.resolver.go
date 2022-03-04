@@ -73,21 +73,8 @@ func (g githubRepoResolver) DeletedAt(ctx context.Context, obj *model.GithubRepo
 	panic("implement me")
 }
 
-func (n newGithubRepoResolver) Framework(ctx context.Context, obj *model.NewGithubRepo, data *model.NewBadge) error {
-	//TODO implement me
-	panic("implement me")
-}
-
-func (n newGithubRepoResolver) Language(ctx context.Context, obj *model.NewGithubRepo, data *model.NewBadge) error {
-	//TODO implement me
-	panic("implement me")
-}
 
 // GithubRepo returns generated.GithubRepoResolver implementation.
 func (r *Resolver) GithubRepo() generated.GithubRepoResolver { return &githubRepoResolver{r} }
 
-// NewGithubRepo returns generated.NewGithubRepoResolver implementation.
-func (r *Resolver) NewGithubRepo() generated.NewGithubRepoResolver { return &newGithubRepoResolver{r} }
-
 type githubRepoResolver struct{ *Resolver }
-type newGithubRepoResolver struct{ *Resolver }

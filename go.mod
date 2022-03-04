@@ -7,6 +7,7 @@ require (
 	github.com/agnivade/levenshtein v1.1.0 // indirect
 	github.com/andybalholm/brotli v1.0.4 // indirect
 	github.com/arsmn/fastgql v0.14.0 // indirect
+	github.com/bxcodec/faker/v3 v3.7.0 // indirect
 	github.com/cpuguy83/go-md2man/v2 v2.0.1 // indirect
 	github.com/fasthttp/websocket v1.4.3 // indirect
 	github.com/fsnotify/fsnotify v1.5.1 // indirect

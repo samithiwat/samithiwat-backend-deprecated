@@ -12,7 +12,7 @@ type Icon struct {
 	Name      string 		 `json:"icon"`
 	BgColor   string 		 `json:"icon_bg_color"`
 	IconType  enum.IconType  `json:"icon_type"`
-	OwnerID   int 			 `json:"owner_id" gorm:"default:null"`
+	OwnerID   int64 		 `json:"owner_id" gorm:"default:null"`
 	OwnerType string 		 `json:"owner_type"`
 	CreatedAt time.Time 	 `json:"created_at"`
 	UpdatedAt time.Time 	 `json:"updated_at"`
@@ -25,7 +25,7 @@ type Badge struct {
 	Name      string 		 `json:"name"`
 	Color     string 		 `json:"color"`
 	Icon      Icon 		 	 `json:"icon" gorm:"polymorphic:Owner;"`
-	OwnerID   int 			 `json:"owner_id" gorm:"default:null"`
+	OwnerID   int64 		 `json:"owner_id" gorm:"default:null"`
 	OwnerType string 		 `json:"owner_type"`
 	CreatedAt time.Time 	 `json:"created_at"`
 	UpdatedAt time.Time 	 `json:"updated_at"`
