@@ -46,7 +46,6 @@ type ResolverRoot interface {
 	Query() QueryResolver
 	Setting() SettingResolver
 	Timeline() TimelineResolver
-	NewGithubRepo() NewGithubRepoResolver
 }
 
 type DirectiveRoot struct {
@@ -261,11 +260,6 @@ type TimelineResolver interface {
 	SettingID(ctx context.Context, obj *model.Timeline) (string, error)
 
 	DeletedAt(ctx context.Context, obj *model.Timeline) (*time.Time, error)
-}
-
-type NewGithubRepoResolver interface {
-	Framework(ctx context.Context, obj *model.NewGithubRepo, data *model.NewBadge) error
-	Language(ctx context.Context, obj *model.NewGithubRepo, data *model.NewBadge) error
 }
 
 type executableSchema struct {
@@ -2696,9 +2690,9 @@ func (ec *executionContext) _Badge_ownerID(ctx context.Context, field graphql.Co
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(int)
+	res := resTmp.(int64)
 	fc.Result = res
-	return ec.marshalOInt2int(ctx, field.Selections, res)
+	return ec.marshalOInt2int64(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Badge_ownerType(ctx context.Context, field graphql.CollectedField, obj *model.Badge) (ret graphql.Marshaler) {
@@ -3427,9 +3421,9 @@ func (ec *executionContext) _Icon_ownerID(ctx context.Context, field graphql.Col
 		}
 		return graphql.Null
 	}
-	res := resTmp.(int)
+	res := resTmp.(int64)
 	fc.Result = res
-	return ec.marshalNInt2int(ctx, field.Selections, res)
+	return ec.marshalNInt2int64(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Icon_ownerType(ctx context.Context, field graphql.CollectedField, obj *model.Icon) (ret graphql.Marshaler) {
@@ -3742,9 +3736,9 @@ func (ec *executionContext) _Image_ownerId(ctx context.Context, field graphql.Co
 		}
 		return graphql.Null
 	}
-	res := resTmp.(int)
+	res := resTmp.(int64)
 	fc.Result = res
-	return ec.marshalNID2int(ctx, field.Selections, res)
+	return ec.marshalNID2int64(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Image_ownerType(ctx context.Context, field graphql.CollectedField, obj *model.Image) (ret graphql.Marshaler) {
@@ -7448,7 +7442,7 @@ func (ec *executionContext) unmarshalInputNewBadge(ctx context.Context, obj inte
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("ownerID"))
-			it.OwnerID, err = ec.unmarshalOInt2int(ctx, v)
+			it.OwnerID, err = ec.unmarshalOInt2int64(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -7543,22 +7537,16 @@ func (ec *executionContext) unmarshalInputNewGithubRepo(ctx context.Context, obj
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("framework"))
-			data, err := ec.unmarshalONewBadge2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewBadge(ctx, v)
+			it.Framework, err = ec.unmarshalONewBadge2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewBadge(ctx, v)
 			if err != nil {
-				return it, err
-			}
-			if err = ec.resolvers.NewGithubRepo().Framework(ctx, &it, data); err != nil {
 				return it, err
 			}
 		case "language":
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("language"))
-			data, err := ec.unmarshalONewBadge2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewBadge(ctx, v)
+			it.Language, err = ec.unmarshalONewBadge2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewBadge(ctx, v)
 			if err != nil {
-				return it, err
-			}
-			if err = ec.resolvers.NewGithubRepo().Language(ctx, &it, data); err != nil {
 				return it, err
 			}
 		}
@@ -7675,7 +7663,7 @@ func (ec *executionContext) unmarshalInputNewImage(ctx context.Context, obj inte
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("ownerId"))
-			it.OwnerID, err = ec.unmarshalOID2string(ctx, v)
+			it.OwnerID, err = ec.unmarshalOID2int64(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -9956,21 +9944,6 @@ func (ec *executionContext) marshalNGithubRepo2ᚖgithubᚗcomᚋsamithiwatᚋsa
 	return ec._GithubRepo(ctx, sel, v)
 }
 
-func (ec *executionContext) unmarshalNID2int(ctx context.Context, v interface{}) (int, error) {
-	res, err := graphql1.UnmarshalInt(v)
-	return res, graphql.ErrorOnPath(ctx, err)
-}
-
-func (ec *executionContext) marshalNID2int(ctx context.Context, sel ast.SelectionSet, v int) graphql.Marshaler {
-	res := graphql1.MarshalInt(v)
-	if res == graphql.Null {
-		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
-			ec.Errorf(ctx, "must not be null")
-		}
-	}
-	return res
-}
-
 func (ec *executionContext) unmarshalNID2int64(ctx context.Context, v interface{}) (int64, error) {
 	res, err := graphql1.UnmarshalInt64(v)
 	return res, graphql.ErrorOnPath(ctx, err)
@@ -10142,6 +10115,21 @@ func (ec *executionContext) unmarshalNInt2int(ctx context.Context, v interface{}
 
 func (ec *executionContext) marshalNInt2int(ctx context.Context, sel ast.SelectionSet, v int) graphql.Marshaler {
 	res := graphql1.MarshalInt(v)
+	if res == graphql.Null {
+		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
+			ec.Errorf(ctx, "must not be null")
+		}
+	}
+	return res
+}
+
+func (ec *executionContext) unmarshalNInt2int64(ctx context.Context, v interface{}) (int64, error) {
+	res, err := graphql1.UnmarshalInt64(v)
+	return res, graphql.ErrorOnPath(ctx, err)
+}
+
+func (ec *executionContext) marshalNInt2int64(ctx context.Context, sel ast.SelectionSet, v int64) graphql.Marshaler {
+	res := graphql1.MarshalInt64(v)
 	if res == graphql.Null {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -10786,16 +10774,6 @@ func (ec *executionContext) marshalOImage2ᚖgithubᚗcomᚋsamithiwatᚋsamithi
 	return ec._Image(ctx, sel, v)
 }
 
-func (ec *executionContext) unmarshalOInt2int(ctx context.Context, v interface{}) (int, error) {
-	res, err := graphql1.UnmarshalInt(v)
-	return res, graphql.ErrorOnPath(ctx, err)
-}
-
-func (ec *executionContext) marshalOInt2int(ctx context.Context, sel ast.SelectionSet, v int) graphql.Marshaler {
-	res := graphql1.MarshalInt(v)
-	return res
-}
-
 func (ec *executionContext) unmarshalOInt2int64(ctx context.Context, v interface{}) (int64, error) {
 	res, err := graphql1.UnmarshalInt64(v)
 	return res, graphql.ErrorOnPath(ctx, err)
@@ -10812,6 +10790,11 @@ func (ec *executionContext) unmarshalONewAboutMe2ᚖgithubᚗcomᚋsamithiwatᚋ
 	}
 	res, err := ec.unmarshalInputNewAboutMe(ctx, v)
 	return &res, graphql.ErrorOnPath(ctx, err)
+}
+
+func (ec *executionContext) unmarshalONewBadge2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewBadge(ctx context.Context, v interface{}) (model.NewBadge, error) {
+	res, err := ec.unmarshalInputNewBadge(ctx, v)
+	return res, graphql.ErrorOnPath(ctx, err)
 }
 
 func (ec *executionContext) unmarshalONewBadge2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewBadge(ctx context.Context, v interface{}) (*model.NewBadge, error) {
