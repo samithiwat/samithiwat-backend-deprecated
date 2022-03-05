@@ -12,6 +12,7 @@ require (
 	github.com/fasthttp/websocket v1.4.3 // indirect
 	github.com/fsnotify/fsnotify v1.5.1 // indirect
 	github.com/gofiber/fiber/v2 v2.26.0 // indirect
+	github.com/google/go-cmp v0.5.7 // indirect
 	github.com/google/subcommands v1.0.1 // indirect
 	github.com/google/wire v0.5.0 // indirect
 	github.com/gorilla/websocket v1.4.2 // indirect
