@@ -22,10 +22,11 @@ type Config struct {
 func LoadConfig(path string) (config Config, err error) {
 	viper.AddConfigPath(path)
 	viper.SetConfigType("env")
-	viper.SetConfigName("dev")
 
 	if viper.GetString("GO_ENV") == "production" {
 		viper.SetConfigName("prod")
+	}else{
+		viper.SetConfigName("dev")
 	}
 
 
