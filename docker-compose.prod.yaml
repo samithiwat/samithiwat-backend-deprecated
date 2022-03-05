@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   main-backend:
-    image: ghcr.io/samithiwat/samithiwat-backend:latest
+    image: ghcr.io/samithiwat/samithiwat-backend:release
     container_name: samithiwat-app-backend
     restart: always
     env_file:

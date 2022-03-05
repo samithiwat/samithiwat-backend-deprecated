@@ -70,7 +70,7 @@ func main() {
 		return nil
 	})
 
-	app.Listen(":" + config.Port)
+	app.Listen(":" + config.App.Port)
 }
 
 func handleArgs(db database.Database) {
