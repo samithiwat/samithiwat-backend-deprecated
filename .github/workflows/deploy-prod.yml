@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - master
-      - devops/ci-cd
 
 jobs:
   build-and-deploy:
@@ -52,6 +51,6 @@ jobs:
           script: |
             sudo docker pull ${{ env.IMAGE_NAME }}:release
             cd samithiwat-backend
-            git checkout devops/ci-cd; git pull
+            git checkout master; git pull
             sudo docker-compose --env-file prod.env -f docker-compose.prod.yaml up -d
             sudo docker image prune -f
