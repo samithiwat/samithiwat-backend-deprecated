@@ -50,8 +50,8 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            docker pull ${{ env.IMAGE_NAME }}:latest
+            docker pull ${{ env.IMAGE_NAME }}:release
             cd samithiwat-backend
             git checkout master; git pull
-            docker compose -f docker-compose.prod.yml --env-file prod.env up -d
-            docker image prune -f
+            sudo docker compose -f docker-compose.prod.yml --env-file prod.env up -d
+            sudo docker image prune -f
