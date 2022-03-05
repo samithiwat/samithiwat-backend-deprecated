@@ -39,6 +39,8 @@ func assignEnv(config *map[string]interface{}) map[string]interface{} {
 						name := strings.Replace(temp[1], "{", "", -1)
 						name = strings.Replace(name, "}", "", -1)
 						result[title].(map[string]interface{})[key] = os.Getenv(name)
+					}else{
+						result[title].(map[string]interface{})[key] = temp[0]
 					}
 				}
 			}
@@ -49,13 +51,12 @@ func assignEnv(config *map[string]interface{}) map[string]interface{} {
 
 func LoadConfig(path string) (config Config, err error) {
 	viper.AddConfigPath(path)
+	viper.SetConfigType("yaml")
 
 	if os.Getenv("GO_ENV") == "production" {
 		viper.SetConfigName("config")
-		viper.SetConfigType("yaml")
 	} else {
-		viper.SetConfigType("env")
-		viper.SetConfigName("app")
+		viper.SetConfigName("dev")
 	}
 
 	viper.AutomaticEnv()
