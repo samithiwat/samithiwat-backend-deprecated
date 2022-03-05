@@ -32,7 +32,7 @@ func (s *imageService) GetAll() ([]*model.Image, error) {
 	result := db.Find(&images)
 
 	if result.Error != nil {
-		return nil, fiber.ErrUnprocessableEntity
+		return nil, fiber.NewError(fiber.StatusUnprocessableEntity, "Something when wrong while querying")
 	}
 
 	return images, nil
@@ -44,12 +44,12 @@ func (s *imageService) GetOne(id int64) (*model.Image, error) {
 	var image *model.Image
 	result := db.First(&image, id)
 
-	if result.Error != nil {
-		return nil, fiber.ErrUnprocessableEntity
+	if result.RowsAffected == 0 {
+		return nil, fiber.NewError(fiber.StatusNotFound, "Not found")
 	}
 
-	if result.RowsAffected == 0 {
-		return nil, fiber.ErrNotFound
+	if result.Error != nil {
+		return nil, fiber.NewError(fiber.StatusUnprocessableEntity, "Something when wrong while querying")
 	}
 
 	return image, nil
@@ -58,33 +58,34 @@ func (s *imageService) GetOne(id int64) (*model.Image, error) {
 func (s *imageService) Create(imageDto *model.NewImage) (*model.Image, error) {
 	db := s.database.GetConnection()
 
-	image := model.Image{Name: imageDto.Name, Description: imageDto.Description, ImgUrl: imageDto.ImgURL}
+	image := s.DtoToRaw(*imageDto)
 
 	result := db.Create(&image)
 
 	if result.Error != nil {
-		return nil, fiber.ErrUnprocessableEntity
+		return nil, fiber.NewError(fiber.StatusUnprocessableEntity, "Something when wrong while querying")
 	}
 
-	return &image, nil
+	return image, nil
 }
 
 func (s *imageService) Update(id int64, imageDto *model.NewImage) (*model.Image, error) {
 	db := s.database.GetConnection()
 
-	image := model.Image{Name: imageDto.Name, Description: imageDto.Description, ImgUrl: imageDto.ImgURL}
+	var image *model.Image
+	raw := s.DtoToRaw(*imageDto)
 
-	result := db.Model(model.Image{}).Where("id = ?", id).Updates(&image)
-
-	if result.Error != nil {
-		return nil, fiber.ErrUnprocessableEntity
-	}
+	result := db.First(&image, "id = ?", id).Updates(raw)
 
 	if result.RowsAffected == 0 {
-		return nil, fiber.ErrNotFound
+		return nil, fiber.NewError(fiber.StatusNotFound, "Not found")
 	}
 
-	return &image, nil
+	if result.Error != nil {
+		return nil, fiber.NewError(fiber.StatusUnprocessableEntity, "Something when wrong while querying")
+	}
+
+	return image, nil
 }
 
 func (s *imageService) Delete(id int64) (*model.Image, error) {
@@ -94,12 +95,12 @@ func (s *imageService) Delete(id int64) (*model.Image, error) {
 
 	result := db.First(&image, id).Delete(&model.Image{}, id)
 
-	if result.Error != nil {
-		return nil, fiber.ErrUnprocessableEntity
+	if result.RowsAffected == 0 {
+		return nil, fiber.NewError(fiber.StatusNotFound, "Not found")
 	}
 
-	if result.RowsAffected == 0 {
-		return nil, fiber.ErrNotFound
+	if result.Error != nil {
+		return nil, fiber.NewError(fiber.StatusUnprocessableEntity, "Something when wrong while querying")
 	}
 
 	return image, nil
@@ -107,5 +108,11 @@ func (s *imageService) Delete(id int64) (*model.Image, error) {
 
 func (s *imageService) DtoToRaw(imageDto model.NewImage) *model.Image {
 	image := model.Image{ID: imageDto.ID, Name: imageDto.Name, Description: imageDto.Description, ImgUrl: imageDto.ImgURL}
+
+	if imageDto.OwnerID > 0 {
+		image.OwnerID = imageDto.OwnerID
+		image.OwnerType = imageDto.OwnerType
+	}
+
 	return &image
 }

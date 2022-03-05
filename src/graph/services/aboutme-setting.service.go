@@ -31,8 +31,9 @@ func (s *aboutMeSettingService) GetAll() ([]*model.AboutMe, error) {
 	var settings []*model.AboutMe
 
 	result := db.Find(&settings)
+
 	if result.Error != nil {
-		return nil, result.Error
+		return nil, fiber.NewError(fiber.StatusNotFound, "Not found")
 	}
 
 	return settings, nil
@@ -44,8 +45,9 @@ func (s *aboutMeSettingService) GetOne(id int64) (*model.AboutMe, error) {
 	var setting *model.AboutMe
 
 	result := db.First(&setting, id)
+
 	if result.Error != nil {
-		return nil, result.Error
+		return nil, fiber.NewError(fiber.StatusNotFound, "Not found")
 	}
 
 	return setting, nil
@@ -54,30 +56,31 @@ func (s *aboutMeSettingService) GetOne(id int64) (*model.AboutMe, error) {
 func (s *aboutMeSettingService) Create(aboutMeDto *model.NewAboutMe) (*model.AboutMe, error) {
 	db := s.database.GetConnection()
 
-	setting := model.AboutMe{Name: aboutMeDto.Name, Description: aboutMeDto.Description, Content: aboutMeDto.Content, ImgUrl: aboutMeDto.ImgURL}
+	setting := s.DtoToRaw(aboutMeDto)
 
 	result := db.Create(&setting)
 
 	if result.Error != nil {
-		return nil, fiber.ErrUnprocessableEntity
+		return nil, fiber.NewError(fiber.StatusUnprocessableEntity, "Something when wrong while querying")
 	}
 
-	return &setting, nil
+	return setting, nil
 }
 
 func (s *aboutMeSettingService) Update(id int64, aboutMeDto *model.NewAboutMe) (*model.AboutMe, error) {
 	db := s.database.GetConnection()
 
 	var aboutMe *model.AboutMe
+	raw := s.DtoToRaw(aboutMeDto)
 
-	result := db.First(&aboutMe, "id = ?", id).Updates(model.AboutMe{Name: aboutMeDto.Name, Description: aboutMeDto.Description, Content: aboutMeDto.Content, ImgUrl: aboutMeDto.ImgURL})
-
-	if result.Error != nil {
-		return nil, fiber.ErrUnprocessableEntity
-	}
+	result := db.First(&aboutMe, "id = ?", id).Updates(raw)
 
 	if result.RowsAffected == 0 {
-		return nil, fiber.ErrNotFound
+		return nil, fiber.NewError(fiber.StatusNotFound, "Not found")
+	}
+
+	if result.Error != nil {
+		return nil, fiber.NewError(fiber.StatusUnprocessableEntity, "Something when wrong while querying")
 	}
 
 	return aboutMe, nil
@@ -90,18 +93,18 @@ func (s *aboutMeSettingService) Delete(id int64) (*model.AboutMe, error) {
 
 	result := db.First(&aboutMe, id).Delete(&model.AboutMe{}, id)
 
-	if result.Error != nil {
-		return nil, fiber.ErrUnprocessableEntity
+	if result.RowsAffected == 0 {
+		return nil, fiber.NewError(fiber.StatusNotFound, "Not found")
 	}
 
-	if result.RowsAffected == 0 {
-		return nil, fiber.ErrNotFound
+	if result.Error != nil {
+		return nil, fiber.NewError(fiber.StatusUnprocessableEntity, "Something when wrong while querying")
 	}
 
 	return aboutMe, nil
 }
 
 func (s *aboutMeSettingService) DtoToRaw(settingDto *model.NewAboutMe) *model.AboutMe {
-	aboutMe := model.AboutMe{ID: settingDto.ID, Name: settingDto.Name, Description: settingDto.Description, Content: settingDto.Content, ImgUrl: settingDto.ImgURL}
+	aboutMe := model.AboutMe{ID: settingDto.ID, Name: settingDto.Name, Description: settingDto.Description, Content: settingDto.Content, ImgUrl: settingDto.ImgURL, SettingID: settingDto.SettingID}
 	return &aboutMe
 }
