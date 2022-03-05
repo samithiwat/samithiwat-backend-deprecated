@@ -2,7 +2,7 @@
 FROM golang:1.17.6-alpine3.15 as base
 
 # Working directory
-WORKDIR /go/app
+WORKDIR /app
 
 # Copy go.mod and go.sum files
 COPY go.mod go.sum ./
@@ -16,8 +16,17 @@ COPY . .
 # Build the application
 RUN go build -o server ./src/.
 
-# Set ENV to production
+# Create master image
+FROM alpine AS master
 
+# Working directory
+WORKDIR /app
+
+# Copy execute file
+COPY --from=base /app/server ./
+COPY --from=base /app/src/config/config.yaml ./
+
+# Set ENV to production
 ENV GO_ENV production
 
 # Expose port 8000
