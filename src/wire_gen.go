@@ -15,13 +15,14 @@ import (
 // Injectors from wire.go:
 
 func InitializeResolver(db database.Database) (*graph.Resolver, error) {
-	imageService := service.NewImageService(db)
-	iconService := service.NewIconService(db)
-	badgeService := service.NewBadgeService(db, iconService)
-	aboutMeSettingService := service.NewAboutMeSettingService(db)
-	timelineSettingService := service.NewTimelineSettingService(db, iconService, imageService)
-	settingService := service.NewSettingService(db, aboutMeSettingService, timelineSettingService)
-	githubRepoService := service.NewGithubRepoService(db, badgeService)
+	validatorService := service.NewValidatorService()
+	imageService := service.NewImageService(db, validatorService)
+	iconService := service.NewIconService(db, validatorService)
+	badgeService := service.NewBadgeService(db, iconService, validatorService)
+	aboutMeSettingService := service.NewAboutMeSettingService(db, validatorService)
+	timelineSettingService := service.NewTimelineSettingService(db, iconService, imageService, validatorService)
+	settingService := service.NewSettingService(db, aboutMeSettingService, timelineSettingService, validatorService)
+	githubRepoService := service.NewGithubRepoService(db, badgeService, validatorService)
 	resolver := graph.NewResolver(imageService, iconService, badgeService, aboutMeSettingService, timelineSettingService, settingService, githubRepoService)
 	return resolver, nil
 }

@@ -11,6 +11,6 @@ import (
 )
 
 func InitializeResolver(db database.Database) (*graph.Resolver, error) {
-	wire.Build(graph.NewResolver, service.NewImageService, service.NewGithubRepoService,service.NewBadgeService, service.NewIconService, service.NewSettingService, service.NewTimelineSettingService, service.NewAboutMeSettingService)
+	wire.Build(graph.NewResolver, service.NewImageService, service.NewGithubRepoService,service.NewBadgeService, service.NewIconService, service.NewSettingService, service.NewTimelineSettingService, service.NewAboutMeSettingService, service.NewValidatorService)
 	return &graph.Resolver{}, nil
 }

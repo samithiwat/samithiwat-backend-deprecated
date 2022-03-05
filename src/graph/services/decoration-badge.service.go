@@ -13,18 +13,20 @@ type BadgeService interface {
 	Create(badgeDto *model.NewBadge) (*model.Badge, error)
 	Update(id int64, badgeDto *model.NewBadge) (*model.Badge, error)
 	Delete(id int64) (*model.Badge, error)
-	DtoToRaw(githubRepoDto model.NewBadge) *model.Badge
+	DtoToRaw(githubRepoDto model.NewBadge) (*model.Badge, error)
 }
 
 type badgeService struct {
 	database    database.Database
 	iconService IconService
+	validatorService ValidatorService
 }
 
-func NewBadgeService(database database.Database, iconService IconService) BadgeService {
+func NewBadgeService(database database.Database, iconService IconService, validatorService ValidatorService) BadgeService {
 	return &badgeService{
 		database:    database,
 		iconService: iconService,
+		validatorService: validatorService,
 	}
 }
 
@@ -63,7 +65,10 @@ func (s *badgeService) GetOne(id int64) (*model.Badge, error) {
 func (s *badgeService) Create(badgeDto *model.NewBadge) (*model.Badge, error) {
 	db := s.database.GetConnection()
 
-	badge := s.DtoToRaw(*badgeDto)
+	badge, err := s.DtoToRaw(*badgeDto)
+	if err != nil{
+		return nil, err
+	}
 
 	result := db.Create(&badge)
 
@@ -78,7 +83,10 @@ func (s *badgeService) Update(id int64, badgeDto *model.NewBadge) (*model.Badge,
 	db := s.database.GetConnection()
 
 	var badge *model.Badge
-	raw := s.DtoToRaw(*badgeDto)
+	raw, err := s.DtoToRaw(*badgeDto)
+	if err != nil{
+		return nil, err
+	}
 
 	result := db.Preload("Icon").First(&badge, "id = ?", id).Updates(raw)
 
@@ -115,8 +123,17 @@ func (s *badgeService) Delete(id int64) (*model.Badge, error) {
 	return badge, nil
 }
 
-func (s badgeService) DtoToRaw(badgeDto model.NewBadge) *model.Badge {
-	rawIcon := s.iconService.DtoToRaw(badgeDto.Icon)
+func (s badgeService) DtoToRaw(badgeDto model.NewBadge) (*model.Badge, error) {
+	err := s.validatorService.Badge(badgeDto)
+	if err != nil{
+		return nil, err
+	}
+
+
+	rawIcon, err := s.iconService.DtoToRaw(badgeDto.Icon)
+	if err != nil{
+		return nil, err
+	}
 	badge := model.Badge{ID: badgeDto.ID, Name: badgeDto.Name, Color: badgeDto.Color, Icon: *rawIcon}
-	return &badge
+	return &badge, nil
 }
