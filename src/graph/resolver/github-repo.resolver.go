@@ -2,6 +2,8 @@ package graph
 
 import (
 	"context"
+	"github.com/gofiber/fiber/v2"
+	"github.com/google/go-cmp/cmp"
 	"github.com/samithiwat/samithiwat-backend/src/graph/generated"
 	"github.com/samithiwat/samithiwat-backend/src/graph/model"
 	"strconv"
@@ -69,8 +71,10 @@ func (r *mutationResolver) DeleteGithubRepo(ctx context.Context, id string) (*mo
 }
 
 func (g githubRepoResolver) DeletedAt(ctx context.Context, obj *model.GithubRepo) (*time.Time, error) {
-	//TODO implement me
-	panic("implement me")
+	if cmp.Equal(obj.DeletedAt, time.Time{}){
+		return nil, fiber.NewError(fiber.StatusNotFound, "Not Found")
+	}
+	return nil, nil
 }
 
 
