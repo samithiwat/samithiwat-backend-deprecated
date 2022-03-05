@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - devops/ci-cd
 
 jobs:
   build-and-deploy:
