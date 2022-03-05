@@ -1,0 +1,11 @@
+app:
+  port: ${PORT}
+  debug: ${DEBUG}
+
+database:
+  port: ${DATABASE_PORT}
+  host: ${DATABASE_HOST}
+  name: ${POSTGRES_DB}
+  username: ${POSTGRES_USER}
+  password: ${POSTGRES_PASSWORD}
+  ssl: ${POSTGRES_SSL_MODE}
