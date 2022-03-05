@@ -53,5 +53,5 @@ jobs:
             docker pull ${{ env.IMAGE_NAME }}:release
             cd samithiwat-backend
             git checkout master; git pull
-            sudo docker compose -f docker-compose.prod.yml --env-file prod.env up -d
+            sudo docker-compose --env-file prod.env -f docker-compose.prod.yml up -d
             sudo docker image prune -f
