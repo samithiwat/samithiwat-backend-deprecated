@@ -5,9 +5,10 @@ import "time"
 // TODO: Add validator
 
 type NewSetting struct {
-	ID       int64       `json:"id"`
-	AboutMe  NewAboutMe  `json:"AboutMeID"`
-	Timeline NewTimeline `json:"TimelineID"`
+	ID       	int64       `json:"id"`
+	AboutMe  	NewAboutMe  `json:"AboutMeID"`
+	Timeline 	NewTimeline `json:"TimelineID"`
+	IsActivated bool 	 	`json:"isActivated"`
 }
 
 type NewAboutMe struct {
@@ -16,7 +17,7 @@ type NewAboutMe struct {
 	Description string `json:"Description"`
 	Content     string `json:"Content"`
 	ImgURL      string `json:"ImgUrl"`
-	SettingID   string `json:"SettingID"`
+	SettingID   int64 `json:"SettingID"`
 }
 
 type NewBadge struct {
@@ -55,7 +56,7 @@ type NewTimeline struct {
 	EventDate   time.Time   `json:"EventDate"`
 	Images      []*NewImage `json:"Images"`
 	Icon        *NewIcon    `json:"Icon"`
-	SettingID   string      `json:"SettingID"`
+	SettingID   int64      `json:"SettingID"`
 }
 
 type NewGithubRepo struct {

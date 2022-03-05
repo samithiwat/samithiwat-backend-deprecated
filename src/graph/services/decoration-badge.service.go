@@ -2,10 +2,9 @@ package service
 
 import (
 	"github.com/gofiber/fiber/v2"
-	"github.com/samithiwat/samithiwat-backend/src/common/enum"
+	"github.com/google/go-cmp/cmp"
 	"github.com/samithiwat/samithiwat-backend/src/database"
 	"github.com/samithiwat/samithiwat-backend/src/graph/model"
-	"gorm.io/gorm"
 )
 
 type BadgeService interface {
@@ -34,77 +33,66 @@ func (s *badgeService) GetAll() ([]*model.Badge, error) {
 
 	var badge []*model.Badge
 
-	result := db.Preload("Icon").Find(&badge)
+	result := db.Find(&badge)
 
 	if result.Error != nil {
-		return nil, fiber.ErrUnprocessableEntity
+		return nil, fiber.NewError(fiber.StatusUnprocessableEntity, "Something when wrong while querying")
 	}
 
 	return badge, nil
 }
 
 func (s *badgeService) GetOne(id int64) (*model.Badge, error) {
-	//TODO: Optimize code to be more efficiency
-
 	db := s.database.GetConnection()
 
 	var badge *model.Badge
 
 	result := db.Preload("Icon").First(&badge, id)
 
-	if result.Error != nil {
-		return nil, result.Error
+	if result.RowsAffected == 0 {
+		return nil, fiber.NewError(fiber.StatusNotFound, "Not found")
 	}
 
-	if result.RowsAffected == 0 {
-		return nil, fiber.ErrNotFound
+	if result.Error != nil {
+		return nil, fiber.NewError(fiber.StatusUnprocessableEntity, "Something when wrong while querying")
 	}
 
 	return badge, nil
 }
 
 func (s *badgeService) Create(badgeDto *model.NewBadge) (*model.Badge, error) {
-	icon := model.Icon{Name: badgeDto.Icon.Name, BgColor: badgeDto.Icon.BgColor, IconType: enum.IconType(badgeDto.Icon.IconType)}
-
 	db := s.database.GetConnection()
 
-	badge := model.Badge{Name: badgeDto.Name, Color: badgeDto.Color, Icon: icon}
+	badge := s.DtoToRaw(*badgeDto)
 
 	result := db.Create(&badge)
 
 	if result.Error != nil {
-		return nil, fiber.ErrUnprocessableEntity
+		return nil, fiber.NewError(fiber.StatusUnprocessableEntity, "Something when wrong while querying")
 	}
 
-	return &badge, nil
+	return badge, nil
 }
 
 func (s *badgeService) Update(id int64, badgeDto *model.NewBadge) (*model.Badge, error) {
-	//FIXME: It update despite it not found an icon (Need to make it update correctly)
-
 	db := s.database.GetConnection()
 
 	var badge *model.Badge
+	raw := s.DtoToRaw(*badgeDto)
 
-	result := db.First(&badge, "id = ?", id).Updates(model.Badge{Name: badgeDto.Name, Color: badgeDto.Color})
-
-	if result.Error != nil {
-		return nil, fiber.ErrUnprocessableEntity
-	}
+	result := db.Preload("Icon").First(&badge, "id = ?", id).Updates(raw)
 
 	if result.RowsAffected == 0 {
-		return nil, fiber.ErrNotFound
+		return nil, fiber.NewError(fiber.StatusNotFound, "Not found")
 	}
 
-	if badgeDto.Icon.ID != 0 {
-		icon, err := s.iconService.GetOne(badgeDto.Icon.ID)
-		if err != nil {
-			return nil, err
-		}
-
-		badge.Icon = *icon
+	if result.Error != nil {
+		return nil, fiber.NewError(fiber.StatusUnprocessableEntity, "Something when wrong while querying")
 	}
-	db.Session(&gorm.Session{FullSaveAssociations: true}).Save(&badge)
+
+	if (!cmp.Equal(raw.Icon, model.Icon{})) {
+		db.Model(&badge).Association("Icon").Replace(&raw.Icon)
+	}
 
 	return badge, nil
 }
@@ -112,27 +100,23 @@ func (s *badgeService) Update(id int64, badgeDto *model.NewBadge) (*model.Badge,
 func (s *badgeService) Delete(id int64) (*model.Badge, error) {
 	db := s.database.GetConnection()
 
-	badge, err := s.GetOne(id)
+	var badge *model.Badge
 
-	if err != nil {
-		return nil, err
-	}
-
-	result := db.Delete(&model.Badge{}, id)
-
-	if result.Error != nil {
-		return nil, fiber.ErrUnprocessableEntity
-	}
+	result := db.Preload("Icon").First(&badge, id).Delete(&model.Badge{}, id)
 
 	if result.RowsAffected == 0 {
-		return nil, fiber.ErrNotFound
+		return nil, fiber.NewError(fiber.StatusNotFound, "Not found")
+	}
+
+	if result.Error != nil {
+		return nil, fiber.NewError(fiber.StatusUnprocessableEntity, "Something when wrong while querying")
 	}
 
 	return badge, nil
 }
 
-func (s badgeService) DtoToRaw(githubRepoDto model.NewBadge) *model.Badge {
-	rawIcon := s.iconService.DtoToRaw(githubRepoDto.Icon)
-	badge := model.Badge{ID: githubRepoDto.ID, Name: githubRepoDto.Name, Color: githubRepoDto.Color, Icon: *rawIcon}
+func (s badgeService) DtoToRaw(badgeDto model.NewBadge) *model.Badge {
+	rawIcon := s.iconService.DtoToRaw(badgeDto.Icon)
+	badge := model.Badge{ID: badgeDto.ID, Name: badgeDto.Name, Color: badgeDto.Color, Icon: *rawIcon}
 	return &badge
 }

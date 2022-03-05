@@ -15,7 +15,7 @@ func (s Seed) GithubRepoSeed_1646428378605() model.GithubRepo {
 
 	stars, _ := faker.RandomInt(0, 1000000)
 
-	repo := model.GithubRepo{Name: faker.Word(), Description: faker.Sentence(), Author: faker.Username(), Star: int64(stars[0]), ThumbnailUrl: faker.URL(), Url: faker.URL(), Language: language, Framework: framework, LatestUpdate: time.Now()}
+	repo := model.GithubRepo{Name: faker.Word(), Description: faker.Sentence(), Author: faker.Name(), Star: int64(stars[0]), ThumbnailUrl: faker.URL(), Url: faker.URL(), Language: language, Framework: framework, LatestUpdate: time.Now()}
 
 	db.Create(&repo)
 

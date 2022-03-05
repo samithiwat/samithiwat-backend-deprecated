@@ -2,9 +2,9 @@ package service
 
 import (
 	"github.com/gofiber/fiber/v2"
+	"github.com/google/go-cmp/cmp"
 	"github.com/samithiwat/samithiwat-backend/src/database"
 	"github.com/samithiwat/samithiwat-backend/src/graph/model"
-	"gorm.io/gorm"
 )
 
 type SettingService interface {
@@ -36,9 +36,10 @@ func (s *settingService) GetAll() ([]*model.Setting, error) {
 
 	var settings []*model.Setting
 
-	result := db.Find(&settings)
+	result := db.Preload("AboutMe").Preload("Timeline").Find(&settings)
+
 	if result.Error != nil {
-		return nil, result.Error
+		return nil, fiber.NewError(fiber.StatusNotFound, "Not found")
 	}
 
 	return settings, nil
@@ -49,9 +50,10 @@ func (s *settingService) GetOne(id int64) (*model.Setting, error) {
 
 	var setting *model.Setting
 
-	result := db.First(&setting, id)
+	result := db.Preload("AboutMe").Preload("Timeline").Preload("Timeline.Icon").Preload("Timeline.Images").First(&setting, id)
+
 	if result.Error != nil {
-		return nil, result.Error
+		return nil, fiber.NewError(fiber.StatusNotFound, "Not found")
 	}
 
 	return setting, nil
@@ -62,9 +64,10 @@ func (s *settingService) GetActivatedSetting() (*model.Setting, error) {
 
 	var setting *model.Setting
 
-	result := db.Where("isActivated = ?", true).Take(&setting)
+	result := db.Preload("AboutMe").Preload("Timeline").Preload("Timeline.Icon").Preload("Timeline.Images").Where("isActivated = ?", true).Take(&setting)
+
 	if result.Error != nil {
-		return nil, result.Error
+		return nil, fiber.NewError(fiber.StatusNotFound, "Not found")
 	}
 
 	return setting, nil
@@ -77,31 +80,38 @@ func (s *settingService) Create(settingDto *model.NewSetting) (*model.Setting, e
 	result := db.Create(&setting)
 
 	if result.Error != nil {
-		return nil, fiber.ErrUnprocessableEntity
+		return nil, fiber.NewError(fiber.StatusUnprocessableEntity, "Something when wrong while querying")
 	}
 
 	return setting, nil
 }
 
 func (s *settingService) Update(id int64, settingDto *model.NewSetting) (*model.Setting, error) {
-	//TODO: Complete this
-
 	db := s.database.GetConnection()
 
 	var setting *model.Setting
-	rawSetting := s.DtoToRaw(settingDto)
+	raw := s.DtoToRaw(settingDto)
 
-	result := db.Omit("SettingID").First(&setting, "id = ?", id).Updates(rawSetting)
-
-	if result.Error != nil {
-		return nil, fiber.ErrUnprocessableEntity
-	}
+	result := db.Preload("AboutMe").Preload("Timeline").Preload("Timeline.Icon").Preload("Timeline.Images").First(&setting, "id = ?", id).Updates(raw)
 
 	if result.RowsAffected == 0 {
-		return nil, fiber.ErrNotFound
+		return nil, fiber.NewError(fiber.StatusNotFound, "Not found")
 	}
 
-	db.Session(&gorm.Session{FullSaveAssociations: true}).Save(&setting)
+	if result.Error != nil {
+		return nil, fiber.NewError(fiber.StatusUnprocessableEntity, "Something when wrong while querying")
+	}
+
+	if (!cmp.Equal(raw.Timeline, model.Timeline{})) {
+		db.Model(&setting).Association("Timeline").Replace(&raw.Timeline)
+		db.Model(&setting.Timeline).Association("Icon").Replace(&raw.Timeline.Icon)
+		db.Model(&setting.Timeline).Association("Images").Replace(&raw.Timeline.Images)
+	}
+
+	if (!cmp.Equal(raw.AboutMe, model.AboutMe{})) {
+		db.Model(&setting).Association("AboutMe").Replace(&raw.AboutMe)
+	}
+
 	return setting, nil
 }
 
@@ -112,12 +122,12 @@ func (s *settingService) Delete(id int64) (*model.Setting, error) {
 
 	result := db.First(&setting, id).Delete(&model.Setting{}, id)
 
-	if result.Error != nil {
-		return nil, fiber.ErrUnprocessableEntity
+	if result.RowsAffected == 0 {
+		return nil, fiber.NewError(fiber.StatusNotFound, "Not found")
 	}
 
-	if result.RowsAffected == 0 {
-		return nil, fiber.ErrNotFound
+	if result.Error != nil {
+		return nil, fiber.NewError(fiber.StatusUnprocessableEntity, "Something when wrong while querying")
 	}
 
 	return setting, nil
@@ -126,7 +136,7 @@ func (s *settingService) Delete(id int64) (*model.Setting, error) {
 func (s *settingService) DtoToRaw(settingDto *model.NewSetting) *model.Setting {
 	rawTimeline := s.timelineSettingService.DtoToRaw(&settingDto.Timeline)
 	rawAboutMe := s.aboutMeSettingService.DtoToRaw(&settingDto.AboutMe)
-	setting := model.Setting{AboutMe: *rawAboutMe, Timeline: *rawTimeline}
+	setting := model.Setting{AboutMe: *rawAboutMe, Timeline: *rawTimeline, IsActivated: settingDto.IsActivated}
 
 	return &setting
 }

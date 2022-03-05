@@ -3,7 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
-	"github.com/samithiwat/samithiwat-backend/src/database/seed"
+	"github.com/samithiwat/samithiwat-backend/src/database/seeds"
 	"log"
 	"net/http"
 	"os"

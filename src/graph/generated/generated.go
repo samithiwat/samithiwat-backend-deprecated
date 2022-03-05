@@ -1394,28 +1394,29 @@ extend type Mutation {
 
 input NewSetting {
   id: ID
-  aboutMe: NewAboutMe!
-  timeline: NewTimeline!
+  aboutMe: NewAboutMe
+  timeline: NewTimeline
+  isActivated: Boolean
 }
 
 input NewAboutMe {
   id: ID
-  name: String!
-  description: String!
-  content: String!
-  imgUrl: String!
+  name: String
+  description: String
+  content: String
+  imgUrl: String
   settingID: ID
 }
 
 input NewTimeline {
   id: ID
-  slug: String!
-  name: String!
-  description: String!
-  thumbnail: String!
-  eventDate: Time!
-  icon: NewIcon!
-  images: [NewImage!]!
+  slug: String
+  name: String
+  description: String
+  thumbnail: String
+  eventDate: Time
+  icon: NewIcon
+  images: [NewImage]
   settingID: ID
 }
 
@@ -1501,8 +1502,8 @@ type Timeline {
   name: String!
   description: String!
   thumbnail: String!
-  images: [Image]!
   eventDate: Time!
+  images: [Image]!
   icon: Icon!
   settingID: ID!
   createdAt: Time!
@@ -5967,41 +5968,6 @@ func (ec *executionContext) _Timeline_thumbnail(ctx context.Context, field graph
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Timeline_images(ctx context.Context, field graphql.CollectedField, obj *model.Timeline) (ret graphql.Marshaler) {
-	defer func() {
-		if r := recover(); r != nil {
-			ec.Error(ctx, ec.Recover(ctx, r))
-			ret = graphql.Null
-		}
-	}()
-	fc := &graphql.FieldContext{
-		Object:     "Timeline",
-		Field:      field,
-		Args:       nil,
-		IsMethod:   false,
-		IsResolver: false,
-	}
-
-	ctx = graphql.WithFieldContext(ctx, fc)
-	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
-		ctx = rctx // use context from middleware stack in children
-		return obj.Images, nil
-	})
-	if err != nil {
-		ec.Error(ctx, err)
-		return graphql.Null
-	}
-	if resTmp == nil {
-		if !graphql.HasFieldError(ctx, fc) {
-			ec.Errorf(ctx, "must not be null")
-		}
-		return graphql.Null
-	}
-	res := resTmp.([]model.Image)
-	fc.Result = res
-	return ec.marshalNImage2ᚕgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐImage(ctx, field.Selections, res)
-}
-
 func (ec *executionContext) _Timeline_eventDate(ctx context.Context, field graphql.CollectedField, obj *model.Timeline) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
@@ -6035,6 +6001,41 @@ func (ec *executionContext) _Timeline_eventDate(ctx context.Context, field graph
 	res := resTmp.(time.Time)
 	fc.Result = res
 	return ec.marshalNTime2timeᚐTime(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _Timeline_images(ctx context.Context, field graphql.CollectedField, obj *model.Timeline) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "Timeline",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   false,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Images, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		if !graphql.HasFieldError(ctx, fc) {
+			ec.Errorf(ctx, "must not be null")
+		}
+		return graphql.Null
+	}
+	res := resTmp.([]model.Image)
+	fc.Result = res
+	return ec.marshalNImage2ᚕgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐImage(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Timeline_icon(ctx context.Context, field graphql.CollectedField, obj *model.Timeline) (ret graphql.Marshaler) {
@@ -7355,7 +7356,7 @@ func (ec *executionContext) unmarshalInputNewAboutMe(ctx context.Context, obj in
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("name"))
-			it.Name, err = ec.unmarshalNString2string(ctx, v)
+			it.Name, err = ec.unmarshalOString2string(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -7363,7 +7364,7 @@ func (ec *executionContext) unmarshalInputNewAboutMe(ctx context.Context, obj in
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("description"))
-			it.Description, err = ec.unmarshalNString2string(ctx, v)
+			it.Description, err = ec.unmarshalOString2string(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -7371,7 +7372,7 @@ func (ec *executionContext) unmarshalInputNewAboutMe(ctx context.Context, obj in
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("content"))
-			it.Content, err = ec.unmarshalNString2string(ctx, v)
+			it.Content, err = ec.unmarshalOString2string(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -7379,7 +7380,7 @@ func (ec *executionContext) unmarshalInputNewAboutMe(ctx context.Context, obj in
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("imgUrl"))
-			it.ImgURL, err = ec.unmarshalNString2string(ctx, v)
+			it.ImgURL, err = ec.unmarshalOString2string(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -7387,7 +7388,7 @@ func (ec *executionContext) unmarshalInputNewAboutMe(ctx context.Context, obj in
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("settingID"))
-			it.SettingID, err = ec.unmarshalOID2string(ctx, v)
+			it.SettingID, err = ec.unmarshalOID2int64(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -7702,7 +7703,7 @@ func (ec *executionContext) unmarshalInputNewSetting(ctx context.Context, obj in
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("aboutMe"))
-			it.AboutMe, err = ec.unmarshalNNewAboutMe2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewAboutMe(ctx, v)
+			it.AboutMe, err = ec.unmarshalONewAboutMe2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewAboutMe(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -7710,7 +7711,15 @@ func (ec *executionContext) unmarshalInputNewSetting(ctx context.Context, obj in
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("timeline"))
-			it.Timeline, err = ec.unmarshalNNewTimeline2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewTimeline(ctx, v)
+			it.Timeline, err = ec.unmarshalONewTimeline2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewTimeline(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		case "isActivated":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("isActivated"))
+			it.IsActivated, err = ec.unmarshalOBoolean2bool(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -7741,7 +7750,7 @@ func (ec *executionContext) unmarshalInputNewTimeline(ctx context.Context, obj i
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("slug"))
-			it.Slug, err = ec.unmarshalNString2string(ctx, v)
+			it.Slug, err = ec.unmarshalOString2string(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -7749,7 +7758,7 @@ func (ec *executionContext) unmarshalInputNewTimeline(ctx context.Context, obj i
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("name"))
-			it.Name, err = ec.unmarshalNString2string(ctx, v)
+			it.Name, err = ec.unmarshalOString2string(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -7757,7 +7766,7 @@ func (ec *executionContext) unmarshalInputNewTimeline(ctx context.Context, obj i
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("description"))
-			it.Description, err = ec.unmarshalNString2string(ctx, v)
+			it.Description, err = ec.unmarshalOString2string(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -7765,7 +7774,7 @@ func (ec *executionContext) unmarshalInputNewTimeline(ctx context.Context, obj i
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("thumbnail"))
-			it.Thumbnail, err = ec.unmarshalNString2string(ctx, v)
+			it.Thumbnail, err = ec.unmarshalOString2string(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -7773,7 +7782,7 @@ func (ec *executionContext) unmarshalInputNewTimeline(ctx context.Context, obj i
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("eventDate"))
-			it.EventDate, err = ec.unmarshalNTime2timeᚐTime(ctx, v)
+			it.EventDate, err = ec.unmarshalOTime2timeᚐTime(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -7781,7 +7790,7 @@ func (ec *executionContext) unmarshalInputNewTimeline(ctx context.Context, obj i
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("icon"))
-			it.Icon, err = ec.unmarshalNNewIcon2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewIcon(ctx, v)
+			it.Icon, err = ec.unmarshalONewIcon2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewIcon(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -7789,7 +7798,7 @@ func (ec *executionContext) unmarshalInputNewTimeline(ctx context.Context, obj i
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("images"))
-			it.Images, err = ec.unmarshalNNewImage2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewImageᚄ(ctx, v)
+			it.Images, err = ec.unmarshalONewImage2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewImage(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -7797,7 +7806,7 @@ func (ec *executionContext) unmarshalInputNewTimeline(ctx context.Context, obj i
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("settingID"))
-			it.SettingID, err = ec.unmarshalOID2string(ctx, v)
+			it.SettingID, err = ec.unmarshalOID2int64(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -9275,9 +9284,9 @@ func (ec *executionContext) _Timeline(ctx context.Context, sel ast.SelectionSet,
 			if out.Values[i] == graphql.Null {
 				atomic.AddUint32(&invalids, 1)
 			}
-		case "images":
+		case "eventDate":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._Timeline_images(ctx, field, obj)
+				return ec._Timeline_eventDate(ctx, field, obj)
 			}
 
 			out.Values[i] = innerFunc(ctx)
@@ -9285,9 +9294,9 @@ func (ec *executionContext) _Timeline(ctx context.Context, sel ast.SelectionSet,
 			if out.Values[i] == graphql.Null {
 				atomic.AddUint32(&invalids, 1)
 			}
-		case "eventDate":
+		case "images":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
-				return ec._Timeline_eventDate(ctx, field, obj)
+				return ec._Timeline_images(ctx, field, obj)
 			}
 
 			out.Values[i] = innerFunc(ctx)
@@ -10153,36 +10162,9 @@ func (ec *executionContext) unmarshalNNewIcon2githubᚗcomᚋsamithiwatᚋsamith
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNNewIcon2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewIcon(ctx context.Context, v interface{}) (*model.NewIcon, error) {
-	res, err := ec.unmarshalInputNewIcon(ctx, v)
-	return &res, graphql.ErrorOnPath(ctx, err)
-}
-
 func (ec *executionContext) unmarshalNNewImage2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewImage(ctx context.Context, v interface{}) (model.NewImage, error) {
 	res, err := ec.unmarshalInputNewImage(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
-}
-
-func (ec *executionContext) unmarshalNNewImage2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewImageᚄ(ctx context.Context, v interface{}) ([]*model.NewImage, error) {
-	var vSlice []interface{}
-	if v != nil {
-		vSlice = graphql.CoerceList(v)
-	}
-	var err error
-	res := make([]*model.NewImage, len(vSlice))
-	for i := range vSlice {
-		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithIndex(i))
-		res[i], err = ec.unmarshalNNewImage2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewImage(ctx, vSlice[i])
-		if err != nil {
-			return nil, err
-		}
-	}
-	return res, nil
-}
-
-func (ec *executionContext) unmarshalNNewImage2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewImage(ctx context.Context, v interface{}) (*model.NewImage, error) {
-	res, err := ec.unmarshalInputNewImage(ctx, v)
-	return &res, graphql.ErrorOnPath(ctx, err)
 }
 
 func (ec *executionContext) unmarshalNNewSetting2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewSetting(ctx context.Context, v interface{}) (model.NewSetting, error) {
@@ -10705,16 +10687,6 @@ func (ec *executionContext) marshalOID2int64(ctx context.Context, sel ast.Select
 	return res
 }
 
-func (ec *executionContext) unmarshalOID2string(ctx context.Context, v interface{}) (string, error) {
-	res, err := graphql1.UnmarshalID(v)
-	return res, graphql.ErrorOnPath(ctx, err)
-}
-
-func (ec *executionContext) marshalOID2string(ctx context.Context, sel ast.SelectionSet, v string) graphql.Marshaler {
-	res := graphql1.MarshalID(v)
-	return res
-}
-
 func (ec *executionContext) marshalOIcon2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐIcon(ctx context.Context, sel ast.SelectionSet, v []*model.Icon) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
@@ -10784,6 +10756,11 @@ func (ec *executionContext) marshalOInt2int64(ctx context.Context, sel ast.Selec
 	return res
 }
 
+func (ec *executionContext) unmarshalONewAboutMe2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewAboutMe(ctx context.Context, v interface{}) (model.NewAboutMe, error) {
+	res, err := ec.unmarshalInputNewAboutMe(ctx, v)
+	return res, graphql.ErrorOnPath(ctx, err)
+}
+
 func (ec *executionContext) unmarshalONewAboutMe2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewAboutMe(ctx context.Context, v interface{}) (*model.NewAboutMe, error) {
 	if v == nil {
 		return nil, nil
@@ -10810,12 +10787,53 @@ func (ec *executionContext) unmarshalONewIcon2githubᚗcomᚋsamithiwatᚋsamith
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
+func (ec *executionContext) unmarshalONewIcon2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewIcon(ctx context.Context, v interface{}) (*model.NewIcon, error) {
+	if v == nil {
+		return nil, nil
+	}
+	res, err := ec.unmarshalInputNewIcon(ctx, v)
+	return &res, graphql.ErrorOnPath(ctx, err)
+}
+
+func (ec *executionContext) unmarshalONewImage2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewImage(ctx context.Context, v interface{}) ([]*model.NewImage, error) {
+	if v == nil {
+		return nil, nil
+	}
+	var vSlice []interface{}
+	if v != nil {
+		vSlice = graphql.CoerceList(v)
+	}
+	var err error
+	res := make([]*model.NewImage, len(vSlice))
+	for i := range vSlice {
+		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithIndex(i))
+		res[i], err = ec.unmarshalONewImage2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewImage(ctx, vSlice[i])
+		if err != nil {
+			return nil, err
+		}
+	}
+	return res, nil
+}
+
+func (ec *executionContext) unmarshalONewImage2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewImage(ctx context.Context, v interface{}) (*model.NewImage, error) {
+	if v == nil {
+		return nil, nil
+	}
+	res, err := ec.unmarshalInputNewImage(ctx, v)
+	return &res, graphql.ErrorOnPath(ctx, err)
+}
+
 func (ec *executionContext) unmarshalONewSetting2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewSetting(ctx context.Context, v interface{}) (*model.NewSetting, error) {
 	if v == nil {
 		return nil, nil
 	}
 	res, err := ec.unmarshalInputNewSetting(ctx, v)
 	return &res, graphql.ErrorOnPath(ctx, err)
+}
+
+func (ec *executionContext) unmarshalONewTimeline2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewTimeline(ctx context.Context, v interface{}) (model.NewTimeline, error) {
+	res, err := ec.unmarshalInputNewTimeline(ctx, v)
+	return res, graphql.ErrorOnPath(ctx, err)
 }
 
 func (ec *executionContext) unmarshalONewTimeline2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewTimeline(ctx context.Context, v interface{}) (*model.NewTimeline, error) {

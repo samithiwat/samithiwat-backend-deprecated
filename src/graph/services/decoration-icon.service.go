@@ -36,7 +36,7 @@ func (s *iconService) GetAll() ([]*model.Icon, error) {
 	result := db.Find(&icons)
 
 	if result.Error != nil {
-		return nil, fiber.ErrUnprocessableEntity
+		return nil, fiber.NewError(fiber.StatusUnprocessableEntity, "Something when wrong while querying")
 	}
 
 	return icons, nil
@@ -49,13 +49,14 @@ func (s *iconService) GetOne(id int64) (*model.Icon, error) {
 
 	result := db.First(&icon, id)
 
+	if result.RowsAffected == 0 {
+		return nil, fiber.NewError(fiber.StatusNotFound, "Not found")
+	}
+
 	if result.Error != nil {
 		return nil, result.Error
 	}
 
-	if result.RowsAffected == 0 {
-		return nil, fiber.ErrNotFound
-	}
 
 	return icon, nil
 }
@@ -63,30 +64,31 @@ func (s *iconService) GetOne(id int64) (*model.Icon, error) {
 func (s *iconService) Create(iconDto model.NewIcon) (*model.Icon, error) {
 	db := s.database.GetConnection()
 
-	icon := model.Icon{Name: iconDto.Name, BgColor: iconDto.BgColor, IconType: enum.IconType(iconDto.IconType)}
+	icon := s.DtoToRaw(iconDto)
 
 	result := db.Create(&icon)
 
 	if result.Error != nil {
-		return nil, fiber.ErrUnprocessableEntity
+		return nil, fiber.NewError(fiber.StatusUnprocessableEntity, "Something when wrong while querying")
 	}
 
-	return &icon, nil
+	return icon, nil
 }
 
 func (s *iconService) Update(id int64, iconDto model.NewIcon) (*model.Icon, error) {
 	db := s.database.GetConnection()
 
 	var icon *model.Icon
+	raw := s.DtoToRaw(iconDto)
 
-	result := db.First(&icon, "id = ?", id).Updates(model.Icon{Name: iconDto.Name, BgColor: iconDto.BgColor, IconType: enum.IconType(iconDto.IconType)})
-
-	if result.Error != nil {
-		return nil, fiber.ErrUnprocessableEntity
-	}
+	result := db.First(&icon, "id = ?", id).Updates(raw)
 
 	if result.RowsAffected == 0 {
-		return nil, fiber.ErrNotFound
+		return nil, fiber.NewError(fiber.StatusNotFound, "Not found")
+	}
+
+	if result.Error != nil {
+		return nil, fiber.NewError(fiber.StatusUnprocessableEntity, "Something when wrong while querying")
 	}
 
 	return icon, nil
@@ -95,20 +97,16 @@ func (s *iconService) Update(id int64, iconDto model.NewIcon) (*model.Icon, erro
 func (s *iconService) Delete(id int64) (*model.Icon, error) {
 	db := s.database.GetConnection()
 
-	icon, err := s.GetOne(id)
+	var icon *model.Icon
 
-	if err != nil {
-		return nil, err
-	}
-
-	result := db.Delete(&model.Icon{}, id)
-
-	if result.Error != nil {
-		return nil, fiber.ErrUnprocessableEntity
-	}
+	result := db.First(&icon, id).Delete(&model.Icon{}, id)
 
 	if result.RowsAffected == 0 {
-		return nil, fiber.ErrNotFound
+		return nil, fiber.NewError(fiber.StatusNotFound, "Not found")
+	}
+
+	if result.Error != nil {
+		return nil, fiber.NewError(fiber.StatusUnprocessableEntity, "Something when wrong while querying")
 	}
 
 	return icon, nil
@@ -117,12 +115,18 @@ func (s *iconService) Delete(id int64) (*model.Icon, error) {
 func (s *iconService) CheckIconType(iconType enum.IconType) (string, error) {
 	result := strings.ToLower(string(iconType))
 	if result != "icon" && result != "svg" {
-		return "", fiber.ErrBadRequest
+		return "", fiber.NewError(fiber.StatusBadRequest, "Invalid icon type")
 	}
 	return result, nil
 }
 
 func (s *iconService) DtoToRaw(iconDto model.NewIcon) *model.Icon {
 	icon := model.Icon{ID: iconDto.ID, Name: iconDto.Name, BgColor: iconDto.BgColor, IconType: enum.IconType(iconDto.IconType)}
+
+	if iconDto.OwnerID > 0{
+		icon.OwnerID = iconDto.OwnerID
+		icon.OwnerType = iconDto.OwnerType
+	}
+
 	return &icon
 }

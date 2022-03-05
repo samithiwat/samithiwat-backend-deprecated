@@ -50,8 +50,8 @@ type Timeline {
   name: String!
   description: String!
   thumbnail: String!
-  images: [Image]!
   eventDate: Time!
+  images: [Image]!
   icon: Icon!
   settingID: ID!
   createdAt: Time!
