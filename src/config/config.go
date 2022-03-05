@@ -5,12 +5,13 @@ import (
 	constant "github.com/samithiwat/samithiwat-backend/src/common/constants"
 	"github.com/spf13/viper"
 	"os"
+	"strconv"
 	"strings"
 )
 
 type Database struct {
 	Host     string `mapstructure:"host"`
-	Port     string `mapstructure:"port"`
+	Port     int    `mapstructure:"port"`
 	User     string `mapstructure:"username"`
 	Password string `mapstructure:"password"`
 	Name     string `mapstructure:"name"`
@@ -18,8 +19,8 @@ type Database struct {
 }
 
 type App struct {
-	Port  string `mapstructure:"port"`
-	Debug string `mapstructure:"debug"`
+	Port  int  `mapstructure:"port"`
+	Debug bool `mapstructure:"debug"`
 }
 
 type Config struct {
@@ -38,10 +39,23 @@ func assignEnv(config *map[string]interface{}) map[string]interface{} {
 					if len(temp) > 1 {
 						name := strings.Replace(temp[1], "{", "", -1)
 						name = strings.Replace(name, "}", "", -1)
-						result[title].(map[string]interface{})[key] = os.Getenv(name)
-					}else{
+						env := os.Getenv(name)
+						if num, err := strconv.Atoi(env); err == nil {
+							result[title].(map[string]interface{})[key] = num
+						}else if boolean, err := strconv.ParseBool(env); err == nil {
+							result[title].(map[string]interface{})[key] = boolean
+						}else{
+							result[title].(map[string]interface{})[key] = env
+						}
+					} else {
 						result[title].(map[string]interface{})[key] = temp[0]
 					}
+				}
+				if num, ok := val.(int); ok {
+					result[title].(map[string]interface{})[key] = num
+				}
+				if boolean, ok := val.(bool); ok {
+					result[title].(map[string]interface{})[key] = boolean
 				}
 			}
 		}
@@ -75,7 +89,7 @@ func LoadConfig(path string) (config Config, err error) {
 		return
 	}
 
-	if config.App.Port == "" {
+	if config.App.Port == 0 {
 		config.App.Port = constant.DefaultPort
 	}
 

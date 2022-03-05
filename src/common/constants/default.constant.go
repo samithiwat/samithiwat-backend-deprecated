@@ -2,5 +2,5 @@ package constant
 
 const (
 	// DefaultPort is the default port for the server
-	DefaultPort = "8080"
+	DefaultPort = 8000
 )

@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strconv"
 
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/playground"
@@ -70,7 +71,7 @@ func main() {
 		return nil
 	})
 
-	app.Listen(":" + config.App.Port)
+	app.Listen(":" + strconv.Itoa(config.App.Port))
 }
 
 func handleArgs(db database.Database) {
