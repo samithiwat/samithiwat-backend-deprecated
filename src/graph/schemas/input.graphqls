@@ -9,28 +9,29 @@ input NewImage {
 
 input NewSetting {
   id: ID
-  aboutMe: NewAboutMe!
-  timeline: NewTimeline!
+  aboutMe: NewAboutMe
+  timeline: NewTimeline
+  isActivated: Boolean
 }
 
 input NewAboutMe {
   id: ID
-  name: String!
-  description: String!
-  content: String!
-  imgUrl: String!
+  name: String
+  description: String
+  content: String
+  imgUrl: String
   settingID: ID
 }
 
 input NewTimeline {
   id: ID
-  slug: String!
-  name: String!
-  description: String!
-  thumbnail: String!
-  eventDate: Time!
-  icon: NewIcon!
-  images: [NewImage!]!
+  slug: String
+  name: String
+  description: String
+  thumbnail: String
+  eventDate: Time
+  icon: NewIcon
+  images: [NewImage]
   settingID: ID
 }
 
