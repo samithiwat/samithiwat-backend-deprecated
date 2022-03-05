@@ -1,33 +1,62 @@
 package config
 
 import (
+	"github.com/mitchellh/mapstructure"
 	constant "github.com/samithiwat/samithiwat-backend/src/common/constants"
 	"github.com/spf13/viper"
+	"os"
+	"strings"
 )
 
 type Database struct {
-	Host     string `mapstructure:"DATABASE_HOST"`
-	Port     string `mapstructure:"DATABASE_PORT"`
-	User     string `mapstructure:"POSTGRES_USER"`
-	Password string `mapstructure:"POSTGRES_PASSWORD"`
-	Name     string `mapstructure:"POSTGRES_DB"`
-	SSL		 string `mapstructure:"POSTGRES_SSL_MODE"`
+	Host     string `mapstructure:"host"`
+	Port     string `mapstructure:"port"`
+	User     string `mapstructure:"username"`
+	Password string `mapstructure:"password"`
+	Name     string `mapstructure:"name"`
+	SSL      string `mapstructure:"ssl"`
+}
+
+type App struct {
+	Port  string `mapstructure:"port"`
+	Debug string `mapstructure:"debug"`
 }
 
 type Config struct {
-	Database Database `mapstructure:",squash"`
-	Port string
+	Database Database `mapstructure:",database"`
+	App      App      `mapstructure:",app"`
+}
+
+func assignEnv(config *map[string]interface{}) map[string]interface{} {
+	result := make(map[string]interface{})
+	for title, record := range *config {
+		result[title] = make(map[string]interface{})
+		if rec, ok := record.(map[string]interface{}); ok {
+			for key, val := range rec {
+				if str, ok := val.(string); ok {
+					temp := strings.Split(str, "$")
+					if len(temp) > 1 {
+						name := strings.Replace(temp[1], "{", "", -1)
+						name = strings.Replace(name, "}", "", -1)
+						result[title].(map[string]interface{})[key] = os.Getenv(name)
+					}
+				}
+			}
+		}
+	}
+	return result
 }
 
 func LoadConfig(path string) (config Config, err error) {
 	viper.AddConfigPath(path)
-	viper.SetConfigType("env")
-	viper.SetConfigName("dev")
 
-	if viper.GetString("GO_ENV") == "production" {
-		viper.SetConfigName("prod")
+	if os.Getenv("GO_ENV") == "production" {
+		viper.SetConfigName("config")
+		viper.SetConfigType("yaml")
+	} else {
+		viper.SetConfigType("env")
+		viper.SetConfigName("app")
 	}
-
 
 	viper.AutomaticEnv()
 
@@ -36,14 +65,18 @@ func LoadConfig(path string) (config Config, err error) {
 		return
 	}
 
-	err = viper.Unmarshal(&config)
+	raw := viper.AllSettings()
+
+	raw = assignEnv(&raw)
+
+	err = mapstructure.Decode(raw, &config)
 	if err != nil {
 		return
 	}
 
-	if config.Port == "" {
-		config.Port = constant.DefaultPort
+	if config.App.Port == "" {
+		config.App.Port = constant.DefaultPort
 	}
-	
+
 	return
 }
