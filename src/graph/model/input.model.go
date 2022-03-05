@@ -8,7 +8,7 @@ type NewSetting struct {
 	ID          int64       `json:"id"`
 	AboutMe     NewAboutMe  `json:"AboutMeID"`
 	Timeline    NewTimeline `json:"TimelineID"`
-	IsActivated bool        `json:"isActivated"`
+	IsActivated bool        `json:"isActivated" validate:"boolean"`
 }
 
 type NewAboutMe struct {
@@ -23,7 +23,7 @@ type NewAboutMe struct {
 type NewBadge struct {
 	ID        int64   `json:"ID"`
 	Name      string  `json:"Name"`
-	Color     string  `json:"Color"`
+	Color     string  `json:"Color" validate:"iscolor"`
 	Icon      NewIcon `json:"IconID"`
 	OwnerID   int64   `json:"OwnerID"`
 	OwnerType string  `json:"OwnerType"`
@@ -32,8 +32,8 @@ type NewBadge struct {
 type NewIcon struct {
 	ID        int64  `json:"ID"`
 	Name      string `json:"Name"`
-	BgColor   string `json:"BgColor" validate:"hexcolor"`
-	IconType  string `json:"IconType"`
+	BgColor   string `json:"BgColor" validate:"iscolor"`
+	IconType  string `json:"IconType" validate:"oneof='icon' 'svg'"`
 	OwnerID   int64  `json:"OwnerID"`
 	OwnerType string `json:"OwnerType"`
 }
