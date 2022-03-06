@@ -2,11 +2,11 @@ package database
 
 import (
 	"fmt"
-	"log"
-
 	"github.com/samithiwat/samithiwat-backend/src/config"
+	"github.com/samithiwat/samithiwat-backend/src/graph/model"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
+	"strconv"
 )
 
 type Database interface {
@@ -22,10 +22,10 @@ func InitDatabase() (Database, error) {
 	config, err := config.LoadConfig(".")
     
     if err != nil {
-        log.Fatal("cannot load config", err)
+        return nil, err
     }
 
-	dsn := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable", config.Database.Host, config.Database.Port, config.Database.User, config.Database.Password, config.Database.Name)
+	dsn := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=%s", config.Database.Host, strconv.Itoa(config.Database.Port), config.Database.User, config.Database.Password, config.Database.Name, config.Database.SSL)
 
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
@@ -40,5 +40,5 @@ func (d *database) GetConnection() *gorm.DB {
 }
 
 func (d *database) AutoMigrate() error {
-	return d.connection.AutoMigrate()
+	return d.connection.AutoMigrate(&model.Image{}, &model.Badge{}, &model.Icon{}, &model.Setting{}, &model.AboutMe{}, &model.Timeline{}, &model.GithubRepo{})
 }

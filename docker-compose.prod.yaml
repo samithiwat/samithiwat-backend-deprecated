@@ -2,18 +2,24 @@ version: "3.9"
 
 services:
   main-backend:
-    image: ghcr.io/samithiwat/samithiwat-backend:latest
-    container_name: main-backend-service
+    image: ghcr.io/samithiwat/samithiwat-backend:release
+    container_name: samithiwat-app-backend
     restart: always
-
     env_file:
       - prod.env
-    environment:
-      DATABASE_HOST: "db"
-
+    networks:
+      - samithiwat-app
+      - traefik-net
+    depends_on:
+      - "db"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.main-backend.rule=Host(`api.samithiwat.dev`)"
+      - "traefik.http.routers.main-backend.entrypoints=web"
+      - "traefik.docker.network=traefik-net"
   db:
     image: postgres:14.1
-    container_name: samithiwat-db
+    container_name: samithiwat-app-db
     restart: unless-stopped
 
     env_file:
@@ -23,11 +29,55 @@ services:
     volumes:
       - ./volumes/postgres:/volumes/postgresql/data
     networks:
-      - samithiwat
+      - samithiwat-app
     ports:
       - ${DATABASE_PORT}:${DATABASE_PORT}
     command: -p ${DATABASE_PORT}
 
+  reverse-proxy:
+    # The official v2 Traefik docker image
+    image: traefik:2.6.1
+    # Enables the web UI and tells Traefik to listen to docker
+    command:
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+    ports:
+      # The HTTP port
+      - "80:80"
+      # The Web UI (enabled by --api.insecure=true)
+      - "8080:8080"
+    networks:
+      - traefik-net
+    volumes:
+      # So that Traefik can listen to the Docker events
+      - /var/run/docker.sock:/var/run/docker.sock
+
+#  pgadmin:
+#    image: dpage/pgadmin4
+#    container_name: samithiwat-cms
+#    restart: unless-stopped
+#    environment:
+#      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
+#      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
+#      SCRIPT_NAME: "/admin"
+#    ports:
+#      - "5050:80"
+#    volumes:
+#      - /pgadmin/servers.json
+#    networks:
+#      - samithiwat-app
+#      - traefik-net
+#    labels:
+#      - "traefik.enable=true"
+#      - "traefik.http.routers.pgadmin.rule=Host(`api.samithiwat.dev`)"
+#      - "traefik.http.routers.pgadmin.entrypoints=web"
+#      - "traefik.docker.network=traefik-net"
+#      - "traefik.frontend.rule=PathPrefix:/admin"
+
 networks:
-  samithiwat:
-    name: samithiwat
+  samithiwat-app:
+    name: samithiwat-app
+  traefik-net:
+    name: traefik-net

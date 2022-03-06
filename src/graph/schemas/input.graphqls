@@ -1,0 +1,67 @@
+input NewImage {
+  id: ID
+  name: String
+  description: String
+  imgUrl: String
+  ownerId: ID
+  ownerType: String
+}
+
+input NewSetting {
+  id: ID
+  aboutMe: NewAboutMe
+  timeline: NewTimeline
+  isActivated: Boolean
+}
+
+input NewAboutMe {
+  id: ID
+  name: String
+  description: String
+  content: String
+  imgUrl: String
+  settingID: ID
+}
+
+input NewTimeline {
+  id: ID
+  slug: String
+  name: String
+  description: String
+  thumbnail: String
+  eventDate: Time
+  icon: NewIcon
+  images: [NewImage]
+  settingID: ID
+}
+
+input NewIcon {
+  id: ID
+  name: String
+  bgColor: String
+  iconType: String
+  ownerID: Int
+  ownerType: String
+}
+
+input NewBadge {
+  id: ID
+  name: String
+  color: String
+  icon: NewIcon
+  ownerID: Int
+  ownerType: String
+}
+
+input NewGithubRepo {
+  id : ID
+  name: String
+  author:	String
+  description: String
+  thumbnailUrl: String
+  url: String
+  latestUpdate: Time
+  star: Int
+  framework: NewBadge
+  language: NewBadge
+}

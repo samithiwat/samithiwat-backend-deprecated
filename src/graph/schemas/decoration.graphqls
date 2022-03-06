@@ -1,0 +1,59 @@
+type Icon {
+  id: ID!
+  name: String!
+  bgColor: String!
+  iconType: String!
+  ownerID: Int!
+  ownerType: String!
+  createdAt: Time!
+  updatedAt: Time!
+  deletedAt: Time!
+}
+
+extend type Query {
+  icons: [Icon]!
+  icon(id: ID!): Icon
+  iconsByOwner(ownerID: Int!, ownerType: String!): [Icon]
+  iconsByOwnerAndType(
+    ownerID: Int!
+    ownerType: String!
+    iconType: String!
+  ): [Icon]
+  iconsByType(iconType: String!): [Icon]
+}
+
+extend type Mutation {
+  createIcon(newIcon: NewIcon!): Icon
+  updateIcon(id: ID!, newIcon: NewIcon!): Icon
+  deleteIcon(id: ID!): Icon
+}
+
+type Badge {
+  id: ID!
+  name: String!
+  color: String!
+  icon: Icon!
+  ownerID: Int
+  ownerType: String
+  createdAt: Time!
+  updatedAt: Time!
+  deletedAt: Time!
+}
+
+extend type Query {
+  badges: [Badge]!
+  badge(id: ID!): Badge
+  badgesByOwner(ownerID: Int!, ownerType: String!): [Badge]
+  badgesByOwnerAndType(
+    ownerID: Int!
+    ownerType: String!
+    iconType: String!
+  ): [Badge]
+  badgesByType(iconType: String!): [Badge]
+}
+
+extend type Mutation {
+  createBadge(newBadge: NewBadge): Badge
+  updateBadge(id: ID!, newBadge: NewBadge): Badge
+  deleteBadge(id: ID!): Badge
+}

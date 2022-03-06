@@ -1,0 +1,25 @@
+type GithubRepo{
+    id : ID!
+    name: String
+    author:	String
+    description: String
+    thumbnailUrl: String
+    url: String
+    latestUpdate: Time
+    star: Int
+    framework: Badge
+    language: Badge
+    createdAt: Time
+    updatedAt: Time
+    deletedAt: Time
+}
+extend type Query {
+    githubRepos: [GithubRepo!]!
+    githubRepo(id: ID!): GithubRepo
+}
+
+extend type Mutation {
+    createGithubRepo(newGithubRepo: NewGithubRepo!): GithubRepo
+    updateGithubRepo(id: ID!, newGithubRepo: NewGithubRepo!): GithubRepo
+    deleteGithubRepo(id: ID!): GithubRepo
+}
