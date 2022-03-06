@@ -7,11 +7,11 @@ import (
 	"time"
 )
 
-func (s Seed) TimelineSeed_1646426038041() model.Timeline {
+func (s Seed) TimelineSeed1646426038041() model.Timeline {
 
 	db := s.db.GetConnection()
 
-	icon := s.IconSeed_1646422356793()
+	icon := s.IconSeed1646422356793()
 
 	setting := model.Timeline{Name: faker.Word(), Description: faker.Sentence(), Slug: faker.Word(), EventDate: time.Now(), Thumbnail: faker.URL(), Icon: icon}
 

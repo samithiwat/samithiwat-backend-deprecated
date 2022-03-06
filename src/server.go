@@ -81,7 +81,10 @@ func handleArgs(db database.Database) {
 	if len(args) >= 1 {
 		switch args[0] {
 		case "seed":
-			seed.Execute(db, args[1:]...)
+			err := seed.Execute(db, args[1:]...)
+			if err != nil {
+				log.Fatalln("Not found seed")
+			}
 			os.Exit(0)
 		}
 	}

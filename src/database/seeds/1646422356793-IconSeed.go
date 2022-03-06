@@ -7,7 +7,7 @@ import (
 	"log"
 )
 
-func (s Seed) IconSeed_1646422356793() model.Icon {
+func (s Seed) IconSeed1646422356793() model.Icon {
 	db := s.db.GetConnection()
 
 	iconTypes := []enum.IconType{"svg", "icon"}
