@@ -2,9 +2,8 @@ package service
 
 import (
 	"github.com/gofiber/fiber/v2"
-	"github.com/google/go-cmp/cmp"
-	"github.com/samithiwat/samithiwat-backend/src/database"
 	"github.com/samithiwat/samithiwat-backend/src/model"
+	repository "github.com/samithiwat/samithiwat-backend/src/repository/gorm"
 )
 
 type BadgeService interface {
@@ -17,110 +16,82 @@ type BadgeService interface {
 }
 
 type badgeService struct {
-	database         database.Database
+	repository       repository.GormRepository
 	iconService      IconService
 	validatorService ValidatorService
 }
 
-func NewBadgeService(database database.Database, iconService IconService, validatorService ValidatorService) BadgeService {
+func NewBadgeService(repository repository.GormRepository, iconService IconService, validatorService ValidatorService) BadgeService {
 	return &badgeService{
-		database:         database,
+		repository:       repository,
 		iconService:      iconService,
 		validatorService: validatorService,
 	}
 }
 
 func (s *badgeService) GetAll() ([]*model.Badge, error) {
-	db := s.database.GetConnection()
-
 	var badge []*model.Badge
 
-	result := db.Find(&badge)
+	err := s.repository.FindAllBadge(&badge)
 
-	if result.Error != nil {
-		return nil, fiber.NewError(fiber.StatusUnprocessableEntity, "Something when wrong while querying")
+	if err != nil {
+		return nil, fiber.NewError(fiber.StatusUnprocessableEntity, err.Error())
 	}
 
 	return badge, nil
 }
 
 func (s *badgeService) GetOne(id int64) (*model.Badge, error) {
-	db := s.database.GetConnection()
+	var badge model.Badge
 
-	var badge *model.Badge
+	err := s.repository.FindBadge(id, &badge)
 
-	result := db.Preload("Icon").First(&badge, id)
-
-	if result.RowsAffected == 0 {
-		return nil, fiber.NewError(fiber.StatusNotFound, "Not found")
+	if err != nil {
+		return nil, fiber.NewError(fiber.StatusNotFound, err.Error())
 	}
 
-	if result.Error != nil {
-		return nil, fiber.NewError(fiber.StatusUnprocessableEntity, "Something when wrong while querying")
-	}
-
-	return badge, nil
+	return &badge, nil
 }
 
 func (s *badgeService) Create(badgeDto *model.NewBadge) (*model.Badge, error) {
-	db := s.database.GetConnection()
-
 	badge, err := s.DtoToRaw(*badgeDto)
 	if err != nil {
 		return nil, err
 	}
 
-	result := db.Create(&badge)
+	err = s.repository.CreateBadge(badge)
 
-	if result.Error != nil {
-		return nil, fiber.NewError(fiber.StatusUnprocessableEntity, "Something when wrong while querying")
+	if err != nil {
+		return nil, fiber.NewError(fiber.StatusNotFound, err.Error())
 	}
 
 	return badge, nil
 }
 
 func (s *badgeService) Update(id int64, badgeDto *model.NewBadge) (*model.Badge, error) {
-	db := s.database.GetConnection()
-
-	var badge *model.Badge
-	raw, err := s.DtoToRaw(*badgeDto)
+	badge, err := s.DtoToRaw(*badgeDto)
 	if err != nil {
 		return nil, err
 	}
 
-	result := db.Preload("Icon").First(&badge, "id = ?", id).Updates(raw)
+	err = s.repository.UpdateBadge(id, badge)
 
-	if result.RowsAffected == 0 {
-		return nil, fiber.NewError(fiber.StatusNotFound, "Not found")
-	}
-
-	if result.Error != nil {
-		return nil, fiber.NewError(fiber.StatusUnprocessableEntity, "Something when wrong while querying")
-	}
-
-	if (!cmp.Equal(raw.Icon, model.Icon{})) {
-		db.Model(&badge).Association("Icon").Replace(&raw.Icon)
+	if err != nil {
+		return nil, fiber.NewError(fiber.StatusNotFound, err.Error())
 	}
 
 	return badge, nil
 }
 
 func (s *badgeService) Delete(id int64) (*model.Badge, error) {
-	db := s.database.GetConnection()
+	var badge model.Badge
+	err := s.repository.DeleteBadge(id, &badge)
 
-	var badge *model.Badge
-
-	result := db.Preload("Icon").First(&badge, id).Delete(&model.Badge{}, id)
-
-	if result.RowsAffected == 0 {
-		return nil, fiber.NewError(fiber.StatusNotFound, "Not found")
+	if err != nil {
+		return nil, fiber.NewError(fiber.StatusNotFound, err.Error())
 	}
 
-	if result.Error != nil {
-		return nil, fiber.NewError(fiber.StatusUnprocessableEntity, "Something when wrong while querying")
-	}
-
-	return badge, nil
+	return &badge, nil
 }
 
 func (s badgeService) DtoToRaw(badgeDto model.NewBadge) (*model.Badge, error) {

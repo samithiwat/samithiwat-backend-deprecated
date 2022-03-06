@@ -2,9 +2,8 @@ package service
 
 import (
 	"github.com/gofiber/fiber/v2"
-	"github.com/google/go-cmp/cmp"
-	"github.com/samithiwat/samithiwat-backend/src/database"
 	"github.com/samithiwat/samithiwat-backend/src/model"
+	repository "github.com/samithiwat/samithiwat-backend/src/repository/gorm"
 )
 
 // TODO: fetch data from github
@@ -19,111 +18,79 @@ type GithubRepoService interface {
 }
 
 type githubRepoService struct {
-	database         database.Database
+	repository       repository.GormRepository
 	badgeService     BadgeService
 	validatorService ValidatorService
 }
 
-func NewGithubRepoService(db database.Database, badgeService BadgeService, validatorService ValidatorService) GithubRepoService {
+func NewGithubRepoService(repository repository.GormRepository, badgeService BadgeService, validatorService ValidatorService) GithubRepoService {
 	return &githubRepoService{
-		database:         db,
+		repository:       repository,
 		badgeService:     badgeService,
 		validatorService: validatorService,
 	}
 }
 
 func (s githubRepoService) GetAll() ([]*model.GithubRepo, error) {
-	db := s.database.GetConnection()
+	var repos []*model.GithubRepo
 
-	var repo []*model.GithubRepo
+	err := s.repository.FindAllGithubRepo(&repos)
 
-	result := db.Preload("Language").Preload("Framework").Preload("Language.Icon").Preload("Framework.Icon").Find(&repo)
-
-	if result.Error != nil {
-		return nil, fiber.NewError(fiber.StatusNotFound, "Not found")
+	if err != nil {
+		return nil, fiber.NewError(fiber.StatusUnprocessableEntity, err.Error())
 	}
 
-	return repo, nil
+	return repos, nil
 }
 
 func (s githubRepoService) GetOne(id int64) (*model.GithubRepo, error) {
-	db := s.database.GetConnection()
+	var repo model.GithubRepo
 
-	var repo *model.GithubRepo
+	err := s.repository.FindGithubRepo(id, &repo)
 
-	result := db.Preload("Language").Preload("Framework").Preload("Language.Icon").Preload("Framework.Icon").First(&repo, id)
-
-	if result.Error != nil {
-		return nil, fiber.NewError(fiber.StatusNotFound, "Not found")
+	if err != nil {
+		return nil, fiber.NewError(fiber.StatusNotFound, err.Error())
 	}
 
-	return repo, nil
+	return &repo, nil
 }
 
 func (s githubRepoService) Create(githubRepoDto *model.NewGithubRepo) (*model.GithubRepo, error) {
-	db := s.database.GetConnection()
 	repo, err := s.DtoToRaw(*githubRepoDto)
+
+	err = s.repository.CreateGithubRepo(repo)
+
 	if err != nil {
-		return nil, err
-	}
-
-	result := db.Create(&repo)
-
-	if result.Error != nil {
-		return nil, fiber.NewError(fiber.StatusUnprocessableEntity, "Something when wrong while querying")
+		return nil, fiber.NewError(fiber.StatusNotFound, err.Error())
 	}
 
 	return repo, nil
 }
 
 func (s githubRepoService) Update(id int64, githubRepoDto *model.NewGithubRepo) (*model.GithubRepo, error) {
-	db := s.database.GetConnection()
-
-	var repo *model.GithubRepo
-	raw, err := s.DtoToRaw(*githubRepoDto)
+	repo, err := s.DtoToRaw(*githubRepoDto)
 	if err != nil {
 		return nil, err
 	}
 
-	result := db.Preload("Language").Preload("Framework").Preload("Language.Icon").Preload("Framework.Icon").First(&repo, "id = ?", id).Updates(raw)
+	err = s.repository.UpdateGithubRepo(id, repo)
 
-	if result.RowsAffected == 0 {
-		return nil, fiber.NewError(fiber.StatusNotFound, "Not found")
-	}
-
-	if result.Error != nil {
-		return nil, fiber.NewError(fiber.StatusUnprocessableEntity, result.Error)
-	}
-
-	if (!cmp.Equal(raw.Framework, model.Badge{})) {
-		db.Model(&repo).Association("Framework").Replace(&raw.Framework)
-		db.Model(&repo.Framework).Association("Icon").Append(&raw.Framework.Icon)
-	}
-
-	if (!cmp.Equal(raw.Language, model.Badge{})) {
-		db.Model(&repo).Association("Language").Replace(&raw.Language)
-		db.Model(&repo.Language).Association("Icon").Append(&raw.Language.Icon)
+	if err != nil {
+		return nil, fiber.NewError(fiber.StatusNotFound, err.Error())
 	}
 
 	return repo, nil
 }
 
 func (s githubRepoService) Delete(id int64) (*model.GithubRepo, error) {
-	db := s.database.GetConnection()
+	var repo model.GithubRepo
+	err := s.repository.DeleteGithubRepo(id, &repo)
 
-	var repo *model.GithubRepo
-
-	result := db.First(&repo, id).Delete(&model.GithubRepo{}, id)
-
-	if result.RowsAffected == 0 {
-		return nil, fiber.NewError(fiber.StatusNotFound, "Not found")
+	if err != nil {
+		return nil, fiber.NewError(fiber.StatusNotFound, err.Error())
 	}
 
-	if result.Error != nil {
-		return nil, fiber.NewError(fiber.StatusUnprocessableEntity, "Something when wrong while querying")
-	}
-
-	return repo, nil
+	return &repo, nil
 }
 
 func (s githubRepoService) DtoToRaw(githubRepoDto model.NewGithubRepo) (*model.GithubRepo, error) {

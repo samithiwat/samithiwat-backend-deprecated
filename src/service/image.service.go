@@ -2,8 +2,8 @@ package service
 
 import (
 	"github.com/gofiber/fiber/v2"
-	"github.com/samithiwat/samithiwat-backend/src/database"
 	"github.com/samithiwat/samithiwat-backend/src/model"
+	repository "github.com/samithiwat/samithiwat-backend/src/repository/gorm"
 )
 
 type ImageService interface {
@@ -16,102 +16,78 @@ type ImageService interface {
 }
 
 type imageService struct {
-	database         database.Database
+	repository       repository.GormRepository
 	validatorService ValidatorService
 }
 
-func NewImageService(db database.Database, validatorService ValidatorService) ImageService {
+func NewImageService(repository repository.GormRepository, validatorService ValidatorService) ImageService {
 	return &imageService{
-		database:         db,
+		repository:       repository,
 		validatorService: validatorService,
 	}
 }
 
 func (s *imageService) GetAll() ([]*model.Image, error) {
-	db := s.database.GetConnection()
-
 	var images []*model.Image
-	result := db.Find(&images)
+	err := s.repository.FindAllImage(&images)
 
-	if result.Error != nil {
-		return nil, fiber.NewError(fiber.StatusUnprocessableEntity, "Something when wrong while querying")
+	if err != nil {
+		return nil, fiber.NewError(fiber.StatusUnprocessableEntity, err.Error())
 	}
 
 	return images, nil
 }
 
 func (s *imageService) GetOne(id int64) (*model.Image, error) {
-	db := s.database.GetConnection()
+	var image model.Image
+	err := s.repository.FindImage(id, &image)
 
-	var image *model.Image
-	result := db.First(&image, id)
-
-	if result.RowsAffected == 0 {
-		return nil, fiber.NewError(fiber.StatusNotFound, "Not found")
+	if err != nil {
+		return nil, fiber.NewError(fiber.StatusNotFound, err.Error())
 	}
 
-	if result.Error != nil {
-		return nil, fiber.NewError(fiber.StatusUnprocessableEntity, "Something when wrong while querying")
-	}
-
-	return image, nil
+	return &image, nil
 }
 
 func (s *imageService) Create(imageDto *model.NewImage) (*model.Image, error) {
-	db := s.database.GetConnection()
-
 	image, err := s.DtoToRaw(*imageDto)
 	if err != nil {
 		return nil, err
 	}
 
-	result := db.Create(&image)
+	err = s.repository.CreateImage(image)
 
-	if result.Error != nil {
-		return nil, fiber.NewError(fiber.StatusUnprocessableEntity, "Something when wrong while querying")
+	if err != nil {
+		return nil, fiber.NewError(fiber.StatusNotFound, err.Error())
 	}
 
 	return image, nil
 }
 
 func (s *imageService) Update(id int64, imageDto *model.NewImage) (*model.Image, error) {
-	db := s.database.GetConnection()
-
-	var image *model.Image
-	raw, err := s.DtoToRaw(*imageDto)
+	image, err := s.DtoToRaw(*imageDto)
 	if err != nil {
 		return nil, err
 	}
 
-	result := db.First(&image, "id = ?", id).Updates(raw)
+	err = s.repository.UpdateImage(id, image)
 
-	if result.RowsAffected == 0 {
-		return nil, fiber.NewError(fiber.StatusNotFound, "Not found")
-	}
-
-	if result.Error != nil {
-		return nil, fiber.NewError(fiber.StatusUnprocessableEntity, "Something when wrong while querying")
+	if err != nil {
+		return nil, fiber.NewError(fiber.StatusNotFound, err.Error())
 	}
 
 	return image, nil
 }
 
 func (s *imageService) Delete(id int64) (*model.Image, error) {
-	db := s.database.GetConnection()
+	var image model.Image
+	err := s.repository.DeleteImage(id, &image)
 
-	var image *model.Image
-
-	result := db.First(&image, id).Delete(&model.Image{}, id)
-
-	if result.RowsAffected == 0 {
-		return nil, fiber.NewError(fiber.StatusNotFound, "Not found")
+	if err != nil {
+		return nil, fiber.NewError(fiber.StatusNotFound, err.Error())
 	}
 
-	if result.Error != nil {
-		return nil, fiber.NewError(fiber.StatusUnprocessableEntity, "Something when wrong while querying")
-	}
-
-	return image, nil
+	return &image, nil
 }
 
 func (s *imageService) DtoToRaw(imageDto model.NewImage) (*model.Image, error) {

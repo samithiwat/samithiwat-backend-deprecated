@@ -2,8 +2,8 @@ package service
 
 import (
 	"github.com/gofiber/fiber/v2"
-	"github.com/samithiwat/samithiwat-backend/src/database"
 	"github.com/samithiwat/samithiwat-backend/src/model"
+	repository "github.com/samithiwat/samithiwat-backend/src/repository/gorm"
 )
 
 type TimelineSettingService interface {
@@ -15,9 +15,9 @@ type TimelineSettingService interface {
 	DtoToRaw(settingDto *model.NewTimeline) (*model.Timeline, error)
 }
 
-func NewTimelineSettingService(db database.Database, iconService IconService, imageService ImageService, validatorService ValidatorService) TimelineSettingService {
+func NewTimelineSettingService(repository repository.GormRepository, iconService IconService, imageService ImageService, validatorService ValidatorService) TimelineSettingService {
 	return &timelineSettingService{
-		database:         db,
+		repository:       repository,
 		iconService:      iconService,
 		imageService:     imageService,
 		validatorService: validatorService,
@@ -25,101 +25,73 @@ func NewTimelineSettingService(db database.Database, iconService IconService, im
 }
 
 type timelineSettingService struct {
-	database         database.Database
+	repository       repository.GormRepository
 	iconService      IconService
 	imageService     ImageService
 	validatorService ValidatorService
 }
 
 func (s *timelineSettingService) GetAll() ([]*model.Timeline, error) {
-	db := s.database.GetConnection()
-
 	var settings []*model.Timeline
 
-	result := db.Preload("Images").Preload("Icon").Find(&settings)
-	if result.Error != nil {
-		return nil, result.Error
+	err := s.repository.FindAllTimeline(&settings)
+	if err != nil {
+		return nil, fiber.NewError(fiber.StatusUnprocessableEntity, err.Error())
 	}
 
 	return settings, nil
 }
 
 func (s *timelineSettingService) GetOne(id int64) (*model.Timeline, error) {
-	db := s.database.GetConnection()
+	var setting model.Timeline
 
-	var setting *model.Timeline
-
-	result := db.Preload("Icon").Preload("Images").First(&setting, id)
-	if result.Error != nil {
-		return nil, result.Error
+	err := s.repository.FindTimeline(id, &setting)
+	if err != nil {
+		return nil, fiber.NewError(fiber.StatusNotFound, err.Error())
 	}
 
-	return setting, nil
+	return &setting, nil
 }
 
 func (s *timelineSettingService) Create(timelineDto *model.NewTimeline) (*model.Timeline, error) {
-	db := s.database.GetConnection()
-
 	setting, err := s.DtoToRaw(timelineDto)
 	if err != nil {
 		return nil, err
 	}
 
-	result := db.Create(&setting)
+	err = s.repository.CreateTimeline(setting)
 
-	if result.Error != nil {
-		return nil, fiber.ErrUnprocessableEntity
+	if err != nil {
+		return nil, fiber.NewError(fiber.StatusNotFound, err.Error())
 	}
 
 	return setting, nil
 }
 
 func (s *timelineSettingService) Update(id int64, timelineDto *model.NewTimeline) (*model.Timeline, error) {
-	db := s.database.GetConnection()
-
-	var timeline *model.Timeline
-	raw, err := s.DtoToRaw(timelineDto)
+	timeline, err := s.DtoToRaw(timelineDto)
 	if err != nil {
 		return nil, err
 	}
 
-	result := db.First(&timeline, "id = ?", id).Omit("SettingID").Updates(raw)
+	err = s.repository.UpdateTimeline(id, timeline)
 
-	if result.RowsAffected == 0 {
-		return nil, fiber.NewError(fiber.StatusNotFound, "Not found")
-	}
-
-	if result.Error != nil {
-		return nil, fiber.NewError(fiber.StatusUnprocessableEntity, "Something when wrong while query")
-	}
-
-	if (raw.Icon != model.Icon{}) {
-		db.Model(&timeline).Association("Icon").Replace(&raw.Icon)
-	}
-
-	if len(raw.Images) > 0 {
-		db.Model(&timeline).Association("Images").Replace(raw.Images)
+	if err != nil {
+		return nil, fiber.NewError(fiber.StatusNotFound, err.Error())
 	}
 
 	return timeline, nil
 }
 
 func (s *timelineSettingService) Delete(id int64) (*model.Timeline, error) {
-	db := s.database.GetConnection()
+	var timeline model.Timeline
+	err := s.repository.DeleteTimeline(id, &timeline)
 
-	var timeline *model.Timeline
-
-	result := db.First(&timeline, id).Delete(&model.Timeline{}, id)
-
-	if result.RowsAffected == 0 {
-		return nil, fiber.NewError(fiber.StatusNotFound, "Not found")
+	if err != nil {
+		return nil, fiber.NewError(fiber.StatusNotFound, err.Error())
 	}
 
-	if result.Error != nil {
-		return nil, fiber.NewError(fiber.StatusUnprocessableEntity, "Something when wrong while query")
-	}
-
-	return timeline, nil
+	return &timeline, nil
 }
 
 func (s *timelineSettingService) DtoToRaw(settingDto *model.NewTimeline) (*model.Timeline, error) {
@@ -138,11 +110,11 @@ func (s *timelineSettingService) DtoToRaw(settingDto *model.NewTimeline) (*model
 
 	var images []model.Image
 	for _, dto := range settingDto.Images {
-		raw, err := s.imageService.DtoToRaw(*dto)
+		timeline, err := s.imageService.DtoToRaw(*dto)
 		if err != nil {
 			return nil, err
 		}
-		images = append(images, *raw)
+		images = append(images, *timeline)
 	}
 
 	timeline := model.Timeline{

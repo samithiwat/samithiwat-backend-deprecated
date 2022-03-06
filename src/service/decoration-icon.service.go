@@ -3,8 +3,8 @@ package service
 import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/samithiwat/samithiwat-backend/src/common/enum"
-	"github.com/samithiwat/samithiwat-backend/src/database"
 	"github.com/samithiwat/samithiwat-backend/src/model"
+	repository "github.com/samithiwat/samithiwat-backend/src/repository/gorm"
 	"strings"
 )
 
@@ -19,112 +19,88 @@ type IconService interface {
 }
 
 type iconService struct {
-	database         database.Database
+	repository       repository.GormRepository
 	validatorService ValidatorService
 }
 
-func NewIconService(database database.Database, validatorService ValidatorService) IconService {
+func NewIconService(repository repository.GormRepository, validatorService ValidatorService) IconService {
 	return &iconService{
-		database:         database,
+		repository:       repository,
 		validatorService: validatorService,
 	}
 }
 
 func (s *iconService) GetAll() ([]*model.Icon, error) {
-	db := s.database.GetConnection()
-
 	var icons []*model.Icon
 
-	result := db.Find(&icons)
+	err := s.repository.FindAllIcon(&icons)
 
-	if result.Error != nil {
-		return nil, fiber.NewError(fiber.StatusUnprocessableEntity, "Something when wrong while querying")
+	if err != nil {
+		return nil, fiber.NewError(fiber.StatusUnprocessableEntity, err.Error())
 	}
 
 	return icons, nil
 }
 
 func (s *iconService) GetOne(id int64) (*model.Icon, error) {
-	db := s.database.GetConnection()
+	var icon model.Icon
 
-	var icon *model.Icon
+	err := s.repository.FindIcon(id, &icon)
 
-	result := db.First(&icon, id)
-
-	if result.RowsAffected == 0 {
-		return nil, fiber.NewError(fiber.StatusNotFound, "Not found")
+	if err != nil {
+		return nil, fiber.NewError(fiber.StatusNotFound, err.Error())
 	}
 
-	if result.Error != nil {
-		return nil, result.Error
-	}
-
-	return icon, nil
+	return &icon, nil
 }
 
 func (s *iconService) Create(iconDto model.NewIcon) (*model.Icon, error) {
-	db := s.database.GetConnection()
-
 	icon, err := s.DtoToRaw(iconDto)
 	if err != nil {
 		return nil, err
 	}
 
-	result := db.Create(&icon)
+	err = s.repository.CreateIcon(icon)
 
-	if result.Error != nil {
-		return nil, fiber.NewError(fiber.StatusUnprocessableEntity, "Something when wrong while querying")
+	if err != nil {
+		return nil, fiber.NewError(fiber.StatusNotFound, err.Error())
 	}
 
 	return icon, nil
 }
 
 func (s *iconService) Update(id int64, iconDto model.NewIcon) (*model.Icon, error) {
-	db := s.database.GetConnection()
-
-	var icon *model.Icon
-	raw, err := s.DtoToRaw(iconDto)
+	icon, err := s.DtoToRaw(iconDto)
 	if err != nil {
 		return nil, err
 	}
 
-	result := db.First(&icon, "id = ?", id).Updates(raw)
+	err = s.repository.UpdateIcon(id, icon)
 
-	if result.RowsAffected == 0 {
-		return nil, fiber.NewError(fiber.StatusNotFound, "Not found")
-	}
-
-	if result.Error != nil {
-		return nil, fiber.NewError(fiber.StatusUnprocessableEntity, "Something when wrong while querying")
+	if err != nil {
+		return nil, fiber.NewError(fiber.StatusNotFound, err.Error())
 	}
 
 	return icon, nil
 }
 
 func (s *iconService) Delete(id int64) (*model.Icon, error) {
-	db := s.database.GetConnection()
+	var icon model.Icon
+	err := s.repository.DeleteIcon(id, &icon)
 
-	var icon *model.Icon
-
-	result := db.First(&icon, id).Delete(&model.Icon{}, id)
-
-	if result.RowsAffected == 0 {
-		return nil, fiber.NewError(fiber.StatusNotFound, "Not found")
+	if err != nil {
+		return nil, fiber.NewError(fiber.StatusNotFound, err.Error())
 	}
 
-	if result.Error != nil {
-		return nil, fiber.NewError(fiber.StatusUnprocessableEntity, "Something when wrong while querying")
-	}
-
-	return icon, nil
+	return &icon, nil
 }
 
 func (s *iconService) CheckIconType(iconType enum.IconType) (string, error) {
-	result := strings.ToLower(string(iconType))
-	if result != string(enum.ICON) && result != string(enum.SVG) {
+	err := strings.ToLower(string(iconType))
+	if err != string(enum.ICON) && err != string(enum.SVG) {
 		return "", fiber.NewError(fiber.StatusBadRequest, "Invalid icon type")
 	}
-	return result, nil
+	return err, nil
 }
 
 func (s *iconService) DtoToRaw(iconDto model.NewIcon) (*model.Icon, error) {

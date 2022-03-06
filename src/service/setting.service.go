@@ -2,9 +2,8 @@ package service
 
 import (
 	"github.com/gofiber/fiber/v2"
-	"github.com/google/go-cmp/cmp"
-	"github.com/samithiwat/samithiwat-backend/src/database"
 	"github.com/samithiwat/samithiwat-backend/src/model"
+	repository "github.com/samithiwat/samithiwat-backend/src/repository/gorm"
 )
 
 type SettingService interface {
@@ -17,9 +16,9 @@ type SettingService interface {
 	DtoToRaw(settingDto *model.NewSetting) (*model.Setting, error)
 }
 
-func NewSettingService(db database.Database, aboutMeSettingService AboutMeSettingService, timelineSettingService TimelineSettingService, validatorService ValidatorService) SettingService {
+func NewSettingService(repository repository.GormRepository, aboutMeSettingService AboutMeSettingService, timelineSettingService TimelineSettingService, validatorService ValidatorService) SettingService {
 	return &settingService{
-		database:               db,
+		repository:             repository,
 		aboutMeSettingService:  aboutMeSettingService,
 		timelineSettingService: timelineSettingService,
 		validatorService:       validatorService,
@@ -27,118 +26,87 @@ func NewSettingService(db database.Database, aboutMeSettingService AboutMeSettin
 }
 
 type settingService struct {
-	database               database.Database
+	repository             repository.GormRepository
 	aboutMeSettingService  AboutMeSettingService
 	timelineSettingService TimelineSettingService
 	validatorService       ValidatorService
 }
 
 func (s *settingService) GetAll() ([]*model.Setting, error) {
-	db := s.database.GetConnection()
-
 	var settings []*model.Setting
 
-	result := db.Preload("AboutMe").Preload("Timeline").Find(&settings)
+	err := s.repository.FindAllSetting(&settings)
 
-	if result.Error != nil {
-		return nil, fiber.NewError(fiber.StatusNotFound, "Not found")
+	if err != nil {
+		return nil, fiber.NewError(fiber.StatusUnprocessableEntity, err.Error())
 	}
 
 	return settings, nil
 }
 
 func (s *settingService) GetOne(id int64) (*model.Setting, error) {
-	db := s.database.GetConnection()
+	var setting model.Setting
 
-	var setting *model.Setting
+	err := s.repository.FindSetting(id, &setting)
 
-	result := db.Preload("AboutMe").Preload("Timeline").Preload("Timeline.Icon").Preload("Timeline.Images").First(&setting, id)
-
-	if result.Error != nil {
-		return nil, fiber.NewError(fiber.StatusNotFound, "Not found")
+	if err != nil {
+		return nil, fiber.NewError(fiber.StatusNotFound, err.Error())
 	}
 
-	return setting, nil
+	return &setting, nil
 }
 
 func (s *settingService) GetActivatedSetting() (*model.Setting, error) {
-	db := s.database.GetConnection()
+	var setting model.Setting
 
-	var setting *model.Setting
+	err := s.repository.FindActiveSetting(&setting)
 
-	result := db.Preload("AboutMe").Preload("Timeline").Preload("Timeline.Icon").Preload("Timeline.Images").Where("isActivated = ?", true).Take(&setting)
-
-	if result.Error != nil {
-		return nil, fiber.NewError(fiber.StatusNotFound, "Not found")
+	if err != nil {
+		return nil, fiber.NewError(fiber.StatusNotFound, err.Error())
 	}
 
-	return setting, nil
+	return &setting, nil
 }
 
 func (s *settingService) Create(settingDto *model.NewSetting) (*model.Setting, error) {
-	db := s.database.GetConnection()
 	setting, err := s.DtoToRaw(settingDto)
 	if err != nil {
 		return nil, err
 	}
 
-	result := db.Create(&setting)
+	err = s.repository.CreateSetting(setting)
 
-	if result.Error != nil {
-		return nil, fiber.NewError(fiber.StatusUnprocessableEntity, "Something when wrong while querying")
+	if err != nil {
+		return nil, fiber.NewError(fiber.StatusNotFound, err.Error())
 	}
 
 	return setting, nil
 }
 
 func (s *settingService) Update(id int64, settingDto *model.NewSetting) (*model.Setting, error) {
-	db := s.database.GetConnection()
-
-	var setting *model.Setting
-	raw, err := s.DtoToRaw(settingDto)
+	setting, err := s.DtoToRaw(settingDto)
 	if err != nil {
 		return nil, err
 	}
 
-	result := db.Preload("AboutMe").Preload("Timeline").Preload("Timeline.Icon").Preload("Timeline.Images").First(&setting, "id = ?", id).Updates(raw)
+	err = s.repository.UpdateSetting(id, setting)
 
-	if result.RowsAffected == 0 {
-		return nil, fiber.NewError(fiber.StatusNotFound, "Not found")
-	}
-
-	if result.Error != nil {
-		return nil, fiber.NewError(fiber.StatusUnprocessableEntity, "Something when wrong while querying")
-	}
-
-	if (!cmp.Equal(raw.Timeline, model.Timeline{})) {
-		db.Model(&setting).Association("Timeline").Replace(&raw.Timeline)
-		db.Model(&setting.Timeline).Association("Icon").Replace(&raw.Timeline.Icon)
-		db.Model(&setting.Timeline).Association("Images").Replace(&raw.Timeline.Images)
-	}
-
-	if (!cmp.Equal(raw.AboutMe, model.AboutMe{})) {
-		db.Model(&setting).Association("AboutMe").Replace(&raw.AboutMe)
+	if err != nil {
+		return nil, fiber.NewError(fiber.StatusNotFound, err.Error())
 	}
 
 	return setting, nil
 }
 
 func (s *settingService) Delete(id int64) (*model.Setting, error) {
-	db := s.database.GetConnection()
+	var setting model.Setting
+	err := s.repository.DeleteSetting(id, &setting)
 
-	var setting *model.Setting
-
-	result := db.First(&setting, id).Delete(&model.Setting{}, id)
-
-	if result.RowsAffected == 0 {
-		return nil, fiber.NewError(fiber.StatusNotFound, "Not found")
+	if err != nil {
+		return nil, fiber.NewError(fiber.StatusNotFound, err.Error())
 	}
 
-	if result.Error != nil {
-		return nil, fiber.NewError(fiber.StatusUnprocessableEntity, "Something when wrong while querying")
-	}
-
-	return setting, nil
+	return &setting, nil
 }
 
 func (s *settingService) DtoToRaw(settingDto *model.NewSetting) (*model.Setting, error) {
