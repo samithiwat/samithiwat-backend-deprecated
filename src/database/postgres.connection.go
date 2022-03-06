@@ -1,9 +1,7 @@
 package database
 
 import (
-	"database/sql"
 	"fmt"
-	"github.com/DATA-DOG/go-sqlmock"
 	"github.com/samithiwat/samithiwat-backend/src/config"
 	"github.com/samithiwat/samithiwat-backend/src/model"
 	"gorm.io/driver/postgres"
@@ -35,25 +33,6 @@ func InitDatabase() (Database, error) {
 	}
 
 	return &database{connection: db}, nil
-}
-
-func MockDatabase() (Database, sqlmock.Sqlmock, error) {
-	var db *sql.DB
-	var err error
-	var mock sqlmock.Sqlmock
-
-	db, mock, err = sqlmock.New()
-	if err != nil {
-		return nil, nil, err
-	}
-
-	gdb, err := gorm.Open(postgres.New(postgres.Config{Conn: db}), &gorm.Config{})
-	if err != nil {
-		return nil, nil, err
-	}
-
-	return &database{connection: gdb}, mock, nil
-
 }
 
 func (d *database) GetConnection() *gorm.DB {
