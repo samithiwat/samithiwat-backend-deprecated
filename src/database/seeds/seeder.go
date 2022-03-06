@@ -26,16 +26,14 @@ func seed(s Seed, seedMethodName string) error {
 		return errors.New("Invalid seed")
 	}
 
-	log.Println("Seeding", seedMethodName, "...")
-
 	m.Call(nil)
 
-	log.Println("Seed", seedMethodName, "succeed")
+	log.Println("✔️Seed", seedMethodName, "succeed")
 
 	return nil
 }
 
-func Execute(db database.Database, seedMethodNames ...string) error{
+func Execute(db database.Database, seedMethodNames ...string) error {
 	s := Seed{db}
 
 	seedType := reflect.TypeOf(s)
@@ -76,7 +74,7 @@ func Execute(db database.Database, seedMethodNames ...string) error{
 		log.Println("Running all seeder...")
 		for _, seedMethod := range seedMethods {
 			err := seed(s, seeds[seedMethod.Name].Name)
-			if err != nil{
+			if err != nil {
 				return err
 			}
 		}
@@ -85,7 +83,7 @@ func Execute(db database.Database, seedMethodNames ...string) error{
 	// Execute only the given names
 	for _, item := range seedMethodNames {
 		err := seed(s, seeds[item].Name)
-		if err != nil{
+		if err != nil {
 			return err
 		}
 	}
