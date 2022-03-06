@@ -9,20 +9,22 @@ package main
 import (
 	"github.com/samithiwat/samithiwat-backend/src/database"
 	"github.com/samithiwat/samithiwat-backend/src/graph/resolver"
+	"github.com/samithiwat/samithiwat-backend/src/repository/gorm"
 	"github.com/samithiwat/samithiwat-backend/src/service"
 )
 
 // Injectors from wire.go:
 
 func InitializeResolver(db database.Database) (*graph.Resolver, error) {
+	gormRepository := repository.NewGormRepository(db)
 	validatorService := service.NewValidatorService()
-	imageService := service.NewImageService(db, validatorService)
-	iconService := service.NewIconService(db, validatorService)
-	badgeService := service.NewBadgeService(db, iconService, validatorService)
-	aboutMeSettingService := service.NewAboutMeSettingService(db, validatorService)
-	timelineSettingService := service.NewTimelineSettingService(db, iconService, imageService, validatorService)
-	settingService := service.NewSettingService(db, aboutMeSettingService, timelineSettingService, validatorService)
-	githubRepoService := service.NewGithubRepoService(db, badgeService, validatorService)
+	imageService := service.NewImageService(gormRepository, validatorService)
+	iconService := service.NewIconService(gormRepository, validatorService)
+	badgeService := service.NewBadgeService(gormRepository, iconService, validatorService)
+	aboutMeSettingService := service.NewAboutMeSettingService(gormRepository, validatorService)
+	timelineSettingService := service.NewTimelineSettingService(gormRepository, iconService, imageService, validatorService)
+	settingService := service.NewSettingService(gormRepository, aboutMeSettingService, timelineSettingService, validatorService)
+	githubRepoService := service.NewGithubRepoService(gormRepository, badgeService, validatorService)
 	resolver := graph.NewResolver(imageService, iconService, badgeService, aboutMeSettingService, timelineSettingService, settingService, githubRepoService)
 	return resolver, nil
 }
