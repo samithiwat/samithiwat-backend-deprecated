@@ -4,17 +4,17 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/google/go-cmp/cmp"
 	"github.com/samithiwat/samithiwat-backend/src/database"
-	model2 "github.com/samithiwat/samithiwat-backend/src/model"
+	"github.com/samithiwat/samithiwat-backend/src/model"
 )
 
 type SettingService interface {
-	GetAll() ([]*model2.Setting, error)
-	GetOne(id int64) (*model2.Setting, error)
-	GetActivatedSetting() (*model2.Setting, error)
-	Create(settingDto *model2.NewSetting) (*model2.Setting, error)
-	Update(id int64, imageDto *model2.NewSetting) (*model2.Setting, error)
-	Delete(id int64) (*model2.Setting, error)
-	DtoToRaw(settingDto *model2.NewSetting) (*model2.Setting, error)
+	GetAll() ([]*model.Setting, error)
+	GetOne(id int64) (*model.Setting, error)
+	GetActivatedSetting() (*model.Setting, error)
+	Create(settingDto *model.NewSetting) (*model.Setting, error)
+	Update(id int64, imageDto *model.NewSetting) (*model.Setting, error)
+	Delete(id int64) (*model.Setting, error)
+	DtoToRaw(settingDto *model.NewSetting) (*model.Setting, error)
 }
 
 func NewSettingService(db database.Database, aboutMeSettingService AboutMeSettingService, timelineSettingService TimelineSettingService, validatorService ValidatorService) SettingService {
@@ -33,10 +33,10 @@ type settingService struct {
 	validatorService       ValidatorService
 }
 
-func (s *settingService) GetAll() ([]*model2.Setting, error) {
+func (s *settingService) GetAll() ([]*model.Setting, error) {
 	db := s.database.GetConnection()
 
-	var settings []*model2.Setting
+	var settings []*model.Setting
 
 	result := db.Preload("AboutMe").Preload("Timeline").Find(&settings)
 
@@ -47,10 +47,10 @@ func (s *settingService) GetAll() ([]*model2.Setting, error) {
 	return settings, nil
 }
 
-func (s *settingService) GetOne(id int64) (*model2.Setting, error) {
+func (s *settingService) GetOne(id int64) (*model.Setting, error) {
 	db := s.database.GetConnection()
 
-	var setting *model2.Setting
+	var setting *model.Setting
 
 	result := db.Preload("AboutMe").Preload("Timeline").Preload("Timeline.Icon").Preload("Timeline.Images").First(&setting, id)
 
@@ -61,10 +61,10 @@ func (s *settingService) GetOne(id int64) (*model2.Setting, error) {
 	return setting, nil
 }
 
-func (s *settingService) GetActivatedSetting() (*model2.Setting, error) {
+func (s *settingService) GetActivatedSetting() (*model.Setting, error) {
 	db := s.database.GetConnection()
 
-	var setting *model2.Setting
+	var setting *model.Setting
 
 	result := db.Preload("AboutMe").Preload("Timeline").Preload("Timeline.Icon").Preload("Timeline.Images").Where("isActivated = ?", true).Take(&setting)
 
@@ -75,7 +75,7 @@ func (s *settingService) GetActivatedSetting() (*model2.Setting, error) {
 	return setting, nil
 }
 
-func (s *settingService) Create(settingDto *model2.NewSetting) (*model2.Setting, error) {
+func (s *settingService) Create(settingDto *model.NewSetting) (*model.Setting, error) {
 	db := s.database.GetConnection()
 	setting, err := s.DtoToRaw(settingDto)
 	if err != nil {
@@ -91,10 +91,10 @@ func (s *settingService) Create(settingDto *model2.NewSetting) (*model2.Setting,
 	return setting, nil
 }
 
-func (s *settingService) Update(id int64, settingDto *model2.NewSetting) (*model2.Setting, error) {
+func (s *settingService) Update(id int64, settingDto *model.NewSetting) (*model.Setting, error) {
 	db := s.database.GetConnection()
 
-	var setting *model2.Setting
+	var setting *model.Setting
 	raw, err := s.DtoToRaw(settingDto)
 	if err != nil {
 		return nil, err
@@ -110,25 +110,25 @@ func (s *settingService) Update(id int64, settingDto *model2.NewSetting) (*model
 		return nil, fiber.NewError(fiber.StatusUnprocessableEntity, "Something when wrong while querying")
 	}
 
-	if (!cmp.Equal(raw.Timeline, model2.Timeline{})) {
+	if (!cmp.Equal(raw.Timeline, model.Timeline{})) {
 		db.Model(&setting).Association("Timeline").Replace(&raw.Timeline)
 		db.Model(&setting.Timeline).Association("Icon").Replace(&raw.Timeline.Icon)
 		db.Model(&setting.Timeline).Association("Images").Replace(&raw.Timeline.Images)
 	}
 
-	if (!cmp.Equal(raw.AboutMe, model2.AboutMe{})) {
+	if (!cmp.Equal(raw.AboutMe, model.AboutMe{})) {
 		db.Model(&setting).Association("AboutMe").Replace(&raw.AboutMe)
 	}
 
 	return setting, nil
 }
 
-func (s *settingService) Delete(id int64) (*model2.Setting, error) {
+func (s *settingService) Delete(id int64) (*model.Setting, error) {
 	db := s.database.GetConnection()
 
-	var setting *model2.Setting
+	var setting *model.Setting
 
-	result := db.First(&setting, id).Delete(&model2.Setting{}, id)
+	result := db.First(&setting, id).Delete(&model.Setting{}, id)
 
 	if result.RowsAffected == 0 {
 		return nil, fiber.NewError(fiber.StatusNotFound, "Not found")
@@ -141,7 +141,7 @@ func (s *settingService) Delete(id int64) (*model2.Setting, error) {
 	return setting, nil
 }
 
-func (s *settingService) DtoToRaw(settingDto *model2.NewSetting) (*model2.Setting, error) {
+func (s *settingService) DtoToRaw(settingDto *model.NewSetting) (*model.Setting, error) {
 	err := s.validatorService.Setting(*settingDto)
 	if err != nil {
 		return nil, err
@@ -156,7 +156,7 @@ func (s *settingService) DtoToRaw(settingDto *model2.NewSetting) (*model2.Settin
 		return nil, err
 	}
 
-	setting := model2.Setting{
+	setting := model.Setting{
 		AboutMe:     *rawAboutMe,
 		Timeline:    *rawTimeline,
 		IsActivated: settingDto.IsActivated,

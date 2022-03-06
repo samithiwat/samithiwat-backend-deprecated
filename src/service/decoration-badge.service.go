@@ -4,16 +4,16 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/google/go-cmp/cmp"
 	"github.com/samithiwat/samithiwat-backend/src/database"
-	model2 "github.com/samithiwat/samithiwat-backend/src/model"
+	"github.com/samithiwat/samithiwat-backend/src/model"
 )
 
 type BadgeService interface {
-	GetAll() ([]*model2.Badge, error)
-	GetOne(id int64) (*model2.Badge, error)
-	Create(badgeDto *model2.NewBadge) (*model2.Badge, error)
-	Update(id int64, badgeDto *model2.NewBadge) (*model2.Badge, error)
-	Delete(id int64) (*model2.Badge, error)
-	DtoToRaw(githubRepoDto model2.NewBadge) (*model2.Badge, error)
+	GetAll() ([]*model.Badge, error)
+	GetOne(id int64) (*model.Badge, error)
+	Create(badgeDto *model.NewBadge) (*model.Badge, error)
+	Update(id int64, badgeDto *model.NewBadge) (*model.Badge, error)
+	Delete(id int64) (*model.Badge, error)
+	DtoToRaw(githubRepoDto model.NewBadge) (*model.Badge, error)
 }
 
 type badgeService struct {
@@ -30,10 +30,10 @@ func NewBadgeService(database database.Database, iconService IconService, valida
 	}
 }
 
-func (s *badgeService) GetAll() ([]*model2.Badge, error) {
+func (s *badgeService) GetAll() ([]*model.Badge, error) {
 	db := s.database.GetConnection()
 
-	var badge []*model2.Badge
+	var badge []*model.Badge
 
 	result := db.Find(&badge)
 
@@ -44,10 +44,10 @@ func (s *badgeService) GetAll() ([]*model2.Badge, error) {
 	return badge, nil
 }
 
-func (s *badgeService) GetOne(id int64) (*model2.Badge, error) {
+func (s *badgeService) GetOne(id int64) (*model.Badge, error) {
 	db := s.database.GetConnection()
 
-	var badge *model2.Badge
+	var badge *model.Badge
 
 	result := db.Preload("Icon").First(&badge, id)
 
@@ -62,7 +62,7 @@ func (s *badgeService) GetOne(id int64) (*model2.Badge, error) {
 	return badge, nil
 }
 
-func (s *badgeService) Create(badgeDto *model2.NewBadge) (*model2.Badge, error) {
+func (s *badgeService) Create(badgeDto *model.NewBadge) (*model.Badge, error) {
 	db := s.database.GetConnection()
 
 	badge, err := s.DtoToRaw(*badgeDto)
@@ -79,10 +79,10 @@ func (s *badgeService) Create(badgeDto *model2.NewBadge) (*model2.Badge, error) 
 	return badge, nil
 }
 
-func (s *badgeService) Update(id int64, badgeDto *model2.NewBadge) (*model2.Badge, error) {
+func (s *badgeService) Update(id int64, badgeDto *model.NewBadge) (*model.Badge, error) {
 	db := s.database.GetConnection()
 
-	var badge *model2.Badge
+	var badge *model.Badge
 	raw, err := s.DtoToRaw(*badgeDto)
 	if err != nil {
 		return nil, err
@@ -98,19 +98,19 @@ func (s *badgeService) Update(id int64, badgeDto *model2.NewBadge) (*model2.Badg
 		return nil, fiber.NewError(fiber.StatusUnprocessableEntity, "Something when wrong while querying")
 	}
 
-	if (!cmp.Equal(raw.Icon, model2.Icon{})) {
+	if (!cmp.Equal(raw.Icon, model.Icon{})) {
 		db.Model(&badge).Association("Icon").Replace(&raw.Icon)
 	}
 
 	return badge, nil
 }
 
-func (s *badgeService) Delete(id int64) (*model2.Badge, error) {
+func (s *badgeService) Delete(id int64) (*model.Badge, error) {
 	db := s.database.GetConnection()
 
-	var badge *model2.Badge
+	var badge *model.Badge
 
-	result := db.Preload("Icon").First(&badge, id).Delete(&model2.Badge{}, id)
+	result := db.Preload("Icon").First(&badge, id).Delete(&model.Badge{}, id)
 
 	if result.RowsAffected == 0 {
 		return nil, fiber.NewError(fiber.StatusNotFound, "Not found")
@@ -123,7 +123,7 @@ func (s *badgeService) Delete(id int64) (*model2.Badge, error) {
 	return badge, nil
 }
 
-func (s badgeService) DtoToRaw(badgeDto model2.NewBadge) (*model2.Badge, error) {
+func (s badgeService) DtoToRaw(badgeDto model.NewBadge) (*model.Badge, error) {
 	err := s.validatorService.Badge(badgeDto)
 	if err != nil {
 		return nil, err
@@ -133,7 +133,7 @@ func (s badgeService) DtoToRaw(badgeDto model2.NewBadge) (*model2.Badge, error) 
 	if err != nil {
 		return nil, err
 	}
-	badge := model2.Badge{
+	badge := model.Badge{
 		ID:    badgeDto.ID,
 		Name:  badgeDto.Name,
 		Color: badgeDto.Color,

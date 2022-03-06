@@ -3,16 +3,16 @@ package service
 import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/samithiwat/samithiwat-backend/src/database"
-	model2 "github.com/samithiwat/samithiwat-backend/src/model"
+	"github.com/samithiwat/samithiwat-backend/src/model"
 )
 
 type AboutMeSettingService interface {
-	GetAll() ([]*model2.AboutMe, error)
-	GetOne(id int64) (*model2.AboutMe, error)
-	Create(settingDto *model2.NewAboutMe) (*model2.AboutMe, error)
-	Update(id int64, imageDto *model2.NewAboutMe) (*model2.AboutMe, error)
-	Delete(id int64) (*model2.AboutMe, error)
-	DtoToRaw(settingDto *model2.NewAboutMe) (*model2.AboutMe, error)
+	GetAll() ([]*model.AboutMe, error)
+	GetOne(id int64) (*model.AboutMe, error)
+	Create(settingDto *model.NewAboutMe) (*model.AboutMe, error)
+	Update(id int64, imageDto *model.NewAboutMe) (*model.AboutMe, error)
+	Delete(id int64) (*model.AboutMe, error)
+	DtoToRaw(settingDto *model.NewAboutMe) (*model.AboutMe, error)
 }
 
 func NewAboutMeSettingService(db database.Database, validatorService ValidatorService) AboutMeSettingService {
@@ -27,10 +27,10 @@ type aboutMeSettingService struct {
 	validatorService ValidatorService
 }
 
-func (s *aboutMeSettingService) GetAll() ([]*model2.AboutMe, error) {
+func (s *aboutMeSettingService) GetAll() ([]*model.AboutMe, error) {
 	db := s.database.GetConnection()
 
-	var settings []*model2.AboutMe
+	var settings []*model.AboutMe
 
 	result := db.Find(&settings)
 
@@ -41,10 +41,10 @@ func (s *aboutMeSettingService) GetAll() ([]*model2.AboutMe, error) {
 	return settings, nil
 }
 
-func (s *aboutMeSettingService) GetOne(id int64) (*model2.AboutMe, error) {
+func (s *aboutMeSettingService) GetOne(id int64) (*model.AboutMe, error) {
 	db := s.database.GetConnection()
 
-	var setting *model2.AboutMe
+	var setting *model.AboutMe
 
 	result := db.First(&setting, id)
 
@@ -55,7 +55,7 @@ func (s *aboutMeSettingService) GetOne(id int64) (*model2.AboutMe, error) {
 	return setting, nil
 }
 
-func (s *aboutMeSettingService) Create(aboutMeDto *model2.NewAboutMe) (*model2.AboutMe, error) {
+func (s *aboutMeSettingService) Create(aboutMeDto *model.NewAboutMe) (*model.AboutMe, error) {
 	db := s.database.GetConnection()
 
 	setting, err := s.DtoToRaw(aboutMeDto)
@@ -72,10 +72,10 @@ func (s *aboutMeSettingService) Create(aboutMeDto *model2.NewAboutMe) (*model2.A
 	return setting, nil
 }
 
-func (s *aboutMeSettingService) Update(id int64, aboutMeDto *model2.NewAboutMe) (*model2.AboutMe, error) {
+func (s *aboutMeSettingService) Update(id int64, aboutMeDto *model.NewAboutMe) (*model.AboutMe, error) {
 	db := s.database.GetConnection()
 
-	var aboutMe *model2.AboutMe
+	var aboutMe *model.AboutMe
 	raw, err := s.DtoToRaw(aboutMeDto)
 	if err != nil {
 		return nil, err
@@ -94,12 +94,12 @@ func (s *aboutMeSettingService) Update(id int64, aboutMeDto *model2.NewAboutMe) 
 	return aboutMe, nil
 }
 
-func (s *aboutMeSettingService) Delete(id int64) (*model2.AboutMe, error) {
+func (s *aboutMeSettingService) Delete(id int64) (*model.AboutMe, error) {
 	db := s.database.GetConnection()
 
-	var aboutMe *model2.AboutMe
+	var aboutMe *model.AboutMe
 
-	result := db.First(&aboutMe, id).Delete(&model2.AboutMe{}, id)
+	result := db.First(&aboutMe, id).Delete(&model.AboutMe{}, id)
 
 	if result.RowsAffected == 0 {
 		return nil, fiber.NewError(fiber.StatusNotFound, "Not found")
@@ -112,13 +112,13 @@ func (s *aboutMeSettingService) Delete(id int64) (*model2.AboutMe, error) {
 	return aboutMe, nil
 }
 
-func (s *aboutMeSettingService) DtoToRaw(settingDto *model2.NewAboutMe) (*model2.AboutMe, error) {
+func (s *aboutMeSettingService) DtoToRaw(settingDto *model.NewAboutMe) (*model.AboutMe, error) {
 	err := s.validatorService.AboutMe(*settingDto)
 	if err != nil {
 		return nil, err
 	}
 
-	aboutMe := model2.AboutMe{
+	aboutMe := model.AboutMe{
 		ID:          settingDto.ID,
 		Name:        settingDto.Name,
 		Description: settingDto.Description,

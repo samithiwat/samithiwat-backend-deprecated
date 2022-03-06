@@ -3,16 +3,16 @@ package service
 import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/samithiwat/samithiwat-backend/src/database"
-	model2 "github.com/samithiwat/samithiwat-backend/src/model"
+	"github.com/samithiwat/samithiwat-backend/src/model"
 )
 
 type TimelineSettingService interface {
-	GetAll() ([]*model2.Timeline, error)
-	GetOne(id int64) (*model2.Timeline, error)
-	Create(settingDto *model2.NewTimeline) (*model2.Timeline, error)
-	Update(id int64, imageDto *model2.NewTimeline) (*model2.Timeline, error)
-	Delete(id int64) (*model2.Timeline, error)
-	DtoToRaw(settingDto *model2.NewTimeline) (*model2.Timeline, error)
+	GetAll() ([]*model.Timeline, error)
+	GetOne(id int64) (*model.Timeline, error)
+	Create(settingDto *model.NewTimeline) (*model.Timeline, error)
+	Update(id int64, imageDto *model.NewTimeline) (*model.Timeline, error)
+	Delete(id int64) (*model.Timeline, error)
+	DtoToRaw(settingDto *model.NewTimeline) (*model.Timeline, error)
 }
 
 func NewTimelineSettingService(db database.Database, iconService IconService, imageService ImageService, validatorService ValidatorService) TimelineSettingService {
@@ -31,10 +31,10 @@ type timelineSettingService struct {
 	validatorService ValidatorService
 }
 
-func (s *timelineSettingService) GetAll() ([]*model2.Timeline, error) {
+func (s *timelineSettingService) GetAll() ([]*model.Timeline, error) {
 	db := s.database.GetConnection()
 
-	var settings []*model2.Timeline
+	var settings []*model.Timeline
 
 	result := db.Preload("Images").Preload("Icon").Find(&settings)
 	if result.Error != nil {
@@ -44,10 +44,10 @@ func (s *timelineSettingService) GetAll() ([]*model2.Timeline, error) {
 	return settings, nil
 }
 
-func (s *timelineSettingService) GetOne(id int64) (*model2.Timeline, error) {
+func (s *timelineSettingService) GetOne(id int64) (*model.Timeline, error) {
 	db := s.database.GetConnection()
 
-	var setting *model2.Timeline
+	var setting *model.Timeline
 
 	result := db.Preload("Icon").Preload("Images").First(&setting, id)
 	if result.Error != nil {
@@ -57,7 +57,7 @@ func (s *timelineSettingService) GetOne(id int64) (*model2.Timeline, error) {
 	return setting, nil
 }
 
-func (s *timelineSettingService) Create(timelineDto *model2.NewTimeline) (*model2.Timeline, error) {
+func (s *timelineSettingService) Create(timelineDto *model.NewTimeline) (*model.Timeline, error) {
 	db := s.database.GetConnection()
 
 	setting, err := s.DtoToRaw(timelineDto)
@@ -74,10 +74,10 @@ func (s *timelineSettingService) Create(timelineDto *model2.NewTimeline) (*model
 	return setting, nil
 }
 
-func (s *timelineSettingService) Update(id int64, timelineDto *model2.NewTimeline) (*model2.Timeline, error) {
+func (s *timelineSettingService) Update(id int64, timelineDto *model.NewTimeline) (*model.Timeline, error) {
 	db := s.database.GetConnection()
 
-	var timeline *model2.Timeline
+	var timeline *model.Timeline
 	raw, err := s.DtoToRaw(timelineDto)
 	if err != nil {
 		return nil, err
@@ -93,7 +93,7 @@ func (s *timelineSettingService) Update(id int64, timelineDto *model2.NewTimelin
 		return nil, fiber.NewError(fiber.StatusUnprocessableEntity, "Something when wrong while query")
 	}
 
-	if (raw.Icon != model2.Icon{}) {
+	if (raw.Icon != model.Icon{}) {
 		db.Model(&timeline).Association("Icon").Replace(&raw.Icon)
 	}
 
@@ -104,12 +104,12 @@ func (s *timelineSettingService) Update(id int64, timelineDto *model2.NewTimelin
 	return timeline, nil
 }
 
-func (s *timelineSettingService) Delete(id int64) (*model2.Timeline, error) {
+func (s *timelineSettingService) Delete(id int64) (*model.Timeline, error) {
 	db := s.database.GetConnection()
 
-	var timeline *model2.Timeline
+	var timeline *model.Timeline
 
-	result := db.First(&timeline, id).Delete(&model2.Timeline{}, id)
+	result := db.First(&timeline, id).Delete(&model.Timeline{}, id)
 
 	if result.RowsAffected == 0 {
 		return nil, fiber.NewError(fiber.StatusNotFound, "Not found")
@@ -122,13 +122,13 @@ func (s *timelineSettingService) Delete(id int64) (*model2.Timeline, error) {
 	return timeline, nil
 }
 
-func (s *timelineSettingService) DtoToRaw(settingDto *model2.NewTimeline) (*model2.Timeline, error) {
+func (s *timelineSettingService) DtoToRaw(settingDto *model.NewTimeline) (*model.Timeline, error) {
 	err := s.validatorService.Timeline(*settingDto)
 	if err != nil {
 		return nil, err
 	}
 
-	var icon *model2.Icon
+	var icon *model.Icon
 	if settingDto.Icon != nil {
 		icon, err = s.iconService.DtoToRaw(*settingDto.Icon)
 		if err != nil {
@@ -136,7 +136,7 @@ func (s *timelineSettingService) DtoToRaw(settingDto *model2.NewTimeline) (*mode
 		}
 	}
 
-	var images []model2.Image
+	var images []model.Image
 	for _, dto := range settingDto.Images {
 		raw, err := s.imageService.DtoToRaw(*dto)
 		if err != nil {
@@ -145,7 +145,7 @@ func (s *timelineSettingService) DtoToRaw(settingDto *model2.NewTimeline) (*mode
 		images = append(images, *raw)
 	}
 
-	timeline := model2.Timeline{
+	timeline := model.Timeline{
 		ID:          settingDto.ID,
 		Name:        settingDto.Name,
 		Description: settingDto.Description,
