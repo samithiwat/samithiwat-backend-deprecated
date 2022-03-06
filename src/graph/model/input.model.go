@@ -2,8 +2,6 @@ package model
 
 import "time"
 
-// TODO: Add validator
-
 type NewSetting struct {
 	ID          int64       `json:"id"`
 	AboutMe     NewAboutMe  `json:"AboutMeID"`
