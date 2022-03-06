@@ -10,7 +10,7 @@ import (
 	"time"
 )
 
-func (r *queryResolver) GithubRepos(ctx context.Context) ([]*model.GithubRepo, error) {
+func (r *queryResolver) GithubRepos(_ context.Context) ([]*model.GithubRepo, error) {
 	repo, err := r.githubRepoService.GetAll()
 	if err != nil {
 		return nil, err
@@ -19,7 +19,7 @@ func (r *queryResolver) GithubRepos(ctx context.Context) ([]*model.GithubRepo, e
 	return repo, nil
 }
 
-func (r *queryResolver) GithubRepo(ctx context.Context, id string) (*model.GithubRepo, error) {
+func (r *queryResolver) GithubRepo(_ context.Context, id string) (*model.GithubRepo, error) {
 	parsedID, err := strconv.Atoi(id)
 	if err != nil {
 		return nil, err
@@ -33,7 +33,7 @@ func (r *queryResolver) GithubRepo(ctx context.Context, id string) (*model.Githu
 	return githubRepo, nil
 }
 
-func (r *mutationResolver) CreateGithubRepo(ctx context.Context, newGithubRepo model.NewGithubRepo) (*model.GithubRepo, error) {
+func (r *mutationResolver) CreateGithubRepo(_ context.Context, newGithubRepo model.NewGithubRepo) (*model.GithubRepo, error) {
 	githubRepo, err := r.githubRepoService.Create(&newGithubRepo)
 	if err != nil {
 		return nil, err
@@ -42,7 +42,7 @@ func (r *mutationResolver) CreateGithubRepo(ctx context.Context, newGithubRepo m
 	return githubRepo, nil
 }
 
-func (r *mutationResolver) UpdateGithubRepo(ctx context.Context, id string, newGithubRepo model.NewGithubRepo) (*model.GithubRepo, error) {
+func (r *mutationResolver) UpdateGithubRepo(_ context.Context, id string, newGithubRepo model.NewGithubRepo) (*model.GithubRepo, error) {
 	parsedID, err := strconv.Atoi(id)
 	if err != nil {
 		return nil, err
@@ -56,7 +56,7 @@ func (r *mutationResolver) UpdateGithubRepo(ctx context.Context, id string, newG
 	return githubRepo, nil
 }
 
-func (r *mutationResolver) DeleteGithubRepo(ctx context.Context, id string) (*model.GithubRepo, error) {
+func (r *mutationResolver) DeleteGithubRepo(_ context.Context, id string) (*model.GithubRepo, error) {
 	parsedID, err := strconv.Atoi(id)
 	if err != nil {
 		return nil, err
@@ -70,13 +70,12 @@ func (r *mutationResolver) DeleteGithubRepo(ctx context.Context, id string) (*mo
 	return githubRepo, nil
 }
 
-func (g githubRepoResolver) DeletedAt(ctx context.Context, obj *model.GithubRepo) (*time.Time, error) {
-	if cmp.Equal(obj.DeletedAt, time.Time{}){
+func (g githubRepoResolver) DeletedAt(_ context.Context, obj *model.GithubRepo) (*time.Time, error) {
+	if cmp.Equal(obj.DeletedAt, time.Time{}) {
 		return nil, fiber.NewError(fiber.StatusNotFound, "Not Found")
 	}
 	return nil, nil
 }
-
 
 // GithubRepo returns generated.GithubRepoResolver implementation.
 func (r *Resolver) GithubRepo() generated.GithubRepoResolver { return &githubRepoResolver{r} }

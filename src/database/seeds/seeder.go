@@ -14,60 +14,78 @@ type Seed struct {
 	db database.Database
 }
 
+type Method struct {
+	Name      string // actually name
+	Timestamp string
+}
+
 func seed(s Seed, seedMethodName string) error {
 	m := reflect.ValueOf(s).MethodByName(seedMethodName)
 
 	if !m.IsValid() {
-		return errors.New("Invalid seed")
+		return errors.New("invalid seed")
 	}
-
-	log.Println("Seeding", seedMethodName, "...")
 
 	m.Call(nil)
 
-	log.Println("Seed", seedMethodName, "succeed")
+	log.Println("✔️Seed", seedMethodName, "succeed")
 
 	return nil
 }
 
-func Execute(db database.Database, seedMethodNames ...string) {
+func Execute(db database.Database, seedMethodNames ...string) error {
 	s := Seed{db}
 
 	seedType := reflect.TypeOf(s)
 
-	// Execute all
-	if len(seedMethodNames) == 0 {
-		seeds := []reflect.Method{}
+	var seedMethods []Method
+	seeds := make(map[string]reflect.Method)
 
-		log.Println("Running all seeder...")
-		for i := 0; i < seedType.NumMethod(); i++ {
-			seeds = append(seeds, seedType.Method(i))
+	for i := 0; i < seedType.NumMethod(); i++ {
+		method := seedType.Method(i)
 
+		name := strings.Split(method.Name, "Seed")
+
+		seedMethod := Method{
+			Name:      name[0],
+			Timestamp: name[1],
 		}
 
-		sort.Slice(seeds, func(p, q int) bool {
-			name1 := strings.Split(seeds[p].Name, "_")
-			name2 := strings.Split(seeds[q].Name, "_")
+		seedMethods = append(seedMethods, seedMethod)
+		seeds[name[0]] = method
+	}
 
-			name1Timestamp, err := strconv.Atoi(name1[1])
+	sort.Slice(seedMethods, func(p, q int) bool {
+		timestamp1, err := strconv.Atoi(seedMethods[p].Timestamp)
+		if err != nil {
+			log.Fatalln(err)
+		}
+
+		timestamp2, err := strconv.Atoi(seedMethods[q].Timestamp)
+		if err != nil {
+			log.Fatalln(err)
+		}
+
+		return timestamp1 < timestamp2
+	})
+
+	// Execute all
+	if len(seedMethodNames) == 0 {
+		log.Println("Running all seeder...")
+		for _, seedMethod := range seedMethods {
+			err := seed(s, seeds[seedMethod.Name].Name)
 			if err != nil {
-				log.Fatalln(err)
+				return err
 			}
-
-			name2Timestamp, err := strconv.Atoi(name2[1])
-			if err != nil {
-				log.Fatalln(err)
-			}
-			return name1Timestamp < name2Timestamp
-		})
-
-		for _, method := range seeds {
-			seed(s, method.Name)
 		}
 	}
 
 	// Execute only the given names
 	for _, item := range seedMethodNames {
-		seed(s, item)
+		err := seed(s, seeds[item].Name)
+		if err != nil {
+			return err
+		}
 	}
+	return nil
 }

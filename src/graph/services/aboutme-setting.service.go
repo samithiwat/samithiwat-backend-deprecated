@@ -118,6 +118,14 @@ func (s *aboutMeSettingService) DtoToRaw(settingDto *model.NewAboutMe) (*model.A
 		return nil, err
 	}
 
-	aboutMe := model.AboutMe{ID: settingDto.ID, Name: settingDto.Name, Description: settingDto.Description, Content: settingDto.Content, ImgUrl: settingDto.ImgURL, SettingID: settingDto.SettingID}
+	aboutMe := model.AboutMe{
+		ID: settingDto.ID,
+		Name: settingDto.Name,
+		Description: settingDto.Description,
+		Content: settingDto.Content,
+		ImgUrl: settingDto.ImgURL,
+		SettingID: settingDto.SettingID,
+	}
+
 	return &aboutMe, err
 }

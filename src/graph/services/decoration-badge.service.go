@@ -134,6 +134,12 @@ func (s badgeService) DtoToRaw(badgeDto model.NewBadge) (*model.Badge, error) {
 	if err != nil{
 		return nil, err
 	}
-	badge := model.Badge{ID: badgeDto.ID, Name: badgeDto.Name, Color: badgeDto.Color, Icon: *rawIcon}
+	badge := model.Badge{
+		ID: badgeDto.ID,
+		Name: badgeDto.Name,
+		Color: badgeDto.Color,
+		Icon: *rawIcon,
+	}
+
 	return &badge, nil
 }

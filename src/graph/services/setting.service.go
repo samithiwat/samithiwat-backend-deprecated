@@ -156,7 +156,11 @@ func (s *settingService) DtoToRaw(settingDto *model.NewSetting) (*model.Setting,
 		return nil, err
 	}
 
-	setting := model.Setting{AboutMe: *rawAboutMe, Timeline: *rawTimeline, IsActivated: settingDto.IsActivated}
+	setting := model.Setting{
+		AboutMe: *rawAboutMe,
+		Timeline: *rawTimeline,
+		IsActivated: settingDto.IsActivated,
+	}
 
 	return &setting, nil
 }

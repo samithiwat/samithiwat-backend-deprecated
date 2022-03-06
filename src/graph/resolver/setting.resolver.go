@@ -13,11 +13,11 @@ import (
 	"github.com/samithiwat/samithiwat-backend/src/graph/model"
 )
 
-func (r *aboutMeResolver) DeletedAt(ctx context.Context, obj *model.AboutMe) (*time.Time, error) {
+func (r *aboutMeResolver) DeletedAt(_ context.Context, _ *model.AboutMe) (*time.Time, error) {
 	panic(fmt.Errorf("not implemented"))
 }
 
-func (r *mutationResolver) CreateSetting(ctx context.Context, newSetting model.NewSetting) (*model.Setting, error) {
+func (r *mutationResolver) CreateSetting(_ context.Context, newSetting model.NewSetting) (*model.Setting, error) {
 	setting, err := r.settingService.Create(&newSetting)
 	if err != nil {
 		return nil, err
@@ -26,7 +26,7 @@ func (r *mutationResolver) CreateSetting(ctx context.Context, newSetting model.N
 	return setting, nil
 }
 
-func (r *mutationResolver) UpdateSetting(ctx context.Context, id string, newSetting *model.NewSetting) (*model.Setting, error) {
+func (r *mutationResolver) UpdateSetting(_ context.Context, id string, newSetting *model.NewSetting) (*model.Setting, error) {
 	parsedID, err := strconv.Atoi(id)
 	if err != nil {
 		return nil, err
@@ -40,7 +40,7 @@ func (r *mutationResolver) UpdateSetting(ctx context.Context, id string, newSett
 	return setting, nil
 }
 
-func (r *mutationResolver) DeleteSetting(ctx context.Context, id string) (*model.Setting, error) {
+func (r *mutationResolver) DeleteSetting(_ context.Context, id string) (*model.Setting, error) {
 	parsedID, err := strconv.Atoi(id)
 	if err != nil {
 		return nil, err
@@ -54,7 +54,7 @@ func (r *mutationResolver) DeleteSetting(ctx context.Context, id string) (*model
 	return setting, nil
 }
 
-func (r *mutationResolver) CreateAboutMe(ctx context.Context, newAboutMe model.NewAboutMe) (*model.AboutMe, error) {
+func (r *mutationResolver) CreateAboutMe(_ context.Context, newAboutMe model.NewAboutMe) (*model.AboutMe, error) {
 	setting, err := r.aboutMeSettingService.Create(&newAboutMe)
 	if err != nil {
 		return nil, err
@@ -63,7 +63,7 @@ func (r *mutationResolver) CreateAboutMe(ctx context.Context, newAboutMe model.N
 	return setting, nil
 }
 
-func (r *mutationResolver) UpdateAboutMe(ctx context.Context, id string, newAboutMe *model.NewAboutMe) (*model.AboutMe, error) {
+func (r *mutationResolver) UpdateAboutMe(_ context.Context, id string, newAboutMe *model.NewAboutMe) (*model.AboutMe, error) {
 	parsedID, err := strconv.Atoi(id)
 	if err != nil {
 		return nil, err
@@ -77,7 +77,7 @@ func (r *mutationResolver) UpdateAboutMe(ctx context.Context, id string, newAbou
 	return setting, nil
 }
 
-func (r *mutationResolver) DeleteAboutMe(ctx context.Context, id string) (*model.AboutMe, error) {
+func (r *mutationResolver) DeleteAboutMe(_ context.Context, id string) (*model.AboutMe, error) {
 	parsedID, err := strconv.Atoi(id)
 	if err != nil {
 		return nil, err
@@ -91,7 +91,7 @@ func (r *mutationResolver) DeleteAboutMe(ctx context.Context, id string) (*model
 	return setting, nil
 }
 
-func (r *mutationResolver) CreateTimeline(ctx context.Context, newTimeline model.NewTimeline) (*model.Timeline, error) {
+func (r *mutationResolver) CreateTimeline(_ context.Context, newTimeline model.NewTimeline) (*model.Timeline, error) {
 	setting, err := r.timelineSettingService.Create(&newTimeline)
 	if err != nil {
 		return nil, err
@@ -100,7 +100,7 @@ func (r *mutationResolver) CreateTimeline(ctx context.Context, newTimeline model
 	return setting, nil
 }
 
-func (r *mutationResolver) UpdateTimeline(ctx context.Context, id string, newTimeline *model.NewTimeline) (*model.Timeline, error) {
+func (r *mutationResolver) UpdateTimeline(_ context.Context, id string, newTimeline *model.NewTimeline) (*model.Timeline, error) {
 	parsedID, err := strconv.Atoi(id)
 	if err != nil {
 		return nil, err
@@ -114,7 +114,7 @@ func (r *mutationResolver) UpdateTimeline(ctx context.Context, id string, newTim
 	return setting, nil
 }
 
-func (r *mutationResolver) DeleteTimeline(ctx context.Context, id string) (*model.Timeline, error) {
+func (r *mutationResolver) DeleteTimeline(_ context.Context, id string) (*model.Timeline, error) {
 	parsedID, err := strconv.Atoi(id)
 	if err != nil {
 		return nil, err
@@ -128,7 +128,7 @@ func (r *mutationResolver) DeleteTimeline(ctx context.Context, id string) (*mode
 	return setting, nil
 }
 
-func (r *queryResolver) Settings(ctx context.Context) ([]*model.Setting, error) {
+func (r *queryResolver) Settings(_ context.Context) ([]*model.Setting, error) {
 	setting, err := r.settingService.GetAll()
 	if err != nil {
 		return nil, err
@@ -137,7 +137,7 @@ func (r *queryResolver) Settings(ctx context.Context) ([]*model.Setting, error) 
 	return setting, nil
 }
 
-func (r *queryResolver) Setting(ctx context.Context, id string) (*model.Setting, error) {
+func (r *queryResolver) Setting(_ context.Context, id string) (*model.Setting, error) {
 	parsedID, err := strconv.Atoi(id)
 	if err != nil {
 		return nil, err
@@ -151,7 +151,7 @@ func (r *queryResolver) Setting(ctx context.Context, id string) (*model.Setting,
 	return setting, nil
 }
 
-func (r *queryResolver) AboutMes(ctx context.Context) ([]*model.AboutMe, error) {
+func (r *queryResolver) AboutMes(_ context.Context) ([]*model.AboutMe, error) {
 	setting, err := r.aboutMeSettingService.GetAll()
 	if err != nil {
 		return nil, err
@@ -160,7 +160,7 @@ func (r *queryResolver) AboutMes(ctx context.Context) ([]*model.AboutMe, error) 
 	return setting, nil
 }
 
-func (r *queryResolver) AboutMe(ctx context.Context, id string) (*model.AboutMe, error) {
+func (r *queryResolver) AboutMe(_ context.Context, id string) (*model.AboutMe, error) {
 	parsedID, err := strconv.Atoi(id)
 	if err != nil {
 		return nil, err
@@ -174,7 +174,7 @@ func (r *queryResolver) AboutMe(ctx context.Context, id string) (*model.AboutMe,
 	return setting, nil
 }
 
-func (r *queryResolver) Timelines(ctx context.Context) ([]*model.Timeline, error) {
+func (r *queryResolver) Timelines(_ context.Context) ([]*model.Timeline, error) {
 	setting, err := r.timelineSettingService.GetAll()
 	if err != nil {
 		return nil, err
@@ -183,7 +183,7 @@ func (r *queryResolver) Timelines(ctx context.Context) ([]*model.Timeline, error
 	return setting, nil
 }
 
-func (r *queryResolver) Timeline(ctx context.Context, id string) (*model.Timeline, error) {
+func (r *queryResolver) Timeline(_ context.Context, id string) (*model.Timeline, error) {
 	parsedID, err := strconv.Atoi(id)
 	if err != nil {
 		return nil, err
@@ -197,15 +197,15 @@ func (r *queryResolver) Timeline(ctx context.Context, id string) (*model.Timelin
 	return setting, nil
 }
 
-func (r *settingResolver) DeletedAt(ctx context.Context, obj *model.Setting) (*time.Time, error) {
+func (r *settingResolver) DeletedAt(_ context.Context, _ *model.Setting) (*time.Time, error) {
 	panic(fmt.Errorf("not implemented"))
 }
 
-func (r *timelineResolver) SettingID(ctx context.Context, obj *model.Timeline) (string, error) {
+func (r *timelineResolver) SettingID(_ context.Context, _ *model.Timeline) (string, error) {
 	panic(fmt.Errorf("not implemented"))
 }
 
-func (r *timelineResolver) DeletedAt(ctx context.Context, obj *model.Timeline) (*time.Time, error) {
+func (r *timelineResolver) DeletedAt(_ context.Context, _ *model.Timeline) (*time.Time, error) {
 	panic(fmt.Errorf("not implemented"))
 }
 

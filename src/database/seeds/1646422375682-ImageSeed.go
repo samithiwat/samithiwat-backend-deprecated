@@ -6,7 +6,7 @@ import (
 	"log"
 )
 
-func (s Seed) ImageSeed_1646422375682() model.Image {
+func (s Seed) ImageSeed1646422375682() model.Image {
 	db := s.db.GetConnection()
 
 	image := model.Image{Name: faker.Word(), Description: faker.Sentence(), ImgUrl: faker.URL()}

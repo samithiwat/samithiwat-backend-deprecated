@@ -1,7 +1,9 @@
 package database
 
 import (
+	"database/sql"
 	"fmt"
+	"github.com/DATA-DOG/go-sqlmock"
 	"github.com/samithiwat/samithiwat-backend/src/config"
 	"github.com/samithiwat/samithiwat-backend/src/graph/model"
 	"gorm.io/driver/postgres"
@@ -19,13 +21,13 @@ type database struct {
 }
 
 func InitDatabase() (Database, error) {
-	config, err := config.LoadConfig(".")
-    
-    if err != nil {
-        return nil, err
-    }
+	loadConfig, err := config.LoadConfig(".")
 
-	dsn := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=%s", config.Database.Host, strconv.Itoa(config.Database.Port), config.Database.User, config.Database.Password, config.Database.Name, config.Database.SSL)
+	if err != nil {
+		return nil, err
+	}
+
+	dsn := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=%s", loadConfig.Database.Host, strconv.Itoa(loadConfig.Database.Port), loadConfig.Database.User, loadConfig.Database.Password, loadConfig.Database.Name, loadConfig.Database.SSL)
 
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
@@ -33,6 +35,25 @@ func InitDatabase() (Database, error) {
 	}
 
 	return &database{connection: db}, nil
+}
+
+func MockDatabase() (Database, sqlmock.Sqlmock, error) {
+	var db *sql.DB
+	var err error
+	var mock sqlmock.Sqlmock
+
+	db, mock, err = sqlmock.New()
+	if err != nil {
+		return nil, nil, err
+	}
+
+	gdb, err := gorm.Open(postgres.New(postgres.Config{Conn: db}), &gorm.Config{})
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return &database{connection: gdb}, mock, nil
+
 }
 
 func (d *database) GetConnection() *gorm.DB {

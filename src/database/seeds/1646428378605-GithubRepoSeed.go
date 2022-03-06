@@ -6,12 +6,12 @@ import (
 	"time"
 )
 
-func (s Seed) GithubRepoSeed_1646428378605() model.GithubRepo {
+func (s Seed) GithubRepoSeed1646428378605() model.GithubRepo {
 
 	db := s.db.GetConnection()
 
-	language := s.BadgeSeed_1646422394617()
-	framework := s.BadgeSeed_1646422394617()
+	language := s.BadgeSeed1646422394617()
+	framework := s.BadgeSeed1646422394617()
 
 	stars, _ := faker.RandomInt(0, 1000000)
 

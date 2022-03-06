@@ -6,7 +6,7 @@ import (
 	"log"
 )
 
-func (s Seed) AboutMeSeed_1646425792323() model.AboutMe {
+func (s Seed) AboutMeSeed1646425792323() model.AboutMe {
 	db := s.db.GetConnection()
 
 	setting := model.AboutMe{Name: faker.Word(), Description: faker.Sentence(), ImgUrl: faker.URL(), Content: faker.Paragraph()}
