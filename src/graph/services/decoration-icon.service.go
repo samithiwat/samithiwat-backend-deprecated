@@ -135,7 +135,12 @@ func (s *iconService) DtoToRaw(iconDto model.NewIcon) (*model.Icon, error) {
 	}
 
 
-	icon := model.Icon{ID: iconDto.ID, Name: iconDto.Name, BgColor: iconDto.BgColor, IconType: enum.IconType(iconDto.IconType)}
+	icon := model.Icon{
+		ID: iconDto.ID,
+		Name: iconDto.Name,
+		BgColor: iconDto.BgColor,
+		IconType: enum.IconType(iconDto.IconType),
+	}
 
 	if iconDto.OwnerID > 0{
 		icon.OwnerID = iconDto.OwnerID

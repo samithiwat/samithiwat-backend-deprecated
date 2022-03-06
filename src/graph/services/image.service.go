@@ -16,13 +16,13 @@ type ImageService interface {
 }
 
 type imageService struct {
-	database database.Database
+	database         database.Database
 	validatorService ValidatorService
 }
 
-func NewImageService(db database.Database, 	validatorService ValidatorService) ImageService {
+func NewImageService(db database.Database, validatorService ValidatorService) ImageService {
 	return &imageService{
-		database: db,
+		database:         db,
 		validatorService: validatorService,
 	}
 }
@@ -61,7 +61,7 @@ func (s *imageService) Create(imageDto *model.NewImage) (*model.Image, error) {
 	db := s.database.GetConnection()
 
 	image, err := s.DtoToRaw(*imageDto)
-	if err != nil{
+	if err != nil {
 		return nil, err
 	}
 
@@ -79,7 +79,7 @@ func (s *imageService) Update(id int64, imageDto *model.NewImage) (*model.Image,
 
 	var image *model.Image
 	raw, err := s.DtoToRaw(*imageDto)
-	if err != nil{
+	if err != nil {
 		return nil, err
 	}
 
@@ -116,11 +116,16 @@ func (s *imageService) Delete(id int64) (*model.Image, error) {
 
 func (s *imageService) DtoToRaw(imageDto model.NewImage) (*model.Image, error) {
 	err := s.validatorService.Image(imageDto)
-	if err != nil{
+	if err != nil {
 		return nil, err
 	}
 
-	image := model.Image{ID: imageDto.ID, Name: imageDto.Name, Description: imageDto.Description, ImgUrl: imageDto.ImgURL}
+	image := model.Image{
+		ID:          imageDto.ID,
+		Name:        imageDto.Name,
+		Description: imageDto.Description,
+		ImgUrl:      imageDto.ImgURL,
+	}
 
 	if imageDto.OwnerID > 0 {
 		image.OwnerID = imageDto.OwnerID

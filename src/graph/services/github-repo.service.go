@@ -140,6 +140,18 @@ func (s githubRepoService) DtoToRaw(githubRepoDto model.NewGithubRepo) (*model.G
 		return nil, err
 	}
 
-	repo := model.GithubRepo{ID: githubRepoDto.ID, Name: githubRepoDto.Name, Description: githubRepoDto.Description, Author: githubRepoDto.Author, ThumbnailUrl: githubRepoDto.ThumbnailUrl, Url: githubRepoDto.Url, Star: githubRepoDto.Star, LatestUpdate: githubRepoDto.LatestUpdate, Framework: *rawFramework, Language: *rawLanguage}
+	repo := model.GithubRepo{
+		ID: githubRepoDto.ID,
+		Name: githubRepoDto.Name,
+		Description: githubRepoDto.Description,
+		Author: githubRepoDto.Author,
+		ThumbnailUrl: githubRepoDto.ThumbnailUrl,
+		Url: githubRepoDto.Url,
+		Star: githubRepoDto.Star,
+		LatestUpdate: githubRepoDto.LatestUpdate,
+		Framework: *rawFramework,
+		Language: *rawLanguage,
+	}
+
 	return &repo, nil
 }

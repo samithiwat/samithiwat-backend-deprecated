@@ -145,7 +145,16 @@ func (s *timelineSettingService) DtoToRaw(settingDto *model.NewTimeline) (*model
 		images = append(images, *raw)
 	}
 
-	timeline := model.Timeline{Images: images, ID: settingDto.ID, Name: settingDto.Name, Description: settingDto.Description, Slug: settingDto.Slug, Thumbnail: settingDto.Thumbnail, EventDate: settingDto.EventDate}
+	timeline := model.Timeline{
+		ID: settingDto.ID,
+		Name: settingDto.Name,
+		Description: settingDto.Description,
+		Slug: settingDto.Slug,
+		Thumbnail: settingDto.Thumbnail,
+		EventDate: settingDto.EventDate,
+		Images: images,
+	}
+
 	if icon != nil {
 		timeline.Icon = *icon
 	}
