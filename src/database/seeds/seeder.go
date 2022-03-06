@@ -23,7 +23,7 @@ func seed(s Seed, seedMethodName string) error {
 	m := reflect.ValueOf(s).MethodByName(seedMethodName)
 
 	if !m.IsValid() {
-		return errors.New("Invalid seed")
+		return errors.New("invalid seed")
 	}
 
 	m.Call(nil)

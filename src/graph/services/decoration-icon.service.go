@@ -122,7 +122,7 @@ func (s *iconService) Delete(id int64) (*model.Icon, error) {
 
 func (s *iconService) CheckIconType(iconType enum.IconType) (string, error) {
 	result := strings.ToLower(string(iconType))
-	if result != "icon" && result != "svg" {
+	if result != string(enum.ICON) && result != string(enum.SVG) {
 		return "", fiber.NewError(fiber.StatusBadRequest, "Invalid icon type")
 	}
 	return result, nil

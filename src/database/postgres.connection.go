@@ -21,13 +21,13 @@ type database struct {
 }
 
 func InitDatabase() (Database, error) {
-	config, err := config.LoadConfig(".")
+	loadConfig, err := config.LoadConfig(".")
 
 	if err != nil {
 		return nil, err
 	}
 
-	dsn := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=%s", config.Database.Host, strconv.Itoa(config.Database.Port), config.Database.User, config.Database.Password, config.Database.Name, config.Database.SSL)
+	dsn := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=%s", loadConfig.Database.Host, strconv.Itoa(loadConfig.Database.Port), loadConfig.Database.User, loadConfig.Database.Password, loadConfig.Database.Name, loadConfig.Database.SSL)
 
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {

@@ -23,9 +23,9 @@ import (
 
 func gqlHandler(resolver *graph.Resolver) http.HandlerFunc {
 	srv := handler.NewDefaultServer(generated.NewExecutableSchema(generated.Config{Resolvers: resolver}))
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	return func(w http.ResponseWriter, r *http.Request) {
 		srv.ServeHTTP(w, r)
-	})
+	}
 }
 
 func playgroundHandler() http.Handler {
@@ -33,10 +33,10 @@ func playgroundHandler() http.Handler {
 }
 
 func main() {
-	config, err := config.LoadConfig(".")
+	loadConfig, err := config.LoadConfig(".")
 
 	if err != nil {
-		log.Fatal("cannot to load config", err)
+		log.Fatal("cannot to load loadConfig", err)
 	}
 
 	client, err := database.InitDatabase()
@@ -71,7 +71,7 @@ func main() {
 		return nil
 	})
 
-	app.Listen(":" + strconv.Itoa(config.App.Port))
+	app.Listen(":" + strconv.Itoa(loadConfig.App.Port))
 }
 
 func handleArgs(db database.Database) {

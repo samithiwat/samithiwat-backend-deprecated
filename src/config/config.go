@@ -18,11 +18,13 @@ type Database struct {
 	SSL      string `mapstructure:"ssl"`
 }
 
+//goland:noinspection ALL
 type App struct {
 	Port  int  `mapstructure:"port"`
 	Debug bool `mapstructure:"debug"`
 }
 
+//goland:noinspection ALL
 type Config struct {
 	Database Database `mapstructure:",database"`
 	App      App      `mapstructure:",app"`
@@ -42,9 +44,9 @@ func assignEnv(config *map[string]interface{}) map[string]interface{} {
 						env := os.Getenv(name)
 						if num, err := strconv.Atoi(env); err == nil {
 							result[title].(map[string]interface{})[key] = num
-						}else if boolean, err := strconv.ParseBool(env); err == nil {
+						} else if boolean, err := strconv.ParseBool(env); err == nil {
 							result[title].(map[string]interface{})[key] = boolean
-						}else{
+						} else {
 							result[title].(map[string]interface{})[key] = env
 						}
 					} else {
