@@ -3,34 +3,34 @@ package service
 import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/samithiwat/samithiwat-backend/src/database"
-	"github.com/samithiwat/samithiwat-backend/src/graph/model"
+	model2 "github.com/samithiwat/samithiwat-backend/src/model"
 )
 
 type AboutMeSettingService interface {
-	GetAll() ([]*model.AboutMe, error)
-	GetOne(id int64) (*model.AboutMe, error)
-	Create(settingDto *model.NewAboutMe) (*model.AboutMe, error)
-	Update(id int64, imageDto *model.NewAboutMe) (*model.AboutMe, error)
-	Delete(id int64) (*model.AboutMe, error)
-	DtoToRaw(settingDto *model.NewAboutMe) (*model.AboutMe, error)
+	GetAll() ([]*model2.AboutMe, error)
+	GetOne(id int64) (*model2.AboutMe, error)
+	Create(settingDto *model2.NewAboutMe) (*model2.AboutMe, error)
+	Update(id int64, imageDto *model2.NewAboutMe) (*model2.AboutMe, error)
+	Delete(id int64) (*model2.AboutMe, error)
+	DtoToRaw(settingDto *model2.NewAboutMe) (*model2.AboutMe, error)
 }
 
 func NewAboutMeSettingService(db database.Database, validatorService ValidatorService) AboutMeSettingService {
 	return &aboutMeSettingService{
-		database: db,
+		database:         db,
 		validatorService: validatorService,
 	}
 }
 
 type aboutMeSettingService struct {
-	database database.Database
+	database         database.Database
 	validatorService ValidatorService
 }
 
-func (s *aboutMeSettingService) GetAll() ([]*model.AboutMe, error) {
+func (s *aboutMeSettingService) GetAll() ([]*model2.AboutMe, error) {
 	db := s.database.GetConnection()
 
-	var settings []*model.AboutMe
+	var settings []*model2.AboutMe
 
 	result := db.Find(&settings)
 
@@ -41,10 +41,10 @@ func (s *aboutMeSettingService) GetAll() ([]*model.AboutMe, error) {
 	return settings, nil
 }
 
-func (s *aboutMeSettingService) GetOne(id int64) (*model.AboutMe, error) {
+func (s *aboutMeSettingService) GetOne(id int64) (*model2.AboutMe, error) {
 	db := s.database.GetConnection()
 
-	var setting *model.AboutMe
+	var setting *model2.AboutMe
 
 	result := db.First(&setting, id)
 
@@ -55,11 +55,11 @@ func (s *aboutMeSettingService) GetOne(id int64) (*model.AboutMe, error) {
 	return setting, nil
 }
 
-func (s *aboutMeSettingService) Create(aboutMeDto *model.NewAboutMe) (*model.AboutMe, error) {
+func (s *aboutMeSettingService) Create(aboutMeDto *model2.NewAboutMe) (*model2.AboutMe, error) {
 	db := s.database.GetConnection()
 
 	setting, err := s.DtoToRaw(aboutMeDto)
-	if err != nil{
+	if err != nil {
 		return nil, err
 	}
 
@@ -72,12 +72,12 @@ func (s *aboutMeSettingService) Create(aboutMeDto *model.NewAboutMe) (*model.Abo
 	return setting, nil
 }
 
-func (s *aboutMeSettingService) Update(id int64, aboutMeDto *model.NewAboutMe) (*model.AboutMe, error) {
+func (s *aboutMeSettingService) Update(id int64, aboutMeDto *model2.NewAboutMe) (*model2.AboutMe, error) {
 	db := s.database.GetConnection()
 
-	var aboutMe *model.AboutMe
+	var aboutMe *model2.AboutMe
 	raw, err := s.DtoToRaw(aboutMeDto)
-	if err != nil{
+	if err != nil {
 		return nil, err
 	}
 
@@ -94,12 +94,12 @@ func (s *aboutMeSettingService) Update(id int64, aboutMeDto *model.NewAboutMe) (
 	return aboutMe, nil
 }
 
-func (s *aboutMeSettingService) Delete(id int64) (*model.AboutMe, error) {
+func (s *aboutMeSettingService) Delete(id int64) (*model2.AboutMe, error) {
 	db := s.database.GetConnection()
 
-	var aboutMe *model.AboutMe
+	var aboutMe *model2.AboutMe
 
-	result := db.First(&aboutMe, id).Delete(&model.AboutMe{}, id)
+	result := db.First(&aboutMe, id).Delete(&model2.AboutMe{}, id)
 
 	if result.RowsAffected == 0 {
 		return nil, fiber.NewError(fiber.StatusNotFound, "Not found")
@@ -112,19 +112,19 @@ func (s *aboutMeSettingService) Delete(id int64) (*model.AboutMe, error) {
 	return aboutMe, nil
 }
 
-func (s *aboutMeSettingService) DtoToRaw(settingDto *model.NewAboutMe) (*model.AboutMe, error) {
+func (s *aboutMeSettingService) DtoToRaw(settingDto *model2.NewAboutMe) (*model2.AboutMe, error) {
 	err := s.validatorService.AboutMe(*settingDto)
-	if err != nil{
+	if err != nil {
 		return nil, err
 	}
 
-	aboutMe := model.AboutMe{
-		ID: settingDto.ID,
-		Name: settingDto.Name,
+	aboutMe := model2.AboutMe{
+		ID:          settingDto.ID,
+		Name:        settingDto.Name,
 		Description: settingDto.Description,
-		Content: settingDto.Content,
-		ImgUrl: settingDto.ImgURL,
-		SettingID: settingDto.SettingID,
+		Content:     settingDto.Content,
+		ImgUrl:      settingDto.ImgURL,
+		SettingID:   settingDto.SettingID,
 	}
 
 	return &aboutMe, err

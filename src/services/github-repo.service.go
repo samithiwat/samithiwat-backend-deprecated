@@ -4,36 +4,38 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/google/go-cmp/cmp"
 	"github.com/samithiwat/samithiwat-backend/src/database"
-	"github.com/samithiwat/samithiwat-backend/src/graph/model"
+	model2 "github.com/samithiwat/samithiwat-backend/src/model"
 )
 
+// TODO: fetch data from github
+
 type GithubRepoService interface {
-	GetAll() ([]*model.GithubRepo, error)
-	GetOne(id int64) (*model.GithubRepo, error)
-	Create(githubRepoDto *model.NewGithubRepo) (*model.GithubRepo, error)
-	Update(id int64, githubRepoDto *model.NewGithubRepo) (*model.GithubRepo, error)
-	Delete(id int64) (*model.GithubRepo, error)
-	DtoToRaw(githubRepoDto model.NewGithubRepo) (*model.GithubRepo, error)
+	GetAll() ([]*model2.GithubRepo, error)
+	GetOne(id int64) (*model2.GithubRepo, error)
+	Create(githubRepoDto *model2.NewGithubRepo) (*model2.GithubRepo, error)
+	Update(id int64, githubRepoDto *model2.NewGithubRepo) (*model2.GithubRepo, error)
+	Delete(id int64) (*model2.GithubRepo, error)
+	DtoToRaw(githubRepoDto model2.NewGithubRepo) (*model2.GithubRepo, error)
 }
 
 type githubRepoService struct {
-	database     database.Database
-	badgeService BadgeService
+	database         database.Database
+	badgeService     BadgeService
 	validatorService ValidatorService
 }
 
 func NewGithubRepoService(db database.Database, badgeService BadgeService, validatorService ValidatorService) GithubRepoService {
 	return &githubRepoService{
-		database:     db,
-		badgeService: badgeService,
+		database:         db,
+		badgeService:     badgeService,
 		validatorService: validatorService,
 	}
 }
 
-func (s githubRepoService) GetAll() ([]*model.GithubRepo, error) {
+func (s githubRepoService) GetAll() ([]*model2.GithubRepo, error) {
 	db := s.database.GetConnection()
 
-	var repo []*model.GithubRepo
+	var repo []*model2.GithubRepo
 
 	result := db.Preload("Language").Preload("Framework").Preload("Language.Icon").Preload("Framework.Icon").Find(&repo)
 
@@ -44,10 +46,10 @@ func (s githubRepoService) GetAll() ([]*model.GithubRepo, error) {
 	return repo, nil
 }
 
-func (s githubRepoService) GetOne(id int64) (*model.GithubRepo, error) {
+func (s githubRepoService) GetOne(id int64) (*model2.GithubRepo, error) {
 	db := s.database.GetConnection()
 
-	var repo *model.GithubRepo
+	var repo *model2.GithubRepo
 
 	result := db.Preload("Language").Preload("Framework").Preload("Language.Icon").Preload("Framework.Icon").First(&repo, id)
 
@@ -58,10 +60,10 @@ func (s githubRepoService) GetOne(id int64) (*model.GithubRepo, error) {
 	return repo, nil
 }
 
-func (s githubRepoService) Create(githubRepoDto *model.NewGithubRepo) (*model.GithubRepo, error) {
+func (s githubRepoService) Create(githubRepoDto *model2.NewGithubRepo) (*model2.GithubRepo, error) {
 	db := s.database.GetConnection()
 	repo, err := s.DtoToRaw(*githubRepoDto)
-	if err != nil{
+	if err != nil {
 		return nil, err
 	}
 
@@ -74,12 +76,12 @@ func (s githubRepoService) Create(githubRepoDto *model.NewGithubRepo) (*model.Gi
 	return repo, nil
 }
 
-func (s githubRepoService) Update(id int64, githubRepoDto *model.NewGithubRepo) (*model.GithubRepo, error) {
+func (s githubRepoService) Update(id int64, githubRepoDto *model2.NewGithubRepo) (*model2.GithubRepo, error) {
 	db := s.database.GetConnection()
 
-	var repo *model.GithubRepo
+	var repo *model2.GithubRepo
 	raw, err := s.DtoToRaw(*githubRepoDto)
-	if err != nil{
+	if err != nil {
 		return nil, err
 	}
 
@@ -93,12 +95,12 @@ func (s githubRepoService) Update(id int64, githubRepoDto *model.NewGithubRepo) 
 		return nil, fiber.NewError(fiber.StatusUnprocessableEntity, result.Error)
 	}
 
-	if (!cmp.Equal(raw.Framework, model.Badge{})) {
+	if (!cmp.Equal(raw.Framework, model2.Badge{})) {
 		db.Model(&repo).Association("Framework").Replace(&raw.Framework)
 		db.Model(&repo.Framework).Association("Icon").Append(&raw.Framework.Icon)
 	}
 
-	if (!cmp.Equal(raw.Language, model.Badge{})) {
+	if (!cmp.Equal(raw.Language, model2.Badge{})) {
 		db.Model(&repo).Association("Language").Replace(&raw.Language)
 		db.Model(&repo.Language).Association("Icon").Append(&raw.Language.Icon)
 	}
@@ -106,12 +108,12 @@ func (s githubRepoService) Update(id int64, githubRepoDto *model.NewGithubRepo) 
 	return repo, nil
 }
 
-func (s githubRepoService) Delete(id int64) (*model.GithubRepo, error) {
+func (s githubRepoService) Delete(id int64) (*model2.GithubRepo, error) {
 	db := s.database.GetConnection()
 
-	var repo *model.GithubRepo
+	var repo *model2.GithubRepo
 
-	result := db.First(&repo, id).Delete(&model.GithubRepo{}, id)
+	result := db.First(&repo, id).Delete(&model2.GithubRepo{}, id)
 
 	if result.RowsAffected == 0 {
 		return nil, fiber.NewError(fiber.StatusNotFound, "Not found")
@@ -124,33 +126,33 @@ func (s githubRepoService) Delete(id int64) (*model.GithubRepo, error) {
 	return repo, nil
 }
 
-func (s githubRepoService) DtoToRaw(githubRepoDto model.NewGithubRepo) (*model.GithubRepo, error) {
+func (s githubRepoService) DtoToRaw(githubRepoDto model2.NewGithubRepo) (*model2.GithubRepo, error) {
 	err := s.validatorService.GithubRepo(githubRepoDto)
-	if err != nil{
+	if err != nil {
 		return nil, err
 	}
 
 	rawFramework, err := s.badgeService.DtoToRaw(githubRepoDto.Framework)
-	if err != nil{
+	if err != nil {
 		return nil, err
 	}
 
 	rawLanguage, err := s.badgeService.DtoToRaw(githubRepoDto.Language)
-	if err != nil{
+	if err != nil {
 		return nil, err
 	}
 
-	repo := model.GithubRepo{
-		ID: githubRepoDto.ID,
-		Name: githubRepoDto.Name,
-		Description: githubRepoDto.Description,
-		Author: githubRepoDto.Author,
+	repo := model2.GithubRepo{
+		ID:           githubRepoDto.ID,
+		Name:         githubRepoDto.Name,
+		Description:  githubRepoDto.Description,
+		Author:       githubRepoDto.Author,
 		ThumbnailUrl: githubRepoDto.ThumbnailUrl,
-		Url: githubRepoDto.Url,
-		Star: githubRepoDto.Star,
+		Url:          githubRepoDto.Url,
+		Star:         githubRepoDto.Star,
 		LatestUpdate: githubRepoDto.LatestUpdate,
-		Framework: *rawFramework,
-		Language: *rawLanguage,
+		Framework:    *rawFramework,
+		Language:     *rawLanguage,
 	}
 
 	return &repo, nil

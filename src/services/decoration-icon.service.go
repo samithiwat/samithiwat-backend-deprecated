@@ -4,36 +4,36 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/samithiwat/samithiwat-backend/src/common/enum"
 	"github.com/samithiwat/samithiwat-backend/src/database"
-	"github.com/samithiwat/samithiwat-backend/src/graph/model"
+	model2 "github.com/samithiwat/samithiwat-backend/src/model"
 	"strings"
 )
 
 type IconService interface {
-	GetAll() ([]*model.Icon, error)
-	GetOne(id int64) (*model.Icon, error)
-	Create(iconDto model.NewIcon) (*model.Icon, error)
-	Update(id int64, iconDto model.NewIcon) (*model.Icon, error)
-	Delete(id int64) (*model.Icon, error)
+	GetAll() ([]*model2.Icon, error)
+	GetOne(id int64) (*model2.Icon, error)
+	Create(iconDto model2.NewIcon) (*model2.Icon, error)
+	Update(id int64, iconDto model2.NewIcon) (*model2.Icon, error)
+	Delete(id int64) (*model2.Icon, error)
 	CheckIconType(iconType enum.IconType) (string, error)
-	DtoToRaw(iconDto model.NewIcon) (*model.Icon, error)
+	DtoToRaw(iconDto model2.NewIcon) (*model2.Icon, error)
 }
 
 type iconService struct {
-	database database.Database
+	database         database.Database
 	validatorService ValidatorService
 }
 
 func NewIconService(database database.Database, validatorService ValidatorService) IconService {
 	return &iconService{
-		database: database,
+		database:         database,
 		validatorService: validatorService,
 	}
 }
 
-func (s *iconService) GetAll() ([]*model.Icon, error) {
+func (s *iconService) GetAll() ([]*model2.Icon, error) {
 	db := s.database.GetConnection()
 
-	var icons []*model.Icon
+	var icons []*model2.Icon
 
 	result := db.Find(&icons)
 
@@ -44,10 +44,10 @@ func (s *iconService) GetAll() ([]*model.Icon, error) {
 	return icons, nil
 }
 
-func (s *iconService) GetOne(id int64) (*model.Icon, error) {
+func (s *iconService) GetOne(id int64) (*model2.Icon, error) {
 	db := s.database.GetConnection()
 
-	var icon *model.Icon
+	var icon *model2.Icon
 
 	result := db.First(&icon, id)
 
@@ -59,15 +59,14 @@ func (s *iconService) GetOne(id int64) (*model.Icon, error) {
 		return nil, result.Error
 	}
 
-
 	return icon, nil
 }
 
-func (s *iconService) Create(iconDto model.NewIcon) (*model.Icon, error) {
+func (s *iconService) Create(iconDto model2.NewIcon) (*model2.Icon, error) {
 	db := s.database.GetConnection()
 
 	icon, err := s.DtoToRaw(iconDto)
-	if err != nil{
+	if err != nil {
 		return nil, err
 	}
 
@@ -80,12 +79,12 @@ func (s *iconService) Create(iconDto model.NewIcon) (*model.Icon, error) {
 	return icon, nil
 }
 
-func (s *iconService) Update(id int64, iconDto model.NewIcon) (*model.Icon, error) {
+func (s *iconService) Update(id int64, iconDto model2.NewIcon) (*model2.Icon, error) {
 	db := s.database.GetConnection()
 
-	var icon *model.Icon
+	var icon *model2.Icon
 	raw, err := s.DtoToRaw(iconDto)
-	if err != nil{
+	if err != nil {
 		return nil, err
 	}
 
@@ -102,12 +101,12 @@ func (s *iconService) Update(id int64, iconDto model.NewIcon) (*model.Icon, erro
 	return icon, nil
 }
 
-func (s *iconService) Delete(id int64) (*model.Icon, error) {
+func (s *iconService) Delete(id int64) (*model2.Icon, error) {
 	db := s.database.GetConnection()
 
-	var icon *model.Icon
+	var icon *model2.Icon
 
-	result := db.First(&icon, id).Delete(&model.Icon{}, id)
+	result := db.First(&icon, id).Delete(&model2.Icon{}, id)
 
 	if result.RowsAffected == 0 {
 		return nil, fiber.NewError(fiber.StatusNotFound, "Not found")
@@ -128,21 +127,20 @@ func (s *iconService) CheckIconType(iconType enum.IconType) (string, error) {
 	return result, nil
 }
 
-func (s *iconService) DtoToRaw(iconDto model.NewIcon) (*model.Icon, error) {
+func (s *iconService) DtoToRaw(iconDto model2.NewIcon) (*model2.Icon, error) {
 	err := s.validatorService.Icon(iconDto)
-	if err != nil{
+	if err != nil {
 		return nil, err
 	}
 
-
-	icon := model.Icon{
-		ID: iconDto.ID,
-		Name: iconDto.Name,
-		BgColor: iconDto.BgColor,
+	icon := model2.Icon{
+		ID:       iconDto.ID,
+		Name:     iconDto.Name,
+		BgColor:  iconDto.BgColor,
 		IconType: enum.IconType(iconDto.IconType),
 	}
 
-	if iconDto.OwnerID > 0{
+	if iconDto.OwnerID > 0 {
 		icon.OwnerID = iconDto.OwnerID
 		icon.OwnerType = iconDto.OwnerType
 	}
