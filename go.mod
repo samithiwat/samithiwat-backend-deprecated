@@ -11,7 +11,6 @@ require (
 	github.com/gofiber/fiber/v2 v2.26.0
 	github.com/google/go-cmp v0.5.7
 	github.com/google/wire v0.5.0
-	github.com/jinzhu/gorm v1.9.16
 	github.com/mitchellh/mapstructure v1.4.3
 	github.com/onsi/ginkgo/v2 v2.1.3
 	github.com/onsi/gomega v1.17.0
