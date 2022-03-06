@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"github.com/DATA-DOG/go-sqlmock"
 	"github.com/samithiwat/samithiwat-backend/src/config"
-	"github.com/samithiwat/samithiwat-backend/src/graph/model"
+	"github.com/samithiwat/samithiwat-backend/src/model"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"strconv"

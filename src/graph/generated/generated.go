@@ -6,6 +6,7 @@ import (
 	"bytes"
 	"context"
 	"errors"
+	model2 "github.com/samithiwat/samithiwat-backend/src/model"
 	"strconv"
 	"sync"
 	"sync/atomic"
@@ -14,7 +15,6 @@ import (
 	"github.com/99designs/gqlgen/graphql"
 	"github.com/99designs/gqlgen/graphql/introspection"
 	graphql1 "github.com/arsmn/fastgql/graphql"
-	"github.com/samithiwat/samithiwat-backend/src/graph/model"
 	gqlparser "github.com/vektah/gqlparser/v2"
 	"github.com/vektah/gqlparser/v2/ast"
 )
@@ -117,13 +117,13 @@ type ComplexityRoot struct {
 	}
 
 	Mutation struct {
-		CreateAboutMe    func(childComplexity int, newAboutMe model.NewAboutMe) int
-		CreateBadge      func(childComplexity int, newBadge *model.NewBadge) int
-		CreateGithubRepo func(childComplexity int, newGithubRepo model.NewGithubRepo) int
-		CreateIcon       func(childComplexity int, newIcon model.NewIcon) int
-		CreateImage      func(childComplexity int, newImage model.NewImage) int
-		CreateSetting    func(childComplexity int, newSetting model.NewSetting) int
-		CreateTimeline   func(childComplexity int, newTimeline model.NewTimeline) int
+		CreateAboutMe    func(childComplexity int, newAboutMe model2.NewAboutMe) int
+		CreateBadge      func(childComplexity int, newBadge *model2.NewBadge) int
+		CreateGithubRepo func(childComplexity int, newGithubRepo model2.NewGithubRepo) int
+		CreateIcon       func(childComplexity int, newIcon model2.NewIcon) int
+		CreateImage      func(childComplexity int, newImage model2.NewImage) int
+		CreateSetting    func(childComplexity int, newSetting model2.NewSetting) int
+		CreateTimeline   func(childComplexity int, newTimeline model2.NewTimeline) int
 		DeleteAboutMe    func(childComplexity int, id string) int
 		DeleteBadge      func(childComplexity int, id string) int
 		DeleteGithubRepo func(childComplexity int, id string) int
@@ -131,13 +131,13 @@ type ComplexityRoot struct {
 		DeleteImage      func(childComplexity int, id string) int
 		DeleteSetting    func(childComplexity int, id string) int
 		DeleteTimeline   func(childComplexity int, id string) int
-		UpdateAboutMe    func(childComplexity int, id string, newAboutMe *model.NewAboutMe) int
-		UpdateBadge      func(childComplexity int, id string, newBadge *model.NewBadge) int
-		UpdateGithubRepo func(childComplexity int, id string, newGithubRepo model.NewGithubRepo) int
-		UpdateIcon       func(childComplexity int, id string, newIcon model.NewIcon) int
-		UpdateImage      func(childComplexity int, id string, newImage model.NewImage) int
-		UpdateSetting    func(childComplexity int, id string, newSetting *model.NewSetting) int
-		UpdateTimeline   func(childComplexity int, id string, newTimeline *model.NewTimeline) int
+		UpdateAboutMe    func(childComplexity int, id string, newAboutMe *model2.NewAboutMe) int
+		UpdateBadge      func(childComplexity int, id string, newBadge *model2.NewBadge) int
+		UpdateGithubRepo func(childComplexity int, id string, newGithubRepo model2.NewGithubRepo) int
+		UpdateIcon       func(childComplexity int, id string, newIcon model2.NewIcon) int
+		UpdateImage      func(childComplexity int, id string, newImage model2.NewImage) int
+		UpdateSetting    func(childComplexity int, id string, newSetting *model2.NewSetting) int
+		UpdateTimeline   func(childComplexity int, id string, newTimeline *model2.NewTimeline) int
 	}
 
 	Query struct {
@@ -190,76 +190,76 @@ type ComplexityRoot struct {
 }
 
 type AboutMeResolver interface {
-	DeletedAt(ctx context.Context, obj *model.AboutMe) (*time.Time, error)
+	DeletedAt(ctx context.Context, obj *model2.AboutMe) (*time.Time, error)
 }
 type BadgeResolver interface {
-	DeletedAt(ctx context.Context, obj *model.Badge) (*time.Time, error)
+	DeletedAt(ctx context.Context, obj *model2.Badge) (*time.Time, error)
 }
 type GithubRepoResolver interface {
-	DeletedAt(ctx context.Context, obj *model.GithubRepo) (*time.Time, error)
+	DeletedAt(ctx context.Context, obj *model2.GithubRepo) (*time.Time, error)
 }
 type IconResolver interface {
-	IconType(ctx context.Context, obj *model.Icon) (string, error)
+	IconType(ctx context.Context, obj *model2.Icon) (string, error)
 
-	DeletedAt(ctx context.Context, obj *model.Icon) (*time.Time, error)
+	DeletedAt(ctx context.Context, obj *model2.Icon) (*time.Time, error)
 }
 type ImageResolver interface {
-	CreatedDate(ctx context.Context, obj *model.Image) (*time.Time, error)
-	UpdatedDate(ctx context.Context, obj *model.Image) (*time.Time, error)
-	DeletedDate(ctx context.Context, obj *model.Image) (*time.Time, error)
+	CreatedDate(ctx context.Context, obj *model2.Image) (*time.Time, error)
+	UpdatedDate(ctx context.Context, obj *model2.Image) (*time.Time, error)
+	DeletedDate(ctx context.Context, obj *model2.Image) (*time.Time, error)
 }
 type MutationResolver interface {
-	CreateIcon(ctx context.Context, newIcon model.NewIcon) (*model.Icon, error)
-	UpdateIcon(ctx context.Context, id string, newIcon model.NewIcon) (*model.Icon, error)
-	DeleteIcon(ctx context.Context, id string) (*model.Icon, error)
-	CreateBadge(ctx context.Context, newBadge *model.NewBadge) (*model.Badge, error)
-	UpdateBadge(ctx context.Context, id string, newBadge *model.NewBadge) (*model.Badge, error)
-	DeleteBadge(ctx context.Context, id string) (*model.Badge, error)
-	CreateGithubRepo(ctx context.Context, newGithubRepo model.NewGithubRepo) (*model.GithubRepo, error)
-	UpdateGithubRepo(ctx context.Context, id string, newGithubRepo model.NewGithubRepo) (*model.GithubRepo, error)
-	DeleteGithubRepo(ctx context.Context, id string) (*model.GithubRepo, error)
-	CreateImage(ctx context.Context, newImage model.NewImage) (*model.Image, error)
-	UpdateImage(ctx context.Context, id string, newImage model.NewImage) (*model.Image, error)
-	DeleteImage(ctx context.Context, id string) (*model.Image, error)
-	CreateSetting(ctx context.Context, newSetting model.NewSetting) (*model.Setting, error)
-	UpdateSetting(ctx context.Context, id string, newSetting *model.NewSetting) (*model.Setting, error)
-	DeleteSetting(ctx context.Context, id string) (*model.Setting, error)
-	CreateAboutMe(ctx context.Context, newAboutMe model.NewAboutMe) (*model.AboutMe, error)
-	UpdateAboutMe(ctx context.Context, id string, newAboutMe *model.NewAboutMe) (*model.AboutMe, error)
-	DeleteAboutMe(ctx context.Context, id string) (*model.AboutMe, error)
-	CreateTimeline(ctx context.Context, newTimeline model.NewTimeline) (*model.Timeline, error)
-	UpdateTimeline(ctx context.Context, id string, newTimeline *model.NewTimeline) (*model.Timeline, error)
-	DeleteTimeline(ctx context.Context, id string) (*model.Timeline, error)
+	CreateIcon(ctx context.Context, newIcon model2.NewIcon) (*model2.Icon, error)
+	UpdateIcon(ctx context.Context, id string, newIcon model2.NewIcon) (*model2.Icon, error)
+	DeleteIcon(ctx context.Context, id string) (*model2.Icon, error)
+	CreateBadge(ctx context.Context, newBadge *model2.NewBadge) (*model2.Badge, error)
+	UpdateBadge(ctx context.Context, id string, newBadge *model2.NewBadge) (*model2.Badge, error)
+	DeleteBadge(ctx context.Context, id string) (*model2.Badge, error)
+	CreateGithubRepo(ctx context.Context, newGithubRepo model2.NewGithubRepo) (*model2.GithubRepo, error)
+	UpdateGithubRepo(ctx context.Context, id string, newGithubRepo model2.NewGithubRepo) (*model2.GithubRepo, error)
+	DeleteGithubRepo(ctx context.Context, id string) (*model2.GithubRepo, error)
+	CreateImage(ctx context.Context, newImage model2.NewImage) (*model2.Image, error)
+	UpdateImage(ctx context.Context, id string, newImage model2.NewImage) (*model2.Image, error)
+	DeleteImage(ctx context.Context, id string) (*model2.Image, error)
+	CreateSetting(ctx context.Context, newSetting model2.NewSetting) (*model2.Setting, error)
+	UpdateSetting(ctx context.Context, id string, newSetting *model2.NewSetting) (*model2.Setting, error)
+	DeleteSetting(ctx context.Context, id string) (*model2.Setting, error)
+	CreateAboutMe(ctx context.Context, newAboutMe model2.NewAboutMe) (*model2.AboutMe, error)
+	UpdateAboutMe(ctx context.Context, id string, newAboutMe *model2.NewAboutMe) (*model2.AboutMe, error)
+	DeleteAboutMe(ctx context.Context, id string) (*model2.AboutMe, error)
+	CreateTimeline(ctx context.Context, newTimeline model2.NewTimeline) (*model2.Timeline, error)
+	UpdateTimeline(ctx context.Context, id string, newTimeline *model2.NewTimeline) (*model2.Timeline, error)
+	DeleteTimeline(ctx context.Context, id string) (*model2.Timeline, error)
 }
 type QueryResolver interface {
-	Icons(ctx context.Context) ([]*model.Icon, error)
-	Icon(ctx context.Context, id string) (*model.Icon, error)
-	IconsByOwner(ctx context.Context, ownerID int, ownerType string) ([]*model.Icon, error)
-	IconsByOwnerAndType(ctx context.Context, ownerID int, ownerType string, iconType string) ([]*model.Icon, error)
-	IconsByType(ctx context.Context, iconType string) ([]*model.Icon, error)
-	Badges(ctx context.Context) ([]*model.Badge, error)
-	Badge(ctx context.Context, id string) (*model.Badge, error)
-	BadgesByOwner(ctx context.Context, ownerID int, ownerType string) ([]*model.Badge, error)
-	BadgesByOwnerAndType(ctx context.Context, ownerID int, ownerType string, iconType string) ([]*model.Badge, error)
-	BadgesByType(ctx context.Context, iconType string) ([]*model.Badge, error)
-	GithubRepos(ctx context.Context) ([]*model.GithubRepo, error)
-	GithubRepo(ctx context.Context, id string) (*model.GithubRepo, error)
-	Images(ctx context.Context) ([]*model.Image, error)
-	Image(ctx context.Context, id string) (*model.Image, error)
-	Settings(ctx context.Context) ([]*model.Setting, error)
-	Setting(ctx context.Context, id string) (*model.Setting, error)
-	AboutMes(ctx context.Context) ([]*model.AboutMe, error)
-	AboutMe(ctx context.Context, id string) (*model.AboutMe, error)
-	Timelines(ctx context.Context) ([]*model.Timeline, error)
-	Timeline(ctx context.Context, id string) (*model.Timeline, error)
+	Icons(ctx context.Context) ([]*model2.Icon, error)
+	Icon(ctx context.Context, id string) (*model2.Icon, error)
+	IconsByOwner(ctx context.Context, ownerID int, ownerType string) ([]*model2.Icon, error)
+	IconsByOwnerAndType(ctx context.Context, ownerID int, ownerType string, iconType string) ([]*model2.Icon, error)
+	IconsByType(ctx context.Context, iconType string) ([]*model2.Icon, error)
+	Badges(ctx context.Context) ([]*model2.Badge, error)
+	Badge(ctx context.Context, id string) (*model2.Badge, error)
+	BadgesByOwner(ctx context.Context, ownerID int, ownerType string) ([]*model2.Badge, error)
+	BadgesByOwnerAndType(ctx context.Context, ownerID int, ownerType string, iconType string) ([]*model2.Badge, error)
+	BadgesByType(ctx context.Context, iconType string) ([]*model2.Badge, error)
+	GithubRepos(ctx context.Context) ([]*model2.GithubRepo, error)
+	GithubRepo(ctx context.Context, id string) (*model2.GithubRepo, error)
+	Images(ctx context.Context) ([]*model2.Image, error)
+	Image(ctx context.Context, id string) (*model2.Image, error)
+	Settings(ctx context.Context) ([]*model2.Setting, error)
+	Setting(ctx context.Context, id string) (*model2.Setting, error)
+	AboutMes(ctx context.Context) ([]*model2.AboutMe, error)
+	AboutMe(ctx context.Context, id string) (*model2.AboutMe, error)
+	Timelines(ctx context.Context) ([]*model2.Timeline, error)
+	Timeline(ctx context.Context, id string) (*model2.Timeline, error)
 }
 type SettingResolver interface {
-	DeletedAt(ctx context.Context, obj *model.Setting) (*time.Time, error)
+	DeletedAt(ctx context.Context, obj *model2.Setting) (*time.Time, error)
 }
 type TimelineResolver interface {
-	SettingID(ctx context.Context, obj *model.Timeline) (string, error)
+	SettingID(ctx context.Context, obj *model2.Timeline) (string, error)
 
-	DeletedAt(ctx context.Context, obj *model.Timeline) (*time.Time, error)
+	DeletedAt(ctx context.Context, obj *model2.Timeline) (*time.Time, error)
 }
 
 type executableSchema struct {
@@ -630,7 +630,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.CreateAboutMe(childComplexity, args["newAboutMe"].(model.NewAboutMe)), true
+		return e.complexity.Mutation.CreateAboutMe(childComplexity, args["newAboutMe"].(model2.NewAboutMe)), true
 
 	case "Mutation.createBadge":
 		if e.complexity.Mutation.CreateBadge == nil {
@@ -642,7 +642,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.CreateBadge(childComplexity, args["newBadge"].(*model.NewBadge)), true
+		return e.complexity.Mutation.CreateBadge(childComplexity, args["newBadge"].(*model2.NewBadge)), true
 
 	case "Mutation.createGithubRepo":
 		if e.complexity.Mutation.CreateGithubRepo == nil {
@@ -654,7 +654,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.CreateGithubRepo(childComplexity, args["newGithubRepo"].(model.NewGithubRepo)), true
+		return e.complexity.Mutation.CreateGithubRepo(childComplexity, args["newGithubRepo"].(model2.NewGithubRepo)), true
 
 	case "Mutation.createIcon":
 		if e.complexity.Mutation.CreateIcon == nil {
@@ -666,7 +666,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.CreateIcon(childComplexity, args["newIcon"].(model.NewIcon)), true
+		return e.complexity.Mutation.CreateIcon(childComplexity, args["newIcon"].(model2.NewIcon)), true
 
 	case "Mutation.createImage":
 		if e.complexity.Mutation.CreateImage == nil {
@@ -678,7 +678,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.CreateImage(childComplexity, args["newImage"].(model.NewImage)), true
+		return e.complexity.Mutation.CreateImage(childComplexity, args["newImage"].(model2.NewImage)), true
 
 	case "Mutation.createSetting":
 		if e.complexity.Mutation.CreateSetting == nil {
@@ -690,7 +690,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.CreateSetting(childComplexity, args["newSetting"].(model.NewSetting)), true
+		return e.complexity.Mutation.CreateSetting(childComplexity, args["newSetting"].(model2.NewSetting)), true
 
 	case "Mutation.createTimeline":
 		if e.complexity.Mutation.CreateTimeline == nil {
@@ -702,7 +702,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.CreateTimeline(childComplexity, args["newTimeline"].(model.NewTimeline)), true
+		return e.complexity.Mutation.CreateTimeline(childComplexity, args["newTimeline"].(model2.NewTimeline)), true
 
 	case "Mutation.deleteAboutMe":
 		if e.complexity.Mutation.DeleteAboutMe == nil {
@@ -798,7 +798,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.UpdateAboutMe(childComplexity, args["id"].(string), args["newAboutMe"].(*model.NewAboutMe)), true
+		return e.complexity.Mutation.UpdateAboutMe(childComplexity, args["id"].(string), args["newAboutMe"].(*model2.NewAboutMe)), true
 
 	case "Mutation.updateBadge":
 		if e.complexity.Mutation.UpdateBadge == nil {
@@ -810,7 +810,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.UpdateBadge(childComplexity, args["id"].(string), args["newBadge"].(*model.NewBadge)), true
+		return e.complexity.Mutation.UpdateBadge(childComplexity, args["id"].(string), args["newBadge"].(*model2.NewBadge)), true
 
 	case "Mutation.updateGithubRepo":
 		if e.complexity.Mutation.UpdateGithubRepo == nil {
@@ -822,7 +822,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.UpdateGithubRepo(childComplexity, args["id"].(string), args["newGithubRepo"].(model.NewGithubRepo)), true
+		return e.complexity.Mutation.UpdateGithubRepo(childComplexity, args["id"].(string), args["newGithubRepo"].(model2.NewGithubRepo)), true
 
 	case "Mutation.updateIcon":
 		if e.complexity.Mutation.UpdateIcon == nil {
@@ -834,7 +834,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.UpdateIcon(childComplexity, args["id"].(string), args["newIcon"].(model.NewIcon)), true
+		return e.complexity.Mutation.UpdateIcon(childComplexity, args["id"].(string), args["newIcon"].(model2.NewIcon)), true
 
 	case "Mutation.updateImage":
 		if e.complexity.Mutation.UpdateImage == nil {
@@ -846,7 +846,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.UpdateImage(childComplexity, args["id"].(string), args["newImage"].(model.NewImage)), true
+		return e.complexity.Mutation.UpdateImage(childComplexity, args["id"].(string), args["newImage"].(model2.NewImage)), true
 
 	case "Mutation.updateSetting":
 		if e.complexity.Mutation.UpdateSetting == nil {
@@ -858,7 +858,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.UpdateSetting(childComplexity, args["id"].(string), args["newSetting"].(*model.NewSetting)), true
+		return e.complexity.Mutation.UpdateSetting(childComplexity, args["id"].(string), args["newSetting"].(*model2.NewSetting)), true
 
 	case "Mutation.updateTimeline":
 		if e.complexity.Mutation.UpdateTimeline == nil {
@@ -870,7 +870,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.UpdateTimeline(childComplexity, args["id"].(string), args["newTimeline"].(*model.NewTimeline)), true
+		return e.complexity.Mutation.UpdateTimeline(childComplexity, args["id"].(string), args["newTimeline"].(*model2.NewTimeline)), true
 
 	case "Query.aboutMe":
 		if e.complexity.Query.AboutMe == nil {
@@ -1532,7 +1532,7 @@ var parsedSchema = gqlparser.MustLoadSchema(sources...)
 func (ec *executionContext) field_Mutation_createAboutMe_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 model.NewAboutMe
+	var arg0 model2.NewAboutMe
 	if tmp, ok := rawArgs["newAboutMe"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("newAboutMe"))
 		arg0, err = ec.unmarshalNNewAboutMe2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewAboutMe(ctx, tmp)
@@ -1547,7 +1547,7 @@ func (ec *executionContext) field_Mutation_createAboutMe_args(ctx context.Contex
 func (ec *executionContext) field_Mutation_createBadge_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 *model.NewBadge
+	var arg0 *model2.NewBadge
 	if tmp, ok := rawArgs["newBadge"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("newBadge"))
 		arg0, err = ec.unmarshalONewBadge2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewBadge(ctx, tmp)
@@ -1562,7 +1562,7 @@ func (ec *executionContext) field_Mutation_createBadge_args(ctx context.Context,
 func (ec *executionContext) field_Mutation_createGithubRepo_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 model.NewGithubRepo
+	var arg0 model2.NewGithubRepo
 	if tmp, ok := rawArgs["newGithubRepo"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("newGithubRepo"))
 		arg0, err = ec.unmarshalNNewGithubRepo2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewGithubRepo(ctx, tmp)
@@ -1577,7 +1577,7 @@ func (ec *executionContext) field_Mutation_createGithubRepo_args(ctx context.Con
 func (ec *executionContext) field_Mutation_createIcon_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 model.NewIcon
+	var arg0 model2.NewIcon
 	if tmp, ok := rawArgs["newIcon"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("newIcon"))
 		arg0, err = ec.unmarshalNNewIcon2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewIcon(ctx, tmp)
@@ -1592,7 +1592,7 @@ func (ec *executionContext) field_Mutation_createIcon_args(ctx context.Context, 
 func (ec *executionContext) field_Mutation_createImage_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 model.NewImage
+	var arg0 model2.NewImage
 	if tmp, ok := rawArgs["newImage"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("newImage"))
 		arg0, err = ec.unmarshalNNewImage2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewImage(ctx, tmp)
@@ -1607,7 +1607,7 @@ func (ec *executionContext) field_Mutation_createImage_args(ctx context.Context,
 func (ec *executionContext) field_Mutation_createSetting_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 model.NewSetting
+	var arg0 model2.NewSetting
 	if tmp, ok := rawArgs["newSetting"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("newSetting"))
 		arg0, err = ec.unmarshalNNewSetting2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewSetting(ctx, tmp)
@@ -1622,7 +1622,7 @@ func (ec *executionContext) field_Mutation_createSetting_args(ctx context.Contex
 func (ec *executionContext) field_Mutation_createTimeline_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 model.NewTimeline
+	var arg0 model2.NewTimeline
 	if tmp, ok := rawArgs["newTimeline"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("newTimeline"))
 		arg0, err = ec.unmarshalNNewTimeline2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewTimeline(ctx, tmp)
@@ -1751,7 +1751,7 @@ func (ec *executionContext) field_Mutation_updateAboutMe_args(ctx context.Contex
 		}
 	}
 	args["id"] = arg0
-	var arg1 *model.NewAboutMe
+	var arg1 *model2.NewAboutMe
 	if tmp, ok := rawArgs["newAboutMe"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("newAboutMe"))
 		arg1, err = ec.unmarshalONewAboutMe2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewAboutMe(ctx, tmp)
@@ -1775,7 +1775,7 @@ func (ec *executionContext) field_Mutation_updateBadge_args(ctx context.Context,
 		}
 	}
 	args["id"] = arg0
-	var arg1 *model.NewBadge
+	var arg1 *model2.NewBadge
 	if tmp, ok := rawArgs["newBadge"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("newBadge"))
 		arg1, err = ec.unmarshalONewBadge2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewBadge(ctx, tmp)
@@ -1799,7 +1799,7 @@ func (ec *executionContext) field_Mutation_updateGithubRepo_args(ctx context.Con
 		}
 	}
 	args["id"] = arg0
-	var arg1 model.NewGithubRepo
+	var arg1 model2.NewGithubRepo
 	if tmp, ok := rawArgs["newGithubRepo"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("newGithubRepo"))
 		arg1, err = ec.unmarshalNNewGithubRepo2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewGithubRepo(ctx, tmp)
@@ -1823,7 +1823,7 @@ func (ec *executionContext) field_Mutation_updateIcon_args(ctx context.Context, 
 		}
 	}
 	args["id"] = arg0
-	var arg1 model.NewIcon
+	var arg1 model2.NewIcon
 	if tmp, ok := rawArgs["newIcon"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("newIcon"))
 		arg1, err = ec.unmarshalNNewIcon2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewIcon(ctx, tmp)
@@ -1847,7 +1847,7 @@ func (ec *executionContext) field_Mutation_updateImage_args(ctx context.Context,
 		}
 	}
 	args["id"] = arg0
-	var arg1 model.NewImage
+	var arg1 model2.NewImage
 	if tmp, ok := rawArgs["newImage"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("newImage"))
 		arg1, err = ec.unmarshalNNewImage2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewImage(ctx, tmp)
@@ -1871,7 +1871,7 @@ func (ec *executionContext) field_Mutation_updateSetting_args(ctx context.Contex
 		}
 	}
 	args["id"] = arg0
-	var arg1 *model.NewSetting
+	var arg1 *model2.NewSetting
 	if tmp, ok := rawArgs["newSetting"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("newSetting"))
 		arg1, err = ec.unmarshalONewSetting2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewSetting(ctx, tmp)
@@ -1895,7 +1895,7 @@ func (ec *executionContext) field_Mutation_updateTimeline_args(ctx context.Conte
 		}
 	}
 	args["id"] = arg0
-	var arg1 *model.NewTimeline
+	var arg1 *model2.NewTimeline
 	if tmp, ok := rawArgs["newTimeline"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("newTimeline"))
 		arg1, err = ec.unmarshalONewTimeline2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewTimeline(ctx, tmp)
@@ -2209,7 +2209,7 @@ func (ec *executionContext) field___Type_fields_args(ctx context.Context, rawArg
 
 // region    **************************** field.gotpl *****************************
 
-func (ec *executionContext) _AboutMe_id(ctx context.Context, field graphql.CollectedField, obj *model.AboutMe) (ret graphql.Marshaler) {
+func (ec *executionContext) _AboutMe_id(ctx context.Context, field graphql.CollectedField, obj *model2.AboutMe) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -2244,7 +2244,7 @@ func (ec *executionContext) _AboutMe_id(ctx context.Context, field graphql.Colle
 	return ec.marshalNID2int64(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _AboutMe_name(ctx context.Context, field graphql.CollectedField, obj *model.AboutMe) (ret graphql.Marshaler) {
+func (ec *executionContext) _AboutMe_name(ctx context.Context, field graphql.CollectedField, obj *model2.AboutMe) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -2279,7 +2279,7 @@ func (ec *executionContext) _AboutMe_name(ctx context.Context, field graphql.Col
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _AboutMe_description(ctx context.Context, field graphql.CollectedField, obj *model.AboutMe) (ret graphql.Marshaler) {
+func (ec *executionContext) _AboutMe_description(ctx context.Context, field graphql.CollectedField, obj *model2.AboutMe) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -2314,7 +2314,7 @@ func (ec *executionContext) _AboutMe_description(ctx context.Context, field grap
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _AboutMe_content(ctx context.Context, field graphql.CollectedField, obj *model.AboutMe) (ret graphql.Marshaler) {
+func (ec *executionContext) _AboutMe_content(ctx context.Context, field graphql.CollectedField, obj *model2.AboutMe) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -2349,7 +2349,7 @@ func (ec *executionContext) _AboutMe_content(ctx context.Context, field graphql.
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _AboutMe_imgUrl(ctx context.Context, field graphql.CollectedField, obj *model.AboutMe) (ret graphql.Marshaler) {
+func (ec *executionContext) _AboutMe_imgUrl(ctx context.Context, field graphql.CollectedField, obj *model2.AboutMe) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -2384,7 +2384,7 @@ func (ec *executionContext) _AboutMe_imgUrl(ctx context.Context, field graphql.C
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _AboutMe_settingID(ctx context.Context, field graphql.CollectedField, obj *model.AboutMe) (ret graphql.Marshaler) {
+func (ec *executionContext) _AboutMe_settingID(ctx context.Context, field graphql.CollectedField, obj *model2.AboutMe) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -2419,7 +2419,7 @@ func (ec *executionContext) _AboutMe_settingID(ctx context.Context, field graphq
 	return ec.marshalNID2int64(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _AboutMe_createdAt(ctx context.Context, field graphql.CollectedField, obj *model.AboutMe) (ret graphql.Marshaler) {
+func (ec *executionContext) _AboutMe_createdAt(ctx context.Context, field graphql.CollectedField, obj *model2.AboutMe) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -2454,7 +2454,7 @@ func (ec *executionContext) _AboutMe_createdAt(ctx context.Context, field graphq
 	return ec.marshalNTime2timeᚐTime(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _AboutMe_updatedAt(ctx context.Context, field graphql.CollectedField, obj *model.AboutMe) (ret graphql.Marshaler) {
+func (ec *executionContext) _AboutMe_updatedAt(ctx context.Context, field graphql.CollectedField, obj *model2.AboutMe) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -2489,7 +2489,7 @@ func (ec *executionContext) _AboutMe_updatedAt(ctx context.Context, field graphq
 	return ec.marshalNTime2timeᚐTime(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _AboutMe_deletedAt(ctx context.Context, field graphql.CollectedField, obj *model.AboutMe) (ret graphql.Marshaler) {
+func (ec *executionContext) _AboutMe_deletedAt(ctx context.Context, field graphql.CollectedField, obj *model2.AboutMe) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -2524,7 +2524,7 @@ func (ec *executionContext) _AboutMe_deletedAt(ctx context.Context, field graphq
 	return ec.marshalNTime2ᚖtimeᚐTime(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Badge_id(ctx context.Context, field graphql.CollectedField, obj *model.Badge) (ret graphql.Marshaler) {
+func (ec *executionContext) _Badge_id(ctx context.Context, field graphql.CollectedField, obj *model2.Badge) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -2559,7 +2559,7 @@ func (ec *executionContext) _Badge_id(ctx context.Context, field graphql.Collect
 	return ec.marshalNID2int64(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Badge_name(ctx context.Context, field graphql.CollectedField, obj *model.Badge) (ret graphql.Marshaler) {
+func (ec *executionContext) _Badge_name(ctx context.Context, field graphql.CollectedField, obj *model2.Badge) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -2594,7 +2594,7 @@ func (ec *executionContext) _Badge_name(ctx context.Context, field graphql.Colle
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Badge_color(ctx context.Context, field graphql.CollectedField, obj *model.Badge) (ret graphql.Marshaler) {
+func (ec *executionContext) _Badge_color(ctx context.Context, field graphql.CollectedField, obj *model2.Badge) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -2629,7 +2629,7 @@ func (ec *executionContext) _Badge_color(ctx context.Context, field graphql.Coll
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Badge_icon(ctx context.Context, field graphql.CollectedField, obj *model.Badge) (ret graphql.Marshaler) {
+func (ec *executionContext) _Badge_icon(ctx context.Context, field graphql.CollectedField, obj *model2.Badge) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -2659,12 +2659,12 @@ func (ec *executionContext) _Badge_icon(ctx context.Context, field graphql.Colle
 		}
 		return graphql.Null
 	}
-	res := resTmp.(model.Icon)
+	res := resTmp.(model2.Icon)
 	fc.Result = res
 	return ec.marshalNIcon2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐIcon(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Badge_ownerID(ctx context.Context, field graphql.CollectedField, obj *model.Badge) (ret graphql.Marshaler) {
+func (ec *executionContext) _Badge_ownerID(ctx context.Context, field graphql.CollectedField, obj *model2.Badge) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -2696,7 +2696,7 @@ func (ec *executionContext) _Badge_ownerID(ctx context.Context, field graphql.Co
 	return ec.marshalOInt2int64(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Badge_ownerType(ctx context.Context, field graphql.CollectedField, obj *model.Badge) (ret graphql.Marshaler) {
+func (ec *executionContext) _Badge_ownerType(ctx context.Context, field graphql.CollectedField, obj *model2.Badge) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -2728,7 +2728,7 @@ func (ec *executionContext) _Badge_ownerType(ctx context.Context, field graphql.
 	return ec.marshalOString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Badge_createdAt(ctx context.Context, field graphql.CollectedField, obj *model.Badge) (ret graphql.Marshaler) {
+func (ec *executionContext) _Badge_createdAt(ctx context.Context, field graphql.CollectedField, obj *model2.Badge) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -2763,7 +2763,7 @@ func (ec *executionContext) _Badge_createdAt(ctx context.Context, field graphql.
 	return ec.marshalNTime2timeᚐTime(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Badge_updatedAt(ctx context.Context, field graphql.CollectedField, obj *model.Badge) (ret graphql.Marshaler) {
+func (ec *executionContext) _Badge_updatedAt(ctx context.Context, field graphql.CollectedField, obj *model2.Badge) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -2798,7 +2798,7 @@ func (ec *executionContext) _Badge_updatedAt(ctx context.Context, field graphql.
 	return ec.marshalNTime2timeᚐTime(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Badge_deletedAt(ctx context.Context, field graphql.CollectedField, obj *model.Badge) (ret graphql.Marshaler) {
+func (ec *executionContext) _Badge_deletedAt(ctx context.Context, field graphql.CollectedField, obj *model2.Badge) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -2833,7 +2833,7 @@ func (ec *executionContext) _Badge_deletedAt(ctx context.Context, field graphql.
 	return ec.marshalNTime2ᚖtimeᚐTime(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _GithubRepo_id(ctx context.Context, field graphql.CollectedField, obj *model.GithubRepo) (ret graphql.Marshaler) {
+func (ec *executionContext) _GithubRepo_id(ctx context.Context, field graphql.CollectedField, obj *model2.GithubRepo) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -2868,7 +2868,7 @@ func (ec *executionContext) _GithubRepo_id(ctx context.Context, field graphql.Co
 	return ec.marshalNID2int64(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _GithubRepo_name(ctx context.Context, field graphql.CollectedField, obj *model.GithubRepo) (ret graphql.Marshaler) {
+func (ec *executionContext) _GithubRepo_name(ctx context.Context, field graphql.CollectedField, obj *model2.GithubRepo) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -2900,7 +2900,7 @@ func (ec *executionContext) _GithubRepo_name(ctx context.Context, field graphql.
 	return ec.marshalOString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _GithubRepo_author(ctx context.Context, field graphql.CollectedField, obj *model.GithubRepo) (ret graphql.Marshaler) {
+func (ec *executionContext) _GithubRepo_author(ctx context.Context, field graphql.CollectedField, obj *model2.GithubRepo) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -2932,7 +2932,7 @@ func (ec *executionContext) _GithubRepo_author(ctx context.Context, field graphq
 	return ec.marshalOString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _GithubRepo_description(ctx context.Context, field graphql.CollectedField, obj *model.GithubRepo) (ret graphql.Marshaler) {
+func (ec *executionContext) _GithubRepo_description(ctx context.Context, field graphql.CollectedField, obj *model2.GithubRepo) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -2964,7 +2964,7 @@ func (ec *executionContext) _GithubRepo_description(ctx context.Context, field g
 	return ec.marshalOString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _GithubRepo_thumbnailUrl(ctx context.Context, field graphql.CollectedField, obj *model.GithubRepo) (ret graphql.Marshaler) {
+func (ec *executionContext) _GithubRepo_thumbnailUrl(ctx context.Context, field graphql.CollectedField, obj *model2.GithubRepo) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -2996,7 +2996,7 @@ func (ec *executionContext) _GithubRepo_thumbnailUrl(ctx context.Context, field 
 	return ec.marshalOString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _GithubRepo_url(ctx context.Context, field graphql.CollectedField, obj *model.GithubRepo) (ret graphql.Marshaler) {
+func (ec *executionContext) _GithubRepo_url(ctx context.Context, field graphql.CollectedField, obj *model2.GithubRepo) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -3028,7 +3028,7 @@ func (ec *executionContext) _GithubRepo_url(ctx context.Context, field graphql.C
 	return ec.marshalOString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _GithubRepo_latestUpdate(ctx context.Context, field graphql.CollectedField, obj *model.GithubRepo) (ret graphql.Marshaler) {
+func (ec *executionContext) _GithubRepo_latestUpdate(ctx context.Context, field graphql.CollectedField, obj *model2.GithubRepo) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -3060,7 +3060,7 @@ func (ec *executionContext) _GithubRepo_latestUpdate(ctx context.Context, field 
 	return ec.marshalOTime2timeᚐTime(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _GithubRepo_star(ctx context.Context, field graphql.CollectedField, obj *model.GithubRepo) (ret graphql.Marshaler) {
+func (ec *executionContext) _GithubRepo_star(ctx context.Context, field graphql.CollectedField, obj *model2.GithubRepo) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -3092,7 +3092,7 @@ func (ec *executionContext) _GithubRepo_star(ctx context.Context, field graphql.
 	return ec.marshalOInt2int64(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _GithubRepo_framework(ctx context.Context, field graphql.CollectedField, obj *model.GithubRepo) (ret graphql.Marshaler) {
+func (ec *executionContext) _GithubRepo_framework(ctx context.Context, field graphql.CollectedField, obj *model2.GithubRepo) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -3119,12 +3119,12 @@ func (ec *executionContext) _GithubRepo_framework(ctx context.Context, field gra
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(model.Badge)
+	res := resTmp.(model2.Badge)
 	fc.Result = res
 	return ec.marshalOBadge2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐBadge(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _GithubRepo_language(ctx context.Context, field graphql.CollectedField, obj *model.GithubRepo) (ret graphql.Marshaler) {
+func (ec *executionContext) _GithubRepo_language(ctx context.Context, field graphql.CollectedField, obj *model2.GithubRepo) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -3151,12 +3151,12 @@ func (ec *executionContext) _GithubRepo_language(ctx context.Context, field grap
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(model.Badge)
+	res := resTmp.(model2.Badge)
 	fc.Result = res
 	return ec.marshalOBadge2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐBadge(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _GithubRepo_createdAt(ctx context.Context, field graphql.CollectedField, obj *model.GithubRepo) (ret graphql.Marshaler) {
+func (ec *executionContext) _GithubRepo_createdAt(ctx context.Context, field graphql.CollectedField, obj *model2.GithubRepo) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -3188,7 +3188,7 @@ func (ec *executionContext) _GithubRepo_createdAt(ctx context.Context, field gra
 	return ec.marshalOTime2timeᚐTime(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _GithubRepo_updatedAt(ctx context.Context, field graphql.CollectedField, obj *model.GithubRepo) (ret graphql.Marshaler) {
+func (ec *executionContext) _GithubRepo_updatedAt(ctx context.Context, field graphql.CollectedField, obj *model2.GithubRepo) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -3220,7 +3220,7 @@ func (ec *executionContext) _GithubRepo_updatedAt(ctx context.Context, field gra
 	return ec.marshalOTime2timeᚐTime(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _GithubRepo_deletedAt(ctx context.Context, field graphql.CollectedField, obj *model.GithubRepo) (ret graphql.Marshaler) {
+func (ec *executionContext) _GithubRepo_deletedAt(ctx context.Context, field graphql.CollectedField, obj *model2.GithubRepo) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -3252,7 +3252,7 @@ func (ec *executionContext) _GithubRepo_deletedAt(ctx context.Context, field gra
 	return ec.marshalOTime2ᚖtimeᚐTime(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Icon_id(ctx context.Context, field graphql.CollectedField, obj *model.Icon) (ret graphql.Marshaler) {
+func (ec *executionContext) _Icon_id(ctx context.Context, field graphql.CollectedField, obj *model2.Icon) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -3287,7 +3287,7 @@ func (ec *executionContext) _Icon_id(ctx context.Context, field graphql.Collecte
 	return ec.marshalNID2int64(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Icon_name(ctx context.Context, field graphql.CollectedField, obj *model.Icon) (ret graphql.Marshaler) {
+func (ec *executionContext) _Icon_name(ctx context.Context, field graphql.CollectedField, obj *model2.Icon) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -3322,7 +3322,7 @@ func (ec *executionContext) _Icon_name(ctx context.Context, field graphql.Collec
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Icon_bgColor(ctx context.Context, field graphql.CollectedField, obj *model.Icon) (ret graphql.Marshaler) {
+func (ec *executionContext) _Icon_bgColor(ctx context.Context, field graphql.CollectedField, obj *model2.Icon) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -3357,7 +3357,7 @@ func (ec *executionContext) _Icon_bgColor(ctx context.Context, field graphql.Col
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Icon_iconType(ctx context.Context, field graphql.CollectedField, obj *model.Icon) (ret graphql.Marshaler) {
+func (ec *executionContext) _Icon_iconType(ctx context.Context, field graphql.CollectedField, obj *model2.Icon) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -3392,7 +3392,7 @@ func (ec *executionContext) _Icon_iconType(ctx context.Context, field graphql.Co
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Icon_ownerID(ctx context.Context, field graphql.CollectedField, obj *model.Icon) (ret graphql.Marshaler) {
+func (ec *executionContext) _Icon_ownerID(ctx context.Context, field graphql.CollectedField, obj *model2.Icon) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -3427,7 +3427,7 @@ func (ec *executionContext) _Icon_ownerID(ctx context.Context, field graphql.Col
 	return ec.marshalNInt2int64(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Icon_ownerType(ctx context.Context, field graphql.CollectedField, obj *model.Icon) (ret graphql.Marshaler) {
+func (ec *executionContext) _Icon_ownerType(ctx context.Context, field graphql.CollectedField, obj *model2.Icon) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -3462,7 +3462,7 @@ func (ec *executionContext) _Icon_ownerType(ctx context.Context, field graphql.C
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Icon_createdAt(ctx context.Context, field graphql.CollectedField, obj *model.Icon) (ret graphql.Marshaler) {
+func (ec *executionContext) _Icon_createdAt(ctx context.Context, field graphql.CollectedField, obj *model2.Icon) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -3497,7 +3497,7 @@ func (ec *executionContext) _Icon_createdAt(ctx context.Context, field graphql.C
 	return ec.marshalNTime2timeᚐTime(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Icon_updatedAt(ctx context.Context, field graphql.CollectedField, obj *model.Icon) (ret graphql.Marshaler) {
+func (ec *executionContext) _Icon_updatedAt(ctx context.Context, field graphql.CollectedField, obj *model2.Icon) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -3532,7 +3532,7 @@ func (ec *executionContext) _Icon_updatedAt(ctx context.Context, field graphql.C
 	return ec.marshalNTime2timeᚐTime(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Icon_deletedAt(ctx context.Context, field graphql.CollectedField, obj *model.Icon) (ret graphql.Marshaler) {
+func (ec *executionContext) _Icon_deletedAt(ctx context.Context, field graphql.CollectedField, obj *model2.Icon) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -3567,7 +3567,7 @@ func (ec *executionContext) _Icon_deletedAt(ctx context.Context, field graphql.C
 	return ec.marshalNTime2ᚖtimeᚐTime(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Image_id(ctx context.Context, field graphql.CollectedField, obj *model.Image) (ret graphql.Marshaler) {
+func (ec *executionContext) _Image_id(ctx context.Context, field graphql.CollectedField, obj *model2.Image) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -3602,7 +3602,7 @@ func (ec *executionContext) _Image_id(ctx context.Context, field graphql.Collect
 	return ec.marshalNID2int64(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Image_name(ctx context.Context, field graphql.CollectedField, obj *model.Image) (ret graphql.Marshaler) {
+func (ec *executionContext) _Image_name(ctx context.Context, field graphql.CollectedField, obj *model2.Image) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -3637,7 +3637,7 @@ func (ec *executionContext) _Image_name(ctx context.Context, field graphql.Colle
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Image_description(ctx context.Context, field graphql.CollectedField, obj *model.Image) (ret graphql.Marshaler) {
+func (ec *executionContext) _Image_description(ctx context.Context, field graphql.CollectedField, obj *model2.Image) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -3672,7 +3672,7 @@ func (ec *executionContext) _Image_description(ctx context.Context, field graphq
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Image_imgUrl(ctx context.Context, field graphql.CollectedField, obj *model.Image) (ret graphql.Marshaler) {
+func (ec *executionContext) _Image_imgUrl(ctx context.Context, field graphql.CollectedField, obj *model2.Image) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -3707,7 +3707,7 @@ func (ec *executionContext) _Image_imgUrl(ctx context.Context, field graphql.Col
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Image_ownerId(ctx context.Context, field graphql.CollectedField, obj *model.Image) (ret graphql.Marshaler) {
+func (ec *executionContext) _Image_ownerId(ctx context.Context, field graphql.CollectedField, obj *model2.Image) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -3742,7 +3742,7 @@ func (ec *executionContext) _Image_ownerId(ctx context.Context, field graphql.Co
 	return ec.marshalNID2int64(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Image_ownerType(ctx context.Context, field graphql.CollectedField, obj *model.Image) (ret graphql.Marshaler) {
+func (ec *executionContext) _Image_ownerType(ctx context.Context, field graphql.CollectedField, obj *model2.Image) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -3777,7 +3777,7 @@ func (ec *executionContext) _Image_ownerType(ctx context.Context, field graphql.
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Image_createdDate(ctx context.Context, field graphql.CollectedField, obj *model.Image) (ret graphql.Marshaler) {
+func (ec *executionContext) _Image_createdDate(ctx context.Context, field graphql.CollectedField, obj *model2.Image) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -3812,7 +3812,7 @@ func (ec *executionContext) _Image_createdDate(ctx context.Context, field graphq
 	return ec.marshalNTime2ᚖtimeᚐTime(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Image_updatedDate(ctx context.Context, field graphql.CollectedField, obj *model.Image) (ret graphql.Marshaler) {
+func (ec *executionContext) _Image_updatedDate(ctx context.Context, field graphql.CollectedField, obj *model2.Image) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -3847,7 +3847,7 @@ func (ec *executionContext) _Image_updatedDate(ctx context.Context, field graphq
 	return ec.marshalNTime2ᚖtimeᚐTime(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Image_deletedDate(ctx context.Context, field graphql.CollectedField, obj *model.Image) (ret graphql.Marshaler) {
+func (ec *executionContext) _Image_deletedDate(ctx context.Context, field graphql.CollectedField, obj *model2.Image) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -3907,7 +3907,7 @@ func (ec *executionContext) _Mutation_createIcon(ctx context.Context, field grap
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().CreateIcon(rctx, args["newIcon"].(model.NewIcon))
+		return ec.resolvers.Mutation().CreateIcon(rctx, args["newIcon"].(model2.NewIcon))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -3916,7 +3916,7 @@ func (ec *executionContext) _Mutation_createIcon(ctx context.Context, field grap
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*model.Icon)
+	res := resTmp.(*model2.Icon)
 	fc.Result = res
 	return ec.marshalOIcon2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐIcon(ctx, field.Selections, res)
 }
@@ -3946,7 +3946,7 @@ func (ec *executionContext) _Mutation_updateIcon(ctx context.Context, field grap
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().UpdateIcon(rctx, args["id"].(string), args["newIcon"].(model.NewIcon))
+		return ec.resolvers.Mutation().UpdateIcon(rctx, args["id"].(string), args["newIcon"].(model2.NewIcon))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -3955,7 +3955,7 @@ func (ec *executionContext) _Mutation_updateIcon(ctx context.Context, field grap
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*model.Icon)
+	res := resTmp.(*model2.Icon)
 	fc.Result = res
 	return ec.marshalOIcon2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐIcon(ctx, field.Selections, res)
 }
@@ -3994,7 +3994,7 @@ func (ec *executionContext) _Mutation_deleteIcon(ctx context.Context, field grap
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*model.Icon)
+	res := resTmp.(*model2.Icon)
 	fc.Result = res
 	return ec.marshalOIcon2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐIcon(ctx, field.Selections, res)
 }
@@ -4024,7 +4024,7 @@ func (ec *executionContext) _Mutation_createBadge(ctx context.Context, field gra
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().CreateBadge(rctx, args["newBadge"].(*model.NewBadge))
+		return ec.resolvers.Mutation().CreateBadge(rctx, args["newBadge"].(*model2.NewBadge))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -4033,7 +4033,7 @@ func (ec *executionContext) _Mutation_createBadge(ctx context.Context, field gra
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*model.Badge)
+	res := resTmp.(*model2.Badge)
 	fc.Result = res
 	return ec.marshalOBadge2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐBadge(ctx, field.Selections, res)
 }
@@ -4063,7 +4063,7 @@ func (ec *executionContext) _Mutation_updateBadge(ctx context.Context, field gra
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().UpdateBadge(rctx, args["id"].(string), args["newBadge"].(*model.NewBadge))
+		return ec.resolvers.Mutation().UpdateBadge(rctx, args["id"].(string), args["newBadge"].(*model2.NewBadge))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -4072,7 +4072,7 @@ func (ec *executionContext) _Mutation_updateBadge(ctx context.Context, field gra
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*model.Badge)
+	res := resTmp.(*model2.Badge)
 	fc.Result = res
 	return ec.marshalOBadge2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐBadge(ctx, field.Selections, res)
 }
@@ -4111,7 +4111,7 @@ func (ec *executionContext) _Mutation_deleteBadge(ctx context.Context, field gra
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*model.Badge)
+	res := resTmp.(*model2.Badge)
 	fc.Result = res
 	return ec.marshalOBadge2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐBadge(ctx, field.Selections, res)
 }
@@ -4141,7 +4141,7 @@ func (ec *executionContext) _Mutation_createGithubRepo(ctx context.Context, fiel
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().CreateGithubRepo(rctx, args["newGithubRepo"].(model.NewGithubRepo))
+		return ec.resolvers.Mutation().CreateGithubRepo(rctx, args["newGithubRepo"].(model2.NewGithubRepo))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -4150,7 +4150,7 @@ func (ec *executionContext) _Mutation_createGithubRepo(ctx context.Context, fiel
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*model.GithubRepo)
+	res := resTmp.(*model2.GithubRepo)
 	fc.Result = res
 	return ec.marshalOGithubRepo2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐGithubRepo(ctx, field.Selections, res)
 }
@@ -4180,7 +4180,7 @@ func (ec *executionContext) _Mutation_updateGithubRepo(ctx context.Context, fiel
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().UpdateGithubRepo(rctx, args["id"].(string), args["newGithubRepo"].(model.NewGithubRepo))
+		return ec.resolvers.Mutation().UpdateGithubRepo(rctx, args["id"].(string), args["newGithubRepo"].(model2.NewGithubRepo))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -4189,7 +4189,7 @@ func (ec *executionContext) _Mutation_updateGithubRepo(ctx context.Context, fiel
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*model.GithubRepo)
+	res := resTmp.(*model2.GithubRepo)
 	fc.Result = res
 	return ec.marshalOGithubRepo2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐGithubRepo(ctx, field.Selections, res)
 }
@@ -4228,7 +4228,7 @@ func (ec *executionContext) _Mutation_deleteGithubRepo(ctx context.Context, fiel
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*model.GithubRepo)
+	res := resTmp.(*model2.GithubRepo)
 	fc.Result = res
 	return ec.marshalOGithubRepo2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐGithubRepo(ctx, field.Selections, res)
 }
@@ -4258,7 +4258,7 @@ func (ec *executionContext) _Mutation_createImage(ctx context.Context, field gra
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().CreateImage(rctx, args["newImage"].(model.NewImage))
+		return ec.resolvers.Mutation().CreateImage(rctx, args["newImage"].(model2.NewImage))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -4267,7 +4267,7 @@ func (ec *executionContext) _Mutation_createImage(ctx context.Context, field gra
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*model.Image)
+	res := resTmp.(*model2.Image)
 	fc.Result = res
 	return ec.marshalOImage2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐImage(ctx, field.Selections, res)
 }
@@ -4297,7 +4297,7 @@ func (ec *executionContext) _Mutation_updateImage(ctx context.Context, field gra
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().UpdateImage(rctx, args["id"].(string), args["newImage"].(model.NewImage))
+		return ec.resolvers.Mutation().UpdateImage(rctx, args["id"].(string), args["newImage"].(model2.NewImage))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -4306,7 +4306,7 @@ func (ec *executionContext) _Mutation_updateImage(ctx context.Context, field gra
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*model.Image)
+	res := resTmp.(*model2.Image)
 	fc.Result = res
 	return ec.marshalOImage2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐImage(ctx, field.Selections, res)
 }
@@ -4345,7 +4345,7 @@ func (ec *executionContext) _Mutation_deleteImage(ctx context.Context, field gra
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*model.Image)
+	res := resTmp.(*model2.Image)
 	fc.Result = res
 	return ec.marshalOImage2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐImage(ctx, field.Selections, res)
 }
@@ -4375,7 +4375,7 @@ func (ec *executionContext) _Mutation_createSetting(ctx context.Context, field g
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().CreateSetting(rctx, args["newSetting"].(model.NewSetting))
+		return ec.resolvers.Mutation().CreateSetting(rctx, args["newSetting"].(model2.NewSetting))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -4387,7 +4387,7 @@ func (ec *executionContext) _Mutation_createSetting(ctx context.Context, field g
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*model.Setting)
+	res := resTmp.(*model2.Setting)
 	fc.Result = res
 	return ec.marshalNSetting2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐSetting(ctx, field.Selections, res)
 }
@@ -4417,7 +4417,7 @@ func (ec *executionContext) _Mutation_updateSetting(ctx context.Context, field g
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().UpdateSetting(rctx, args["id"].(string), args["newSetting"].(*model.NewSetting))
+		return ec.resolvers.Mutation().UpdateSetting(rctx, args["id"].(string), args["newSetting"].(*model2.NewSetting))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -4429,7 +4429,7 @@ func (ec *executionContext) _Mutation_updateSetting(ctx context.Context, field g
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*model.Setting)
+	res := resTmp.(*model2.Setting)
 	fc.Result = res
 	return ec.marshalNSetting2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐSetting(ctx, field.Selections, res)
 }
@@ -4471,7 +4471,7 @@ func (ec *executionContext) _Mutation_deleteSetting(ctx context.Context, field g
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*model.Setting)
+	res := resTmp.(*model2.Setting)
 	fc.Result = res
 	return ec.marshalNSetting2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐSetting(ctx, field.Selections, res)
 }
@@ -4501,7 +4501,7 @@ func (ec *executionContext) _Mutation_createAboutMe(ctx context.Context, field g
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().CreateAboutMe(rctx, args["newAboutMe"].(model.NewAboutMe))
+		return ec.resolvers.Mutation().CreateAboutMe(rctx, args["newAboutMe"].(model2.NewAboutMe))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -4513,7 +4513,7 @@ func (ec *executionContext) _Mutation_createAboutMe(ctx context.Context, field g
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*model.AboutMe)
+	res := resTmp.(*model2.AboutMe)
 	fc.Result = res
 	return ec.marshalNAboutMe2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐAboutMe(ctx, field.Selections, res)
 }
@@ -4543,7 +4543,7 @@ func (ec *executionContext) _Mutation_updateAboutMe(ctx context.Context, field g
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().UpdateAboutMe(rctx, args["id"].(string), args["newAboutMe"].(*model.NewAboutMe))
+		return ec.resolvers.Mutation().UpdateAboutMe(rctx, args["id"].(string), args["newAboutMe"].(*model2.NewAboutMe))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -4555,7 +4555,7 @@ func (ec *executionContext) _Mutation_updateAboutMe(ctx context.Context, field g
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*model.AboutMe)
+	res := resTmp.(*model2.AboutMe)
 	fc.Result = res
 	return ec.marshalNAboutMe2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐAboutMe(ctx, field.Selections, res)
 }
@@ -4597,7 +4597,7 @@ func (ec *executionContext) _Mutation_deleteAboutMe(ctx context.Context, field g
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*model.AboutMe)
+	res := resTmp.(*model2.AboutMe)
 	fc.Result = res
 	return ec.marshalNAboutMe2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐAboutMe(ctx, field.Selections, res)
 }
@@ -4627,7 +4627,7 @@ func (ec *executionContext) _Mutation_createTimeline(ctx context.Context, field 
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().CreateTimeline(rctx, args["newTimeline"].(model.NewTimeline))
+		return ec.resolvers.Mutation().CreateTimeline(rctx, args["newTimeline"].(model2.NewTimeline))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -4639,7 +4639,7 @@ func (ec *executionContext) _Mutation_createTimeline(ctx context.Context, field 
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*model.Timeline)
+	res := resTmp.(*model2.Timeline)
 	fc.Result = res
 	return ec.marshalNTimeline2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐTimeline(ctx, field.Selections, res)
 }
@@ -4669,7 +4669,7 @@ func (ec *executionContext) _Mutation_updateTimeline(ctx context.Context, field 
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().UpdateTimeline(rctx, args["id"].(string), args["newTimeline"].(*model.NewTimeline))
+		return ec.resolvers.Mutation().UpdateTimeline(rctx, args["id"].(string), args["newTimeline"].(*model2.NewTimeline))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -4681,7 +4681,7 @@ func (ec *executionContext) _Mutation_updateTimeline(ctx context.Context, field 
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*model.Timeline)
+	res := resTmp.(*model2.Timeline)
 	fc.Result = res
 	return ec.marshalNTimeline2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐTimeline(ctx, field.Selections, res)
 }
@@ -4723,7 +4723,7 @@ func (ec *executionContext) _Mutation_deleteTimeline(ctx context.Context, field 
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*model.Timeline)
+	res := resTmp.(*model2.Timeline)
 	fc.Result = res
 	return ec.marshalNTimeline2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐTimeline(ctx, field.Selections, res)
 }
@@ -4758,7 +4758,7 @@ func (ec *executionContext) _Query_icons(ctx context.Context, field graphql.Coll
 		}
 		return graphql.Null
 	}
-	res := resTmp.([]*model.Icon)
+	res := resTmp.([]*model2.Icon)
 	fc.Result = res
 	return ec.marshalNIcon2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐIcon(ctx, field.Selections, res)
 }
@@ -4797,7 +4797,7 @@ func (ec *executionContext) _Query_icon(ctx context.Context, field graphql.Colle
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*model.Icon)
+	res := resTmp.(*model2.Icon)
 	fc.Result = res
 	return ec.marshalOIcon2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐIcon(ctx, field.Selections, res)
 }
@@ -4836,7 +4836,7 @@ func (ec *executionContext) _Query_iconsByOwner(ctx context.Context, field graph
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.([]*model.Icon)
+	res := resTmp.([]*model2.Icon)
 	fc.Result = res
 	return ec.marshalOIcon2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐIcon(ctx, field.Selections, res)
 }
@@ -4875,7 +4875,7 @@ func (ec *executionContext) _Query_iconsByOwnerAndType(ctx context.Context, fiel
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.([]*model.Icon)
+	res := resTmp.([]*model2.Icon)
 	fc.Result = res
 	return ec.marshalOIcon2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐIcon(ctx, field.Selections, res)
 }
@@ -4914,7 +4914,7 @@ func (ec *executionContext) _Query_iconsByType(ctx context.Context, field graphq
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.([]*model.Icon)
+	res := resTmp.([]*model2.Icon)
 	fc.Result = res
 	return ec.marshalOIcon2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐIcon(ctx, field.Selections, res)
 }
@@ -4949,7 +4949,7 @@ func (ec *executionContext) _Query_badges(ctx context.Context, field graphql.Col
 		}
 		return graphql.Null
 	}
-	res := resTmp.([]*model.Badge)
+	res := resTmp.([]*model2.Badge)
 	fc.Result = res
 	return ec.marshalNBadge2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐBadge(ctx, field.Selections, res)
 }
@@ -4988,7 +4988,7 @@ func (ec *executionContext) _Query_badge(ctx context.Context, field graphql.Coll
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*model.Badge)
+	res := resTmp.(*model2.Badge)
 	fc.Result = res
 	return ec.marshalOBadge2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐBadge(ctx, field.Selections, res)
 }
@@ -5027,7 +5027,7 @@ func (ec *executionContext) _Query_badgesByOwner(ctx context.Context, field grap
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.([]*model.Badge)
+	res := resTmp.([]*model2.Badge)
 	fc.Result = res
 	return ec.marshalOBadge2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐBadge(ctx, field.Selections, res)
 }
@@ -5066,7 +5066,7 @@ func (ec *executionContext) _Query_badgesByOwnerAndType(ctx context.Context, fie
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.([]*model.Badge)
+	res := resTmp.([]*model2.Badge)
 	fc.Result = res
 	return ec.marshalOBadge2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐBadge(ctx, field.Selections, res)
 }
@@ -5105,7 +5105,7 @@ func (ec *executionContext) _Query_badgesByType(ctx context.Context, field graph
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.([]*model.Badge)
+	res := resTmp.([]*model2.Badge)
 	fc.Result = res
 	return ec.marshalOBadge2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐBadge(ctx, field.Selections, res)
 }
@@ -5140,7 +5140,7 @@ func (ec *executionContext) _Query_githubRepos(ctx context.Context, field graphq
 		}
 		return graphql.Null
 	}
-	res := resTmp.([]*model.GithubRepo)
+	res := resTmp.([]*model2.GithubRepo)
 	fc.Result = res
 	return ec.marshalNGithubRepo2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐGithubRepoᚄ(ctx, field.Selections, res)
 }
@@ -5179,7 +5179,7 @@ func (ec *executionContext) _Query_githubRepo(ctx context.Context, field graphql
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*model.GithubRepo)
+	res := resTmp.(*model2.GithubRepo)
 	fc.Result = res
 	return ec.marshalOGithubRepo2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐGithubRepo(ctx, field.Selections, res)
 }
@@ -5214,7 +5214,7 @@ func (ec *executionContext) _Query_images(ctx context.Context, field graphql.Col
 		}
 		return graphql.Null
 	}
-	res := resTmp.([]*model.Image)
+	res := resTmp.([]*model2.Image)
 	fc.Result = res
 	return ec.marshalNImage2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐImageᚄ(ctx, field.Selections, res)
 }
@@ -5253,7 +5253,7 @@ func (ec *executionContext) _Query_image(ctx context.Context, field graphql.Coll
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*model.Image)
+	res := resTmp.(*model2.Image)
 	fc.Result = res
 	return ec.marshalOImage2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐImage(ctx, field.Selections, res)
 }
@@ -5288,7 +5288,7 @@ func (ec *executionContext) _Query_settings(ctx context.Context, field graphql.C
 		}
 		return graphql.Null
 	}
-	res := resTmp.([]*model.Setting)
+	res := resTmp.([]*model2.Setting)
 	fc.Result = res
 	return ec.marshalNSetting2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐSetting(ctx, field.Selections, res)
 }
@@ -5327,7 +5327,7 @@ func (ec *executionContext) _Query_setting(ctx context.Context, field graphql.Co
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*model.Setting)
+	res := resTmp.(*model2.Setting)
 	fc.Result = res
 	return ec.marshalOSetting2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐSetting(ctx, field.Selections, res)
 }
@@ -5362,7 +5362,7 @@ func (ec *executionContext) _Query_aboutMes(ctx context.Context, field graphql.C
 		}
 		return graphql.Null
 	}
-	res := resTmp.([]*model.AboutMe)
+	res := resTmp.([]*model2.AboutMe)
 	fc.Result = res
 	return ec.marshalNAboutMe2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐAboutMe(ctx, field.Selections, res)
 }
@@ -5401,7 +5401,7 @@ func (ec *executionContext) _Query_aboutMe(ctx context.Context, field graphql.Co
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*model.AboutMe)
+	res := resTmp.(*model2.AboutMe)
 	fc.Result = res
 	return ec.marshalOAboutMe2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐAboutMe(ctx, field.Selections, res)
 }
@@ -5436,7 +5436,7 @@ func (ec *executionContext) _Query_timelines(ctx context.Context, field graphql.
 		}
 		return graphql.Null
 	}
-	res := resTmp.([]*model.Timeline)
+	res := resTmp.([]*model2.Timeline)
 	fc.Result = res
 	return ec.marshalNTimeline2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐTimeline(ctx, field.Selections, res)
 }
@@ -5475,7 +5475,7 @@ func (ec *executionContext) _Query_timeline(ctx context.Context, field graphql.C
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*model.Timeline)
+	res := resTmp.(*model2.Timeline)
 	fc.Result = res
 	return ec.marshalOTimeline2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐTimeline(ctx, field.Selections, res)
 }
@@ -5551,7 +5551,7 @@ func (ec *executionContext) _Query___schema(ctx context.Context, field graphql.C
 	return ec.marshalO__Schema2ᚖgithubᚗcomᚋ99designsᚋgqlgenᚋgraphqlᚋintrospectionᚐSchema(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Setting_id(ctx context.Context, field graphql.CollectedField, obj *model.Setting) (ret graphql.Marshaler) {
+func (ec *executionContext) _Setting_id(ctx context.Context, field graphql.CollectedField, obj *model2.Setting) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -5586,7 +5586,7 @@ func (ec *executionContext) _Setting_id(ctx context.Context, field graphql.Colle
 	return ec.marshalNID2int64(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Setting_aboutMe(ctx context.Context, field graphql.CollectedField, obj *model.Setting) (ret graphql.Marshaler) {
+func (ec *executionContext) _Setting_aboutMe(ctx context.Context, field graphql.CollectedField, obj *model2.Setting) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -5616,12 +5616,12 @@ func (ec *executionContext) _Setting_aboutMe(ctx context.Context, field graphql.
 		}
 		return graphql.Null
 	}
-	res := resTmp.(model.AboutMe)
+	res := resTmp.(model2.AboutMe)
 	fc.Result = res
 	return ec.marshalNAboutMe2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐAboutMe(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Setting_timeline(ctx context.Context, field graphql.CollectedField, obj *model.Setting) (ret graphql.Marshaler) {
+func (ec *executionContext) _Setting_timeline(ctx context.Context, field graphql.CollectedField, obj *model2.Setting) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -5651,12 +5651,12 @@ func (ec *executionContext) _Setting_timeline(ctx context.Context, field graphql
 		}
 		return graphql.Null
 	}
-	res := resTmp.(model.Timeline)
+	res := resTmp.(model2.Timeline)
 	fc.Result = res
 	return ec.marshalNTimeline2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐTimeline(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Setting_isActivated(ctx context.Context, field graphql.CollectedField, obj *model.Setting) (ret graphql.Marshaler) {
+func (ec *executionContext) _Setting_isActivated(ctx context.Context, field graphql.CollectedField, obj *model2.Setting) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -5688,7 +5688,7 @@ func (ec *executionContext) _Setting_isActivated(ctx context.Context, field grap
 	return ec.marshalOBoolean2bool(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Setting_createdAt(ctx context.Context, field graphql.CollectedField, obj *model.Setting) (ret graphql.Marshaler) {
+func (ec *executionContext) _Setting_createdAt(ctx context.Context, field graphql.CollectedField, obj *model2.Setting) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -5723,7 +5723,7 @@ func (ec *executionContext) _Setting_createdAt(ctx context.Context, field graphq
 	return ec.marshalNTime2timeᚐTime(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Setting_updatedAt(ctx context.Context, field graphql.CollectedField, obj *model.Setting) (ret graphql.Marshaler) {
+func (ec *executionContext) _Setting_updatedAt(ctx context.Context, field graphql.CollectedField, obj *model2.Setting) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -5758,7 +5758,7 @@ func (ec *executionContext) _Setting_updatedAt(ctx context.Context, field graphq
 	return ec.marshalNTime2timeᚐTime(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Setting_deletedAt(ctx context.Context, field graphql.CollectedField, obj *model.Setting) (ret graphql.Marshaler) {
+func (ec *executionContext) _Setting_deletedAt(ctx context.Context, field graphql.CollectedField, obj *model2.Setting) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -5793,7 +5793,7 @@ func (ec *executionContext) _Setting_deletedAt(ctx context.Context, field graphq
 	return ec.marshalNTime2ᚖtimeᚐTime(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Timeline_id(ctx context.Context, field graphql.CollectedField, obj *model.Timeline) (ret graphql.Marshaler) {
+func (ec *executionContext) _Timeline_id(ctx context.Context, field graphql.CollectedField, obj *model2.Timeline) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -5828,7 +5828,7 @@ func (ec *executionContext) _Timeline_id(ctx context.Context, field graphql.Coll
 	return ec.marshalNID2int64(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Timeline_slug(ctx context.Context, field graphql.CollectedField, obj *model.Timeline) (ret graphql.Marshaler) {
+func (ec *executionContext) _Timeline_slug(ctx context.Context, field graphql.CollectedField, obj *model2.Timeline) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -5863,7 +5863,7 @@ func (ec *executionContext) _Timeline_slug(ctx context.Context, field graphql.Co
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Timeline_name(ctx context.Context, field graphql.CollectedField, obj *model.Timeline) (ret graphql.Marshaler) {
+func (ec *executionContext) _Timeline_name(ctx context.Context, field graphql.CollectedField, obj *model2.Timeline) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -5898,7 +5898,7 @@ func (ec *executionContext) _Timeline_name(ctx context.Context, field graphql.Co
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Timeline_description(ctx context.Context, field graphql.CollectedField, obj *model.Timeline) (ret graphql.Marshaler) {
+func (ec *executionContext) _Timeline_description(ctx context.Context, field graphql.CollectedField, obj *model2.Timeline) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -5933,7 +5933,7 @@ func (ec *executionContext) _Timeline_description(ctx context.Context, field gra
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Timeline_thumbnail(ctx context.Context, field graphql.CollectedField, obj *model.Timeline) (ret graphql.Marshaler) {
+func (ec *executionContext) _Timeline_thumbnail(ctx context.Context, field graphql.CollectedField, obj *model2.Timeline) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -5968,7 +5968,7 @@ func (ec *executionContext) _Timeline_thumbnail(ctx context.Context, field graph
 	return ec.marshalNString2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Timeline_eventDate(ctx context.Context, field graphql.CollectedField, obj *model.Timeline) (ret graphql.Marshaler) {
+func (ec *executionContext) _Timeline_eventDate(ctx context.Context, field graphql.CollectedField, obj *model2.Timeline) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -6003,7 +6003,7 @@ func (ec *executionContext) _Timeline_eventDate(ctx context.Context, field graph
 	return ec.marshalNTime2timeᚐTime(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Timeline_images(ctx context.Context, field graphql.CollectedField, obj *model.Timeline) (ret graphql.Marshaler) {
+func (ec *executionContext) _Timeline_images(ctx context.Context, field graphql.CollectedField, obj *model2.Timeline) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -6033,12 +6033,12 @@ func (ec *executionContext) _Timeline_images(ctx context.Context, field graphql.
 		}
 		return graphql.Null
 	}
-	res := resTmp.([]model.Image)
+	res := resTmp.([]model2.Image)
 	fc.Result = res
 	return ec.marshalNImage2ᚕgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐImage(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Timeline_icon(ctx context.Context, field graphql.CollectedField, obj *model.Timeline) (ret graphql.Marshaler) {
+func (ec *executionContext) _Timeline_icon(ctx context.Context, field graphql.CollectedField, obj *model2.Timeline) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -6068,12 +6068,12 @@ func (ec *executionContext) _Timeline_icon(ctx context.Context, field graphql.Co
 		}
 		return graphql.Null
 	}
-	res := resTmp.(model.Icon)
+	res := resTmp.(model2.Icon)
 	fc.Result = res
 	return ec.marshalNIcon2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐIcon(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Timeline_settingID(ctx context.Context, field graphql.CollectedField, obj *model.Timeline) (ret graphql.Marshaler) {
+func (ec *executionContext) _Timeline_settingID(ctx context.Context, field graphql.CollectedField, obj *model2.Timeline) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -6108,7 +6108,7 @@ func (ec *executionContext) _Timeline_settingID(ctx context.Context, field graph
 	return ec.marshalNID2string(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Timeline_createdAt(ctx context.Context, field graphql.CollectedField, obj *model.Timeline) (ret graphql.Marshaler) {
+func (ec *executionContext) _Timeline_createdAt(ctx context.Context, field graphql.CollectedField, obj *model2.Timeline) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -6143,7 +6143,7 @@ func (ec *executionContext) _Timeline_createdAt(ctx context.Context, field graph
 	return ec.marshalNTime2timeᚐTime(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Timeline_updatedAt(ctx context.Context, field graphql.CollectedField, obj *model.Timeline) (ret graphql.Marshaler) {
+func (ec *executionContext) _Timeline_updatedAt(ctx context.Context, field graphql.CollectedField, obj *model2.Timeline) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -6178,7 +6178,7 @@ func (ec *executionContext) _Timeline_updatedAt(ctx context.Context, field graph
 	return ec.marshalNTime2timeᚐTime(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) _Timeline_deletedAt(ctx context.Context, field graphql.CollectedField, obj *model.Timeline) (ret graphql.Marshaler) {
+func (ec *executionContext) _Timeline_deletedAt(ctx context.Context, field graphql.CollectedField, obj *model2.Timeline) (ret graphql.Marshaler) {
 	defer func() {
 		if r := recover(); r != nil {
 			ec.Error(ctx, ec.Recover(ctx, r))
@@ -7335,8 +7335,8 @@ func (ec *executionContext) ___Type_ofType(ctx context.Context, field graphql.Co
 
 // region    **************************** input.gotpl *****************************
 
-func (ec *executionContext) unmarshalInputNewAboutMe(ctx context.Context, obj interface{}) (model.NewAboutMe, error) {
-	var it model.NewAboutMe
+func (ec *executionContext) unmarshalInputNewAboutMe(ctx context.Context, obj interface{}) (model2.NewAboutMe, error) {
+	var it model2.NewAboutMe
 	asMap := map[string]interface{}{}
 	for k, v := range obj.(map[string]interface{}) {
 		asMap[k] = v
@@ -7398,8 +7398,8 @@ func (ec *executionContext) unmarshalInputNewAboutMe(ctx context.Context, obj in
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputNewBadge(ctx context.Context, obj interface{}) (model.NewBadge, error) {
-	var it model.NewBadge
+func (ec *executionContext) unmarshalInputNewBadge(ctx context.Context, obj interface{}) (model2.NewBadge, error) {
+	var it model2.NewBadge
 	asMap := map[string]interface{}{}
 	for k, v := range obj.(map[string]interface{}) {
 		asMap[k] = v
@@ -7461,8 +7461,8 @@ func (ec *executionContext) unmarshalInputNewBadge(ctx context.Context, obj inte
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputNewGithubRepo(ctx context.Context, obj interface{}) (model.NewGithubRepo, error) {
-	var it model.NewGithubRepo
+func (ec *executionContext) unmarshalInputNewGithubRepo(ctx context.Context, obj interface{}) (model2.NewGithubRepo, error) {
+	var it model2.NewGithubRepo
 	asMap := map[string]interface{}{}
 	for k, v := range obj.(map[string]interface{}) {
 		asMap[k] = v
@@ -7556,8 +7556,8 @@ func (ec *executionContext) unmarshalInputNewGithubRepo(ctx context.Context, obj
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputNewIcon(ctx context.Context, obj interface{}) (model.NewIcon, error) {
-	var it model.NewIcon
+func (ec *executionContext) unmarshalInputNewIcon(ctx context.Context, obj interface{}) (model2.NewIcon, error) {
+	var it model2.NewIcon
 	asMap := map[string]interface{}{}
 	for k, v := range obj.(map[string]interface{}) {
 		asMap[k] = v
@@ -7619,8 +7619,8 @@ func (ec *executionContext) unmarshalInputNewIcon(ctx context.Context, obj inter
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputNewImage(ctx context.Context, obj interface{}) (model.NewImage, error) {
-	var it model.NewImage
+func (ec *executionContext) unmarshalInputNewImage(ctx context.Context, obj interface{}) (model2.NewImage, error) {
+	var it model2.NewImage
 	asMap := map[string]interface{}{}
 	for k, v := range obj.(map[string]interface{}) {
 		asMap[k] = v
@@ -7682,8 +7682,8 @@ func (ec *executionContext) unmarshalInputNewImage(ctx context.Context, obj inte
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputNewSetting(ctx context.Context, obj interface{}) (model.NewSetting, error) {
-	var it model.NewSetting
+func (ec *executionContext) unmarshalInputNewSetting(ctx context.Context, obj interface{}) (model2.NewSetting, error) {
+	var it model2.NewSetting
 	asMap := map[string]interface{}{}
 	for k, v := range obj.(map[string]interface{}) {
 		asMap[k] = v
@@ -7729,8 +7729,8 @@ func (ec *executionContext) unmarshalInputNewSetting(ctx context.Context, obj in
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputNewTimeline(ctx context.Context, obj interface{}) (model.NewTimeline, error) {
-	var it model.NewTimeline
+func (ec *executionContext) unmarshalInputNewTimeline(ctx context.Context, obj interface{}) (model2.NewTimeline, error) {
+	var it model2.NewTimeline
 	asMap := map[string]interface{}{}
 	for k, v := range obj.(map[string]interface{}) {
 		asMap[k] = v
@@ -7826,7 +7826,7 @@ func (ec *executionContext) unmarshalInputNewTimeline(ctx context.Context, obj i
 
 var aboutMeImplementors = []string{"AboutMe"}
 
-func (ec *executionContext) _AboutMe(ctx context.Context, sel ast.SelectionSet, obj *model.AboutMe) graphql.Marshaler {
+func (ec *executionContext) _AboutMe(ctx context.Context, sel ast.SelectionSet, obj *model2.AboutMe) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, aboutMeImplementors)
 	out := graphql.NewFieldSet(fields)
 	var invalids uint32
@@ -7947,7 +7947,7 @@ func (ec *executionContext) _AboutMe(ctx context.Context, sel ast.SelectionSet, 
 
 var badgeImplementors = []string{"Badge"}
 
-func (ec *executionContext) _Badge(ctx context.Context, sel ast.SelectionSet, obj *model.Badge) graphql.Marshaler {
+func (ec *executionContext) _Badge(ctx context.Context, sel ast.SelectionSet, obj *model2.Badge) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, badgeImplementors)
 	out := graphql.NewFieldSet(fields)
 	var invalids uint32
@@ -8062,7 +8062,7 @@ func (ec *executionContext) _Badge(ctx context.Context, sel ast.SelectionSet, ob
 
 var githubRepoImplementors = []string{"GithubRepo"}
 
-func (ec *executionContext) _GithubRepo(ctx context.Context, sel ast.SelectionSet, obj *model.GithubRepo) graphql.Marshaler {
+func (ec *executionContext) _GithubRepo(ctx context.Context, sel ast.SelectionSet, obj *model2.GithubRepo) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, githubRepoImplementors)
 	out := graphql.NewFieldSet(fields)
 	var invalids uint32
@@ -8187,7 +8187,7 @@ func (ec *executionContext) _GithubRepo(ctx context.Context, sel ast.SelectionSe
 
 var iconImplementors = []string{"Icon"}
 
-func (ec *executionContext) _Icon(ctx context.Context, sel ast.SelectionSet, obj *model.Icon) graphql.Marshaler {
+func (ec *executionContext) _Icon(ctx context.Context, sel ast.SelectionSet, obj *model2.Icon) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, iconImplementors)
 	out := graphql.NewFieldSet(fields)
 	var invalids uint32
@@ -8318,7 +8318,7 @@ func (ec *executionContext) _Icon(ctx context.Context, sel ast.SelectionSet, obj
 
 var imageImplementors = []string{"Image"}
 
-func (ec *executionContext) _Image(ctx context.Context, sel ast.SelectionSet, obj *model.Image) graphql.Marshaler {
+func (ec *executionContext) _Image(ctx context.Context, sel ast.SelectionSet, obj *model2.Image) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, imageImplementors)
 	out := graphql.NewFieldSet(fields)
 	var invalids uint32
@@ -9128,7 +9128,7 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 
 var settingImplementors = []string{"Setting"}
 
-func (ec *executionContext) _Setting(ctx context.Context, sel ast.SelectionSet, obj *model.Setting) graphql.Marshaler {
+func (ec *executionContext) _Setting(ctx context.Context, sel ast.SelectionSet, obj *model2.Setting) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, settingImplementors)
 	out := graphql.NewFieldSet(fields)
 	var invalids uint32
@@ -9226,7 +9226,7 @@ func (ec *executionContext) _Setting(ctx context.Context, sel ast.SelectionSet, 
 
 var timelineImplementors = []string{"Timeline"}
 
-func (ec *executionContext) _Timeline(ctx context.Context, sel ast.SelectionSet, obj *model.Timeline) graphql.Marshaler {
+func (ec *executionContext) _Timeline(ctx context.Context, sel ast.SelectionSet, obj *model2.Timeline) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, timelineImplementors)
 	out := graphql.NewFieldSet(fields)
 	var invalids uint32
@@ -9794,11 +9794,11 @@ func (ec *executionContext) ___Type(ctx context.Context, sel ast.SelectionSet, o
 
 // region    ***************************** type.gotpl *****************************
 
-func (ec *executionContext) marshalNAboutMe2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐAboutMe(ctx context.Context, sel ast.SelectionSet, v model.AboutMe) graphql.Marshaler {
+func (ec *executionContext) marshalNAboutMe2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐAboutMe(ctx context.Context, sel ast.SelectionSet, v model2.AboutMe) graphql.Marshaler {
 	return ec._AboutMe(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNAboutMe2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐAboutMe(ctx context.Context, sel ast.SelectionSet, v []*model.AboutMe) graphql.Marshaler {
+func (ec *executionContext) marshalNAboutMe2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐAboutMe(ctx context.Context, sel ast.SelectionSet, v []*model2.AboutMe) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -9836,7 +9836,7 @@ func (ec *executionContext) marshalNAboutMe2ᚕᚖgithubᚗcomᚋsamithiwatᚋsa
 	return ret
 }
 
-func (ec *executionContext) marshalNAboutMe2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐAboutMe(ctx context.Context, sel ast.SelectionSet, v *model.AboutMe) graphql.Marshaler {
+func (ec *executionContext) marshalNAboutMe2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐAboutMe(ctx context.Context, sel ast.SelectionSet, v *model2.AboutMe) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -9846,7 +9846,7 @@ func (ec *executionContext) marshalNAboutMe2ᚖgithubᚗcomᚋsamithiwatᚋsamit
 	return ec._AboutMe(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalNBadge2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐBadge(ctx context.Context, sel ast.SelectionSet, v []*model.Badge) graphql.Marshaler {
+func (ec *executionContext) marshalNBadge2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐBadge(ctx context.Context, sel ast.SelectionSet, v []*model2.Badge) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -9899,7 +9899,7 @@ func (ec *executionContext) marshalNBoolean2bool(ctx context.Context, sel ast.Se
 	return res
 }
 
-func (ec *executionContext) marshalNGithubRepo2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐGithubRepoᚄ(ctx context.Context, sel ast.SelectionSet, v []*model.GithubRepo) graphql.Marshaler {
+func (ec *executionContext) marshalNGithubRepo2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐGithubRepoᚄ(ctx context.Context, sel ast.SelectionSet, v []*model2.GithubRepo) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -9943,7 +9943,7 @@ func (ec *executionContext) marshalNGithubRepo2ᚕᚖgithubᚗcomᚋsamithiwat�
 	return ret
 }
 
-func (ec *executionContext) marshalNGithubRepo2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐGithubRepo(ctx context.Context, sel ast.SelectionSet, v *model.GithubRepo) graphql.Marshaler {
+func (ec *executionContext) marshalNGithubRepo2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐGithubRepo(ctx context.Context, sel ast.SelectionSet, v *model2.GithubRepo) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -9983,11 +9983,11 @@ func (ec *executionContext) marshalNID2string(ctx context.Context, sel ast.Selec
 	return res
 }
 
-func (ec *executionContext) marshalNIcon2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐIcon(ctx context.Context, sel ast.SelectionSet, v model.Icon) graphql.Marshaler {
+func (ec *executionContext) marshalNIcon2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐIcon(ctx context.Context, sel ast.SelectionSet, v model2.Icon) graphql.Marshaler {
 	return ec._Icon(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNIcon2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐIcon(ctx context.Context, sel ast.SelectionSet, v []*model.Icon) graphql.Marshaler {
+func (ec *executionContext) marshalNIcon2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐIcon(ctx context.Context, sel ast.SelectionSet, v []*model2.Icon) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -10025,7 +10025,7 @@ func (ec *executionContext) marshalNIcon2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamit
 	return ret
 }
 
-func (ec *executionContext) marshalNImage2ᚕgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐImage(ctx context.Context, sel ast.SelectionSet, v []model.Image) graphql.Marshaler {
+func (ec *executionContext) marshalNImage2ᚕgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐImage(ctx context.Context, sel ast.SelectionSet, v []model2.Image) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -10063,7 +10063,7 @@ func (ec *executionContext) marshalNImage2ᚕgithubᚗcomᚋsamithiwatᚋsamithi
 	return ret
 }
 
-func (ec *executionContext) marshalNImage2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐImageᚄ(ctx context.Context, sel ast.SelectionSet, v []*model.Image) graphql.Marshaler {
+func (ec *executionContext) marshalNImage2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐImageᚄ(ctx context.Context, sel ast.SelectionSet, v []*model2.Image) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -10107,7 +10107,7 @@ func (ec *executionContext) marshalNImage2ᚕᚖgithubᚗcomᚋsamithiwatᚋsami
 	return ret
 }
 
-func (ec *executionContext) marshalNImage2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐImage(ctx context.Context, sel ast.SelectionSet, v *model.Image) graphql.Marshaler {
+func (ec *executionContext) marshalNImage2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐImage(ctx context.Context, sel ast.SelectionSet, v *model2.Image) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -10147,41 +10147,41 @@ func (ec *executionContext) marshalNInt2int64(ctx context.Context, sel ast.Selec
 	return res
 }
 
-func (ec *executionContext) unmarshalNNewAboutMe2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewAboutMe(ctx context.Context, v interface{}) (model.NewAboutMe, error) {
+func (ec *executionContext) unmarshalNNewAboutMe2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewAboutMe(ctx context.Context, v interface{}) (model2.NewAboutMe, error) {
 	res, err := ec.unmarshalInputNewAboutMe(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNNewGithubRepo2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewGithubRepo(ctx context.Context, v interface{}) (model.NewGithubRepo, error) {
+func (ec *executionContext) unmarshalNNewGithubRepo2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewGithubRepo(ctx context.Context, v interface{}) (model2.NewGithubRepo, error) {
 	res, err := ec.unmarshalInputNewGithubRepo(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNNewIcon2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewIcon(ctx context.Context, v interface{}) (model.NewIcon, error) {
+func (ec *executionContext) unmarshalNNewIcon2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewIcon(ctx context.Context, v interface{}) (model2.NewIcon, error) {
 	res, err := ec.unmarshalInputNewIcon(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNNewImage2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewImage(ctx context.Context, v interface{}) (model.NewImage, error) {
+func (ec *executionContext) unmarshalNNewImage2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewImage(ctx context.Context, v interface{}) (model2.NewImage, error) {
 	res, err := ec.unmarshalInputNewImage(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNNewSetting2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewSetting(ctx context.Context, v interface{}) (model.NewSetting, error) {
+func (ec *executionContext) unmarshalNNewSetting2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewSetting(ctx context.Context, v interface{}) (model2.NewSetting, error) {
 	res, err := ec.unmarshalInputNewSetting(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNNewTimeline2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewTimeline(ctx context.Context, v interface{}) (model.NewTimeline, error) {
+func (ec *executionContext) unmarshalNNewTimeline2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewTimeline(ctx context.Context, v interface{}) (model2.NewTimeline, error) {
 	res, err := ec.unmarshalInputNewTimeline(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalNSetting2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐSetting(ctx context.Context, sel ast.SelectionSet, v model.Setting) graphql.Marshaler {
+func (ec *executionContext) marshalNSetting2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐSetting(ctx context.Context, sel ast.SelectionSet, v model2.Setting) graphql.Marshaler {
 	return ec._Setting(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNSetting2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐSetting(ctx context.Context, sel ast.SelectionSet, v []*model.Setting) graphql.Marshaler {
+func (ec *executionContext) marshalNSetting2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐSetting(ctx context.Context, sel ast.SelectionSet, v []*model2.Setting) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -10219,7 +10219,7 @@ func (ec *executionContext) marshalNSetting2ᚕᚖgithubᚗcomᚋsamithiwatᚋsa
 	return ret
 }
 
-func (ec *executionContext) marshalNSetting2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐSetting(ctx context.Context, sel ast.SelectionSet, v *model.Setting) graphql.Marshaler {
+func (ec *executionContext) marshalNSetting2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐSetting(ctx context.Context, sel ast.SelectionSet, v *model2.Setting) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -10280,11 +10280,11 @@ func (ec *executionContext) marshalNTime2ᚖtimeᚐTime(ctx context.Context, sel
 	return res
 }
 
-func (ec *executionContext) marshalNTimeline2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐTimeline(ctx context.Context, sel ast.SelectionSet, v model.Timeline) graphql.Marshaler {
+func (ec *executionContext) marshalNTimeline2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐTimeline(ctx context.Context, sel ast.SelectionSet, v model2.Timeline) graphql.Marshaler {
 	return ec._Timeline(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNTimeline2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐTimeline(ctx context.Context, sel ast.SelectionSet, v []*model.Timeline) graphql.Marshaler {
+func (ec *executionContext) marshalNTimeline2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐTimeline(ctx context.Context, sel ast.SelectionSet, v []*model2.Timeline) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -10322,7 +10322,7 @@ func (ec *executionContext) marshalNTimeline2ᚕᚖgithubᚗcomᚋsamithiwatᚋs
 	return ret
 }
 
-func (ec *executionContext) marshalNTimeline2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐTimeline(ctx context.Context, sel ast.SelectionSet, v *model.Timeline) graphql.Marshaler {
+func (ec *executionContext) marshalNTimeline2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐTimeline(ctx context.Context, sel ast.SelectionSet, v *model2.Timeline) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -10585,18 +10585,18 @@ func (ec *executionContext) marshalN__TypeKind2string(ctx context.Context, sel a
 	return res
 }
 
-func (ec *executionContext) marshalOAboutMe2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐAboutMe(ctx context.Context, sel ast.SelectionSet, v *model.AboutMe) graphql.Marshaler {
+func (ec *executionContext) marshalOAboutMe2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐAboutMe(ctx context.Context, sel ast.SelectionSet, v *model2.AboutMe) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._AboutMe(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOBadge2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐBadge(ctx context.Context, sel ast.SelectionSet, v model.Badge) graphql.Marshaler {
+func (ec *executionContext) marshalOBadge2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐBadge(ctx context.Context, sel ast.SelectionSet, v model2.Badge) graphql.Marshaler {
 	return ec._Badge(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalOBadge2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐBadge(ctx context.Context, sel ast.SelectionSet, v []*model.Badge) graphql.Marshaler {
+func (ec *executionContext) marshalOBadge2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐBadge(ctx context.Context, sel ast.SelectionSet, v []*model2.Badge) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -10637,7 +10637,7 @@ func (ec *executionContext) marshalOBadge2ᚕᚖgithubᚗcomᚋsamithiwatᚋsami
 	return ret
 }
 
-func (ec *executionContext) marshalOBadge2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐBadge(ctx context.Context, sel ast.SelectionSet, v *model.Badge) graphql.Marshaler {
+func (ec *executionContext) marshalOBadge2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐBadge(ctx context.Context, sel ast.SelectionSet, v *model2.Badge) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -10670,7 +10670,7 @@ func (ec *executionContext) marshalOBoolean2ᚖbool(ctx context.Context, sel ast
 	return res
 }
 
-func (ec *executionContext) marshalOGithubRepo2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐGithubRepo(ctx context.Context, sel ast.SelectionSet, v *model.GithubRepo) graphql.Marshaler {
+func (ec *executionContext) marshalOGithubRepo2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐGithubRepo(ctx context.Context, sel ast.SelectionSet, v *model2.GithubRepo) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -10687,7 +10687,7 @@ func (ec *executionContext) marshalOID2int64(ctx context.Context, sel ast.Select
 	return res
 }
 
-func (ec *executionContext) marshalOIcon2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐIcon(ctx context.Context, sel ast.SelectionSet, v []*model.Icon) graphql.Marshaler {
+func (ec *executionContext) marshalOIcon2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐIcon(ctx context.Context, sel ast.SelectionSet, v []*model2.Icon) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -10728,18 +10728,18 @@ func (ec *executionContext) marshalOIcon2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamit
 	return ret
 }
 
-func (ec *executionContext) marshalOIcon2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐIcon(ctx context.Context, sel ast.SelectionSet, v *model.Icon) graphql.Marshaler {
+func (ec *executionContext) marshalOIcon2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐIcon(ctx context.Context, sel ast.SelectionSet, v *model2.Icon) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._Icon(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOImage2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐImage(ctx context.Context, sel ast.SelectionSet, v model.Image) graphql.Marshaler {
+func (ec *executionContext) marshalOImage2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐImage(ctx context.Context, sel ast.SelectionSet, v model2.Image) graphql.Marshaler {
 	return ec._Image(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalOImage2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐImage(ctx context.Context, sel ast.SelectionSet, v *model.Image) graphql.Marshaler {
+func (ec *executionContext) marshalOImage2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐImage(ctx context.Context, sel ast.SelectionSet, v *model2.Image) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -10756,12 +10756,12 @@ func (ec *executionContext) marshalOInt2int64(ctx context.Context, sel ast.Selec
 	return res
 }
 
-func (ec *executionContext) unmarshalONewAboutMe2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewAboutMe(ctx context.Context, v interface{}) (model.NewAboutMe, error) {
+func (ec *executionContext) unmarshalONewAboutMe2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewAboutMe(ctx context.Context, v interface{}) (model2.NewAboutMe, error) {
 	res, err := ec.unmarshalInputNewAboutMe(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalONewAboutMe2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewAboutMe(ctx context.Context, v interface{}) (*model.NewAboutMe, error) {
+func (ec *executionContext) unmarshalONewAboutMe2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewAboutMe(ctx context.Context, v interface{}) (*model2.NewAboutMe, error) {
 	if v == nil {
 		return nil, nil
 	}
@@ -10769,12 +10769,12 @@ func (ec *executionContext) unmarshalONewAboutMe2ᚖgithubᚗcomᚋsamithiwatᚋ
 	return &res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalONewBadge2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewBadge(ctx context.Context, v interface{}) (model.NewBadge, error) {
+func (ec *executionContext) unmarshalONewBadge2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewBadge(ctx context.Context, v interface{}) (model2.NewBadge, error) {
 	res, err := ec.unmarshalInputNewBadge(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalONewBadge2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewBadge(ctx context.Context, v interface{}) (*model.NewBadge, error) {
+func (ec *executionContext) unmarshalONewBadge2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewBadge(ctx context.Context, v interface{}) (*model2.NewBadge, error) {
 	if v == nil {
 		return nil, nil
 	}
@@ -10782,12 +10782,12 @@ func (ec *executionContext) unmarshalONewBadge2ᚖgithubᚗcomᚋsamithiwatᚋsa
 	return &res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalONewIcon2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewIcon(ctx context.Context, v interface{}) (model.NewIcon, error) {
+func (ec *executionContext) unmarshalONewIcon2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewIcon(ctx context.Context, v interface{}) (model2.NewIcon, error) {
 	res, err := ec.unmarshalInputNewIcon(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalONewIcon2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewIcon(ctx context.Context, v interface{}) (*model.NewIcon, error) {
+func (ec *executionContext) unmarshalONewIcon2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewIcon(ctx context.Context, v interface{}) (*model2.NewIcon, error) {
 	if v == nil {
 		return nil, nil
 	}
@@ -10795,7 +10795,7 @@ func (ec *executionContext) unmarshalONewIcon2ᚖgithubᚗcomᚋsamithiwatᚋsam
 	return &res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalONewImage2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewImage(ctx context.Context, v interface{}) ([]*model.NewImage, error) {
+func (ec *executionContext) unmarshalONewImage2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewImage(ctx context.Context, v interface{}) ([]*model2.NewImage, error) {
 	if v == nil {
 		return nil, nil
 	}
@@ -10804,7 +10804,7 @@ func (ec *executionContext) unmarshalONewImage2ᚕᚖgithubᚗcomᚋsamithiwat�
 		vSlice = graphql.CoerceList(v)
 	}
 	var err error
-	res := make([]*model.NewImage, len(vSlice))
+	res := make([]*model2.NewImage, len(vSlice))
 	for i := range vSlice {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithIndex(i))
 		res[i], err = ec.unmarshalONewImage2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewImage(ctx, vSlice[i])
@@ -10815,7 +10815,7 @@ func (ec *executionContext) unmarshalONewImage2ᚕᚖgithubᚗcomᚋsamithiwat�
 	return res, nil
 }
 
-func (ec *executionContext) unmarshalONewImage2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewImage(ctx context.Context, v interface{}) (*model.NewImage, error) {
+func (ec *executionContext) unmarshalONewImage2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewImage(ctx context.Context, v interface{}) (*model2.NewImage, error) {
 	if v == nil {
 		return nil, nil
 	}
@@ -10823,7 +10823,7 @@ func (ec *executionContext) unmarshalONewImage2ᚖgithubᚗcomᚋsamithiwatᚋsa
 	return &res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalONewSetting2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewSetting(ctx context.Context, v interface{}) (*model.NewSetting, error) {
+func (ec *executionContext) unmarshalONewSetting2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewSetting(ctx context.Context, v interface{}) (*model2.NewSetting, error) {
 	if v == nil {
 		return nil, nil
 	}
@@ -10831,12 +10831,12 @@ func (ec *executionContext) unmarshalONewSetting2ᚖgithubᚗcomᚋsamithiwatᚋ
 	return &res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalONewTimeline2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewTimeline(ctx context.Context, v interface{}) (model.NewTimeline, error) {
+func (ec *executionContext) unmarshalONewTimeline2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewTimeline(ctx context.Context, v interface{}) (model2.NewTimeline, error) {
 	res, err := ec.unmarshalInputNewTimeline(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalONewTimeline2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewTimeline(ctx context.Context, v interface{}) (*model.NewTimeline, error) {
+func (ec *executionContext) unmarshalONewTimeline2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewTimeline(ctx context.Context, v interface{}) (*model2.NewTimeline, error) {
 	if v == nil {
 		return nil, nil
 	}
@@ -10844,7 +10844,7 @@ func (ec *executionContext) unmarshalONewTimeline2ᚖgithubᚗcomᚋsamithiwat�
 	return &res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalOSetting2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐSetting(ctx context.Context, sel ast.SelectionSet, v *model.Setting) graphql.Marshaler {
+func (ec *executionContext) marshalOSetting2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐSetting(ctx context.Context, sel ast.SelectionSet, v *model2.Setting) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -10903,7 +10903,7 @@ func (ec *executionContext) marshalOTime2ᚖtimeᚐTime(ctx context.Context, sel
 	return res
 }
 
-func (ec *executionContext) marshalOTimeline2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐTimeline(ctx context.Context, sel ast.SelectionSet, v *model.Timeline) graphql.Marshaler {
+func (ec *executionContext) marshalOTimeline2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐTimeline(ctx context.Context, sel ast.SelectionSet, v *model2.Timeline) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}

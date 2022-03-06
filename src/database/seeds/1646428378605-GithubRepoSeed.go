@@ -2,7 +2,7 @@ package seed
 
 import (
 	"github.com/bxcodec/faker/v3"
-	"github.com/samithiwat/samithiwat-backend/src/graph/model"
+	"github.com/samithiwat/samithiwat-backend/src/model"
 	"time"
 )
 

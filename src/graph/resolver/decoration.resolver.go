@@ -6,19 +6,19 @@ package graph
 import (
 	"context"
 	"fmt"
+	model2 "github.com/samithiwat/samithiwat-backend/src/model"
 	"strconv"
 	"time"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/samithiwat/samithiwat-backend/src/graph/generated"
-	"github.com/samithiwat/samithiwat-backend/src/graph/model"
 )
 
-func (r *badgeResolver) DeletedAt(_ context.Context, _ *model.Badge) (*time.Time, error) {
+func (r *badgeResolver) DeletedAt(_ context.Context, _ *model2.Badge) (*time.Time, error) {
 	panic(fmt.Errorf("not implemented"))
 }
 
-func (r *iconResolver) IconType(_ context.Context, obj *model.Icon) (string, error) {
+func (r *iconResolver) IconType(_ context.Context, obj *model2.Icon) (string, error) {
 	iconType, err := r.iconService.CheckIconType(obj.IconType)
 	if err != nil {
 		return "", err
@@ -27,7 +27,7 @@ func (r *iconResolver) IconType(_ context.Context, obj *model.Icon) (string, err
 	return iconType, nil
 }
 
-func (r *iconResolver) DeletedAt(_ context.Context, obj *model.Icon) (*time.Time, error) {
+func (r *iconResolver) DeletedAt(_ context.Context, obj *model2.Icon) (*time.Time, error) {
 	if !obj.DeletedAt.Time.IsZero() {
 		return nil, fiber.ErrNotFound
 	}
@@ -35,7 +35,7 @@ func (r *iconResolver) DeletedAt(_ context.Context, obj *model.Icon) (*time.Time
 	return &obj.DeletedAt.Time, nil
 }
 
-func (r *mutationResolver) CreateIcon(_ context.Context, newIcon model.NewIcon) (*model.Icon, error) {
+func (r *mutationResolver) CreateIcon(_ context.Context, newIcon model2.NewIcon) (*model2.Icon, error) {
 	icon, err := r.iconService.Create(newIcon)
 	if err != nil {
 		return nil, err
@@ -44,7 +44,7 @@ func (r *mutationResolver) CreateIcon(_ context.Context, newIcon model.NewIcon) 
 	return icon, nil
 }
 
-func (r *mutationResolver) UpdateIcon(_ context.Context, id string, newIcon model.NewIcon) (*model.Icon, error) {
+func (r *mutationResolver) UpdateIcon(_ context.Context, id string, newIcon model2.NewIcon) (*model2.Icon, error) {
 	parsedID, err := strconv.Atoi(id)
 	if err != nil {
 		return nil, fiber.NewError(fiber.StatusBadRequest, err)
@@ -58,7 +58,7 @@ func (r *mutationResolver) UpdateIcon(_ context.Context, id string, newIcon mode
 	return icon, nil
 }
 
-func (r *mutationResolver) DeleteIcon(_ context.Context, id string) (*model.Icon, error) {
+func (r *mutationResolver) DeleteIcon(_ context.Context, id string) (*model2.Icon, error) {
 	parsedID, err := strconv.Atoi(id)
 	if err != nil {
 		return nil, fiber.NewError(fiber.StatusBadRequest, err)
@@ -73,7 +73,7 @@ func (r *mutationResolver) DeleteIcon(_ context.Context, id string) (*model.Icon
 	return icon, nil
 }
 
-func (r *mutationResolver) CreateBadge(_ context.Context, newBadge *model.NewBadge) (*model.Badge, error) {
+func (r *mutationResolver) CreateBadge(_ context.Context, newBadge *model2.NewBadge) (*model2.Badge, error) {
 	badge, err := r.badgeService.Create(newBadge)
 	if err != nil {
 		return nil, err
@@ -82,7 +82,7 @@ func (r *mutationResolver) CreateBadge(_ context.Context, newBadge *model.NewBad
 	return badge, nil
 }
 
-func (r *mutationResolver) UpdateBadge(_ context.Context, id string, newBadge *model.NewBadge) (*model.Badge, error) {
+func (r *mutationResolver) UpdateBadge(_ context.Context, id string, newBadge *model2.NewBadge) (*model2.Badge, error) {
 	parsedID, err := strconv.Atoi(id)
 	if err != nil {
 		return nil, fiber.NewError(fiber.StatusBadRequest, err)
@@ -96,7 +96,7 @@ func (r *mutationResolver) UpdateBadge(_ context.Context, id string, newBadge *m
 	return badge, nil
 }
 
-func (r *mutationResolver) DeleteBadge(_ context.Context, id string) (*model.Badge, error) {
+func (r *mutationResolver) DeleteBadge(_ context.Context, id string) (*model2.Badge, error) {
 	parsedID, err := strconv.Atoi(id)
 	if err != nil {
 		return nil, fiber.NewError(fiber.StatusBadRequest, err)
@@ -111,7 +111,7 @@ func (r *mutationResolver) DeleteBadge(_ context.Context, id string) (*model.Bad
 	return badge, nil
 }
 
-func (r *queryResolver) Icons(_ context.Context) ([]*model.Icon, error) {
+func (r *queryResolver) Icons(_ context.Context) ([]*model2.Icon, error) {
 	icons, err := r.iconService.GetAll()
 
 	if err != nil {
@@ -121,7 +121,7 @@ func (r *queryResolver) Icons(_ context.Context) ([]*model.Icon, error) {
 	return icons, nil
 }
 
-func (r *queryResolver) Icon(_ context.Context, id string) (*model.Icon, error) {
+func (r *queryResolver) Icon(_ context.Context, id string) (*model2.Icon, error) {
 	parsedID, err := strconv.Atoi(id)
 	if err != nil {
 		return nil, fiber.NewError(fiber.StatusBadRequest, err)
@@ -136,19 +136,19 @@ func (r *queryResolver) Icon(_ context.Context, id string) (*model.Icon, error) 
 	return icon, nil
 }
 
-func (r *queryResolver) IconsByOwner(_ context.Context, _ int, _ string) ([]*model.Icon, error) {
+func (r *queryResolver) IconsByOwner(_ context.Context, _ int, _ string) ([]*model2.Icon, error) {
 	panic(fmt.Errorf("not implemented"))
 }
 
-func (r *queryResolver) IconsByOwnerAndType(_ context.Context, _ int, _ string, _ string) ([]*model.Icon, error) {
+func (r *queryResolver) IconsByOwnerAndType(_ context.Context, _ int, _ string, _ string) ([]*model2.Icon, error) {
 	panic(fmt.Errorf("not implemented"))
 }
 
-func (r *queryResolver) IconsByType(_ context.Context, _ string) ([]*model.Icon, error) {
+func (r *queryResolver) IconsByType(_ context.Context, _ string) ([]*model2.Icon, error) {
 	panic(fmt.Errorf("not implemented"))
 }
 
-func (r *queryResolver) Badges(_ context.Context) ([]*model.Badge, error) {
+func (r *queryResolver) Badges(_ context.Context) ([]*model2.Badge, error) {
 	badges, err := r.badgeService.GetAll()
 
 	if err != nil {
@@ -158,7 +158,7 @@ func (r *queryResolver) Badges(_ context.Context) ([]*model.Badge, error) {
 	return badges, nil
 }
 
-func (r *queryResolver) Badge(_ context.Context, id string) (*model.Badge, error) {
+func (r *queryResolver) Badge(_ context.Context, id string) (*model2.Badge, error) {
 	parsedID, err := strconv.Atoi(id)
 	if err != nil {
 		return nil, fiber.NewError(fiber.StatusBadRequest, err)
@@ -173,15 +173,15 @@ func (r *queryResolver) Badge(_ context.Context, id string) (*model.Badge, error
 	return badge, nil
 }
 
-func (r *queryResolver) BadgesByOwner(_ context.Context, _ int, _ string) ([]*model.Badge, error) {
+func (r *queryResolver) BadgesByOwner(_ context.Context, _ int, _ string) ([]*model2.Badge, error) {
 	panic(fmt.Errorf("not implemented"))
 }
 
-func (r *queryResolver) BadgesByOwnerAndType(_ context.Context, _ int, _ string, _ string) ([]*model.Badge, error) {
+func (r *queryResolver) BadgesByOwnerAndType(_ context.Context, _ int, _ string, _ string) ([]*model2.Badge, error) {
 	panic(fmt.Errorf("not implemented"))
 }
 
-func (r *queryResolver) BadgesByType(_ context.Context, _ string) ([]*model.Badge, error) {
+func (r *queryResolver) BadgesByType(_ context.Context, _ string) ([]*model2.Badge, error) {
 	panic(fmt.Errorf("not implemented"))
 }
 

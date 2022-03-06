@@ -7,8 +7,8 @@ import (
 	. "github.com/onsi/ginkgo/v2"
 	. "github.com/onsi/gomega"
 	"github.com/samithiwat/samithiwat-backend/src/database"
-	"github.com/samithiwat/samithiwat-backend/src/graph/model"
-	service "github.com/samithiwat/samithiwat-backend/src/graph/services"
+	"github.com/samithiwat/samithiwat-backend/src/model"
+	"github.com/samithiwat/samithiwat-backend/src/service"
 	"regexp"
 	"time"
 )

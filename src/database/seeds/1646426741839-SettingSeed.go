@@ -1,7 +1,7 @@
 package seed
 
 import (
-	"github.com/samithiwat/samithiwat-backend/src/graph/model"
+	"github.com/samithiwat/samithiwat-backend/src/model"
 )
 
 func (s Seed) SettingSeed1646426741839() model.Setting {

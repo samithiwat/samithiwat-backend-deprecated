@@ -2,7 +2,9 @@ package graph
 
 //go:generate go run github.com/99designs/gqlgen generate
 
-import service "github.com/samithiwat/samithiwat-backend/src/graph/services"
+import (
+	"github.com/samithiwat/samithiwat-backend/src/service"
+)
 
 // This file will not be regenerated automatically.
 //

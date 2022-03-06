@@ -9,7 +9,7 @@ package main
 import (
 	"github.com/samithiwat/samithiwat-backend/src/database"
 	"github.com/samithiwat/samithiwat-backend/src/graph/resolver"
-	"github.com/samithiwat/samithiwat-backend/src/graph/services"
+	"github.com/samithiwat/samithiwat-backend/src/service"
 )
 
 // Injectors from wire.go:

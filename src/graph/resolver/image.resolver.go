@@ -6,26 +6,26 @@ package graph
 import (
 	"context"
 	"fmt"
+	model2 "github.com/samithiwat/samithiwat-backend/src/model"
 	"strconv"
 	"time"
 
 	"github.com/samithiwat/samithiwat-backend/src/graph/generated"
-	"github.com/samithiwat/samithiwat-backend/src/graph/model"
 )
 
-func (r *imageResolver) CreatedDate(_ context.Context, _ *model.Image) (*time.Time, error) {
+func (r *imageResolver) CreatedDate(_ context.Context, _ *model2.Image) (*time.Time, error) {
 	panic(fmt.Errorf("not implemented"))
 }
 
-func (r *imageResolver) UpdatedDate(_ context.Context, _ *model.Image) (*time.Time, error) {
+func (r *imageResolver) UpdatedDate(_ context.Context, _ *model2.Image) (*time.Time, error) {
 	panic(fmt.Errorf("not implemented"))
 }
 
-func (r *imageResolver) DeletedDate(_ context.Context, _ *model.Image) (*time.Time, error) {
+func (r *imageResolver) DeletedDate(_ context.Context, _ *model2.Image) (*time.Time, error) {
 	panic(fmt.Errorf("not implemented"))
 }
 
-func (r *mutationResolver) CreateImage(_ context.Context, newImage model.NewImage) (*model.Image, error) {
+func (r *mutationResolver) CreateImage(_ context.Context, newImage model2.NewImage) (*model2.Image, error) {
 	image, err := r.imageService.Create(&newImage)
 	if err != nil {
 		return nil, err
@@ -34,7 +34,7 @@ func (r *mutationResolver) CreateImage(_ context.Context, newImage model.NewImag
 	return image, nil
 }
 
-func (r *mutationResolver) UpdateImage(_ context.Context, id string, newImage model.NewImage) (*model.Image, error) {
+func (r *mutationResolver) UpdateImage(_ context.Context, id string, newImage model2.NewImage) (*model2.Image, error) {
 	parsedID, err := strconv.Atoi(id)
 
 	if err != nil {
@@ -49,7 +49,7 @@ func (r *mutationResolver) UpdateImage(_ context.Context, id string, newImage mo
 	return image, nil
 }
 
-func (r *mutationResolver) DeleteImage(_ context.Context, id string) (*model.Image, error) {
+func (r *mutationResolver) DeleteImage(_ context.Context, id string) (*model2.Image, error) {
 	parsedID, err := strconv.Atoi(id)
 	if err != nil {
 		return nil, err
@@ -63,7 +63,7 @@ func (r *mutationResolver) DeleteImage(_ context.Context, id string) (*model.Ima
 	return image, nil
 }
 
-func (r *queryResolver) Images(_ context.Context) ([]*model.Image, error) {
+func (r *queryResolver) Images(_ context.Context) ([]*model2.Image, error) {
 	images, err := r.imageService.GetAll()
 	if err != nil {
 		return nil, err
@@ -72,7 +72,7 @@ func (r *queryResolver) Images(_ context.Context) ([]*model.Image, error) {
 	return images, nil
 }
 
-func (r *queryResolver) Image(_ context.Context, id string) (*model.Image, error) {
+func (r *queryResolver) Image(_ context.Context, id string) (*model2.Image, error) {
 	parsedID, err := strconv.Atoi(id)
 	if err != nil {
 		return nil, err
