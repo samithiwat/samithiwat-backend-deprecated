@@ -12,16 +12,18 @@ type ImageService interface {
 	Create(imageDto *model.NewImage) (*model.Image, error)
 	Update(id int64, imageDto *model.NewImage) (*model.Image, error)
 	Delete(id int64) (*model.Image, error)
-	DtoToRaw(imageDto model.NewImage) *model.Image
+	DtoToRaw(imageDto model.NewImage) (*model.Image, error)
 }
 
 type imageService struct {
 	database database.Database
+	validatorService ValidatorService
 }
 
-func NewImageService(db database.Database) ImageService {
+func NewImageService(db database.Database, 	validatorService ValidatorService) ImageService {
 	return &imageService{
 		database: db,
+		validatorService: validatorService,
 	}
 }
 
@@ -58,7 +60,10 @@ func (s *imageService) GetOne(id int64) (*model.Image, error) {
 func (s *imageService) Create(imageDto *model.NewImage) (*model.Image, error) {
 	db := s.database.GetConnection()
 
-	image := s.DtoToRaw(*imageDto)
+	image, err := s.DtoToRaw(*imageDto)
+	if err != nil{
+		return nil, err
+	}
 
 	result := db.Create(&image)
 
@@ -73,7 +78,10 @@ func (s *imageService) Update(id int64, imageDto *model.NewImage) (*model.Image,
 	db := s.database.GetConnection()
 
 	var image *model.Image
-	raw := s.DtoToRaw(*imageDto)
+	raw, err := s.DtoToRaw(*imageDto)
+	if err != nil{
+		return nil, err
+	}
 
 	result := db.First(&image, "id = ?", id).Updates(raw)
 
@@ -106,7 +114,12 @@ func (s *imageService) Delete(id int64) (*model.Image, error) {
 	return image, nil
 }
 
-func (s *imageService) DtoToRaw(imageDto model.NewImage) *model.Image {
+func (s *imageService) DtoToRaw(imageDto model.NewImage) (*model.Image, error) {
+	err := s.validatorService.Image(imageDto)
+	if err != nil{
+		return nil, err
+	}
+
 	image := model.Image{ID: imageDto.ID, Name: imageDto.Name, Description: imageDto.Description, ImgUrl: imageDto.ImgURL}
 
 	if imageDto.OwnerID > 0 {
@@ -114,5 +127,5 @@ func (s *imageService) DtoToRaw(imageDto model.NewImage) *model.Image {
 		image.OwnerType = imageDto.OwnerType
 	}
 
-	return &image
+	return &image, nil
 }

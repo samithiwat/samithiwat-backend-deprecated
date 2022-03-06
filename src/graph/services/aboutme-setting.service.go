@@ -12,17 +12,19 @@ type AboutMeSettingService interface {
 	Create(settingDto *model.NewAboutMe) (*model.AboutMe, error)
 	Update(id int64, imageDto *model.NewAboutMe) (*model.AboutMe, error)
 	Delete(id int64) (*model.AboutMe, error)
-	DtoToRaw(settingDto *model.NewAboutMe) *model.AboutMe
+	DtoToRaw(settingDto *model.NewAboutMe) (*model.AboutMe, error)
 }
 
-func NewAboutMeSettingService(db database.Database) AboutMeSettingService {
+func NewAboutMeSettingService(db database.Database, validatorService ValidatorService) AboutMeSettingService {
 	return &aboutMeSettingService{
 		database: db,
+		validatorService: validatorService,
 	}
 }
 
 type aboutMeSettingService struct {
 	database database.Database
+	validatorService ValidatorService
 }
 
 func (s *aboutMeSettingService) GetAll() ([]*model.AboutMe, error) {
@@ -56,7 +58,10 @@ func (s *aboutMeSettingService) GetOne(id int64) (*model.AboutMe, error) {
 func (s *aboutMeSettingService) Create(aboutMeDto *model.NewAboutMe) (*model.AboutMe, error) {
 	db := s.database.GetConnection()
 
-	setting := s.DtoToRaw(aboutMeDto)
+	setting, err := s.DtoToRaw(aboutMeDto)
+	if err != nil{
+		return nil, err
+	}
 
 	result := db.Create(&setting)
 
@@ -71,7 +76,10 @@ func (s *aboutMeSettingService) Update(id int64, aboutMeDto *model.NewAboutMe) (
 	db := s.database.GetConnection()
 
 	var aboutMe *model.AboutMe
-	raw := s.DtoToRaw(aboutMeDto)
+	raw, err := s.DtoToRaw(aboutMeDto)
+	if err != nil{
+		return nil, err
+	}
 
 	result := db.First(&aboutMe, "id = ?", id).Updates(raw)
 
@@ -104,7 +112,12 @@ func (s *aboutMeSettingService) Delete(id int64) (*model.AboutMe, error) {
 	return aboutMe, nil
 }
 
-func (s *aboutMeSettingService) DtoToRaw(settingDto *model.NewAboutMe) *model.AboutMe {
+func (s *aboutMeSettingService) DtoToRaw(settingDto *model.NewAboutMe) (*model.AboutMe, error) {
+	err := s.validatorService.AboutMe(*settingDto)
+	if err != nil{
+		return nil, err
+	}
+
 	aboutMe := model.AboutMe{ID: settingDto.ID, Name: settingDto.Name, Description: settingDto.Description, Content: settingDto.Content, ImgUrl: settingDto.ImgURL, SettingID: settingDto.SettingID}
-	return &aboutMe
+	return &aboutMe, err
 }

@@ -14,14 +14,15 @@ type SettingService interface {
 	Create(settingDto *model.NewSetting) (*model.Setting, error)
 	Update(id int64, imageDto *model.NewSetting) (*model.Setting, error)
 	Delete(id int64) (*model.Setting, error)
-	DtoToRaw(settingDto *model.NewSetting) *model.Setting
+	DtoToRaw(settingDto *model.NewSetting) (*model.Setting, error)
 }
 
-func NewSettingService(db database.Database, aboutMeSettingService AboutMeSettingService, timelineSettingService TimelineSettingService) SettingService {
+func NewSettingService(db database.Database, aboutMeSettingService AboutMeSettingService, timelineSettingService TimelineSettingService, validatorService ValidatorService) SettingService {
 	return &settingService{
 		database:               db,
 		aboutMeSettingService:  aboutMeSettingService,
 		timelineSettingService: timelineSettingService,
+		validatorService: validatorService,
 	}
 }
 
@@ -29,6 +30,7 @@ type settingService struct {
 	database               database.Database
 	aboutMeSettingService  AboutMeSettingService
 	timelineSettingService TimelineSettingService
+	validatorService ValidatorService
 }
 
 func (s *settingService) GetAll() ([]*model.Setting, error) {
@@ -75,7 +77,10 @@ func (s *settingService) GetActivatedSetting() (*model.Setting, error) {
 
 func (s *settingService) Create(settingDto *model.NewSetting) (*model.Setting, error) {
 	db := s.database.GetConnection()
-	setting := s.DtoToRaw(settingDto)
+	setting, err := s.DtoToRaw(settingDto)
+	if err != nil{
+		return nil, err
+	}
 
 	result := db.Create(&setting)
 
@@ -90,7 +95,10 @@ func (s *settingService) Update(id int64, settingDto *model.NewSetting) (*model.
 	db := s.database.GetConnection()
 
 	var setting *model.Setting
-	raw := s.DtoToRaw(settingDto)
+	raw, err := s.DtoToRaw(settingDto)
+	if err != nil{
+		return nil, err
+	}
 
 	result := db.Preload("AboutMe").Preload("Timeline").Preload("Timeline.Icon").Preload("Timeline.Images").First(&setting, "id = ?", id).Updates(raw)
 
@@ -133,10 +141,22 @@ func (s *settingService) Delete(id int64) (*model.Setting, error) {
 	return setting, nil
 }
 
-func (s *settingService) DtoToRaw(settingDto *model.NewSetting) *model.Setting {
-	rawTimeline := s.timelineSettingService.DtoToRaw(&settingDto.Timeline)
-	rawAboutMe := s.aboutMeSettingService.DtoToRaw(&settingDto.AboutMe)
+func (s *settingService) DtoToRaw(settingDto *model.NewSetting) (*model.Setting, error) {
+	err := s.validatorService.Setting(*settingDto)
+	if err != nil{
+		return nil, err
+	}
+
+	rawTimeline, err := s.timelineSettingService.DtoToRaw(&settingDto.Timeline)
+	if err != nil{
+		return nil, err
+	}
+	rawAboutMe, err := s.aboutMeSettingService.DtoToRaw(&settingDto.AboutMe)
+	if err != nil{
+		return nil, err
+	}
+
 	setting := model.Setting{AboutMe: *rawAboutMe, Timeline: *rawTimeline, IsActivated: settingDto.IsActivated}
 
-	return &setting
+	return &setting, nil
 }

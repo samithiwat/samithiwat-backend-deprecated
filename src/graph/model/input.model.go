@@ -5,10 +5,10 @@ import "time"
 // TODO: Add validator
 
 type NewSetting struct {
-	ID       	int64       `json:"id"`
-	AboutMe  	NewAboutMe  `json:"AboutMeID"`
-	Timeline 	NewTimeline `json:"TimelineID"`
-	IsActivated bool 	 	`json:"isActivated"`
+	ID          int64       `json:"id"`
+	AboutMe     NewAboutMe  `json:"AboutMeID"`
+	Timeline    NewTimeline `json:"TimelineID"`
+	IsActivated bool        `json:"isActivated" validate:"boolean"`
 }
 
 type NewAboutMe struct {
@@ -16,14 +16,14 @@ type NewAboutMe struct {
 	Name        string `json:"Name"`
 	Description string `json:"Description"`
 	Content     string `json:"Content"`
-	ImgURL      string `json:"ImgUrl"`
-	SettingID   int64 `json:"SettingID"`
+	ImgURL      string `json:"ImgUrl" validate:"url"`
+	SettingID   int64  `json:"SettingID"`
 }
 
 type NewBadge struct {
 	ID        int64   `json:"ID"`
 	Name      string  `json:"Name"`
-	Color     string  `json:"Color"`
+	Color     string  `json:"Color" validate:"iscolor"`
 	Icon      NewIcon `json:"IconID"`
 	OwnerID   int64   `json:"OwnerID"`
 	OwnerType string  `json:"OwnerType"`
@@ -32,8 +32,8 @@ type NewBadge struct {
 type NewIcon struct {
 	ID        int64  `json:"ID"`
 	Name      string `json:"Name"`
-	BgColor   string `json:"BgColor"`
-	IconType  string `json:"IconType"`
+	BgColor   string `json:"BgColor" validate:"iscolor"`
+	IconType  string `json:"IconType" validate:"oneof='icon' 'svg'"`
 	OwnerID   int64  `json:"OwnerID"`
 	OwnerType string `json:"OwnerType"`
 }
@@ -42,7 +42,7 @@ type NewImage struct {
 	ID          int64  `json:"id"`
 	Name        string `json:"name"`
 	Description string `json:"description"`
-	ImgURL      string `json:"imgUrl"`
+	ImgURL      string `json:"imgUrl" validate:"url"`
 	OwnerID     int64  `json:"ownerId"`
 	OwnerType   string `json:"ownerType"`
 }
@@ -52,11 +52,11 @@ type NewTimeline struct {
 	Slug        string      `json:"Slug"`
 	Name        string      `json:"Name"`
 	Description string      `json:"Description"`
-	Thumbnail   string      `json:"Thumbnail"`
+	Thumbnail   string      `json:"Thumbnail" validate:"url"`
 	EventDate   time.Time   `json:"EventDate"`
 	Images      []*NewImage `json:"Images"`
 	Icon        *NewIcon    `json:"Icon"`
-	SettingID   int64      `json:"SettingID"`
+	SettingID   int64       `json:"SettingID"`
 }
 
 type NewGithubRepo struct {
@@ -64,8 +64,8 @@ type NewGithubRepo struct {
 	Name         string    `json:"name"`
 	Author       string    `json:"author"`
 	Description  string    `json:"description"`
-	ThumbnailUrl string    `json:"thumbnail_url"`
-	Url          string    `json:"url"`
+	ThumbnailUrl string    `json:"thumbnail_url" validate:"url"`
+	Url          string    `json:"url" validate:"url"`
 	LatestUpdate time.Time `json:"latest_update"`
 	Star         int64     `json:"star"`
 	Framework    NewBadge  `json:"framework"`

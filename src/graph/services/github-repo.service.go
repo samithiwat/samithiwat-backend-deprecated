@@ -13,18 +13,20 @@ type GithubRepoService interface {
 	Create(githubRepoDto *model.NewGithubRepo) (*model.GithubRepo, error)
 	Update(id int64, githubRepoDto *model.NewGithubRepo) (*model.GithubRepo, error)
 	Delete(id int64) (*model.GithubRepo, error)
-	DtoToRaw(githubRepoDto model.NewGithubRepo) *model.GithubRepo
+	DtoToRaw(githubRepoDto model.NewGithubRepo) (*model.GithubRepo, error)
 }
 
 type githubRepoService struct {
 	database     database.Database
 	badgeService BadgeService
+	validatorService ValidatorService
 }
 
-func NewGithubRepoService(db database.Database, badgeService BadgeService) GithubRepoService {
+func NewGithubRepoService(db database.Database, badgeService BadgeService, validatorService ValidatorService) GithubRepoService {
 	return &githubRepoService{
 		database:     db,
 		badgeService: badgeService,
+		validatorService: validatorService,
 	}
 }
 
@@ -58,7 +60,10 @@ func (s githubRepoService) GetOne(id int64) (*model.GithubRepo, error) {
 
 func (s githubRepoService) Create(githubRepoDto *model.NewGithubRepo) (*model.GithubRepo, error) {
 	db := s.database.GetConnection()
-	repo := s.DtoToRaw(*githubRepoDto)
+	repo, err := s.DtoToRaw(*githubRepoDto)
+	if err != nil{
+		return nil, err
+	}
 
 	result := db.Create(&repo)
 
@@ -73,7 +78,10 @@ func (s githubRepoService) Update(id int64, githubRepoDto *model.NewGithubRepo) 
 	db := s.database.GetConnection()
 
 	var repo *model.GithubRepo
-	raw := s.DtoToRaw(*githubRepoDto)
+	raw, err := s.DtoToRaw(*githubRepoDto)
+	if err != nil{
+		return nil, err
+	}
 
 	result := db.Preload("Language").Preload("Framework").Preload("Language.Icon").Preload("Framework.Icon").First(&repo, "id = ?", id).Updates(raw)
 
@@ -116,10 +124,22 @@ func (s githubRepoService) Delete(id int64) (*model.GithubRepo, error) {
 	return repo, nil
 }
 
-func (s githubRepoService) DtoToRaw(githubRepoDto model.NewGithubRepo) *model.GithubRepo {
-	rawFramework := s.badgeService.DtoToRaw(githubRepoDto.Framework)
-	rawLanguage := s.badgeService.DtoToRaw(githubRepoDto.Language)
+func (s githubRepoService) DtoToRaw(githubRepoDto model.NewGithubRepo) (*model.GithubRepo, error) {
+	err := s.validatorService.GithubRepo(githubRepoDto)
+	if err != nil{
+		return nil, err
+	}
+
+	rawFramework, err := s.badgeService.DtoToRaw(githubRepoDto.Framework)
+	if err != nil{
+		return nil, err
+	}
+
+	rawLanguage, err := s.badgeService.DtoToRaw(githubRepoDto.Language)
+	if err != nil{
+		return nil, err
+	}
 
 	repo := model.GithubRepo{ID: githubRepoDto.ID, Name: githubRepoDto.Name, Description: githubRepoDto.Description, Author: githubRepoDto.Author, ThumbnailUrl: githubRepoDto.ThumbnailUrl, Url: githubRepoDto.Url, Star: githubRepoDto.Star, LatestUpdate: githubRepoDto.LatestUpdate, Framework: *rawFramework, Language: *rawLanguage}
-	return &repo
+	return &repo, nil
 }

@@ -15,16 +15,18 @@ type IconService interface {
 	Update(id int64, iconDto model.NewIcon) (*model.Icon, error)
 	Delete(id int64) (*model.Icon, error)
 	CheckIconType(iconType enum.IconType) (string, error)
-	DtoToRaw(iconDto model.NewIcon) *model.Icon
+	DtoToRaw(iconDto model.NewIcon) (*model.Icon, error)
 }
 
 type iconService struct {
 	database database.Database
+	validatorService ValidatorService
 }
 
-func NewIconService(database database.Database) IconService {
+func NewIconService(database database.Database, validatorService ValidatorService) IconService {
 	return &iconService{
 		database: database,
+		validatorService: validatorService,
 	}
 }
 
@@ -64,7 +66,10 @@ func (s *iconService) GetOne(id int64) (*model.Icon, error) {
 func (s *iconService) Create(iconDto model.NewIcon) (*model.Icon, error) {
 	db := s.database.GetConnection()
 
-	icon := s.DtoToRaw(iconDto)
+	icon, err := s.DtoToRaw(iconDto)
+	if err != nil{
+		return nil, err
+	}
 
 	result := db.Create(&icon)
 
@@ -79,7 +84,10 @@ func (s *iconService) Update(id int64, iconDto model.NewIcon) (*model.Icon, erro
 	db := s.database.GetConnection()
 
 	var icon *model.Icon
-	raw := s.DtoToRaw(iconDto)
+	raw, err := s.DtoToRaw(iconDto)
+	if err != nil{
+		return nil, err
+	}
 
 	result := db.First(&icon, "id = ?", id).Updates(raw)
 
@@ -120,7 +128,13 @@ func (s *iconService) CheckIconType(iconType enum.IconType) (string, error) {
 	return result, nil
 }
 
-func (s *iconService) DtoToRaw(iconDto model.NewIcon) *model.Icon {
+func (s *iconService) DtoToRaw(iconDto model.NewIcon) (*model.Icon, error) {
+	err := s.validatorService.Icon(iconDto)
+	if err != nil{
+		return nil, err
+	}
+
+
 	icon := model.Icon{ID: iconDto.ID, Name: iconDto.Name, BgColor: iconDto.BgColor, IconType: enum.IconType(iconDto.IconType)}
 
 	if iconDto.OwnerID > 0{
@@ -128,5 +142,5 @@ func (s *iconService) DtoToRaw(iconDto model.NewIcon) *model.Icon {
 		icon.OwnerType = iconDto.OwnerType
 	}
 
-	return &icon
+	return &icon, nil
 }

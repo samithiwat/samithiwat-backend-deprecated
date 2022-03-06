@@ -12,21 +12,23 @@ type TimelineSettingService interface {
 	Create(settingDto *model.NewTimeline) (*model.Timeline, error)
 	Update(id int64, imageDto *model.NewTimeline) (*model.Timeline, error)
 	Delete(id int64) (*model.Timeline, error)
-	DtoToRaw(settingDto *model.NewTimeline) *model.Timeline
+	DtoToRaw(settingDto *model.NewTimeline) (*model.Timeline, error)
 }
 
-func NewTimelineSettingService(db database.Database, iconService IconService, imageService ImageService) TimelineSettingService {
+func NewTimelineSettingService(db database.Database, iconService IconService, imageService ImageService, validatorService ValidatorService) TimelineSettingService {
 	return &timelineSettingService{
-		database:     db,
-		iconService:  iconService,
-		imageService: imageService,
+		database:         db,
+		iconService:      iconService,
+		imageService:     imageService,
+		validatorService: validatorService,
 	}
 }
 
 type timelineSettingService struct {
-	database     database.Database
-	iconService  IconService
-	imageService ImageService
+	database         database.Database
+	iconService      IconService
+	imageService     ImageService
+	validatorService ValidatorService
 }
 
 func (s *timelineSettingService) GetAll() ([]*model.Timeline, error) {
@@ -58,7 +60,10 @@ func (s *timelineSettingService) GetOne(id int64) (*model.Timeline, error) {
 func (s *timelineSettingService) Create(timelineDto *model.NewTimeline) (*model.Timeline, error) {
 	db := s.database.GetConnection()
 
-	setting := s.DtoToRaw(timelineDto)
+	setting, err := s.DtoToRaw(timelineDto)
+	if err != nil{
+		return nil, err
+	}
 
 	result := db.Create(&setting)
 
@@ -73,7 +78,10 @@ func (s *timelineSettingService) Update(id int64, timelineDto *model.NewTimeline
 	db := s.database.GetConnection()
 
 	var timeline *model.Timeline
-	raw := s.DtoToRaw(timelineDto)
+	raw, err := s.DtoToRaw(timelineDto)
+	if err != nil{
+		return nil, err
+	}
 
 	result := db.First(&timeline, "id = ?", id).Omit("SettingID").Updates(raw)
 
@@ -114,15 +122,26 @@ func (s *timelineSettingService) Delete(id int64) (*model.Timeline, error) {
 	return timeline, nil
 }
 
-func (s *timelineSettingService) DtoToRaw(settingDto *model.NewTimeline) *model.Timeline {
+func (s *timelineSettingService) DtoToRaw(settingDto *model.NewTimeline) (*model.Timeline, error) {
+	err := s.validatorService.Timeline(*settingDto)
+	if err != nil{
+		return nil, err
+	}
+
 	var icon *model.Icon
 	if settingDto.Icon != nil {
-		icon = s.iconService.DtoToRaw(*settingDto.Icon)
+		icon, err = s.iconService.DtoToRaw(*settingDto.Icon)
+		if err != nil{
+			return nil, err
+		}
 	}
 
 	var images []model.Image
 	for _, dto := range settingDto.Images {
-		raw := s.imageService.DtoToRaw(*dto)
+		raw, err := s.imageService.DtoToRaw(*dto)
+		if err != nil{
+			return nil, err
+		}
 		images = append(images, *raw)
 	}
 
@@ -131,5 +150,5 @@ func (s *timelineSettingService) DtoToRaw(settingDto *model.NewTimeline) *model.
 		timeline.Icon = *icon
 	}
 
-	return &timeline
+	return &timeline, nil
 }
