@@ -3,7 +3,7 @@ module github.com/samithiwat/samithiwat-backend
 go 1.17
 
 require (
-	github.com/99designs/gqlgen v0.16.0
+	github.com/99designs/gqlgen v0.17.1
 	github.com/DATA-DOG/go-sqlmock v1.5.0
 	github.com/arsmn/fastgql v0.14.0
 	github.com/bxcodec/faker/v3 v3.7.0
@@ -16,7 +16,7 @@ require (
 	github.com/onsi/gomega v1.17.0
 	github.com/spf13/viper v1.10.1
 	github.com/valyala/fasthttp v1.33.0
-	github.com/vektah/gqlparser/v2 v2.2.0
+	github.com/vektah/gqlparser/v2 v2.4.0
 	gorm.io/driver/postgres v1.3.1
 	gorm.io/gorm v1.23.1
 )
