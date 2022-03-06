@@ -6,11 +6,11 @@ package graph
 import (
 	"context"
 	"fmt"
-	"github.com/samithiwat/samithiwat-backend/src/model"
 	"strconv"
 	"time"
 
 	"github.com/samithiwat/samithiwat-backend/src/graph/generated"
+	"github.com/samithiwat/samithiwat-backend/src/model"
 )
 
 func (r *imageResolver) CreatedDate(_ context.Context, _ *model.Image) (*time.Time, error) {

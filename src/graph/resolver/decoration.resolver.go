@@ -6,12 +6,12 @@ package graph
 import (
 	"context"
 	"fmt"
-	"github.com/samithiwat/samithiwat-backend/src/model"
 	"strconv"
 	"time"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/samithiwat/samithiwat-backend/src/graph/generated"
+	"github.com/samithiwat/samithiwat-backend/src/model"
 )
 
 func (r *badgeResolver) DeletedAt(_ context.Context, _ *model.Badge) (*time.Time, error) {
