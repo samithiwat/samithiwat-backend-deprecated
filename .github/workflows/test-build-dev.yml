@@ -25,4 +25,4 @@ jobs:
         with:
           context: .
           push: false
-          tags: ${{ format('samithiwat-backend/{0}:dev', secrets.DEPLOYMENT_NAME) }}
+          tags: dev
