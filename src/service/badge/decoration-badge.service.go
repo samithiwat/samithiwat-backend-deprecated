@@ -1,12 +1,14 @@
-package service
+package badge
 
 import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/samithiwat/samithiwat-backend/src/model"
 	repository "github.com/samithiwat/samithiwat-backend/src/repository/gorm"
+	"github.com/samithiwat/samithiwat-backend/src/service"
+	"github.com/samithiwat/samithiwat-backend/src/service/icon"
 )
 
-type BadgeService interface {
+type Service interface {
 	GetAll() ([]*model.Badge, error)
 	GetOne(id int64) (*model.Badge, error)
 	Create(badgeDto *model.NewBadge) (*model.Badge, error)
@@ -17,11 +19,11 @@ type BadgeService interface {
 
 type badgeService struct {
 	repository       repository.GormRepository
-	iconService      IconService
-	validatorService ValidatorService
+	iconService      icon.Service
+	validatorService service.ValidatorService
 }
 
-func NewBadgeService(repository repository.GormRepository, iconService IconService, validatorService ValidatorService) BadgeService {
+func NewBadgeService(repository repository.GormRepository, iconService icon.Service, validatorService service.ValidatorService) Service {
 	return &badgeService{
 		repository:       repository,
 		iconService:      iconService,

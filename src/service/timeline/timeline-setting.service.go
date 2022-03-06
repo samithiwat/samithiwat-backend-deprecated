@@ -1,12 +1,15 @@
-package service
+package timeline
 
 import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/samithiwat/samithiwat-backend/src/model"
 	repository "github.com/samithiwat/samithiwat-backend/src/repository/gorm"
+	"github.com/samithiwat/samithiwat-backend/src/service"
+	"github.com/samithiwat/samithiwat-backend/src/service/icon"
+	"github.com/samithiwat/samithiwat-backend/src/service/image"
 )
 
-type TimelineSettingService interface {
+type Service interface {
 	GetAll() ([]*model.Timeline, error)
 	GetOne(id int64) (*model.Timeline, error)
 	Create(settingDto *model.NewTimeline) (*model.Timeline, error)
@@ -15,7 +18,7 @@ type TimelineSettingService interface {
 	DtoToRaw(settingDto *model.NewTimeline) (*model.Timeline, error)
 }
 
-func NewTimelineSettingService(repository repository.GormRepository, iconService IconService, imageService ImageService, validatorService ValidatorService) TimelineSettingService {
+func NewTimelineSettingService(repository repository.GormRepository, iconService icon.Service, imageService image.Service, validatorService service.ValidatorService) Service {
 	return &timelineSettingService{
 		repository:       repository,
 		iconService:      iconService,
@@ -26,9 +29,9 @@ func NewTimelineSettingService(repository repository.GormRepository, iconService
 
 type timelineSettingService struct {
 	repository       repository.GormRepository
-	iconService      IconService
-	imageService     ImageService
-	validatorService ValidatorService
+	iconService      icon.Service
+	imageService     image.Service
+	validatorService service.ValidatorService
 }
 
 func (s *timelineSettingService) GetAll() ([]*model.Timeline, error) {

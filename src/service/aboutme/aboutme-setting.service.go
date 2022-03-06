@@ -1,12 +1,13 @@
-package service
+package aboutme
 
 import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/samithiwat/samithiwat-backend/src/model"
 	repository "github.com/samithiwat/samithiwat-backend/src/repository/gorm"
+	"github.com/samithiwat/samithiwat-backend/src/service"
 )
 
-type AboutMeSettingService interface {
+type Service interface {
 	GetAll() ([]*model.AboutMe, error)
 	GetOne(id int64) (*model.AboutMe, error)
 	Create(settingDto *model.NewAboutMe) (*model.AboutMe, error)
@@ -15,7 +16,7 @@ type AboutMeSettingService interface {
 	DtoToRaw(settingDto *model.NewAboutMe) (*model.AboutMe, error)
 }
 
-func NewAboutMeSettingService(repository repository.GormRepository, validatorService ValidatorService) AboutMeSettingService {
+func NewAboutMeSettingService(repository repository.GormRepository, validatorService service.ValidatorService) Service {
 	return &aboutMeSettingService{
 		repository:       repository,
 		validatorService: validatorService,
@@ -24,7 +25,7 @@ func NewAboutMeSettingService(repository repository.GormRepository, validatorSer
 
 type aboutMeSettingService struct {
 	repository       repository.GormRepository
-	validatorService ValidatorService
+	validatorService service.ValidatorService
 }
 
 func (s *aboutMeSettingService) GetAll() ([]*model.AboutMe, error) {

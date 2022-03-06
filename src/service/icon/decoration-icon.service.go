@@ -1,14 +1,15 @@
-package service
+package icon
 
 import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/samithiwat/samithiwat-backend/src/common/enum"
 	"github.com/samithiwat/samithiwat-backend/src/model"
 	repository "github.com/samithiwat/samithiwat-backend/src/repository/gorm"
+	"github.com/samithiwat/samithiwat-backend/src/service"
 	"strings"
 )
 
-type IconService interface {
+type Service interface {
 	GetAll() ([]*model.Icon, error)
 	GetOne(id int64) (*model.Icon, error)
 	Create(iconDto model.NewIcon) (*model.Icon, error)
@@ -20,10 +21,10 @@ type IconService interface {
 
 type iconService struct {
 	repository       repository.GormRepository
-	validatorService ValidatorService
+	validatorService service.ValidatorService
 }
 
-func NewIconService(repository repository.GormRepository, validatorService ValidatorService) IconService {
+func NewIconService(repository repository.GormRepository, validatorService service.ValidatorService) Service {
 	return &iconService{
 		repository:       repository,
 		validatorService: validatorService,

@@ -1,12 +1,15 @@
-package service
+package setting
 
 import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/samithiwat/samithiwat-backend/src/model"
 	repository "github.com/samithiwat/samithiwat-backend/src/repository/gorm"
+	"github.com/samithiwat/samithiwat-backend/src/service"
+	"github.com/samithiwat/samithiwat-backend/src/service/aboutme"
+	"github.com/samithiwat/samithiwat-backend/src/service/timeline"
 )
 
-type SettingService interface {
+type Service interface {
 	GetAll() ([]*model.Setting, error)
 	GetOne(id int64) (*model.Setting, error)
 	GetActivatedSetting() (*model.Setting, error)
@@ -16,7 +19,7 @@ type SettingService interface {
 	DtoToRaw(settingDto *model.NewSetting) (*model.Setting, error)
 }
 
-func NewSettingService(repository repository.GormRepository, aboutMeSettingService AboutMeSettingService, timelineSettingService TimelineSettingService, validatorService ValidatorService) SettingService {
+func NewSettingService(repository repository.GormRepository, aboutMeSettingService aboutme.Service, timelineSettingService timeline.Service, validatorService service.ValidatorService) Service {
 	return &settingService{
 		repository:             repository,
 		aboutMeSettingService:  aboutMeSettingService,
@@ -27,9 +30,9 @@ func NewSettingService(repository repository.GormRepository, aboutMeSettingServi
 
 type settingService struct {
 	repository             repository.GormRepository
-	aboutMeSettingService  AboutMeSettingService
-	timelineSettingService TimelineSettingService
-	validatorService       ValidatorService
+	aboutMeSettingService  aboutme.Service
+	timelineSettingService timeline.Service
+	validatorService       service.ValidatorService
 }
 
 func (s *settingService) GetAll() ([]*model.Setting, error) {

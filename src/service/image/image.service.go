@@ -1,12 +1,13 @@
-package service
+package image
 
 import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/samithiwat/samithiwat-backend/src/model"
 	repository "github.com/samithiwat/samithiwat-backend/src/repository/gorm"
+	"github.com/samithiwat/samithiwat-backend/src/service"
 )
 
-type ImageService interface {
+type Service interface {
 	GetAll() ([]*model.Image, error)
 	GetOne(id int64) (*model.Image, error)
 	Create(imageDto *model.NewImage) (*model.Image, error)
@@ -17,10 +18,10 @@ type ImageService interface {
 
 type imageService struct {
 	repository       repository.GormRepository
-	validatorService ValidatorService
+	validatorService service.ValidatorService
 }
 
-func NewImageService(repository repository.GormRepository, validatorService ValidatorService) ImageService {
+func NewImageService(repository repository.GormRepository, validatorService service.ValidatorService) Service {
 	return &imageService{
 		repository:       repository,
 		validatorService: validatorService,

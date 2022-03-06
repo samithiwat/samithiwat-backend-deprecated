@@ -1,14 +1,16 @@
-package service
+package github
 
 import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/samithiwat/samithiwat-backend/src/model"
 	repository "github.com/samithiwat/samithiwat-backend/src/repository/gorm"
+	"github.com/samithiwat/samithiwat-backend/src/service"
+	"github.com/samithiwat/samithiwat-backend/src/service/badge"
 )
 
 // TODO: fetch data from github
 
-type GithubRepoService interface {
+type Service interface {
 	GetAll() ([]*model.GithubRepo, error)
 	GetOne(id int64) (*model.GithubRepo, error)
 	Create(githubRepoDto *model.NewGithubRepo) (*model.GithubRepo, error)
@@ -19,11 +21,11 @@ type GithubRepoService interface {
 
 type githubRepoService struct {
 	repository       repository.GormRepository
-	badgeService     BadgeService
-	validatorService ValidatorService
+	badgeService     badge.Service
+	validatorService service.ValidatorService
 }
 
-func NewGithubRepoService(repository repository.GormRepository, badgeService BadgeService, validatorService ValidatorService) GithubRepoService {
+func NewGithubRepoService(repository repository.GormRepository, badgeService badge.Service, validatorService service.ValidatorService) Service {
 	return &githubRepoService{
 		repository:       repository,
 		badgeService:     badgeService,
