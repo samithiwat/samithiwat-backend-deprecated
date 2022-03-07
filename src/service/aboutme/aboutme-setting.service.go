@@ -3,32 +3,30 @@ package aboutme
 import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/samithiwat/samithiwat-backend/src/model"
-	repository "github.com/samithiwat/samithiwat-backend/src/repository/gorm"
 	"github.com/samithiwat/samithiwat-backend/src/service"
 )
 
-type Service interface {
-	GetAll() ([]*model.AboutMe, error)
-	GetOne(id int64) (*model.AboutMe, error)
-	Create(settingDto *model.NewAboutMe) (*model.AboutMe, error)
-	Update(id int64, settingDto *model.NewAboutMe) (*model.AboutMe, error)
-	Delete(id int64) (*model.AboutMe, error)
-	DtoToRaw(settingDto *model.NewAboutMe) (*model.AboutMe, error)
+type Repository interface {
+	FindAllAboutMe(*[]*model.AboutMe) error
+	FindOneAboutMe(int64, *model.AboutMe) error
+	CreateAboutMe(*model.AboutMe) error
+	UpdateAboutMe(int64, *model.AboutMe) error
+	DeleteAboutMe(int64, *model.AboutMe) error
 }
 
-func NewAboutMeSettingService(repository repository.GormRepository, validatorService service.ValidatorService) Service {
-	return &aboutMeSettingService{
+type Service struct {
+	repository       Repository
+	validatorService service.ValidatorService
+}
+
+func NewAboutMeSettingService(repository Repository, validatorService service.ValidatorService) Service {
+	return Service{
 		repository:       repository,
 		validatorService: validatorService,
 	}
 }
 
-type aboutMeSettingService struct {
-	repository       repository.GormRepository
-	validatorService service.ValidatorService
-}
-
-func (s *aboutMeSettingService) GetAll() ([]*model.AboutMe, error) {
+func (s *Service) GetAll() ([]*model.AboutMe, error) {
 	var settings []*model.AboutMe
 
 	err := s.repository.FindAllAboutMe(&settings)
@@ -40,10 +38,10 @@ func (s *aboutMeSettingService) GetAll() ([]*model.AboutMe, error) {
 	return settings, nil
 }
 
-func (s *aboutMeSettingService) GetOne(id int64) (*model.AboutMe, error) {
+func (s *Service) GetOne(id int64) (*model.AboutMe, error) {
 	var setting model.AboutMe
 
-	err := s.repository.FindAboutMe(id, &setting)
+	err := s.repository.FindOneAboutMe(id, &setting)
 
 	if err != nil {
 		return nil, fiber.NewError(fiber.StatusNotFound, err.Error())
@@ -52,7 +50,7 @@ func (s *aboutMeSettingService) GetOne(id int64) (*model.AboutMe, error) {
 	return &setting, nil
 }
 
-func (s *aboutMeSettingService) Create(aboutMeDto *model.NewAboutMe) (*model.AboutMe, error) {
+func (s *Service) Create(aboutMeDto *model.NewAboutMe) (*model.AboutMe, error) {
 	setting, err := s.DtoToRaw(aboutMeDto)
 	if err != nil {
 		return nil, err
@@ -67,7 +65,7 @@ func (s *aboutMeSettingService) Create(aboutMeDto *model.NewAboutMe) (*model.Abo
 	return setting, nil
 }
 
-func (s *aboutMeSettingService) Update(id int64, aboutMeDto *model.NewAboutMe) (*model.AboutMe, error) {
+func (s *Service) Update(id int64, aboutMeDto *model.NewAboutMe) (*model.AboutMe, error) {
 	var aboutMe model.AboutMe
 	raw, err := s.DtoToRaw(aboutMeDto)
 	if err != nil {
@@ -83,7 +81,7 @@ func (s *aboutMeSettingService) Update(id int64, aboutMeDto *model.NewAboutMe) (
 	return &aboutMe, nil
 }
 
-func (s *aboutMeSettingService) Delete(id int64) (*model.AboutMe, error) {
+func (s *Service) Delete(id int64) (*model.AboutMe, error) {
 	var setting model.AboutMe
 	err := s.repository.DeleteAboutMe(id, &setting)
 
@@ -94,7 +92,7 @@ func (s *aboutMeSettingService) Delete(id int64) (*model.AboutMe, error) {
 	return &setting, nil
 }
 
-func (s *aboutMeSettingService) DtoToRaw(settingDto *model.NewAboutMe) (*model.AboutMe, error) {
+func (s *Service) DtoToRaw(settingDto *model.NewAboutMe) (*model.AboutMe, error) {
 	err := s.validatorService.AboutMe(*settingDto)
 	if err != nil {
 		return nil, err

@@ -8,6 +8,6 @@ type GormRepository struct {
 	db database.Database
 }
 
-func NewGormRepository(db database.Database) GormRepository {
-	return GormRepository{db: db}
+func NewGormRepository(db database.Database) *GormRepository {
+	return &GormRepository{db: db}
 }

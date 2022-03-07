@@ -3,32 +3,30 @@ package image
 import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/samithiwat/samithiwat-backend/src/model"
-	repository "github.com/samithiwat/samithiwat-backend/src/repository/gorm"
 	"github.com/samithiwat/samithiwat-backend/src/service"
 )
 
-type Service interface {
-	GetAll() ([]*model.Image, error)
-	GetOne(id int64) (*model.Image, error)
-	Create(imageDto *model.NewImage) (*model.Image, error)
-	Update(id int64, imageDto *model.NewImage) (*model.Image, error)
-	Delete(id int64) (*model.Image, error)
-	DtoToRaw(imageDto model.NewImage) (*model.Image, error)
+type Repository interface {
+	FindAllImage(*[]*model.Image) error
+	FindOneImage(int64, *model.Image) error
+	CreateImage(*model.Image) error
+	UpdateImage(int64, *model.Image) error
+	DeleteImage(int64, *model.Image) error
 }
 
-type imageService struct {
-	repository       repository.GormRepository
+type Service struct {
+	repository       Repository
 	validatorService service.ValidatorService
 }
 
-func NewImageService(repository repository.GormRepository, validatorService service.ValidatorService) Service {
-	return &imageService{
+func NewImageService(repository Repository, validatorService service.ValidatorService) Service {
+	return Service{
 		repository:       repository,
 		validatorService: validatorService,
 	}
 }
 
-func (s *imageService) GetAll() ([]*model.Image, error) {
+func (s *Service) GetAll() ([]*model.Image, error) {
 	var images []*model.Image
 	err := s.repository.FindAllImage(&images)
 
@@ -39,9 +37,9 @@ func (s *imageService) GetAll() ([]*model.Image, error) {
 	return images, nil
 }
 
-func (s *imageService) GetOne(id int64) (*model.Image, error) {
+func (s *Service) GetOne(id int64) (*model.Image, error) {
 	var image model.Image
-	err := s.repository.FindImage(id, &image)
+	err := s.repository.FindOneImage(id, &image)
 
 	if err != nil {
 		return nil, fiber.NewError(fiber.StatusNotFound, err.Error())
@@ -50,7 +48,7 @@ func (s *imageService) GetOne(id int64) (*model.Image, error) {
 	return &image, nil
 }
 
-func (s *imageService) Create(imageDto *model.NewImage) (*model.Image, error) {
+func (s *Service) Create(imageDto *model.NewImage) (*model.Image, error) {
 	image, err := s.DtoToRaw(*imageDto)
 	if err != nil {
 		return nil, err
@@ -65,7 +63,7 @@ func (s *imageService) Create(imageDto *model.NewImage) (*model.Image, error) {
 	return image, nil
 }
 
-func (s *imageService) Update(id int64, imageDto *model.NewImage) (*model.Image, error) {
+func (s *Service) Update(id int64, imageDto *model.NewImage) (*model.Image, error) {
 	image, err := s.DtoToRaw(*imageDto)
 	if err != nil {
 		return nil, err
@@ -80,7 +78,7 @@ func (s *imageService) Update(id int64, imageDto *model.NewImage) (*model.Image,
 	return image, nil
 }
 
-func (s *imageService) Delete(id int64) (*model.Image, error) {
+func (s *Service) Delete(id int64) (*model.Image, error) {
 	var image model.Image
 	err := s.repository.DeleteImage(id, &image)
 
@@ -91,7 +89,7 @@ func (s *imageService) Delete(id int64) (*model.Image, error) {
 	return &image, nil
 }
 
-func (s *imageService) DtoToRaw(imageDto model.NewImage) (*model.Image, error) {
+func (s *Service) DtoToRaw(imageDto model.NewImage) (*model.Image, error) {
 	err := s.validatorService.Image(imageDto)
 	if err != nil {
 		return nil, err

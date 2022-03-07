@@ -8,7 +8,7 @@ func (r *GormRepository) FindAllTimeline(timelines *[]*model.Timeline) error {
 	return r.db.GetConnection().Find(timelines).Error
 }
 
-func (r *GormRepository) FindTimeline(id int64, timeline *model.Timeline) error {
+func (r *GormRepository) FindOneTimeline(id int64, timeline *model.Timeline) error {
 	return r.db.GetConnection().Preload("Images").Preload("Icon").First(timeline, id).Error
 }
 

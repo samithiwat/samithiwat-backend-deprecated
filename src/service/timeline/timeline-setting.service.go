@@ -3,23 +3,28 @@ package timeline
 import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/samithiwat/samithiwat-backend/src/model"
-	repository "github.com/samithiwat/samithiwat-backend/src/repository/gorm"
 	"github.com/samithiwat/samithiwat-backend/src/service"
 	"github.com/samithiwat/samithiwat-backend/src/service/icon"
 	"github.com/samithiwat/samithiwat-backend/src/service/image"
 )
 
-type Service interface {
-	GetAll() ([]*model.Timeline, error)
-	GetOne(id int64) (*model.Timeline, error)
-	Create(settingDto *model.NewTimeline) (*model.Timeline, error)
-	Update(id int64, imageDto *model.NewTimeline) (*model.Timeline, error)
-	Delete(id int64) (*model.Timeline, error)
-	DtoToRaw(settingDto *model.NewTimeline) (*model.Timeline, error)
+type Repository interface {
+	FindAllTimeline(*[]*model.Timeline) error
+	FindOneTimeline(int64, *model.Timeline) error
+	CreateTimeline(*model.Timeline) error
+	UpdateTimeline(int64, *model.Timeline) error
+	DeleteTimeline(int64, *model.Timeline) error
 }
 
-func NewTimelineSettingService(repository repository.GormRepository, iconService icon.Service, imageService image.Service, validatorService service.ValidatorService) Service {
-	return &timelineSettingService{
+type Service struct {
+	repository       Repository
+	validatorService service.ValidatorService
+	iconService      icon.Service
+	imageService     image.Service
+}
+
+func NewTimelineSettingService(repository Repository, iconService icon.Service, imageService image.Service, validatorService service.ValidatorService) Service {
+	return Service{
 		repository:       repository,
 		iconService:      iconService,
 		imageService:     imageService,
@@ -27,14 +32,7 @@ func NewTimelineSettingService(repository repository.GormRepository, iconService
 	}
 }
 
-type timelineSettingService struct {
-	repository       repository.GormRepository
-	iconService      icon.Service
-	imageService     image.Service
-	validatorService service.ValidatorService
-}
-
-func (s *timelineSettingService) GetAll() ([]*model.Timeline, error) {
+func (s *Service) GetAll() ([]*model.Timeline, error) {
 	var settings []*model.Timeline
 
 	err := s.repository.FindAllTimeline(&settings)
@@ -45,10 +43,10 @@ func (s *timelineSettingService) GetAll() ([]*model.Timeline, error) {
 	return settings, nil
 }
 
-func (s *timelineSettingService) GetOne(id int64) (*model.Timeline, error) {
+func (s *Service) GetOne(id int64) (*model.Timeline, error) {
 	var setting model.Timeline
 
-	err := s.repository.FindTimeline(id, &setting)
+	err := s.repository.FindOneTimeline(id, &setting)
 	if err != nil {
 		return nil, fiber.NewError(fiber.StatusNotFound, err.Error())
 	}
@@ -56,7 +54,7 @@ func (s *timelineSettingService) GetOne(id int64) (*model.Timeline, error) {
 	return &setting, nil
 }
 
-func (s *timelineSettingService) Create(timelineDto *model.NewTimeline) (*model.Timeline, error) {
+func (s *Service) Create(timelineDto *model.NewTimeline) (*model.Timeline, error) {
 	setting, err := s.DtoToRaw(timelineDto)
 	if err != nil {
 		return nil, err
@@ -71,7 +69,7 @@ func (s *timelineSettingService) Create(timelineDto *model.NewTimeline) (*model.
 	return setting, nil
 }
 
-func (s *timelineSettingService) Update(id int64, timelineDto *model.NewTimeline) (*model.Timeline, error) {
+func (s *Service) Update(id int64, timelineDto *model.NewTimeline) (*model.Timeline, error) {
 	timeline, err := s.DtoToRaw(timelineDto)
 	if err != nil {
 		return nil, err
@@ -86,7 +84,7 @@ func (s *timelineSettingService) Update(id int64, timelineDto *model.NewTimeline
 	return timeline, nil
 }
 
-func (s *timelineSettingService) Delete(id int64) (*model.Timeline, error) {
+func (s *Service) Delete(id int64) (*model.Timeline, error) {
 	var timeline model.Timeline
 	err := s.repository.DeleteTimeline(id, &timeline)
 
@@ -97,7 +95,7 @@ func (s *timelineSettingService) Delete(id int64) (*model.Timeline, error) {
 	return &timeline, nil
 }
 
-func (s *timelineSettingService) DtoToRaw(settingDto *model.NewTimeline) (*model.Timeline, error) {
+func (s *Service) DtoToRaw(settingDto *model.NewTimeline) (*model.Timeline, error) {
 	err := s.validatorService.Timeline(*settingDto)
 	if err != nil {
 		return nil, err
