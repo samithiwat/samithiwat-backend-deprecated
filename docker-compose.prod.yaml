@@ -21,7 +21,6 @@ services:
     image: postgres:14.1
     container_name: samithiwat-app-db
     restart: unless-stopped
-
     env_file:
       - prod.env
     environment:
@@ -31,8 +30,7 @@ services:
     networks:
       - samithiwat-app
     ports:
-      - ${DATABASE_PORT}:${DATABASE_PORT}
-    command: -p ${DATABASE_PORT}
+      - ${DATABASE_PORT}:5432
 
   reverse-proxy:
     # The official v2 Traefik docker image
