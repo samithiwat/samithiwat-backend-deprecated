@@ -36,12 +36,14 @@ func assignEnv(config *map[string]interface{}) map[string]interface{} {
 		result[title] = make(map[string]interface{})
 		if rec, ok := record.(map[string]interface{}); ok {
 			for key, val := range rec {
-				if str, ok := val.(string); ok {
-					temp := strings.Split(str, "$")
+				switch value := val.(type) {
+				case string:
+					temp := strings.Split(value, "$")
 					if len(temp) > 1 {
 						name := strings.Replace(temp[1], "{", "", -1)
 						name = strings.Replace(name, "}", "", -1)
 						env := os.Getenv(name)
+
 						if num, err := strconv.Atoi(env); err == nil {
 							result[title].(map[string]interface{})[key] = num
 						} else if boolean, err := strconv.ParseBool(env); err == nil {
@@ -49,15 +51,14 @@ func assignEnv(config *map[string]interface{}) map[string]interface{} {
 						} else {
 							result[title].(map[string]interface{})[key] = env
 						}
+
 					} else {
 						result[title].(map[string]interface{})[key] = temp[0]
 					}
-				}
-				if num, ok := val.(int); ok {
-					result[title].(map[string]interface{})[key] = num
-				}
-				if boolean, ok := val.(bool); ok {
-					result[title].(map[string]interface{})[key] = boolean
+				case int:
+					result[title].(map[string]interface{})[key] = value
+				case bool:
+					result[title].(map[string]interface{})[key] = value
 				}
 			}
 		}

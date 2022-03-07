@@ -9,20 +9,29 @@ package main
 import (
 	"github.com/samithiwat/samithiwat-backend/src/database"
 	"github.com/samithiwat/samithiwat-backend/src/graph/resolver"
-	"github.com/samithiwat/samithiwat-backend/src/graph/services"
+	"github.com/samithiwat/samithiwat-backend/src/repository/gorm"
+	"github.com/samithiwat/samithiwat-backend/src/service"
+	"github.com/samithiwat/samithiwat-backend/src/service/aboutme"
+	"github.com/samithiwat/samithiwat-backend/src/service/badge"
+	"github.com/samithiwat/samithiwat-backend/src/service/github-repo"
+	"github.com/samithiwat/samithiwat-backend/src/service/icon"
+	"github.com/samithiwat/samithiwat-backend/src/service/image"
+	"github.com/samithiwat/samithiwat-backend/src/service/setting"
+	"github.com/samithiwat/samithiwat-backend/src/service/timeline"
 )
 
 // Injectors from wire.go:
 
 func InitializeResolver(db database.Database) (*graph.Resolver, error) {
+	gormRepository := repository.NewGormRepository(db)
 	validatorService := service.NewValidatorService()
-	imageService := service.NewImageService(db, validatorService)
-	iconService := service.NewIconService(db, validatorService)
-	badgeService := service.NewBadgeService(db, iconService, validatorService)
-	aboutMeSettingService := service.NewAboutMeSettingService(db, validatorService)
-	timelineSettingService := service.NewTimelineSettingService(db, iconService, imageService, validatorService)
-	settingService := service.NewSettingService(db, aboutMeSettingService, timelineSettingService, validatorService)
-	githubRepoService := service.NewGithubRepoService(db, badgeService, validatorService)
-	resolver := graph.NewResolver(imageService, iconService, badgeService, aboutMeSettingService, timelineSettingService, settingService, githubRepoService)
+	imageService := image.NewImageService(gormRepository, validatorService)
+	iconService := icon.NewIconService(gormRepository, validatorService)
+	badgeService := badge.NewBadgeService(gormRepository, iconService, validatorService)
+	aboutmeService := aboutme.NewAboutMeSettingService(gormRepository, validatorService)
+	timelineService := timeline.NewTimelineSettingService(gormRepository, iconService, imageService, validatorService)
+	settingService := setting.NewSettingService(gormRepository, aboutmeService, timelineService, validatorService)
+	githubService := github.NewGithubRepoService(gormRepository, badgeService, validatorService)
+	resolver := graph.NewResolver(imageService, iconService, badgeService, aboutmeService, timelineService, settingService, githubService)
 	return resolver, nil
 }

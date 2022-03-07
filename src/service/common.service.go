@@ -4,24 +4,14 @@ import (
 	"fmt"
 	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"
-	"github.com/samithiwat/samithiwat-backend/src/graph/model"
+	"github.com/samithiwat/samithiwat-backend/src/model"
 )
 
-type ValidatorService interface {
-	Setting(settingDto model.NewSetting) error
-	Timeline(timelineDto model.NewTimeline) error
-	AboutMe(aboutMeDto model.NewAboutMe) error
-	GithubRepo(githubRepoDto model.NewGithubRepo) error
-	Image(imageDto model.NewImage) error
-	Badge(badgeDto model.NewBadge) error
-	Icon(iconDto model.NewIcon) error
-}
-
 func NewValidatorService() ValidatorService {
-	return &validatorService{}
+	return ValidatorService{}
 }
 
-type validatorService struct{}
+type ValidatorService struct{}
 
 type ErrorResponse struct {
 	FailedField string
@@ -52,37 +42,42 @@ func checkError(error error) error {
 	return nil
 }
 
-func (s *validatorService) Setting(settingDto model.NewSetting) error {
+func (s *ValidatorService) Setting(settingDto model.NewSetting) error {
 	err := validate.Struct(settingDto)
 	return checkError(err)
 }
 
-func (s *validatorService) AboutMe(aboutMeDto model.NewAboutMe) error {
+func (s *ValidatorService) AboutMe(aboutMeDto model.NewAboutMe) error {
 	err := validate.Struct(aboutMeDto)
 	return checkError(err)
 }
 
-func (s *validatorService) Timeline(timelineDto model.NewTimeline) error {
+func (s *ValidatorService) Timeline(timelineDto model.NewTimeline) error {
 	err := validate.Struct(timelineDto)
 	return checkError(err)
 }
 
-func (s *validatorService) GithubRepo(githubRepoDto model.NewGithubRepo) error {
+func (s *ValidatorService) GithubRepo(githubRepoDto model.NewGithubRepo) error {
 	err := validate.Struct(githubRepoDto)
 	return checkError(err)
 }
 
-func (s *validatorService) Image(imageDto model.NewImage) error {
+func (s *ValidatorService) Image(imageDto model.NewImage) error {
 	err := validate.Struct(imageDto)
 	return checkError(err)
 }
 
-func (s *validatorService) Badge(badgeDto model.NewBadge) error {
+func (s *ValidatorService) Badge(badgeDto model.NewBadge) error {
 	err := validate.Struct(badgeDto)
 	return checkError(err)
 }
 
-func (s *validatorService) Icon(iconDto model.NewIcon) error {
+func (s *ValidatorService) Icon(iconDto model.NewIcon) error {
 	err := validate.Struct(iconDto)
 	return checkError(err)
+}
+
+type Context interface {
+	Bind(interface{}) error
+	JSON(int, interface{})
 }

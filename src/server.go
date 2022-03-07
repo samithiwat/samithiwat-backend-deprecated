@@ -3,7 +3,10 @@ package main
 import (
 	"flag"
 	"fmt"
+	"github.com/gofiber/fiber/v2"
 	"github.com/samithiwat/samithiwat-backend/src/database/seeds"
+	"github.com/samithiwat/samithiwat-backend/src/route"
+	"github.com/valyala/fasthttp/fasthttpadaptor"
 	"log"
 	"net/http"
 	"os"
@@ -11,14 +14,10 @@ import (
 
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/playground"
-	"github.com/gofiber/fiber/v2"
-
 	"github.com/samithiwat/samithiwat-backend/src/config"
 	"github.com/samithiwat/samithiwat-backend/src/database"
 	"github.com/samithiwat/samithiwat-backend/src/graph/generated"
 	graph "github.com/samithiwat/samithiwat-backend/src/graph/resolver"
-
-	"github.com/valyala/fasthttp/fasthttpadaptor"
 )
 
 func gqlHandler(resolver *graph.Resolver) http.HandlerFunc {
@@ -53,7 +52,7 @@ func main() {
 
 	handleArgs(client)
 
-	app := fiber.New()
+	r := route.NewFiberRouter()
 
 	resolver, err := InitializeResolver(client)
 	if err != nil {
@@ -61,17 +60,19 @@ func main() {
 		os.Exit(2)
 	}
 
-	app.All("graphql", func(c *fiber.Ctx) error {
+	r.All("graphql", func(c *fiber.Ctx) error {
 		fasthttpadaptor.NewFastHTTPHandler(gqlHandler(resolver))(c.Context())
 		return nil
 	})
 
-	app.All("/", func(c *fiber.Ctx) error {
+	r.All("/", func(c *fiber.Ctx) error {
 		fasthttpadaptor.NewFastHTTPHandler(playgroundHandler())(c.Context())
 		return nil
 	})
 
-	app.Listen(":" + strconv.Itoa(loadConfig.App.Port))
+	if err := r.Listen(":" + strconv.Itoa(loadConfig.App.Port)); err != nil && err != http.ErrServerClosed {
+		log.Fatalf("listen: %s\n", err)
+	}
 }
 
 func handleArgs(db database.Database) {

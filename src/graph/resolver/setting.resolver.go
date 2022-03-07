@@ -10,7 +10,7 @@ import (
 	"time"
 
 	"github.com/samithiwat/samithiwat-backend/src/graph/generated"
-	"github.com/samithiwat/samithiwat-backend/src/graph/model"
+	"github.com/samithiwat/samithiwat-backend/src/model"
 )
 
 func (r *aboutMeResolver) DeletedAt(_ context.Context, _ *model.AboutMe) (*time.Time, error) {
