@@ -86,3 +86,8 @@ func (s *validatorService) Icon(iconDto model.NewIcon) error {
 	err := validate.Struct(iconDto)
 	return checkError(err)
 }
+
+type Context interface {
+	Bind(interface{}) error
+	JSON(int, interface{})
+}

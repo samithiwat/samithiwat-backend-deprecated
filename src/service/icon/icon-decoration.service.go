@@ -4,49 +4,46 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/samithiwat/samithiwat-backend/src/common/enum"
 	"github.com/samithiwat/samithiwat-backend/src/model"
-	repository "github.com/samithiwat/samithiwat-backend/src/repository/gorm"
 	"github.com/samithiwat/samithiwat-backend/src/service"
 	"strings"
 )
 
-type Service interface {
-	GetAll() ([]*model.Icon, error)
-	GetOne(id int64) (*model.Icon, error)
-	Create(iconDto model.NewIcon) (*model.Icon, error)
-	Update(id int64, iconDto model.NewIcon) (*model.Icon, error)
-	Delete(id int64) (*model.Icon, error)
-	CheckIconType(iconType enum.IconType) (string, error)
-	DtoToRaw(iconDto model.NewIcon) (*model.Icon, error)
+type repository interface {
+	FindAll(*[]*model.Icon) error
+	FindOne(int64, *model.Icon) error
+	Create(*model.Icon) error
+	Update(int64, *model.Icon) error
+	Delete(int64, *model.Icon) error
 }
 
-type iconService struct {
-	repository       repository.GormRepository
+type Service struct {
+	repository       repository
 	validatorService service.ValidatorService
 }
 
-func NewIconService(repository repository.GormRepository, validatorService service.ValidatorService) Service {
-	return &iconService{
+func NewIconService(repository repository, validatorService service.ValidatorService) Service {
+	return Service{
 		repository:       repository,
 		validatorService: validatorService,
 	}
 }
 
-func (s *iconService) GetAll() ([]*model.Icon, error) {
+func (s *Service) FindAll() (*[]*model.Icon, error) {
 	var icons []*model.Icon
 
-	err := s.repository.FindAllIcon(&icons)
+	err := s.repository.FindAll(&icons)
 
 	if err != nil {
 		return nil, fiber.NewError(fiber.StatusUnprocessableEntity, err.Error())
 	}
 
-	return icons, nil
+	return &icons, nil
 }
 
-func (s *iconService) GetOne(id int64) (*model.Icon, error) {
+func (s *Service) FindOne(id int64) (*model.Icon, error) {
 	var icon model.Icon
 
-	err := s.repository.FindIcon(id, &icon)
+	err := s.repository.FindOne(id, &icon)
 
 	if err != nil {
 		return nil, fiber.NewError(fiber.StatusNotFound, err.Error())
@@ -55,13 +52,13 @@ func (s *iconService) GetOne(id int64) (*model.Icon, error) {
 	return &icon, nil
 }
 
-func (s *iconService) Create(iconDto model.NewIcon) (*model.Icon, error) {
+func (s *Service) Create(iconDto model.NewIcon) (*model.Icon, error) {
 	icon, err := s.DtoToRaw(iconDto)
 	if err != nil {
 		return nil, err
 	}
 
-	err = s.repository.CreateIcon(icon)
+	err = s.repository.Create(icon)
 
 	if err != nil {
 		return nil, fiber.NewError(fiber.StatusNotFound, err.Error())
@@ -70,13 +67,13 @@ func (s *iconService) Create(iconDto model.NewIcon) (*model.Icon, error) {
 	return icon, nil
 }
 
-func (s *iconService) Update(id int64, iconDto model.NewIcon) (*model.Icon, error) {
+func (s *Service) Update(id int64, iconDto model.NewIcon) (*model.Icon, error) {
 	icon, err := s.DtoToRaw(iconDto)
 	if err != nil {
 		return nil, err
 	}
 
-	err = s.repository.UpdateIcon(id, icon)
+	err = s.repository.Update(id, icon)
 
 	if err != nil {
 		return nil, fiber.NewError(fiber.StatusNotFound, err.Error())
@@ -85,9 +82,9 @@ func (s *iconService) Update(id int64, iconDto model.NewIcon) (*model.Icon, erro
 	return icon, nil
 }
 
-func (s *iconService) Delete(id int64) (*model.Icon, error) {
+func (s *Service) Delete(id int64) (*model.Icon, error) {
 	var icon model.Icon
-	err := s.repository.DeleteIcon(id, &icon)
+	err := s.repository.Delete(id, &icon)
 
 	if err != nil {
 		return nil, fiber.NewError(fiber.StatusNotFound, err.Error())
@@ -96,7 +93,7 @@ func (s *iconService) Delete(id int64) (*model.Icon, error) {
 	return &icon, nil
 }
 
-func (s *iconService) CheckIconType(iconType enum.IconType) (string, error) {
+func (s *Service) CheckIconType(iconType enum.IconType) (string, error) {
 	err := strings.ToLower(string(iconType))
 	if err != string(enum.ICON) && err != string(enum.SVG) {
 		return "", fiber.NewError(fiber.StatusBadRequest, "Invalid icon type")
@@ -104,7 +101,7 @@ func (s *iconService) CheckIconType(iconType enum.IconType) (string, error) {
 	return err, nil
 }
 
-func (s *iconService) DtoToRaw(iconDto model.NewIcon) (*model.Icon, error) {
+func (s *Service) DtoToRaw(iconDto model.NewIcon) (*model.Icon, error) {
 	err := s.validatorService.Icon(iconDto)
 	if err != nil {
 		return nil, err
