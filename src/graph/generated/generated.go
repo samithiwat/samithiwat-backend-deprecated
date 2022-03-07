@@ -14,7 +14,7 @@ import (
 	"github.com/99designs/gqlgen/graphql"
 	"github.com/99designs/gqlgen/graphql/introspection"
 	graphql1 "github.com/arsmn/fastgql/graphql"
-	"github.com/samithiwat/samithiwat-backend/src/graph/model"
+	"github.com/samithiwat/samithiwat-backend/src/model"
 	gqlparser "github.com/vektah/gqlparser/v2"
 	"github.com/vektah/gqlparser/v2/ast"
 )
@@ -1535,7 +1535,7 @@ func (ec *executionContext) field_Mutation_createAboutMe_args(ctx context.Contex
 	var arg0 model.NewAboutMe
 	if tmp, ok := rawArgs["newAboutMe"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("newAboutMe"))
-		arg0, err = ec.unmarshalNNewAboutMe2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewAboutMe(ctx, tmp)
+		arg0, err = ec.unmarshalNNewAboutMe2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐNewAboutMe(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -1550,7 +1550,7 @@ func (ec *executionContext) field_Mutation_createBadge_args(ctx context.Context,
 	var arg0 *model.NewBadge
 	if tmp, ok := rawArgs["newBadge"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("newBadge"))
-		arg0, err = ec.unmarshalONewBadge2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewBadge(ctx, tmp)
+		arg0, err = ec.unmarshalONewBadge2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐNewBadge(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -1565,7 +1565,7 @@ func (ec *executionContext) field_Mutation_createGithubRepo_args(ctx context.Con
 	var arg0 model.NewGithubRepo
 	if tmp, ok := rawArgs["newGithubRepo"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("newGithubRepo"))
-		arg0, err = ec.unmarshalNNewGithubRepo2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewGithubRepo(ctx, tmp)
+		arg0, err = ec.unmarshalNNewGithubRepo2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐNewGithubRepo(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -1580,7 +1580,7 @@ func (ec *executionContext) field_Mutation_createIcon_args(ctx context.Context, 
 	var arg0 model.NewIcon
 	if tmp, ok := rawArgs["newIcon"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("newIcon"))
-		arg0, err = ec.unmarshalNNewIcon2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewIcon(ctx, tmp)
+		arg0, err = ec.unmarshalNNewIcon2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐNewIcon(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -1595,7 +1595,7 @@ func (ec *executionContext) field_Mutation_createImage_args(ctx context.Context,
 	var arg0 model.NewImage
 	if tmp, ok := rawArgs["newImage"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("newImage"))
-		arg0, err = ec.unmarshalNNewImage2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewImage(ctx, tmp)
+		arg0, err = ec.unmarshalNNewImage2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐNewImage(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -1610,7 +1610,7 @@ func (ec *executionContext) field_Mutation_createSetting_args(ctx context.Contex
 	var arg0 model.NewSetting
 	if tmp, ok := rawArgs["newSetting"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("newSetting"))
-		arg0, err = ec.unmarshalNNewSetting2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewSetting(ctx, tmp)
+		arg0, err = ec.unmarshalNNewSetting2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐNewSetting(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -1625,7 +1625,7 @@ func (ec *executionContext) field_Mutation_createTimeline_args(ctx context.Conte
 	var arg0 model.NewTimeline
 	if tmp, ok := rawArgs["newTimeline"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("newTimeline"))
-		arg0, err = ec.unmarshalNNewTimeline2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewTimeline(ctx, tmp)
+		arg0, err = ec.unmarshalNNewTimeline2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐNewTimeline(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -1754,7 +1754,7 @@ func (ec *executionContext) field_Mutation_updateAboutMe_args(ctx context.Contex
 	var arg1 *model.NewAboutMe
 	if tmp, ok := rawArgs["newAboutMe"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("newAboutMe"))
-		arg1, err = ec.unmarshalONewAboutMe2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewAboutMe(ctx, tmp)
+		arg1, err = ec.unmarshalONewAboutMe2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐNewAboutMe(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -1778,7 +1778,7 @@ func (ec *executionContext) field_Mutation_updateBadge_args(ctx context.Context,
 	var arg1 *model.NewBadge
 	if tmp, ok := rawArgs["newBadge"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("newBadge"))
-		arg1, err = ec.unmarshalONewBadge2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewBadge(ctx, tmp)
+		arg1, err = ec.unmarshalONewBadge2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐNewBadge(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -1802,7 +1802,7 @@ func (ec *executionContext) field_Mutation_updateGithubRepo_args(ctx context.Con
 	var arg1 model.NewGithubRepo
 	if tmp, ok := rawArgs["newGithubRepo"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("newGithubRepo"))
-		arg1, err = ec.unmarshalNNewGithubRepo2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewGithubRepo(ctx, tmp)
+		arg1, err = ec.unmarshalNNewGithubRepo2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐNewGithubRepo(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -1826,7 +1826,7 @@ func (ec *executionContext) field_Mutation_updateIcon_args(ctx context.Context, 
 	var arg1 model.NewIcon
 	if tmp, ok := rawArgs["newIcon"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("newIcon"))
-		arg1, err = ec.unmarshalNNewIcon2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewIcon(ctx, tmp)
+		arg1, err = ec.unmarshalNNewIcon2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐNewIcon(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -1850,7 +1850,7 @@ func (ec *executionContext) field_Mutation_updateImage_args(ctx context.Context,
 	var arg1 model.NewImage
 	if tmp, ok := rawArgs["newImage"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("newImage"))
-		arg1, err = ec.unmarshalNNewImage2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewImage(ctx, tmp)
+		arg1, err = ec.unmarshalNNewImage2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐNewImage(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -1874,7 +1874,7 @@ func (ec *executionContext) field_Mutation_updateSetting_args(ctx context.Contex
 	var arg1 *model.NewSetting
 	if tmp, ok := rawArgs["newSetting"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("newSetting"))
-		arg1, err = ec.unmarshalONewSetting2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewSetting(ctx, tmp)
+		arg1, err = ec.unmarshalONewSetting2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐNewSetting(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -1898,7 +1898,7 @@ func (ec *executionContext) field_Mutation_updateTimeline_args(ctx context.Conte
 	var arg1 *model.NewTimeline
 	if tmp, ok := rawArgs["newTimeline"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("newTimeline"))
-		arg1, err = ec.unmarshalONewTimeline2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewTimeline(ctx, tmp)
+		arg1, err = ec.unmarshalONewTimeline2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐNewTimeline(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -2661,7 +2661,7 @@ func (ec *executionContext) _Badge_icon(ctx context.Context, field graphql.Colle
 	}
 	res := resTmp.(model.Icon)
 	fc.Result = res
-	return ec.marshalNIcon2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐIcon(ctx, field.Selections, res)
+	return ec.marshalNIcon2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐIcon(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Badge_ownerID(ctx context.Context, field graphql.CollectedField, obj *model.Badge) (ret graphql.Marshaler) {
@@ -3121,7 +3121,7 @@ func (ec *executionContext) _GithubRepo_framework(ctx context.Context, field gra
 	}
 	res := resTmp.(model.Badge)
 	fc.Result = res
-	return ec.marshalOBadge2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐBadge(ctx, field.Selections, res)
+	return ec.marshalOBadge2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐBadge(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _GithubRepo_language(ctx context.Context, field graphql.CollectedField, obj *model.GithubRepo) (ret graphql.Marshaler) {
@@ -3153,7 +3153,7 @@ func (ec *executionContext) _GithubRepo_language(ctx context.Context, field grap
 	}
 	res := resTmp.(model.Badge)
 	fc.Result = res
-	return ec.marshalOBadge2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐBadge(ctx, field.Selections, res)
+	return ec.marshalOBadge2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐBadge(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _GithubRepo_createdAt(ctx context.Context, field graphql.CollectedField, obj *model.GithubRepo) (ret graphql.Marshaler) {
@@ -3918,7 +3918,7 @@ func (ec *executionContext) _Mutation_createIcon(ctx context.Context, field grap
 	}
 	res := resTmp.(*model.Icon)
 	fc.Result = res
-	return ec.marshalOIcon2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐIcon(ctx, field.Selections, res)
+	return ec.marshalOIcon2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐIcon(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_updateIcon(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -3957,7 +3957,7 @@ func (ec *executionContext) _Mutation_updateIcon(ctx context.Context, field grap
 	}
 	res := resTmp.(*model.Icon)
 	fc.Result = res
-	return ec.marshalOIcon2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐIcon(ctx, field.Selections, res)
+	return ec.marshalOIcon2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐIcon(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_deleteIcon(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -3996,7 +3996,7 @@ func (ec *executionContext) _Mutation_deleteIcon(ctx context.Context, field grap
 	}
 	res := resTmp.(*model.Icon)
 	fc.Result = res
-	return ec.marshalOIcon2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐIcon(ctx, field.Selections, res)
+	return ec.marshalOIcon2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐIcon(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_createBadge(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -4035,7 +4035,7 @@ func (ec *executionContext) _Mutation_createBadge(ctx context.Context, field gra
 	}
 	res := resTmp.(*model.Badge)
 	fc.Result = res
-	return ec.marshalOBadge2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐBadge(ctx, field.Selections, res)
+	return ec.marshalOBadge2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐBadge(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_updateBadge(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -4074,7 +4074,7 @@ func (ec *executionContext) _Mutation_updateBadge(ctx context.Context, field gra
 	}
 	res := resTmp.(*model.Badge)
 	fc.Result = res
-	return ec.marshalOBadge2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐBadge(ctx, field.Selections, res)
+	return ec.marshalOBadge2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐBadge(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_deleteBadge(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -4113,7 +4113,7 @@ func (ec *executionContext) _Mutation_deleteBadge(ctx context.Context, field gra
 	}
 	res := resTmp.(*model.Badge)
 	fc.Result = res
-	return ec.marshalOBadge2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐBadge(ctx, field.Selections, res)
+	return ec.marshalOBadge2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐBadge(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_createGithubRepo(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -4152,7 +4152,7 @@ func (ec *executionContext) _Mutation_createGithubRepo(ctx context.Context, fiel
 	}
 	res := resTmp.(*model.GithubRepo)
 	fc.Result = res
-	return ec.marshalOGithubRepo2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐGithubRepo(ctx, field.Selections, res)
+	return ec.marshalOGithubRepo2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐGithubRepo(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_updateGithubRepo(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -4191,7 +4191,7 @@ func (ec *executionContext) _Mutation_updateGithubRepo(ctx context.Context, fiel
 	}
 	res := resTmp.(*model.GithubRepo)
 	fc.Result = res
-	return ec.marshalOGithubRepo2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐGithubRepo(ctx, field.Selections, res)
+	return ec.marshalOGithubRepo2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐGithubRepo(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_deleteGithubRepo(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -4230,7 +4230,7 @@ func (ec *executionContext) _Mutation_deleteGithubRepo(ctx context.Context, fiel
 	}
 	res := resTmp.(*model.GithubRepo)
 	fc.Result = res
-	return ec.marshalOGithubRepo2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐGithubRepo(ctx, field.Selections, res)
+	return ec.marshalOGithubRepo2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐGithubRepo(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_createImage(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -4269,7 +4269,7 @@ func (ec *executionContext) _Mutation_createImage(ctx context.Context, field gra
 	}
 	res := resTmp.(*model.Image)
 	fc.Result = res
-	return ec.marshalOImage2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐImage(ctx, field.Selections, res)
+	return ec.marshalOImage2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐImage(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_updateImage(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -4308,7 +4308,7 @@ func (ec *executionContext) _Mutation_updateImage(ctx context.Context, field gra
 	}
 	res := resTmp.(*model.Image)
 	fc.Result = res
-	return ec.marshalOImage2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐImage(ctx, field.Selections, res)
+	return ec.marshalOImage2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐImage(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_deleteImage(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -4347,7 +4347,7 @@ func (ec *executionContext) _Mutation_deleteImage(ctx context.Context, field gra
 	}
 	res := resTmp.(*model.Image)
 	fc.Result = res
-	return ec.marshalOImage2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐImage(ctx, field.Selections, res)
+	return ec.marshalOImage2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐImage(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_createSetting(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -4389,7 +4389,7 @@ func (ec *executionContext) _Mutation_createSetting(ctx context.Context, field g
 	}
 	res := resTmp.(*model.Setting)
 	fc.Result = res
-	return ec.marshalNSetting2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐSetting(ctx, field.Selections, res)
+	return ec.marshalNSetting2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐSetting(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_updateSetting(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -4431,7 +4431,7 @@ func (ec *executionContext) _Mutation_updateSetting(ctx context.Context, field g
 	}
 	res := resTmp.(*model.Setting)
 	fc.Result = res
-	return ec.marshalNSetting2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐSetting(ctx, field.Selections, res)
+	return ec.marshalNSetting2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐSetting(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_deleteSetting(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -4473,7 +4473,7 @@ func (ec *executionContext) _Mutation_deleteSetting(ctx context.Context, field g
 	}
 	res := resTmp.(*model.Setting)
 	fc.Result = res
-	return ec.marshalNSetting2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐSetting(ctx, field.Selections, res)
+	return ec.marshalNSetting2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐSetting(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_createAboutMe(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -4515,7 +4515,7 @@ func (ec *executionContext) _Mutation_createAboutMe(ctx context.Context, field g
 	}
 	res := resTmp.(*model.AboutMe)
 	fc.Result = res
-	return ec.marshalNAboutMe2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐAboutMe(ctx, field.Selections, res)
+	return ec.marshalNAboutMe2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐAboutMe(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_updateAboutMe(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -4557,7 +4557,7 @@ func (ec *executionContext) _Mutation_updateAboutMe(ctx context.Context, field g
 	}
 	res := resTmp.(*model.AboutMe)
 	fc.Result = res
-	return ec.marshalNAboutMe2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐAboutMe(ctx, field.Selections, res)
+	return ec.marshalNAboutMe2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐAboutMe(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_deleteAboutMe(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -4599,7 +4599,7 @@ func (ec *executionContext) _Mutation_deleteAboutMe(ctx context.Context, field g
 	}
 	res := resTmp.(*model.AboutMe)
 	fc.Result = res
-	return ec.marshalNAboutMe2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐAboutMe(ctx, field.Selections, res)
+	return ec.marshalNAboutMe2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐAboutMe(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_createTimeline(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -4641,7 +4641,7 @@ func (ec *executionContext) _Mutation_createTimeline(ctx context.Context, field 
 	}
 	res := resTmp.(*model.Timeline)
 	fc.Result = res
-	return ec.marshalNTimeline2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐTimeline(ctx, field.Selections, res)
+	return ec.marshalNTimeline2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐTimeline(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_updateTimeline(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -4683,7 +4683,7 @@ func (ec *executionContext) _Mutation_updateTimeline(ctx context.Context, field 
 	}
 	res := resTmp.(*model.Timeline)
 	fc.Result = res
-	return ec.marshalNTimeline2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐTimeline(ctx, field.Selections, res)
+	return ec.marshalNTimeline2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐTimeline(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Mutation_deleteTimeline(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -4725,7 +4725,7 @@ func (ec *executionContext) _Mutation_deleteTimeline(ctx context.Context, field 
 	}
 	res := resTmp.(*model.Timeline)
 	fc.Result = res
-	return ec.marshalNTimeline2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐTimeline(ctx, field.Selections, res)
+	return ec.marshalNTimeline2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐTimeline(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_icons(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -4760,7 +4760,7 @@ func (ec *executionContext) _Query_icons(ctx context.Context, field graphql.Coll
 	}
 	res := resTmp.([]*model.Icon)
 	fc.Result = res
-	return ec.marshalNIcon2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐIcon(ctx, field.Selections, res)
+	return ec.marshalNIcon2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐIcon(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_icon(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -4799,7 +4799,7 @@ func (ec *executionContext) _Query_icon(ctx context.Context, field graphql.Colle
 	}
 	res := resTmp.(*model.Icon)
 	fc.Result = res
-	return ec.marshalOIcon2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐIcon(ctx, field.Selections, res)
+	return ec.marshalOIcon2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐIcon(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_iconsByOwner(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -4838,7 +4838,7 @@ func (ec *executionContext) _Query_iconsByOwner(ctx context.Context, field graph
 	}
 	res := resTmp.([]*model.Icon)
 	fc.Result = res
-	return ec.marshalOIcon2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐIcon(ctx, field.Selections, res)
+	return ec.marshalOIcon2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐIcon(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_iconsByOwnerAndType(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -4877,7 +4877,7 @@ func (ec *executionContext) _Query_iconsByOwnerAndType(ctx context.Context, fiel
 	}
 	res := resTmp.([]*model.Icon)
 	fc.Result = res
-	return ec.marshalOIcon2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐIcon(ctx, field.Selections, res)
+	return ec.marshalOIcon2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐIcon(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_iconsByType(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -4916,7 +4916,7 @@ func (ec *executionContext) _Query_iconsByType(ctx context.Context, field graphq
 	}
 	res := resTmp.([]*model.Icon)
 	fc.Result = res
-	return ec.marshalOIcon2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐIcon(ctx, field.Selections, res)
+	return ec.marshalOIcon2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐIcon(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_badges(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -4951,7 +4951,7 @@ func (ec *executionContext) _Query_badges(ctx context.Context, field graphql.Col
 	}
 	res := resTmp.([]*model.Badge)
 	fc.Result = res
-	return ec.marshalNBadge2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐBadge(ctx, field.Selections, res)
+	return ec.marshalNBadge2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐBadge(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_badge(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -4990,7 +4990,7 @@ func (ec *executionContext) _Query_badge(ctx context.Context, field graphql.Coll
 	}
 	res := resTmp.(*model.Badge)
 	fc.Result = res
-	return ec.marshalOBadge2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐBadge(ctx, field.Selections, res)
+	return ec.marshalOBadge2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐBadge(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_badgesByOwner(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -5029,7 +5029,7 @@ func (ec *executionContext) _Query_badgesByOwner(ctx context.Context, field grap
 	}
 	res := resTmp.([]*model.Badge)
 	fc.Result = res
-	return ec.marshalOBadge2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐBadge(ctx, field.Selections, res)
+	return ec.marshalOBadge2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐBadge(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_badgesByOwnerAndType(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -5068,7 +5068,7 @@ func (ec *executionContext) _Query_badgesByOwnerAndType(ctx context.Context, fie
 	}
 	res := resTmp.([]*model.Badge)
 	fc.Result = res
-	return ec.marshalOBadge2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐBadge(ctx, field.Selections, res)
+	return ec.marshalOBadge2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐBadge(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_badgesByType(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -5107,7 +5107,7 @@ func (ec *executionContext) _Query_badgesByType(ctx context.Context, field graph
 	}
 	res := resTmp.([]*model.Badge)
 	fc.Result = res
-	return ec.marshalOBadge2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐBadge(ctx, field.Selections, res)
+	return ec.marshalOBadge2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐBadge(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_githubRepos(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -5142,7 +5142,7 @@ func (ec *executionContext) _Query_githubRepos(ctx context.Context, field graphq
 	}
 	res := resTmp.([]*model.GithubRepo)
 	fc.Result = res
-	return ec.marshalNGithubRepo2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐGithubRepoᚄ(ctx, field.Selections, res)
+	return ec.marshalNGithubRepo2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐGithubRepoᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_githubRepo(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -5181,7 +5181,7 @@ func (ec *executionContext) _Query_githubRepo(ctx context.Context, field graphql
 	}
 	res := resTmp.(*model.GithubRepo)
 	fc.Result = res
-	return ec.marshalOGithubRepo2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐGithubRepo(ctx, field.Selections, res)
+	return ec.marshalOGithubRepo2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐGithubRepo(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_images(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -5216,7 +5216,7 @@ func (ec *executionContext) _Query_images(ctx context.Context, field graphql.Col
 	}
 	res := resTmp.([]*model.Image)
 	fc.Result = res
-	return ec.marshalNImage2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐImageᚄ(ctx, field.Selections, res)
+	return ec.marshalNImage2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐImageᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_image(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -5255,7 +5255,7 @@ func (ec *executionContext) _Query_image(ctx context.Context, field graphql.Coll
 	}
 	res := resTmp.(*model.Image)
 	fc.Result = res
-	return ec.marshalOImage2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐImage(ctx, field.Selections, res)
+	return ec.marshalOImage2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐImage(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_settings(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -5290,7 +5290,7 @@ func (ec *executionContext) _Query_settings(ctx context.Context, field graphql.C
 	}
 	res := resTmp.([]*model.Setting)
 	fc.Result = res
-	return ec.marshalNSetting2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐSetting(ctx, field.Selections, res)
+	return ec.marshalNSetting2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐSetting(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_setting(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -5329,7 +5329,7 @@ func (ec *executionContext) _Query_setting(ctx context.Context, field graphql.Co
 	}
 	res := resTmp.(*model.Setting)
 	fc.Result = res
-	return ec.marshalOSetting2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐSetting(ctx, field.Selections, res)
+	return ec.marshalOSetting2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐSetting(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_aboutMes(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -5364,7 +5364,7 @@ func (ec *executionContext) _Query_aboutMes(ctx context.Context, field graphql.C
 	}
 	res := resTmp.([]*model.AboutMe)
 	fc.Result = res
-	return ec.marshalNAboutMe2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐAboutMe(ctx, field.Selections, res)
+	return ec.marshalNAboutMe2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐAboutMe(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_aboutMe(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -5403,7 +5403,7 @@ func (ec *executionContext) _Query_aboutMe(ctx context.Context, field graphql.Co
 	}
 	res := resTmp.(*model.AboutMe)
 	fc.Result = res
-	return ec.marshalOAboutMe2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐAboutMe(ctx, field.Selections, res)
+	return ec.marshalOAboutMe2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐAboutMe(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_timelines(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -5438,7 +5438,7 @@ func (ec *executionContext) _Query_timelines(ctx context.Context, field graphql.
 	}
 	res := resTmp.([]*model.Timeline)
 	fc.Result = res
-	return ec.marshalNTimeline2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐTimeline(ctx, field.Selections, res)
+	return ec.marshalNTimeline2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐTimeline(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query_timeline(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -5477,7 +5477,7 @@ func (ec *executionContext) _Query_timeline(ctx context.Context, field graphql.C
 	}
 	res := resTmp.(*model.Timeline)
 	fc.Result = res
-	return ec.marshalOTimeline2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐTimeline(ctx, field.Selections, res)
+	return ec.marshalOTimeline2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐTimeline(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query___type(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -5618,7 +5618,7 @@ func (ec *executionContext) _Setting_aboutMe(ctx context.Context, field graphql.
 	}
 	res := resTmp.(model.AboutMe)
 	fc.Result = res
-	return ec.marshalNAboutMe2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐAboutMe(ctx, field.Selections, res)
+	return ec.marshalNAboutMe2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐAboutMe(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Setting_timeline(ctx context.Context, field graphql.CollectedField, obj *model.Setting) (ret graphql.Marshaler) {
@@ -5653,7 +5653,7 @@ func (ec *executionContext) _Setting_timeline(ctx context.Context, field graphql
 	}
 	res := resTmp.(model.Timeline)
 	fc.Result = res
-	return ec.marshalNTimeline2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐTimeline(ctx, field.Selections, res)
+	return ec.marshalNTimeline2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐTimeline(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Setting_isActivated(ctx context.Context, field graphql.CollectedField, obj *model.Setting) (ret graphql.Marshaler) {
@@ -6035,7 +6035,7 @@ func (ec *executionContext) _Timeline_images(ctx context.Context, field graphql.
 	}
 	res := resTmp.([]model.Image)
 	fc.Result = res
-	return ec.marshalNImage2ᚕgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐImage(ctx, field.Selections, res)
+	return ec.marshalNImage2ᚕgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐImage(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Timeline_icon(ctx context.Context, field graphql.CollectedField, obj *model.Timeline) (ret graphql.Marshaler) {
@@ -6070,7 +6070,7 @@ func (ec *executionContext) _Timeline_icon(ctx context.Context, field graphql.Co
 	}
 	res := resTmp.(model.Icon)
 	fc.Result = res
-	return ec.marshalNIcon2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐIcon(ctx, field.Selections, res)
+	return ec.marshalNIcon2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐIcon(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Timeline_settingID(ctx context.Context, field graphql.CollectedField, obj *model.Timeline) (ret graphql.Marshaler) {
@@ -6259,14 +6259,14 @@ func (ec *executionContext) ___Directive_description(ctx context.Context, field 
 		Object:     "__Directive",
 		Field:      field,
 		Args:       nil,
-		IsMethod:   false,
+		IsMethod:   true,
 		IsResolver: false,
 	}
 
 	ctx = graphql.WithFieldContext(ctx, fc)
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return obj.Description, nil
+		return obj.Description(), nil
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -6275,9 +6275,9 @@ func (ec *executionContext) ___Directive_description(ctx context.Context, field 
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(string)
+	res := resTmp.(*string)
 	fc.Result = res
-	return ec.marshalOString2string(ctx, field.Selections, res)
+	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) ___Directive_locations(ctx context.Context, field graphql.CollectedField, obj *introspection.Directive) (ret graphql.Marshaler) {
@@ -6431,14 +6431,14 @@ func (ec *executionContext) ___EnumValue_description(ctx context.Context, field 
 		Object:     "__EnumValue",
 		Field:      field,
 		Args:       nil,
-		IsMethod:   false,
+		IsMethod:   true,
 		IsResolver: false,
 	}
 
 	ctx = graphql.WithFieldContext(ctx, fc)
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return obj.Description, nil
+		return obj.Description(), nil
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -6447,9 +6447,9 @@ func (ec *executionContext) ___EnumValue_description(ctx context.Context, field 
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(string)
+	res := resTmp.(*string)
 	fc.Result = res
-	return ec.marshalOString2string(ctx, field.Selections, res)
+	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) ___EnumValue_isDeprecated(ctx context.Context, field graphql.CollectedField, obj *introspection.EnumValue) (ret graphql.Marshaler) {
@@ -6565,14 +6565,14 @@ func (ec *executionContext) ___Field_description(ctx context.Context, field grap
 		Object:     "__Field",
 		Field:      field,
 		Args:       nil,
-		IsMethod:   false,
+		IsMethod:   true,
 		IsResolver: false,
 	}
 
 	ctx = graphql.WithFieldContext(ctx, fc)
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return obj.Description, nil
+		return obj.Description(), nil
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -6581,9 +6581,9 @@ func (ec *executionContext) ___Field_description(ctx context.Context, field grap
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(string)
+	res := resTmp.(*string)
 	fc.Result = res
-	return ec.marshalOString2string(ctx, field.Selections, res)
+	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) ___Field_args(ctx context.Context, field graphql.CollectedField, obj *introspection.Field) (ret graphql.Marshaler) {
@@ -6769,14 +6769,14 @@ func (ec *executionContext) ___InputValue_description(ctx context.Context, field
 		Object:     "__InputValue",
 		Field:      field,
 		Args:       nil,
-		IsMethod:   false,
+		IsMethod:   true,
 		IsResolver: false,
 	}
 
 	ctx = graphql.WithFieldContext(ctx, fc)
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return obj.Description, nil
+		return obj.Description(), nil
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -6785,9 +6785,9 @@ func (ec *executionContext) ___InputValue_description(ctx context.Context, field
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(string)
+	res := resTmp.(*string)
 	fc.Result = res
-	return ec.marshalOString2string(ctx, field.Selections, res)
+	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) ___InputValue_type(ctx context.Context, field graphql.CollectedField, obj *introspection.InputValue) (ret graphql.Marshaler) {
@@ -6844,6 +6844,38 @@ func (ec *executionContext) ___InputValue_defaultValue(ctx context.Context, fiel
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
 		return obj.DefaultValue, nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*string)
+	fc.Result = res
+	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) ___Schema_description(ctx context.Context, field graphql.CollectedField, obj *introspection.Schema) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "__Schema",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   true,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.Description(), nil
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -7120,9 +7152,9 @@ func (ec *executionContext) ___Type_description(ctx context.Context, field graph
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(string)
+	res := resTmp.(*string)
 	fc.Result = res
-	return ec.marshalOString2string(ctx, field.Selections, res)
+	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) ___Type_fields(ctx context.Context, field graphql.CollectedField, obj *introspection.Type) (ret graphql.Marshaler) {
@@ -7331,6 +7363,38 @@ func (ec *executionContext) ___Type_ofType(ctx context.Context, field graphql.Co
 	return ec.marshalO__Type2ᚖgithubᚗcomᚋ99designsᚋgqlgenᚋgraphqlᚋintrospectionᚐType(ctx, field.Selections, res)
 }
 
+func (ec *executionContext) ___Type_specifiedByURL(ctx context.Context, field graphql.CollectedField, obj *introspection.Type) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:     "__Type",
+		Field:      field,
+		Args:       nil,
+		IsMethod:   true,
+		IsResolver: false,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return obj.SpecifiedByURL(), nil
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*string)
+	fc.Result = res
+	return ec.marshalOString2ᚖstring(ctx, field.Selections, res)
+}
+
 // endregion **************************** field.gotpl *****************************
 
 // region    **************************** input.gotpl *****************************
@@ -7435,7 +7499,7 @@ func (ec *executionContext) unmarshalInputNewBadge(ctx context.Context, obj inte
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("icon"))
-			it.Icon, err = ec.unmarshalONewIcon2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewIcon(ctx, v)
+			it.Icon, err = ec.unmarshalONewIcon2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐNewIcon(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -7538,7 +7602,7 @@ func (ec *executionContext) unmarshalInputNewGithubRepo(ctx context.Context, obj
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("framework"))
-			it.Framework, err = ec.unmarshalONewBadge2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewBadge(ctx, v)
+			it.Framework, err = ec.unmarshalONewBadge2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐNewBadge(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -7546,7 +7610,7 @@ func (ec *executionContext) unmarshalInputNewGithubRepo(ctx context.Context, obj
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("language"))
-			it.Language, err = ec.unmarshalONewBadge2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewBadge(ctx, v)
+			it.Language, err = ec.unmarshalONewBadge2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐNewBadge(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -7703,7 +7767,7 @@ func (ec *executionContext) unmarshalInputNewSetting(ctx context.Context, obj in
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("aboutMe"))
-			it.AboutMe, err = ec.unmarshalONewAboutMe2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewAboutMe(ctx, v)
+			it.AboutMe, err = ec.unmarshalONewAboutMe2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐNewAboutMe(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -7711,7 +7775,7 @@ func (ec *executionContext) unmarshalInputNewSetting(ctx context.Context, obj in
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("timeline"))
-			it.Timeline, err = ec.unmarshalONewTimeline2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewTimeline(ctx, v)
+			it.Timeline, err = ec.unmarshalONewTimeline2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐNewTimeline(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -7790,7 +7854,7 @@ func (ec *executionContext) unmarshalInputNewTimeline(ctx context.Context, obj i
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("icon"))
-			it.Icon, err = ec.unmarshalONewIcon2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewIcon(ctx, v)
+			it.Icon, err = ec.unmarshalONewIcon2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐNewIcon(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -7798,7 +7862,7 @@ func (ec *executionContext) unmarshalInputNewTimeline(ctx context.Context, obj i
 			var err error
 
 			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("images"))
-			it.Images, err = ec.unmarshalONewImage2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewImage(ctx, v)
+			it.Images, err = ec.unmarshalONewImage2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐNewImage(ctx, v)
 			if err != nil {
 				return it, err
 			}
@@ -9648,6 +9712,13 @@ func (ec *executionContext) ___Schema(ctx context.Context, sel ast.SelectionSet,
 		switch field.Name {
 		case "__typename":
 			out.Values[i] = graphql.MarshalString("__Schema")
+		case "description":
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec.___Schema_description(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		case "types":
 			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
 				return ec.___Schema_types(ctx, field, obj)
@@ -9779,6 +9850,13 @@ func (ec *executionContext) ___Type(ctx context.Context, sel ast.SelectionSet, o
 
 			out.Values[i] = innerFunc(ctx)
 
+		case "specifiedByURL":
+			innerFunc := func(ctx context.Context) (res graphql.Marshaler) {
+				return ec.___Type_specifiedByURL(ctx, field, obj)
+			}
+
+			out.Values[i] = innerFunc(ctx)
+
 		default:
 			panic("unknown field " + strconv.Quote(field.Name))
 		}
@@ -9794,11 +9872,11 @@ func (ec *executionContext) ___Type(ctx context.Context, sel ast.SelectionSet, o
 
 // region    ***************************** type.gotpl *****************************
 
-func (ec *executionContext) marshalNAboutMe2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐAboutMe(ctx context.Context, sel ast.SelectionSet, v model.AboutMe) graphql.Marshaler {
+func (ec *executionContext) marshalNAboutMe2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐAboutMe(ctx context.Context, sel ast.SelectionSet, v model.AboutMe) graphql.Marshaler {
 	return ec._AboutMe(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNAboutMe2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐAboutMe(ctx context.Context, sel ast.SelectionSet, v []*model.AboutMe) graphql.Marshaler {
+func (ec *executionContext) marshalNAboutMe2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐAboutMe(ctx context.Context, sel ast.SelectionSet, v []*model.AboutMe) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -9822,7 +9900,7 @@ func (ec *executionContext) marshalNAboutMe2ᚕᚖgithubᚗcomᚋsamithiwatᚋsa
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalOAboutMe2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐAboutMe(ctx, sel, v[i])
+			ret[i] = ec.marshalOAboutMe2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐAboutMe(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -9836,7 +9914,7 @@ func (ec *executionContext) marshalNAboutMe2ᚕᚖgithubᚗcomᚋsamithiwatᚋsa
 	return ret
 }
 
-func (ec *executionContext) marshalNAboutMe2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐAboutMe(ctx context.Context, sel ast.SelectionSet, v *model.AboutMe) graphql.Marshaler {
+func (ec *executionContext) marshalNAboutMe2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐAboutMe(ctx context.Context, sel ast.SelectionSet, v *model.AboutMe) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -9846,7 +9924,7 @@ func (ec *executionContext) marshalNAboutMe2ᚖgithubᚗcomᚋsamithiwatᚋsamit
 	return ec._AboutMe(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalNBadge2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐBadge(ctx context.Context, sel ast.SelectionSet, v []*model.Badge) graphql.Marshaler {
+func (ec *executionContext) marshalNBadge2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐBadge(ctx context.Context, sel ast.SelectionSet, v []*model.Badge) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -9870,7 +9948,7 @@ func (ec *executionContext) marshalNBadge2ᚕᚖgithubᚗcomᚋsamithiwatᚋsami
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalOBadge2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐBadge(ctx, sel, v[i])
+			ret[i] = ec.marshalOBadge2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐBadge(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -9899,7 +9977,7 @@ func (ec *executionContext) marshalNBoolean2bool(ctx context.Context, sel ast.Se
 	return res
 }
 
-func (ec *executionContext) marshalNGithubRepo2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐGithubRepoᚄ(ctx context.Context, sel ast.SelectionSet, v []*model.GithubRepo) graphql.Marshaler {
+func (ec *executionContext) marshalNGithubRepo2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐGithubRepoᚄ(ctx context.Context, sel ast.SelectionSet, v []*model.GithubRepo) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -9923,7 +10001,7 @@ func (ec *executionContext) marshalNGithubRepo2ᚕᚖgithubᚗcomᚋsamithiwat�
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNGithubRepo2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐGithubRepo(ctx, sel, v[i])
+			ret[i] = ec.marshalNGithubRepo2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐGithubRepo(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -9943,7 +10021,7 @@ func (ec *executionContext) marshalNGithubRepo2ᚕᚖgithubᚗcomᚋsamithiwat�
 	return ret
 }
 
-func (ec *executionContext) marshalNGithubRepo2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐGithubRepo(ctx context.Context, sel ast.SelectionSet, v *model.GithubRepo) graphql.Marshaler {
+func (ec *executionContext) marshalNGithubRepo2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐGithubRepo(ctx context.Context, sel ast.SelectionSet, v *model.GithubRepo) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -9983,11 +10061,11 @@ func (ec *executionContext) marshalNID2string(ctx context.Context, sel ast.Selec
 	return res
 }
 
-func (ec *executionContext) marshalNIcon2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐIcon(ctx context.Context, sel ast.SelectionSet, v model.Icon) graphql.Marshaler {
+func (ec *executionContext) marshalNIcon2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐIcon(ctx context.Context, sel ast.SelectionSet, v model.Icon) graphql.Marshaler {
 	return ec._Icon(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNIcon2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐIcon(ctx context.Context, sel ast.SelectionSet, v []*model.Icon) graphql.Marshaler {
+func (ec *executionContext) marshalNIcon2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐIcon(ctx context.Context, sel ast.SelectionSet, v []*model.Icon) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -10011,7 +10089,7 @@ func (ec *executionContext) marshalNIcon2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamit
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalOIcon2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐIcon(ctx, sel, v[i])
+			ret[i] = ec.marshalOIcon2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐIcon(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -10025,7 +10103,7 @@ func (ec *executionContext) marshalNIcon2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamit
 	return ret
 }
 
-func (ec *executionContext) marshalNImage2ᚕgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐImage(ctx context.Context, sel ast.SelectionSet, v []model.Image) graphql.Marshaler {
+func (ec *executionContext) marshalNImage2ᚕgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐImage(ctx context.Context, sel ast.SelectionSet, v []model.Image) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -10049,7 +10127,7 @@ func (ec *executionContext) marshalNImage2ᚕgithubᚗcomᚋsamithiwatᚋsamithi
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalOImage2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐImage(ctx, sel, v[i])
+			ret[i] = ec.marshalOImage2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐImage(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -10063,7 +10141,7 @@ func (ec *executionContext) marshalNImage2ᚕgithubᚗcomᚋsamithiwatᚋsamithi
 	return ret
 }
 
-func (ec *executionContext) marshalNImage2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐImageᚄ(ctx context.Context, sel ast.SelectionSet, v []*model.Image) graphql.Marshaler {
+func (ec *executionContext) marshalNImage2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐImageᚄ(ctx context.Context, sel ast.SelectionSet, v []*model.Image) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -10087,7 +10165,7 @@ func (ec *executionContext) marshalNImage2ᚕᚖgithubᚗcomᚋsamithiwatᚋsami
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNImage2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐImage(ctx, sel, v[i])
+			ret[i] = ec.marshalNImage2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐImage(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -10107,7 +10185,7 @@ func (ec *executionContext) marshalNImage2ᚕᚖgithubᚗcomᚋsamithiwatᚋsami
 	return ret
 }
 
-func (ec *executionContext) marshalNImage2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐImage(ctx context.Context, sel ast.SelectionSet, v *model.Image) graphql.Marshaler {
+func (ec *executionContext) marshalNImage2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐImage(ctx context.Context, sel ast.SelectionSet, v *model.Image) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -10147,41 +10225,41 @@ func (ec *executionContext) marshalNInt2int64(ctx context.Context, sel ast.Selec
 	return res
 }
 
-func (ec *executionContext) unmarshalNNewAboutMe2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewAboutMe(ctx context.Context, v interface{}) (model.NewAboutMe, error) {
+func (ec *executionContext) unmarshalNNewAboutMe2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐNewAboutMe(ctx context.Context, v interface{}) (model.NewAboutMe, error) {
 	res, err := ec.unmarshalInputNewAboutMe(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNNewGithubRepo2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewGithubRepo(ctx context.Context, v interface{}) (model.NewGithubRepo, error) {
+func (ec *executionContext) unmarshalNNewGithubRepo2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐNewGithubRepo(ctx context.Context, v interface{}) (model.NewGithubRepo, error) {
 	res, err := ec.unmarshalInputNewGithubRepo(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNNewIcon2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewIcon(ctx context.Context, v interface{}) (model.NewIcon, error) {
+func (ec *executionContext) unmarshalNNewIcon2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐNewIcon(ctx context.Context, v interface{}) (model.NewIcon, error) {
 	res, err := ec.unmarshalInputNewIcon(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNNewImage2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewImage(ctx context.Context, v interface{}) (model.NewImage, error) {
+func (ec *executionContext) unmarshalNNewImage2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐNewImage(ctx context.Context, v interface{}) (model.NewImage, error) {
 	res, err := ec.unmarshalInputNewImage(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNNewSetting2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewSetting(ctx context.Context, v interface{}) (model.NewSetting, error) {
+func (ec *executionContext) unmarshalNNewSetting2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐNewSetting(ctx context.Context, v interface{}) (model.NewSetting, error) {
 	res, err := ec.unmarshalInputNewSetting(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalNNewTimeline2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewTimeline(ctx context.Context, v interface{}) (model.NewTimeline, error) {
+func (ec *executionContext) unmarshalNNewTimeline2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐNewTimeline(ctx context.Context, v interface{}) (model.NewTimeline, error) {
 	res, err := ec.unmarshalInputNewTimeline(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalNSetting2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐSetting(ctx context.Context, sel ast.SelectionSet, v model.Setting) graphql.Marshaler {
+func (ec *executionContext) marshalNSetting2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐSetting(ctx context.Context, sel ast.SelectionSet, v model.Setting) graphql.Marshaler {
 	return ec._Setting(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNSetting2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐSetting(ctx context.Context, sel ast.SelectionSet, v []*model.Setting) graphql.Marshaler {
+func (ec *executionContext) marshalNSetting2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐSetting(ctx context.Context, sel ast.SelectionSet, v []*model.Setting) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -10205,7 +10283,7 @@ func (ec *executionContext) marshalNSetting2ᚕᚖgithubᚗcomᚋsamithiwatᚋsa
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalOSetting2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐSetting(ctx, sel, v[i])
+			ret[i] = ec.marshalOSetting2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐSetting(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -10219,7 +10297,7 @@ func (ec *executionContext) marshalNSetting2ᚕᚖgithubᚗcomᚋsamithiwatᚋsa
 	return ret
 }
 
-func (ec *executionContext) marshalNSetting2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐSetting(ctx context.Context, sel ast.SelectionSet, v *model.Setting) graphql.Marshaler {
+func (ec *executionContext) marshalNSetting2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐSetting(ctx context.Context, sel ast.SelectionSet, v *model.Setting) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -10280,11 +10358,11 @@ func (ec *executionContext) marshalNTime2ᚖtimeᚐTime(ctx context.Context, sel
 	return res
 }
 
-func (ec *executionContext) marshalNTimeline2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐTimeline(ctx context.Context, sel ast.SelectionSet, v model.Timeline) graphql.Marshaler {
+func (ec *executionContext) marshalNTimeline2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐTimeline(ctx context.Context, sel ast.SelectionSet, v model.Timeline) graphql.Marshaler {
 	return ec._Timeline(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNTimeline2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐTimeline(ctx context.Context, sel ast.SelectionSet, v []*model.Timeline) graphql.Marshaler {
+func (ec *executionContext) marshalNTimeline2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐTimeline(ctx context.Context, sel ast.SelectionSet, v []*model.Timeline) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -10308,7 +10386,7 @@ func (ec *executionContext) marshalNTimeline2ᚕᚖgithubᚗcomᚋsamithiwatᚋs
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalOTimeline2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐTimeline(ctx, sel, v[i])
+			ret[i] = ec.marshalOTimeline2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐTimeline(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -10322,7 +10400,7 @@ func (ec *executionContext) marshalNTimeline2ᚕᚖgithubᚗcomᚋsamithiwatᚋs
 	return ret
 }
 
-func (ec *executionContext) marshalNTimeline2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐTimeline(ctx context.Context, sel ast.SelectionSet, v *model.Timeline) graphql.Marshaler {
+func (ec *executionContext) marshalNTimeline2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐTimeline(ctx context.Context, sel ast.SelectionSet, v *model.Timeline) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "must not be null")
@@ -10585,18 +10663,18 @@ func (ec *executionContext) marshalN__TypeKind2string(ctx context.Context, sel a
 	return res
 }
 
-func (ec *executionContext) marshalOAboutMe2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐAboutMe(ctx context.Context, sel ast.SelectionSet, v *model.AboutMe) graphql.Marshaler {
+func (ec *executionContext) marshalOAboutMe2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐAboutMe(ctx context.Context, sel ast.SelectionSet, v *model.AboutMe) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._AboutMe(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOBadge2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐBadge(ctx context.Context, sel ast.SelectionSet, v model.Badge) graphql.Marshaler {
+func (ec *executionContext) marshalOBadge2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐBadge(ctx context.Context, sel ast.SelectionSet, v model.Badge) graphql.Marshaler {
 	return ec._Badge(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalOBadge2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐBadge(ctx context.Context, sel ast.SelectionSet, v []*model.Badge) graphql.Marshaler {
+func (ec *executionContext) marshalOBadge2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐBadge(ctx context.Context, sel ast.SelectionSet, v []*model.Badge) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -10623,7 +10701,7 @@ func (ec *executionContext) marshalOBadge2ᚕᚖgithubᚗcomᚋsamithiwatᚋsami
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalOBadge2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐBadge(ctx, sel, v[i])
+			ret[i] = ec.marshalOBadge2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐBadge(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -10637,7 +10715,7 @@ func (ec *executionContext) marshalOBadge2ᚕᚖgithubᚗcomᚋsamithiwatᚋsami
 	return ret
 }
 
-func (ec *executionContext) marshalOBadge2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐBadge(ctx context.Context, sel ast.SelectionSet, v *model.Badge) graphql.Marshaler {
+func (ec *executionContext) marshalOBadge2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐBadge(ctx context.Context, sel ast.SelectionSet, v *model.Badge) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -10670,7 +10748,7 @@ func (ec *executionContext) marshalOBoolean2ᚖbool(ctx context.Context, sel ast
 	return res
 }
 
-func (ec *executionContext) marshalOGithubRepo2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐGithubRepo(ctx context.Context, sel ast.SelectionSet, v *model.GithubRepo) graphql.Marshaler {
+func (ec *executionContext) marshalOGithubRepo2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐGithubRepo(ctx context.Context, sel ast.SelectionSet, v *model.GithubRepo) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -10687,7 +10765,7 @@ func (ec *executionContext) marshalOID2int64(ctx context.Context, sel ast.Select
 	return res
 }
 
-func (ec *executionContext) marshalOIcon2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐIcon(ctx context.Context, sel ast.SelectionSet, v []*model.Icon) graphql.Marshaler {
+func (ec *executionContext) marshalOIcon2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐIcon(ctx context.Context, sel ast.SelectionSet, v []*model.Icon) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -10714,7 +10792,7 @@ func (ec *executionContext) marshalOIcon2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamit
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalOIcon2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐIcon(ctx, sel, v[i])
+			ret[i] = ec.marshalOIcon2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐIcon(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -10728,18 +10806,18 @@ func (ec *executionContext) marshalOIcon2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamit
 	return ret
 }
 
-func (ec *executionContext) marshalOIcon2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐIcon(ctx context.Context, sel ast.SelectionSet, v *model.Icon) graphql.Marshaler {
+func (ec *executionContext) marshalOIcon2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐIcon(ctx context.Context, sel ast.SelectionSet, v *model.Icon) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._Icon(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOImage2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐImage(ctx context.Context, sel ast.SelectionSet, v model.Image) graphql.Marshaler {
+func (ec *executionContext) marshalOImage2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐImage(ctx context.Context, sel ast.SelectionSet, v model.Image) graphql.Marshaler {
 	return ec._Image(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalOImage2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐImage(ctx context.Context, sel ast.SelectionSet, v *model.Image) graphql.Marshaler {
+func (ec *executionContext) marshalOImage2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐImage(ctx context.Context, sel ast.SelectionSet, v *model.Image) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -10756,12 +10834,12 @@ func (ec *executionContext) marshalOInt2int64(ctx context.Context, sel ast.Selec
 	return res
 }
 
-func (ec *executionContext) unmarshalONewAboutMe2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewAboutMe(ctx context.Context, v interface{}) (model.NewAboutMe, error) {
+func (ec *executionContext) unmarshalONewAboutMe2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐNewAboutMe(ctx context.Context, v interface{}) (model.NewAboutMe, error) {
 	res, err := ec.unmarshalInputNewAboutMe(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalONewAboutMe2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewAboutMe(ctx context.Context, v interface{}) (*model.NewAboutMe, error) {
+func (ec *executionContext) unmarshalONewAboutMe2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐNewAboutMe(ctx context.Context, v interface{}) (*model.NewAboutMe, error) {
 	if v == nil {
 		return nil, nil
 	}
@@ -10769,12 +10847,12 @@ func (ec *executionContext) unmarshalONewAboutMe2ᚖgithubᚗcomᚋsamithiwatᚋ
 	return &res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalONewBadge2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewBadge(ctx context.Context, v interface{}) (model.NewBadge, error) {
+func (ec *executionContext) unmarshalONewBadge2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐNewBadge(ctx context.Context, v interface{}) (model.NewBadge, error) {
 	res, err := ec.unmarshalInputNewBadge(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalONewBadge2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewBadge(ctx context.Context, v interface{}) (*model.NewBadge, error) {
+func (ec *executionContext) unmarshalONewBadge2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐNewBadge(ctx context.Context, v interface{}) (*model.NewBadge, error) {
 	if v == nil {
 		return nil, nil
 	}
@@ -10782,12 +10860,12 @@ func (ec *executionContext) unmarshalONewBadge2ᚖgithubᚗcomᚋsamithiwatᚋsa
 	return &res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalONewIcon2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewIcon(ctx context.Context, v interface{}) (model.NewIcon, error) {
+func (ec *executionContext) unmarshalONewIcon2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐNewIcon(ctx context.Context, v interface{}) (model.NewIcon, error) {
 	res, err := ec.unmarshalInputNewIcon(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalONewIcon2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewIcon(ctx context.Context, v interface{}) (*model.NewIcon, error) {
+func (ec *executionContext) unmarshalONewIcon2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐNewIcon(ctx context.Context, v interface{}) (*model.NewIcon, error) {
 	if v == nil {
 		return nil, nil
 	}
@@ -10795,7 +10873,7 @@ func (ec *executionContext) unmarshalONewIcon2ᚖgithubᚗcomᚋsamithiwatᚋsam
 	return &res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalONewImage2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewImage(ctx context.Context, v interface{}) ([]*model.NewImage, error) {
+func (ec *executionContext) unmarshalONewImage2ᚕᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐNewImage(ctx context.Context, v interface{}) ([]*model.NewImage, error) {
 	if v == nil {
 		return nil, nil
 	}
@@ -10807,7 +10885,7 @@ func (ec *executionContext) unmarshalONewImage2ᚕᚖgithubᚗcomᚋsamithiwat�
 	res := make([]*model.NewImage, len(vSlice))
 	for i := range vSlice {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithIndex(i))
-		res[i], err = ec.unmarshalONewImage2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewImage(ctx, vSlice[i])
+		res[i], err = ec.unmarshalONewImage2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐNewImage(ctx, vSlice[i])
 		if err != nil {
 			return nil, err
 		}
@@ -10815,7 +10893,7 @@ func (ec *executionContext) unmarshalONewImage2ᚕᚖgithubᚗcomᚋsamithiwat�
 	return res, nil
 }
 
-func (ec *executionContext) unmarshalONewImage2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewImage(ctx context.Context, v interface{}) (*model.NewImage, error) {
+func (ec *executionContext) unmarshalONewImage2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐNewImage(ctx context.Context, v interface{}) (*model.NewImage, error) {
 	if v == nil {
 		return nil, nil
 	}
@@ -10823,7 +10901,7 @@ func (ec *executionContext) unmarshalONewImage2ᚖgithubᚗcomᚋsamithiwatᚋsa
 	return &res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalONewSetting2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewSetting(ctx context.Context, v interface{}) (*model.NewSetting, error) {
+func (ec *executionContext) unmarshalONewSetting2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐNewSetting(ctx context.Context, v interface{}) (*model.NewSetting, error) {
 	if v == nil {
 		return nil, nil
 	}
@@ -10831,12 +10909,12 @@ func (ec *executionContext) unmarshalONewSetting2ᚖgithubᚗcomᚋsamithiwatᚋ
 	return &res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalONewTimeline2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewTimeline(ctx context.Context, v interface{}) (model.NewTimeline, error) {
+func (ec *executionContext) unmarshalONewTimeline2githubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐNewTimeline(ctx context.Context, v interface{}) (model.NewTimeline, error) {
 	res, err := ec.unmarshalInputNewTimeline(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalONewTimeline2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐNewTimeline(ctx context.Context, v interface{}) (*model.NewTimeline, error) {
+func (ec *executionContext) unmarshalONewTimeline2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐNewTimeline(ctx context.Context, v interface{}) (*model.NewTimeline, error) {
 	if v == nil {
 		return nil, nil
 	}
@@ -10844,7 +10922,7 @@ func (ec *executionContext) unmarshalONewTimeline2ᚖgithubᚗcomᚋsamithiwat�
 	return &res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalOSetting2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐSetting(ctx context.Context, sel ast.SelectionSet, v *model.Setting) graphql.Marshaler {
+func (ec *executionContext) marshalOSetting2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐSetting(ctx context.Context, sel ast.SelectionSet, v *model.Setting) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
@@ -10903,7 +10981,7 @@ func (ec *executionContext) marshalOTime2ᚖtimeᚐTime(ctx context.Context, sel
 	return res
 }
 
-func (ec *executionContext) marshalOTimeline2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋgraphᚋmodelᚐTimeline(ctx context.Context, sel ast.SelectionSet, v *model.Timeline) graphql.Marshaler {
+func (ec *executionContext) marshalOTimeline2ᚖgithubᚗcomᚋsamithiwatᚋsamithiwatᚑbackendᚋsrcᚋmodelᚐTimeline(ctx context.Context, sel ast.SelectionSet, v *model.Timeline) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}

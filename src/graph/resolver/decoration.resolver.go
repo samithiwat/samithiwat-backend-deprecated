@@ -11,7 +11,7 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/samithiwat/samithiwat-backend/src/graph/generated"
-	"github.com/samithiwat/samithiwat-backend/src/graph/model"
+	"github.com/samithiwat/samithiwat-backend/src/model"
 )
 
 func (r *badgeResolver) DeletedAt(_ context.Context, _ *model.Badge) (*time.Time, error) {
@@ -112,13 +112,13 @@ func (r *mutationResolver) DeleteBadge(_ context.Context, id string) (*model.Bad
 }
 
 func (r *queryResolver) Icons(_ context.Context) ([]*model.Icon, error) {
-	icons, err := r.iconService.GetAll()
+	icons, err := r.iconService.FindAll()
 
 	if err != nil {
 		return nil, err
 	}
 
-	return icons, nil
+	return *icons, nil
 }
 
 func (r *queryResolver) Icon(_ context.Context, id string) (*model.Icon, error) {
@@ -127,7 +127,7 @@ func (r *queryResolver) Icon(_ context.Context, id string) (*model.Icon, error) 
 		return nil, fiber.NewError(fiber.StatusBadRequest, err)
 	}
 
-	icon, err := r.iconService.GetOne(int64(parsedID))
+	icon, err := r.iconService.FindOne(int64(parsedID))
 
 	if err != nil {
 		return nil, err

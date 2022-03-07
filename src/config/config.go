@@ -36,7 +36,7 @@ func assignEnv(config *map[string]interface{}) map[string]interface{} {
 		result[title] = make(map[string]interface{})
 		if rec, ok := record.(map[string]interface{}); ok {
 			for key, val := range rec {
-				switch value := val.(type){
+				switch value := val.(type) {
 				case string:
 					temp := strings.Split(value, "$")
 					if len(temp) > 1 {
