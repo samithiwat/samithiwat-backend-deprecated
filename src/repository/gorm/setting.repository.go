@@ -9,7 +9,7 @@ func (r *GormRepository) FindAllSetting(setting *[]*model.Setting) error {
 	return r.db.GetConnection().Find(&setting).Error
 }
 
-func (r *GormRepository) FindSetting(id int64, setting *model.Setting) error {
+func (r *GormRepository) FindOneSetting(id int64, setting *model.Setting) error {
 	return r.db.GetConnection().Preload("AboutMe").Preload("Timeline").Preload("Timeline.Icon").Preload("Timeline.Images").First(&setting, id).Error
 }
 

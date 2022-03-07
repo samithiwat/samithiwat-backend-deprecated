@@ -9,7 +9,7 @@ func (r *GormRepository) FindAllGithubRepo(repos *[]*model.GithubRepo) error {
 	return r.db.GetConnection().Find(&repos).Error
 }
 
-func (r *GormRepository) FindGithubRepo(id int64, repo *model.GithubRepo) error {
+func (r *GormRepository) FindOneGithubRepo(id int64, repo *model.GithubRepo) error {
 	return r.db.GetConnection().Preload("Language").Preload("Framework").Preload("Language.Icon").Preload("Framework.Icon").First(&repo, id).Error
 }
 

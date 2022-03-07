@@ -8,7 +8,7 @@ func (r *GormRepository) FindAllImage(images *[]*model.Image) error {
 	return r.db.GetConnection().Find(&images).Error
 }
 
-func (r *GormRepository) FindImage(id int64, image *model.Image) error {
+func (r *GormRepository) FindOneImage(id int64, image *model.Image) error {
 	return r.db.GetConnection().First(&image, id).Error
 }
 

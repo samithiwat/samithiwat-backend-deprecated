@@ -8,7 +8,7 @@ func (r *GormRepository) FindAllAboutMe(aboutMes *[]*model.AboutMe) error {
 	return r.db.GetConnection().Find(&aboutMes).Error
 }
 
-func (r *GormRepository) FindAboutMe(id int64, aboutMe *model.AboutMe) error {
+func (r *GormRepository) FindOneAboutMe(id int64, aboutMe *model.AboutMe) error {
 	return r.db.GetConnection().First(&aboutMe, id).Error
 }
 

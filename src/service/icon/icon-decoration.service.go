@@ -8,20 +8,20 @@ import (
 	"strings"
 )
 
-type repository interface {
-	FindAll(*[]*model.Icon) error
-	FindOne(int64, *model.Icon) error
-	Create(*model.Icon) error
-	Update(int64, *model.Icon) error
-	Delete(int64, *model.Icon) error
+type Repository interface {
+	FindAllIcon(*[]*model.Icon) error
+	FindOneIcon(int64, *model.Icon) error
+	CreateIcon(*model.Icon) error
+	UpdateIcon(int64, *model.Icon) error
+	DeleteIcon(int64, *model.Icon) error
 }
 
 type Service struct {
-	repository       repository
+	repository       Repository
 	validatorService service.ValidatorService
 }
 
-func NewIconService(repository repository, validatorService service.ValidatorService) Service {
+func NewIconService(repository Repository, validatorService service.ValidatorService) Service {
 	return Service{
 		repository:       repository,
 		validatorService: validatorService,
@@ -31,7 +31,7 @@ func NewIconService(repository repository, validatorService service.ValidatorSer
 func (s *Service) FindAll() (*[]*model.Icon, error) {
 	var icons []*model.Icon
 
-	err := s.repository.FindAll(&icons)
+	err := s.repository.FindAllIcon(&icons)
 
 	if err != nil {
 		return nil, fiber.NewError(fiber.StatusUnprocessableEntity, err.Error())
@@ -43,7 +43,7 @@ func (s *Service) FindAll() (*[]*model.Icon, error) {
 func (s *Service) FindOne(id int64) (*model.Icon, error) {
 	var icon model.Icon
 
-	err := s.repository.FindOne(id, &icon)
+	err := s.repository.FindOneIcon(id, &icon)
 
 	if err != nil {
 		return nil, fiber.NewError(fiber.StatusNotFound, err.Error())
@@ -58,7 +58,7 @@ func (s *Service) Create(iconDto model.NewIcon) (*model.Icon, error) {
 		return nil, err
 	}
 
-	err = s.repository.Create(icon)
+	err = s.repository.CreateIcon(icon)
 
 	if err != nil {
 		return nil, fiber.NewError(fiber.StatusNotFound, err.Error())
@@ -73,7 +73,7 @@ func (s *Service) Update(id int64, iconDto model.NewIcon) (*model.Icon, error) {
 		return nil, err
 	}
 
-	err = s.repository.Update(id, icon)
+	err = s.repository.UpdateIcon(id, icon)
 
 	if err != nil {
 		return nil, fiber.NewError(fiber.StatusNotFound, err.Error())
@@ -84,7 +84,7 @@ func (s *Service) Update(id int64, iconDto model.NewIcon) (*model.Icon, error) {
 
 func (s *Service) Delete(id int64) (*model.Icon, error) {
 	var icon model.Icon
-	err := s.repository.Delete(id, &icon)
+	err := s.repository.DeleteIcon(id, &icon)
 
 	if err != nil {
 		return nil, fiber.NewError(fiber.StatusNotFound, err.Error())

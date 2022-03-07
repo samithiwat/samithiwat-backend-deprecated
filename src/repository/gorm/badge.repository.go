@@ -9,7 +9,7 @@ func (r *GormRepository) FindAllBadge(badges *[]*model.Badge) error {
 	return r.db.GetConnection().Find(&badges).Error
 }
 
-func (r *GormRepository) FindBadge(id int64, badge *model.Badge) error {
+func (r *GormRepository) FindOneBadge(id int64, badge *model.Badge) error {
 	return r.db.GetConnection().Preload("Icon").First(&badge, id).Error
 }
 
