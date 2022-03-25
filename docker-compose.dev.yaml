@@ -15,8 +15,19 @@ services:
     networks:
       - samithiwat
     ports:
-      - ${DATABASE_PORT}:${DATABASE_PORT}
-    command: -p ${DATABASE_PORT}
+      - ${DATABASE_PORT}:5432
+
+  local-cache:
+    image: bitnami/redis:6.2.6
+    container_name: samithiwat-cache
+    restart: unless-stopped
+
+    env_file:
+      - dev.env
+    networks:
+      - samithiwat
+    ports:
+      - ${REDIS_PORT}:6379
 
 networks:
   samithiwat:
