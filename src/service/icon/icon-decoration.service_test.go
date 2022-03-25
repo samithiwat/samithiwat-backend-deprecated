@@ -14,12 +14,12 @@ var mockIcons []*model.Icon
 
 type TestDB struct{}
 
-func (TestDB) FindAll(icons *[]*model.Icon) error {
+func (TestDB) FindAllIcon(icons *[]*model.Icon) error {
 	*icons = mockIcons
 	return nil
 }
 
-func (TestDB) FindOne(id int64, icon *model.Icon) error {
+func (TestDB) FindOneIcon(id int64, icon *model.Icon) error {
 	if int(id) > len(mockIcons) || int(id) < 1 {
 		return fiber.ErrNotFound
 	}
@@ -28,7 +28,7 @@ func (TestDB) FindOne(id int64, icon *model.Icon) error {
 	return nil
 }
 
-func (TestDB) Create(icon *model.Icon) error {
+func (TestDB) CreateIcon(icon *model.Icon) error {
 	createdDate := time.Date(2022, time.Month(time.March), 7, 19, 16, 52, 0, time.UTC)
 	icon.ID = int64(len(mockIcons)) + 1
 	icon.CreatedAt = createdDate
@@ -37,7 +37,7 @@ func (TestDB) Create(icon *model.Icon) error {
 	return nil
 }
 
-func (TestDB) Update(id int64, icon *model.Icon) error {
+func (TestDB) UpdateIcon(id int64, icon *model.Icon) error {
 	updatedDate := time.Date(2022, time.Month(time.March), 7, 19, 50, 12, 0, time.UTC)
 
 	if int(id) > len(mockIcons) || int(id) < 1 {
@@ -57,7 +57,7 @@ func (TestDB) Update(id int64, icon *model.Icon) error {
 	return nil
 }
 
-func (TestDB) Delete(id int64, icon *model.Icon) error {
+func (TestDB) DeleteIcon(id int64, icon *model.Icon) error {
 	deletedDate := time.Date(2022, time.Month(time.March), 7, 20, 1, 12, 0, time.UTC)
 
 	if int(id) > len(mockIcons) || int(id) < 1 {
