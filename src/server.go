@@ -38,7 +38,7 @@ func main() {
 		log.Fatal("cannot to load loadConfig", err)
 	}
 
-	client, err := database.InitDatabase()
+	client, err := database.InitDatabase(&loadConfig)
 
 	if err != nil {
 		log.Fatal("cannot to init database", err)
@@ -52,9 +52,15 @@ func main() {
 
 	handleArgs(client)
 
+	cache, err := database.InitRedisConnect(&loadConfig)
+
+	if err != nil {
+		log.Fatal("cannot connect to redis")
+	}
+
 	r := route.NewFiberRouter()
 
-	resolver, err := InitializeResolver(client)
+	resolver, err := InitializeResolver(client, cache)
 	if err != nil {
 		fmt.Printf("failed to inject resolver: %s\n", err)
 		os.Exit(2)
