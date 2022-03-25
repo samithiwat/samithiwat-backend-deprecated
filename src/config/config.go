@@ -18,6 +18,17 @@ type Database struct {
 	SSL      string `mapstructure:"ssl"`
 }
 
+type Redis struct {
+	Host     string `mapstructure:"host"`
+	Port     int    `mapstructure:"port"`
+	Password string `mapstructure:"password"`
+}
+
+type Github struct {
+	Username string `mapstructure:"username"`
+	Password string `mapstructure:"password"`
+}
+
 //goland:noinspection ALL
 type App struct {
 	Port  int  `mapstructure:"port"`
@@ -27,7 +38,9 @@ type App struct {
 //goland:noinspection ALL
 type Config struct {
 	Database Database `mapstructure:",database"`
+	Redis    Redis    `mapstructure:",redis"`
 	App      App      `mapstructure:",app"`
+	Github   Github   `mapstructure:"github"`
 }
 
 func assignEnv(config *map[string]interface{}) map[string]interface{} {

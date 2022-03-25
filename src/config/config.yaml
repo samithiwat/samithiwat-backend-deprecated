@@ -9,3 +9,11 @@ database:
   username: ${POSTGRES_USER}
   password: ${POSTGRES_PASSWORD}
   ssl: ${POSTGRES_SSL_MODE}
+
+redis:
+  host: ${REDIS_HOST}
+  port: ${REDIS_PORT}
+  password: ${REDIS_PASSWORD}
+
+github:
+  username: ${}
