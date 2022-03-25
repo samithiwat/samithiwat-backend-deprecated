@@ -15,24 +15,19 @@ type Database interface {
 }
 
 type database struct {
+	config     *config.Config
 	connection *gorm.DB
 }
 
-func InitDatabase() (Database, error) {
-	loadConfig, err := config.LoadConfig(".")
-
-	if err != nil {
-		return nil, err
-	}
-
-	dsn := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=%s", loadConfig.Database.Host, strconv.Itoa(loadConfig.Database.Port), loadConfig.Database.User, loadConfig.Database.Password, loadConfig.Database.Name, loadConfig.Database.SSL)
+func InitDatabase(config *config.Config) (Database, error) {
+	dsn := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=%s", config.Database.Host, strconv.Itoa(config.Database.Port), config.Database.User, config.Database.Password, config.Database.Name, config.Database.SSL)
 
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
 		return nil, err
 	}
 
-	return &database{connection: db}, nil
+	return &database{connection: db, config: config}, nil
 }
 
 func (d *database) GetConnection() *gorm.DB {
