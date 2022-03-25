@@ -8,12 +8,13 @@ require (
 	github.com/arsmn/fastgql v0.14.0
 	github.com/bxcodec/faker/v3 v3.7.0
 	github.com/go-playground/validator/v10 v10.10.0
+	github.com/go-redis/redis/v8 v8.11.5
 	github.com/gofiber/fiber/v2 v2.26.0
 	github.com/google/go-cmp v0.5.7
 	github.com/google/wire v0.5.0
 	github.com/mitchellh/mapstructure v1.4.3
 	github.com/onsi/ginkgo/v2 v2.1.3
-	github.com/onsi/gomega v1.17.0
+	github.com/onsi/gomega v1.18.1
 	github.com/spf13/viper v1.10.1
 	github.com/valyala/fasthttp v1.33.0
 	github.com/vektah/gqlparser/v2 v2.4.0
@@ -24,6 +25,8 @@ require (
 require (
 	github.com/agnivade/levenshtein v1.1.0 // indirect
 	github.com/andybalholm/brotli v1.0.4 // indirect
+	github.com/cespare/xxhash/v2 v2.1.2 // indirect
+	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
 	github.com/fsnotify/fsnotify v1.5.1 // indirect
 	github.com/go-playground/locales v0.14.0 // indirect
 	github.com/go-playground/universal-translator v0.18.0 // indirect
