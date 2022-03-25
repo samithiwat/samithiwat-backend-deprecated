@@ -2,12 +2,17 @@ package github
 
 import (
 	"github.com/gofiber/fiber/v2"
+	"github.com/google/wire"
 	"github.com/samithiwat/samithiwat-backend/src/model"
+	repository "github.com/samithiwat/samithiwat-backend/src/repository/gorm"
 	"github.com/samithiwat/samithiwat-backend/src/service"
 	"github.com/samithiwat/samithiwat-backend/src/service/badge"
 )
 
 // TODO: fetch data from github
+type gormRepo repository.GormRepository
+
+var BindRepo = wire.NewSet(repository.NewGormRepository, wire.Bind(new(Repository), new(*gormRepo)))
 
 type Repository interface {
 	FindAllGithubRepo(*[]*model.GithubRepo) error
@@ -17,15 +22,21 @@ type Repository interface {
 	DeleteGithubRepo(int64, *model.GithubRepo) error
 }
 
+type Cache interface {
+	GetGithubRepoDetails() error
+}
+
 type Service struct {
 	repository       Repository
+	cache            Cache
 	badgeService     badge.Service
 	validatorService service.ValidatorService
 }
 
-func NewGithubRepoService(repository Repository, badgeService badge.Service, validatorService service.ValidatorService) Service {
+func NewGithubRepoService(repository Repository, cache Cache, badgeService badge.Service, validatorService service.ValidatorService) Service {
 	return Service{
 		repository:       repository,
+		cache:            cache,
 		badgeService:     badgeService,
 		validatorService: validatorService,
 	}
@@ -57,11 +68,13 @@ func (s Service) GetOne(id int64) (*model.GithubRepo, error) {
 
 func (s Service) Create(githubRepoDto *model.NewGithubRepo) (*model.GithubRepo, error) {
 	repo, err := s.DtoToRaw(*githubRepoDto)
+	if err != nil {
+		return nil, fiber.NewError(fiber.StatusBadRequest, err.Error())
+	}
 
 	err = s.repository.CreateGithubRepo(repo)
-
 	if err != nil {
-		return nil, fiber.NewError(fiber.StatusNotFound, err.Error())
+		return nil, fiber.NewError(fiber.StatusUnprocessableEntity, err.Error())
 	}
 
 	return repo, nil
